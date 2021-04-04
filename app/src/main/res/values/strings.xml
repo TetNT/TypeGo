@@ -26,6 +26,8 @@
     <string name="test_setup_minutes">м.</string>
     <string name="Basic">Базовый</string>
     <string name="Enhanced">Расширенный</string>
+    <string name="Allotted_time">Отведённое время</string>
+    <string name="Dictionary">Словарь</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

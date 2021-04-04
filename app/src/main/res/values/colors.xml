@@ -7,7 +7,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bg_dark_gray">#2c2c2c</color>
-    <color name="bg_lighter_gray">#3c3c3c</color>
+    <color name="bg_lighter_gray">#383838</color>
     <color name="button_main_green_unpressed">#00a97f</color>
     <color name="button_main_green_pressed">#00886d</color>
     <color name="text_accent">#e4e1be</color>

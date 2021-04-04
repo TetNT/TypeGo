@@ -8,11 +8,9 @@
 
     <Button
         android:id="@+id/bContinue"
-        android:layout_width="0dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="32dp"
         android:height="80sp"
         android:background="@drawable/mainbutton"
         android:focusable="false"
@@ -21,11 +19,12 @@
         android:textAllCaps="false"
         android:textSize="30sp"
         android:typeface="sans"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -50,6 +49,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="36dp"
             android:text="@string/Previous_result"
+            android:textColor="@color/white"
             android:textSize="24sp" />
 
         <TextView
@@ -59,6 +59,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:text="@string/Best_result"
+            android:textColor="@color/white"
             android:textSize="24sp" />
 
         <TextView
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:text="Словарь"
+            android:text="@string/Dictionary"
             android:textSize="24sp" />
 
         <TextView
@@ -94,7 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:text="Отведённое время"
+            android:text="@string/Allotted_time"
             android:textSize="24sp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

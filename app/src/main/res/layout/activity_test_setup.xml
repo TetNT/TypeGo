@@ -75,7 +75,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/mainbutton"
-        android:onClick="StartTesting"
+        android:onClick="startTesting"
         android:text="Продолжить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

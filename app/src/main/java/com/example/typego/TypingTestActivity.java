@@ -1,7 +1,9 @@
 package com.example.typego;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -38,6 +40,7 @@ public class TypingTestActivity extends AppCompatActivity {
     int DictionaryType;
     int timeInSeconds;
     int scrollerCursorPosition;
+    boolean testPaused;
     static final int SCROLL_POWER = 25;
     CountDownTimer cd;
 
@@ -45,6 +48,7 @@ public class TypingTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typing_test);
+        testPaused = true;
         Bundle bundle = getIntent().getExtras();
         timeInSeconds = Integer.parseInt(bundle.get("AmountOfSeconds").toString());
         DictionaryType  = Integer.parseInt(bundle.get("DictionaryType").toString());
@@ -54,7 +58,7 @@ public class TypingTestActivity extends AppCompatActivity {
         correctWordsCount = 0;
         totalWordsCount = 0;
         wordList = new ArrayList<String>();
-        InitWords(DictionaryType);
+        initWords(DictionaryType);
 
         inpWord.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,20 +79,20 @@ public class TypingTestActivity extends AppCompatActivity {
                     return;
                 }
                 if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
-                    DeselectCurrentWord();
-                    if (WordIsCorrect()) {
+                    deselectCurrentWord();
+                    if (wordIsCorrect()) {
                         correctWordsCount++;
-                        SelectCurrentWordAsCorrect();
+                        selectCurrentWordAsCorrect();
                     }
                     else {
-                        SelectCurrentWordAsIncorrect();
+                        selectCurrentWordAsIncorrect();
                     }
                     totalWordsCount++;
-                    SetNextWordCursors();
-                    SelectNextWord();
+                    setNextWordCursors();
+                    selectNextWord();
 
                 } else {
-                    CheckSymbolsCorrectness();
+                    checkSymbolsCorrectness();
                 }
             }
         });
@@ -100,7 +104,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                tvTimeLeft.setText("0:00");
+                tvTimeLeft.setText("00:00");
 
                 Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
                 intent.putExtra("correctWords", correctWordsCount);
@@ -112,37 +116,57 @@ public class TypingTestActivity extends AppCompatActivity {
 
             }
         };
-        ResetAll();
+        resetAll();
         InitializeWordCursor();
     }
 
-    private void CheckSymbolsCorrectness() {
+    private void checkSymbolsCorrectness() {
         for (int i = 0; i<currentWord.length();i++) {
             if (i<inpWord.length()) {
                 char currInpChar = inpWord.getText().charAt(i);
                 char currComparingChar = currentWord.charAt(i);
                 if (currInpChar == currComparingChar) {
-                    SelectCurrentSymbolAsCorrect(i+currentWordStartCursor);
+                    selectCurrentSymbolAsCorrect(i+currentWordStartCursor);
                 } else {
-                    SelectCurrentSymbolAsIncorrect(i+currentWordStartCursor);
+                    selectCurrentSymbolAsIncorrect(i+currentWordStartCursor);
                 }
             } else {
-                DeselectSymbols(i+currentWordStartCursor, currentWordEndCursor);
+                deselectSymbols(i+currentWordStartCursor, currentWordEndCursor);
             }
         }
     }
 
-    private void SelectCurrentSymbolAsCorrect(int symbolIndex) {
+    public void cancelTest(View view) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage("Вы уверены, что хотите прервать тестирование?").setTitle("Прервать тест");
+        dialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                cd.cancel();
+                finish();
+            }
+        });
+        dialog.show();
+
+    }
+
+    private void selectCurrentSymbolAsCorrect(int symbolIndex) {
         ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(0,128,0));
         etWords.getText().setSpan(selectedWordFG, symbolIndex, symbolIndex+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    private void SelectCurrentSymbolAsIncorrect(int symbolIndex) {
+    private void selectCurrentSymbolAsIncorrect(int symbolIndex) {
         ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(192,0,0));
         etWords.getText().setSpan(selectedWordFG, symbolIndex, symbolIndex+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    private void DeselectSymbols(int startIndex, int endIndex) {
+    private void deselectSymbols(int startIndex, int endIndex) {
         final Object[] removableSpans = etWords.getText().getSpans(startIndex, endIndex, Object.class);
         for (final Object span : removableSpans) {
             if (span instanceof ForegroundColorSpan) {
@@ -151,7 +175,7 @@ public class TypingTestActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean WordIsCorrect() {
+    protected boolean wordIsCorrect() {
         String enteredWord = inpWord.getText().toString();
         if (enteredWord.equals(currentWord+" ")){
             return true;
@@ -159,28 +183,26 @@ public class TypingTestActivity extends AppCompatActivity {
         return false;
     }
 
-    protected void DeselectCurrentWord() {
+    protected void deselectCurrentWord() {
         final Object[] removableSpans = etWords.getText().getSpans(currentWordStartCursor, currentWordEndCursor, Object.class);
         for (final Object span : removableSpans) {
             if (span instanceof BackgroundColorSpan || span instanceof StyleSpan || span instanceof ForegroundColorSpan) {
                 etWords.getText().removeSpan(span);
             }
-
         }
-
     }
 
-    protected void SelectCurrentWordAsIncorrect() {
+    protected void selectCurrentWordAsIncorrect() {
         ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(192,0,0));
         etWords.getText().setSpan(selectedWordFG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    protected void SelectCurrentWordAsCorrect() {
+    protected void selectCurrentWordAsCorrect() {
         ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(0,128,0));
         etWords.getText().setSpan(selectedWordFG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
-    protected void SelectNextWord() {
+    protected void selectNextWord() {
         BackgroundColorSpan selectedWordBG = new BackgroundColorSpan(Color.rgb(0,100,100));
         ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.WHITE);
         etWords.getText().setSpan(selectedWordBG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -191,48 +213,45 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
 
-    protected void SetNextWordCursors() {
+    protected void setNextWordCursors() {
         currentWordStartCursor = currentWordEndCursor + 1;
         currentWordEndCursor = currentWordStartCursor;
         while (currentWordEndCursor<etWords.length() && etWords.getText().charAt(currentWordEndCursor)!=' ') {
             currentWordEndCursor++;
         }
-        SetCurrentWord();
-    }
-
-    protected void SetNextWordScrollingCursor() {
-
+        setCurrentWord();
     }
 
     protected void InitializeWordCursor() {
         while (currentWordEndCursor<etWords.length() && etWords.getText().charAt(currentWordEndCursor)!=' ') {
             currentWordEndCursor++;
         }
-        SetCurrentWord();
+        setCurrentWord();
     }
 
-    protected void SetCurrentWord() {
+    protected void setCurrentWord() {
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
     }
 
 
     public void RestartTest(View view){
-        InitWords(DictionaryType);
-        ResetAll();
+        cd.cancel();
+        initWords(DictionaryType);
+        resetAll();
     }
 
-    protected void ResetAll() {
+    protected void resetAll() {
         correctWordsCount = 0;
         currentWordStartCursor = 0;
         currentWordEndCursor = 0;
         scrollerCursorPosition = 0;
         cd.start();
         InitializeWordCursor();
-        SelectNextWord();
+        selectNextWord();
         inpWord.requestFocus();
     }
 
-    protected void InitWords(int DictionaryType){
+    protected void initWords(int DictionaryType){
         AssetManager am = getAssets();
         String Dictionary;
         if (DictionaryType==0) {

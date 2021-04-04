@@ -22,6 +22,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
         TextView tvIncorrectWords = findViewById(R.id.tvIncorrectWords);
         TextView tvDictionary = findViewById(R.id.tvDictionary);
+        TextView tvAllottedTime = findViewById(R.id.tvAllottedTime);
         Bundle arguments = getIntent().getExtras();
         try {
             int correctWords = Integer.parseInt(arguments.get("correctWords").toString());
@@ -35,7 +36,8 @@ public class ResultActivity extends AppCompatActivity {
             tvWPM.setText(wpm + " "+ getString(R.string.WordsPerMinute));
             tvIncorrectWords.setText(getString(R.string.Incorrect_words)+ ": " + (totalWords-correctWords));
             tvCorrectWords.setText(getString(R.string.Correct_words) + ": " + correctWords);
-            tvDictionary.setText("Словарь: " + DictionaryName);
+            tvDictionary.setText(getString(R.string.Dictionary)+": " + DictionaryName);
+            tvAllottedTime.setText(getString(R.string.Allotted_time) + ": " + TimeConvert.convertSeconds(this, timeInSeconds));
 
         } catch(Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();

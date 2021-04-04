@@ -5,15 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.Locale;
 
 public class TestSetupActivity extends AppCompatActivity {
 
@@ -25,13 +20,13 @@ public class TestSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_setup);
         SeekBar sb = (SeekBar)findViewById(R.id.seekBar);
         TextView seekbarDisplay = (TextView)findViewById(R.id.tvSeekBarDisplay);
-        progressInSeconds = GetSelectedSecondsOption(sb.getProgress());
+        progressInSeconds = getSelectedSecondsOption(sb.getProgress());
         seekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
 
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressInSeconds = GetSelectedSecondsOption(progress);
+                progressInSeconds = getSelectedSecondsOption(progress);
                 seekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
             }
 
@@ -46,7 +41,7 @@ public class TestSetupActivity extends AppCompatActivity {
             }
         });
     }
-    public void StartTesting(View view) {
+    public void startTesting(View view) {
         RadioGroup rbGroup = (RadioGroup)findViewById(R.id.rbGroup);
         RadioButton radioButton = findViewById(rbGroup.getCheckedRadioButtonId());
         int selectedDictionaryIndex = rbGroup.indexOfChild(radioButton);
@@ -58,7 +53,7 @@ public class TestSetupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private int GetSelectedSecondsOption(int progress) {
+    private int getSelectedSecondsOption(int progress) {
         int progressToSeconds;
         if (progress<4)
             progressToSeconds = (progress+1)*15;
