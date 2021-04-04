@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TypeGo</string>
+    <string name="button_StartTest">Start testing</string>
+    <string name="button_Profile">My profile</string>
+    <string name="button_About_Program">Application info</string>
+    <string name="WordsPerMinute">Words per miunte</string>
+    <string name="Previous_result">Previous result</string>
+    <string name="Best_result">Best result</string>
+    <string name="Incorrect_words">Incorrect words</string>
+    <string name="Continue">Continue</string>
+    <string name="Correct_words">Correct words</string>
+    <string name="Input_text_above">Input words here</string>
+    <string name="Time_left">Time left</string>
+    <string name="Current_version">Current version</string>
+    <string name="Words_loading_error_occured">An error occurred while initializing words dictionary</string>
+    <string name="test_setup_seconds">s.</string>
+    <string name="test_setup_minutes">m.</string>
+    <string name="Enhanced">Enhanced</string>
+    <string name="Basic">Basic</string>
+</resources>

@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">TypeGo</string>
+    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="title_activity_type" translatable="false">TypeActivity</string>
+    <string name="button_StartTest">Начать тестирование</string>
+    <string name="button_Profile">Мой профиль</string>
+    <string name="button_About_Program">О программе</string>
+    <string name="WordsPerMinute">Слов в минуту</string>
+    <string name="Previous_result">Предыдущий результат:</string>
+    <string name="Best_result">Лучший результат:</string>
+    <string name="Incorrect_words">Неправильных слов</string>
+    <string name="Continue">Продолжить</string>
+    <string name="Correct_words">Правильных слов</string>
+    <string name="Input_text_above">Вводите слова</string>
+    <string name="Time_left">Времени осталось</string>
+    <string name="Current_version">Текущая версия</string>
+    <string name="Current_version_num" translatable="false">0.5.0</string>
+    <string name="Words_loading_error_occured">Возникла проблема при инициализации слов для ввода</string>
+    <string name="test_setup_seconds">с.</string>
+    <string name="test_setup_minutes">м.</string>
+    <string name="Basic">Базовый</string>
+    <string name="Enhanced">Расширенный</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>
