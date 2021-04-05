@@ -39,6 +39,7 @@ public class TypingTestActivity extends AppCompatActivity {
     String currentWord = "";
     int DictionaryType;
     int timeInSeconds;
+    int secondsRemaining;
     int scrollerCursorPosition;
     boolean testPaused;
     static final int SCROLL_POWER = 25;
@@ -48,18 +49,18 @@ public class TypingTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typing_test);
-        testPaused = true;
         Bundle bundle = getIntent().getExtras();
         timeInSeconds = Integer.parseInt(bundle.get("AmountOfSeconds").toString());
+        secondsRemaining = timeInSeconds;
         DictionaryType  = Integer.parseInt(bundle.get("DictionaryType").toString());
         etWords = findViewById(R.id.words);
         inpWord = findViewById(R.id.inpWord);
         tvTimeLeft = findViewById(R.id.tvTimeLeft);
         correctWordsCount = 0;
+        // TODO: Проверить данную переменную, так как она не сбрасывает значение при вызове метода resetAll()
         totalWordsCount = 0;
         wordList = new ArrayList<String>();
         initWords(DictionaryType);
-
         inpWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,6 +74,11 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (testPaused && inpWord.getText().length()>0) {
+                    startTimer(secondsRemaining);
+                    testPaused = false;
+                }
+
                 // TODO: Refresh or stop a game if a user reached the last word
                 if (s.toString().equals(" ")) {
                     inpWord.setText("");
@@ -96,16 +102,23 @@ public class TypingTestActivity extends AppCompatActivity {
                 }
             }
         });
-        cd = new CountDownTimer(timeInSeconds*1000, 1000) {
+        resetAll();
+        initializeWordCursor();
+
+
+    }
+
+    private void startTimer(int seconds) {
+        cd = new CountDownTimer(seconds*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tvTimeLeft.setText(TimeConvert.convertSecondsToStamp((int)(millisUntilFinished/1000)));
+                secondsRemaining--;
             }
 
             @Override
             public void onFinish() {
                 tvTimeLeft.setText("00:00");
-
                 Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
                 intent.putExtra("correctWords", correctWordsCount);
                 intent.putExtra("timeInSeconds", timeInSeconds);
@@ -113,11 +126,16 @@ public class TypingTestActivity extends AppCompatActivity {
                 intent.putExtra("DictionaryType", DictionaryType);
                 finish();
                 startActivity(intent);
-
             }
-        };
-        resetAll();
-        InitializeWordCursor();
+        }.start();
+    }
+
+    private void pauseTimer() {
+        cd.cancel();
+    }
+
+    private void resumeTimer() {
+        startTimer(secondsRemaining);
     }
 
     private void checkSymbolsCorrectness() {
@@ -142,18 +160,38 @@ public class TypingTestActivity extends AppCompatActivity {
         dialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                resumeTimer();
                 dialog.cancel();
             }
         });
         dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                cd.cancel();
+                pauseTimer();
                 finish();
             }
         });
         dialog.show();
+        pauseTimer();
+    }
 
+    public void restartTest(View view){
+        pauseTimer();
+        initWords(DictionaryType);
+        resetAll();
+    }
+
+    protected void resetAll() {
+        correctWordsCount = 0;
+        currentWordStartCursor = 0;
+        currentWordEndCursor = 0;
+        scrollerCursorPosition = 0;
+        secondsRemaining = timeInSeconds;
+        tvTimeLeft.setText(TimeConvert.convertSecondsToStamp(secondsRemaining));
+        testPaused = true;
+        initializeWordCursor();
+        selectNextWord();
+        inpWord.requestFocus();
     }
 
     private void selectCurrentSymbolAsCorrect(int symbolIndex) {
@@ -177,10 +215,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
     protected boolean wordIsCorrect() {
         String enteredWord = inpWord.getText().toString();
-        if (enteredWord.equals(currentWord+" ")){
-            return true;
-        }
-        return false;
+        return enteredWord.equals(currentWord + " ");
     }
 
     protected void deselectCurrentWord() {
@@ -212,7 +247,6 @@ public class TypingTestActivity extends AppCompatActivity {
         inpWord.setText("");
     }
 
-
     protected void setNextWordCursors() {
         currentWordStartCursor = currentWordEndCursor + 1;
         currentWordEndCursor = currentWordStartCursor;
@@ -222,7 +256,7 @@ public class TypingTestActivity extends AppCompatActivity {
         setCurrentWord();
     }
 
-    protected void InitializeWordCursor() {
+    protected void initializeWordCursor() {
         while (currentWordEndCursor<etWords.length() && etWords.getText().charAt(currentWordEndCursor)!=' ') {
             currentWordEndCursor++;
         }
@@ -231,24 +265,6 @@ public class TypingTestActivity extends AppCompatActivity {
 
     protected void setCurrentWord() {
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
-    }
-
-
-    public void RestartTest(View view){
-        cd.cancel();
-        initWords(DictionaryType);
-        resetAll();
-    }
-
-    protected void resetAll() {
-        correctWordsCount = 0;
-        currentWordStartCursor = 0;
-        currentWordEndCursor = 0;
-        scrollerCursorPosition = 0;
-        cd.start();
-        InitializeWordCursor();
-        selectNextWord();
-        inpWord.requestFocus();
     }
 
     protected void initWords(int DictionaryType){
