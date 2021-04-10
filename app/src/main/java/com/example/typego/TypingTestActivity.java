@@ -32,7 +32,7 @@ public class TypingTestActivity extends AppCompatActivity {
     EditText inpWord;
     TextView tvTimeLeft;
     int correctWordsCount;
-    int totalWordsCount;
+    int totalWordsPassed;
     ArrayList<String> wordList;
     int currentWordStartCursor;
     int currentWordEndCursor;
@@ -41,7 +41,7 @@ public class TypingTestActivity extends AppCompatActivity {
     int timeInSeconds;
     int secondsRemaining;
     int scrollerCursorPosition;
-    boolean testPaused;
+    boolean testInitiallyPaused;
     static final int SCROLL_POWER = 25;
     CountDownTimer cd;
 
@@ -56,9 +56,6 @@ public class TypingTestActivity extends AppCompatActivity {
         etWords = findViewById(R.id.words);
         inpWord = findViewById(R.id.inpWord);
         tvTimeLeft = findViewById(R.id.tvTimeLeft);
-        correctWordsCount = 0;
-        // TODO: Проверить данную переменную, так как она не сбрасывает значение при вызове метода resetAll()
-        totalWordsCount = 0;
         wordList = new ArrayList<String>();
         initWords(DictionaryType);
         inpWord.addTextChangedListener(new TextWatcher() {
@@ -74,26 +71,25 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (testPaused && inpWord.getText().length()>0) {
+                // if a test hasn't started yet and user began to type
+                if (testInitiallyPaused && inpWord.getText().length()>0) {
                     startTimer(secondsRemaining);
-                    testPaused = false;
+                    testInitiallyPaused = false;
                 }
-
-                // TODO: Refresh or stop a game if a user reached the last word
+                // if user pressed space in empty field
                 if (s.toString().equals(" ")) {
                     inpWord.setText("");
                     return;
                 }
+                // if last typed letter is space
                 if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
                     deselectCurrentWord();
+                    totalWordsPassed++;
                     if (wordIsCorrect()) {
                         correctWordsCount++;
                         selectCurrentWordAsCorrect();
                     }
-                    else {
-                        selectCurrentWordAsIncorrect();
-                    }
-                    totalWordsCount++;
+                    else selectCurrentWordAsIncorrect();
                     setNextWordCursors();
                     selectNextWord();
 
@@ -104,8 +100,36 @@ public class TypingTestActivity extends AppCompatActivity {
         });
         resetAll();
         initializeWordCursor();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pauseTimer();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (testInitiallyPaused) return;
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage("Продолжить тестирование?").setTitle("Прерывание");
+        dialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pauseTimer();
+                finish();
+            }
+        });
+        dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                resumeTimer();
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+        pauseTimer();
     }
 
     private void startTimer(int seconds) {
@@ -122,7 +146,7 @@ public class TypingTestActivity extends AppCompatActivity {
                 Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
                 intent.putExtra("correctWords", correctWordsCount);
                 intent.putExtra("timeInSeconds", timeInSeconds);
-                intent.putExtra("totalWords",totalWordsCount);
+                intent.putExtra("totalWords", totalWordsPassed);
                 intent.putExtra("DictionaryType", DictionaryType);
                 finish();
                 startActivity(intent);
@@ -131,10 +155,12 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void pauseTimer() {
+        if (cd == null) return;
         cd.cancel();
     }
 
     private void resumeTimer() {
+        if (testInitiallyPaused) return;
         startTimer(secondsRemaining);
     }
 
@@ -156,7 +182,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
     public void cancelTest(View view) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Вы уверены, что хотите прервать тестирование?").setTitle("Прервать тест");
+        dialog.setMessage("Прервать тестирование?").setTitle("Прерывание");
         dialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -186,9 +212,10 @@ public class TypingTestActivity extends AppCompatActivity {
         currentWordStartCursor = 0;
         currentWordEndCursor = 0;
         scrollerCursorPosition = 0;
+        totalWordsPassed = 0;
         secondsRemaining = timeInSeconds;
         tvTimeLeft.setText(TimeConvert.convertSecondsToStamp(secondsRemaining));
-        testPaused = true;
+        testInitiallyPaused = true;
         initializeWordCursor();
         selectNextWord();
         inpWord.requestFocus();
@@ -286,9 +313,9 @@ public class TypingTestActivity extends AppCompatActivity {
             }
             is.close();
         } catch (IOException e) {
-            Toast.makeText(this, getString(R.string.Words_loading_error_occured), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.Words_loading_error_occurred), Toast.LENGTH_SHORT).show();
         }
-        EditText words = (EditText)findViewById(R.id.words);
+        EditText words = findViewById(R.id.words);
         Random rnd = new Random();
         for (int i = 0; i<=150; i++) {
             str += wordList.get(rnd.nextInt(wordList.size())) + " ";

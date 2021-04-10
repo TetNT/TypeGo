@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:contentDescription="Restart test button"
+        android:focusable="false"
         android:onClick="restartTest"
         android:src="@android:drawable/ic_popup_sync"
         app:layout_constraintBottom_toBottomOf="@+id/tvTimeLeft"
