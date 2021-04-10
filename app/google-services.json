@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "706199408408",
+    "project_id": "typego-47d4b",
+    "storage_bucket": "typego-47d4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706199408408:android:935491b5949e1e0082d86d",
+        "android_client_info": {
+          "package_name": "com.example.typego"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706199408408-ccnajpp5akpv3npjegq0mto0i05vlnjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSEVnZa2z7nLb3TwQNj6Hr8SzN7i0SU_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706199408408-ccnajpp5akpv3npjegq0mto0i05vlnjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
