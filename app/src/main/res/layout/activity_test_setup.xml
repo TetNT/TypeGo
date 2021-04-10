@@ -7,18 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".TestSetupActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="232dp"
+        tools:layout_editor_absoluteY="267dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
-        android:id="@+id/tvAmountOfTime"
+        android:id="@+id/tvDictionaryType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Количество времени"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvTestSetup"
-        app:layout_constraintTop_toBottomOf="@+id/tvTestSetup" />
+        android:layout_marginTop="32dp"
+        android:text="@string/Dictionary_type"
+        android:textAppearance="@style/SubmenuHeader"
+        app:layout_constraintStart_toStartOf="@+id/tvAmountOfTime"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/AccentButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mainbutton"
+        android:onClick="startTesting"
+        android:text="@string/Continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvTestSetup"
@@ -26,22 +47,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Тестирование"
+        android:text="@string/Testing"
         android:textColor="@color/text_accent"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvDictionaryType"
+    <CheckBox
+        android:id="@+id/cbPredictiveText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Набор слов"
-        android:textAppearance="@style/SubmenuHeader"
-        app:layout_constraintStart_toStartOf="@+id/tvAmountOfTime"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:buttonTint="@color/button_main_green_unpressed"
+        android:checked="true"
+        android:text="@string/Predictive_text"
+        app:layout_constraintStart_toStartOf="@+id/tvDictionaryType"
+        app:layout_constraintTop_toBottomOf="@+id/rbGroup" />
 
     <RadioGroup
         android:id="@+id/rbGroup"
@@ -59,35 +81,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/button_main_green_unpressed"
-            android:text="Базовый" />
+            android:text="@string/Basic" />
 
         <RadioButton
             android:id="@+id/rbEnhanced"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/button_main_green_unpressed"
-            android:text="Расширенный" />
+            android:text="@string/Enhanced" />
     </RadioGroup>
-
-    <Button
-        android:id="@+id/button"
-        style="@style/AccentButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/mainbutton"
-        android:onClick="startTesting"
-        android:text="Продолжить"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="@+id/tvAmountOfTime"
-        app:layout_constraintTop_toBottomOf="@+id/rbGroup" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -113,21 +115,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/cbPredictiveText"
+    <TextView
+        android:id="@+id/tvAmountOfTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:buttonTint="@color/button_main_green_unpressed"
-        android:checked="true"
-        android:text="Подсказки ввода"
-        app:layout_constraintStart_toStartOf="@+id/tvDictionaryType"
-        app:layout_constraintTop_toBottomOf="@+id/rbGroup" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Amount_of_time"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvTestSetup"
+        app:layout_constraintTop_toBottomOf="@+id/tvTestSetup" />
+
+    <Spinner
+        android:id="@+id/cbLanguageSelection"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/text_input"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbPredictiveText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
