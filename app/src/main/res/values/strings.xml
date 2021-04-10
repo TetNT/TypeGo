@@ -21,13 +21,17 @@
     <string name="Time_left">Времени осталось</string>
     <string name="Current_version">Текущая версия</string>
     <string name="Current_version_num" translatable="false">0.5.0</string>
-    <string name="Words_loading_error_occured">Возникла проблема при инициализации слов для ввода</string>
+    <string name="Words_loading_error_occurred">Возникла проблема при инициализации слов для ввода</string>
     <string name="test_setup_seconds">с.</string>
     <string name="test_setup_minutes">м.</string>
     <string name="Basic">Базовый</string>
     <string name="Enhanced">Расширенный</string>
     <string name="Allotted_time">Отведённое время</string>
     <string name="Dictionary">Словарь</string>
+    <string name="Dictionary_type">Набор слов</string>
+    <string name="Testing">Тестирование</string>
+    <string name="Predictive_text">Подсказки ввода</string>
+    <string name="Amount_of_time">Количество времени</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

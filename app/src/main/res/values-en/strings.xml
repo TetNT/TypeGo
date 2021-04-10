@@ -13,7 +13,7 @@
     <string name="Input_text_above">Input words here</string>
     <string name="Time_left">Time left</string>
     <string name="Current_version">Current version</string>
-    <string name="Words_loading_error_occured">An error occurred while initializing words dictionary</string>
+    <string name="Words_loading_error_occurred">An error occurred while initializing words dictionary</string>
     <string name="test_setup_seconds">s.</string>
     <string name="test_setup_minutes">m.</string>
     <string name="Enhanced">Enhanced</string>
