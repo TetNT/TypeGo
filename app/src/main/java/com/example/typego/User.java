@@ -1,7 +1,9 @@
 package com.example.typego;
 
-public class UserModel {
-    private int id;
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private String id;
     private String userName;
     private String password;
     private int lastResult;
@@ -9,13 +11,13 @@ public class UserModel {
     private double averageWPM;
     private String preferredLanguage;
 
-    public UserModel(int id, String userName, String password) {
+    public User(String id, String userName, String password) {
         this.id = id;
         this.userName = userName;
         this.password = password;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
