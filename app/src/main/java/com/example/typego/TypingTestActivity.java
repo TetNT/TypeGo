@@ -148,6 +148,7 @@ public class TypingTestActivity extends AppCompatActivity {
                 intent.putExtra("timeInSeconds", timeInSeconds);
                 intent.putExtra("totalWords", totalWordsPassed);
                 intent.putExtra("DictionaryType", DictionaryType);
+                intent.putExtra("currentUser", getIntent().getSerializableExtra("currentUser"));
                 finish();
                 startActivity(intent);
             }
