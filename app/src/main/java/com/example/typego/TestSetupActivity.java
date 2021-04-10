@@ -9,11 +9,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TestSetupActivity extends AppCompatActivity {
 
     int progressInSeconds;
-
+    User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class TestSetupActivity extends AppCompatActivity {
         TextView seekbarDisplay = (TextView)findViewById(R.id.tvSeekBarDisplay);
         progressInSeconds = getSelectedSecondsOption(sb.getProgress());
         seekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
-
+        currentUser = (User)getIntent().getSerializableExtra("currentUser");
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -50,6 +51,7 @@ public class TestSetupActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TypingTestActivity.class);
         intent.putExtra("AmountOfSeconds", progressInSeconds);
         intent.putExtra("DictionaryType", selectedDictionaryIndex);
+        intent.putExtra("currentUser", currentUser);
         startActivity(intent);
     }
 
