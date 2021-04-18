@@ -1,23 +1,35 @@
 package com.example.typego;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
-    private String id;
+    private int id;
     private String userName;
     private String password;
     private int lastResult;
     private int bestResult;
     private double averageWPM;
     private String preferredLanguage;
+    private ArrayList<TypingResult> resultList;
 
-    public User(String id, String userName, String password) {
+    public User() {
+
+    }
+
+    public User(int id, String userName, String password) {
         this.id = id;
         this.userName = userName;
         this.password = password;
     }
 
-    public String getId() {
+    public void addResult(TypingResult result) {
+        if (resultList == null) resultList = new ArrayList<>();
+        resultList.add(result);
+    }
+
+    public int getId() {
         return id;
     }
 

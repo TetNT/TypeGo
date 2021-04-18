@@ -2,7 +2,9 @@ package com.example.typego;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class ResultActivity extends AppCompatActivity {
 
         } catch(Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.d("ResEx", e.getMessage());
         }
 
 
@@ -61,20 +64,20 @@ public class ResultActivity extends AppCompatActivity {
     private void SaveResultData() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference userTable = database.getReference("users");
+        DatabaseReference userTable = database.getReference(currentUser.getUserName());
 
 
-        String userid = userTable.getKey();
-        currentUser = new User(userid, "Tet", "123");
+        int userid = userTable.hashCode();
+       //currentUser = new User(userid, "Tet", "123");
         currentUser.setLastResult((int)wpm);
-        if (currentUser.getBestResult()>currentUser.getLastResult()) currentUser.setBestResult(currentUser.getLastResult());
+        if (currentUser.getBestResult() < currentUser.getLastResult()) currentUser.setBestResult(currentUser.getLastResult());
         TypingResult result = new TypingResult(wpm, dictionaryType, "ru", timeInSeconds, Calendar.getInstance().getTime());
+        currentUser.addResult(result);
         DatabaseReference userInfo = database.getReference(currentUser.getUserName());
-        DatabaseReference userResult = userInfo.child("results");
         userInfo.setValue(currentUser);
-        //Map<String, TypingResult> resultMap = new HashMap<>();
-        //resultMap.put(result.getCompletionDateTime().toString(), result);
-        userResult.push().setValue(result);
+        DatabaseReference userResults = userInfo.child("results");
+        userResults.child(Calendar.getInstance().getTime().toString()).setValue(result);
+        //userResult.push().setValue(result);
         userInfo.child("lastResult").setValue(currentUser.getLastResult());
         userInfo.child("bestResult").setValue(currentUser.getBestResult());
     }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,20 +25,22 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void continueSignUp(View view) {
         List<User> users;
-        FirebaseDatabase fbdb = FirebaseDatabase.getInstance();
-        DatabaseReference dbref = fbdb.getReference();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference tables = database.getReference();
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     User user = postSnapshot.getValue(User.class);
 
+
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(SignUpActivity.this, "Bruh...", Toast.LENGTH_SHORT).show();
             }
         };
     }
