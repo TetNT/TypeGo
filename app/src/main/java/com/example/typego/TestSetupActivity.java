@@ -1,9 +1,11 @@
 package com.example.typego;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,23 +14,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TestSetupActivity extends AppCompatActivity {
-
+    SeekBar sb;
+    RadioGroup rbGroup;
+    RadioButton radioButton;
     int progressInSeconds;
     User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_setup);
-        SeekBar sb = (SeekBar)findViewById(R.id.seekBar);
-        TextView seekbarDisplay = (TextView)findViewById(R.id.tvSeekBarDisplay);
+        if (savedInstanceState == null) Log.d("State", "New");
+        else Log.d("State", "Reopened");
+        sb = findViewById(R.id.seekBar);
+        TextView tvSeekbarDisplay = findViewById(R.id.tvSeekBarDisplay);
         progressInSeconds = getSelectedSecondsOption(sb.getProgress());
-        seekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
+        tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
         currentUser = (User)getIntent().getSerializableExtra("currentUser");
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressInSeconds = getSelectedSecondsOption(progress);
-                seekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
+                tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
             }
 
             @Override
@@ -43,8 +49,8 @@ public class TestSetupActivity extends AppCompatActivity {
         });
     }
     public void startTesting(View view) {
-        RadioGroup rbGroup = (RadioGroup)findViewById(R.id.rbGroup);
-        RadioButton radioButton = findViewById(rbGroup.getCheckedRadioButtonId());
+        rbGroup = findViewById(R.id.rbGroup);
+        radioButton = findViewById(rbGroup.getCheckedRadioButtonId());
         int selectedDictionaryIndex = rbGroup.indexOfChild(radioButton);
         //TODO: Choose dictionary language by system's settings
 
@@ -64,5 +70,18 @@ public class TestSetupActivity extends AppCompatActivity {
         else if (progress==6) progressToSeconds = 180;
         else progressToSeconds = 300;
         return progressToSeconds;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("seekBarState", sb.getProgress());
+        outState.putInt("radioButtonState", rbGroup.indexOfChild(radioButton));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int m = 1;
     }
 }

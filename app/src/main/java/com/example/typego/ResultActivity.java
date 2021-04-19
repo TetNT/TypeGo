@@ -30,10 +30,23 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         currentUser = (User)getIntent().getSerializableExtra("currentUser");
         TextView tvWPM = findViewById(R.id.tvWPM);
+        TextView tvPreviousResult = findViewById(R.id.tvPreviousResult);
+        TextView tvBestResult = findViewById(R.id.tvBestResult);
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
         TextView tvIncorrectWords = findViewById(R.id.tvIncorrectWords);
         TextView tvDictionary = findViewById(R.id.tvDictionary);
         TextView tvAllottedTime = findViewById(R.id.tvAllottedTime);
+
+        tvPreviousResult.setText(getString(R.string.Previous_result) + ": " + currentUser.getLastResult());
+        if (currentUser.getLastResult() == 0)
+            tvPreviousResult.setVisibility(View.INVISIBLE);
+        else tvPreviousResult.setVisibility(View.VISIBLE);
+
+        tvBestResult.setText(getString(R.string.Best_result) + ": " + currentUser.getBestResult());
+        if (currentUser.getBestResult()==0)
+            tvBestResult.setVisibility(View.INVISIBLE);
+        else tvBestResult.setVisibility(View.VISIBLE);
+
         Bundle arguments = getIntent().getExtras();
         try {
             correctWords = Integer.parseInt(arguments.get("correctWords").toString());
@@ -62,15 +75,23 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void SaveResultData() {
+        if (currentUser == null) {
+            Toast.makeText(this, "Произошла ошибка при сохранении результатов", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        currentUser.setLastResult((int)wpm);
+        if (currentUser.getBestResult() < currentUser.getLastResult()) {
+            currentUser.setBestResult(currentUser.getLastResult());
+        }
+        if (currentUser.getUserName().equals("Guest")) {
+            Toast.makeText(this, "Авторизуйтесь для сохранения результатов", Toast.LENGTH_SHORT).show();
+            return;
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference userTable = database.getReference(currentUser.getUserName());
 
 
-        int userid = userTable.hashCode();
-       //currentUser = new User(userid, "Tet", "123");
-        currentUser.setLastResult((int)wpm);
-        if (currentUser.getBestResult() < currentUser.getLastResult()) currentUser.setBestResult(currentUser.getLastResult());
         TypingResult result = new TypingResult(wpm, dictionaryType, "ru", timeInSeconds, Calendar.getInstance().getTime());
         currentUser.addResult(result);
         DatabaseReference userInfo = database.getReference(currentUser.getUserName());
@@ -83,10 +104,6 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void SaveAndContinue(View view){
-        //Intent intent = new Intent(ResultActivity.this, TestSetupActivity.class);
         finish();
-        //startActivity(intent);
-
-
     }
 }

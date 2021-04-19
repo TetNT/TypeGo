@@ -26,37 +26,29 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
         Toast.makeText(this, Locale.getDefault().getDisplayLanguage(), Toast.LENGTH_LONG).show();
-
-
-
-
-
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userInfo = database.getReference("Tet");
-
-        //userInfo.setValue(new User(userInfo.hashCode(), "Callipso", "123"));
+        String userName = "BROW";
+        DatabaseReference userInfo = database.getReference(userName);
         userInfo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //for (DataSnapshot postsnapshot : snapshot.getChildren()) {
-                    currentUser = snapshot.getValue(User.class);
-                //    break;
-                //}
+                currentUser = snapshot.getValue(User.class);
+                if (currentUser == null) {
+                    currentUser = new User(userInfo.hashCode(), "Guest", "0");
+                }
                 Log.d("Auth",  currentUser.getUserName());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                currentUser = new User(userInfo.hashCode(), "Tet", "123");
-                currentUser.setLastResult(30);
-                currentUser.setBestResult(40);
+                currentUser = new User(userInfo.hashCode(), "Guest", "0");
                 Log.d("Auth",  currentUser.getUserName());
             }
         });
