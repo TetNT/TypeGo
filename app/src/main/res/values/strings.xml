@@ -33,5 +33,8 @@
     <string name="Predictive_text">Подсказки ввода</string>
     <string name="Amount_of_time">Количество времени</string>
     <!-- Strings used for fragments for navigation -->
-
+    <string-array name="Languages_spinner">
+        <item>русский</item>
+        <item>английский</item>
+    </string-array>
 </resources>

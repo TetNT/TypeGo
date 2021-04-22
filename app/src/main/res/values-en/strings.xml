@@ -18,4 +18,8 @@
     <string name="test_setup_minutes">m.</string>
     <string name="Enhanced">Enhanced</string>
     <string name="Basic">Basic</string>
+    <string-array name="Languages_spinner">
+        <item>russian</item>
+        <item>english</item>
+    </string-array>
 </resources>
