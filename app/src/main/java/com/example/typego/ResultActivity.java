@@ -2,20 +2,20 @@ package com.example.typego;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.nfc.Tag;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.typego.data.Result;
+import com.example.typego.user.TimeConvert;
+import com.example.typego.user.TypingResult;
+import com.example.typego.user.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
     User currentUser;
@@ -23,12 +23,15 @@ public class ResultActivity extends AppCompatActivity {
     int correctWords;
     int timeInSeconds;
     int dictionaryType;
-
+    SharedPreferences spUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        currentUser = (User)getIntent().getSerializableExtra("currentUser");
+        spUser = getSharedPreferences(PreferencesManager.USER_STORAGE_FILE, MODE_PRIVATE);
+        currentUser = User.getFromJson(spUser.getString("prefCurrentUser", ""));
+        Log.d("RA user", currentUser.getUserName());
+
         TextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvPreviousResult = findViewById(R.id.tvPreviousResult);
         TextView tvBestResult = findViewById(R.id.tvBestResult);
@@ -39,12 +42,12 @@ public class ResultActivity extends AppCompatActivity {
 
         tvPreviousResult.setText(getString(R.string.Previous_result) + ": " + currentUser.getLastResult());
         if (currentUser.getLastResult() == 0)
-            tvPreviousResult.setVisibility(View.INVISIBLE);
+            tvPreviousResult.setVisibility(View.GONE);
         else tvPreviousResult.setVisibility(View.VISIBLE);
 
         tvBestResult.setText(getString(R.string.Best_result) + ": " + currentUser.getBestResult());
         if (currentUser.getBestResult()==0)
-            tvBestResult.setVisibility(View.INVISIBLE);
+            tvBestResult.setVisibility(View.GONE);
         else tvBestResult.setVisibility(View.VISIBLE);
 
         Bundle arguments = getIntent().getExtras();
@@ -70,8 +73,6 @@ public class ResultActivity extends AppCompatActivity {
             Log.d("ResEx", e.getMessage());
         }
 
-
-
     }
 
     private void SaveResultData() {
@@ -83,25 +84,30 @@ public class ResultActivity extends AppCompatActivity {
         if (currentUser.getBestResult() < currentUser.getLastResult()) {
             currentUser.setBestResult(currentUser.getLastResult());
         }
+        SharedPreferences.Editor editor = spUser.edit();
+        editor.putString("prefCurrentUser",User.serializeToJson(currentUser));
+        editor.apply();
         if (currentUser.getUserName().equals("Guest")) {
+            // TODO: Separate TextView instead of this message:
             Toast.makeText(this, "Авторизуйтесь для сохранения результатов", Toast.LENGTH_SHORT).show();
             return;
         }
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference userTable = database.getReference(currentUser.getUserName());
-
+        DatabaseReference userInfo = database.getReference(currentUser.getUserName());
 
         TypingResult result = new TypingResult(wpm, dictionaryType, "ru", timeInSeconds, Calendar.getInstance().getTime());
         currentUser.addResult(result);
-        DatabaseReference userInfo = database.getReference(currentUser.getUserName());
         userInfo.setValue(currentUser);
-        DatabaseReference userResults = userInfo.child("results");
-        userResults.child(Calendar.getInstance().getTime().toString()).setValue(result);
-        //userResult.push().setValue(result);
+        //DatabaseReference userResults = userInfo.child("results");
+        //userResults.child(Calendar.getInstance().getTime().toString()).setValue(result);
         userInfo.child("lastResult").setValue(currentUser.getLastResult());
         userInfo.child("bestResult").setValue(currentUser.getBestResult());
+
+
+
     }
+
 
     public void SaveAndContinue(View view){
         finish();
