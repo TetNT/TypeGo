@@ -12,8 +12,8 @@
     <string name="button_Profile">Мой профиль</string>
     <string name="button_About_Program">О программе</string>
     <string name="WordsPerMinute">Слов в минуту</string>
-    <string name="Previous_result">Предыдущий результат:</string>
-    <string name="Best_result">Лучший результат:</string>
+    <string name="Previous_result">Предыдущий результат</string>
+    <string name="Best_result">Лучший результат</string>
     <string name="Incorrect_words">Неправильных слов</string>
     <string name="Continue">Продолжить</string>
     <string name="Correct_words">Правильных слов</string>
