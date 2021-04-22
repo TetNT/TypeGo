@@ -1,8 +1,9 @@
-package com.example.typego;
+package com.example.typego.user;
+
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class User implements Serializable {
     private int id;
@@ -14,9 +15,6 @@ public class User implements Serializable {
     private String preferredLanguage;
     private ArrayList<TypingResult> resultList;
 
-    public User() {
-
-    }
 
     public User(int id, String userName, String password) {
         this.id = id;
@@ -77,5 +75,12 @@ public class User implements Serializable {
         this.preferredLanguage = preferredLanguage;
     }
 
-    // Locale.getDefault().getDisplayLanguage();
+    public static String serializeToJson(User user) {
+        Gson gson = new Gson();
+        return gson.toJson(user);
+    }
+
+    public static User getFromJson(String json) {
+        return new Gson().fromJson(json, User.class);
+    }
 }
