@@ -1,22 +1,26 @@
-package com.example.typego;
+package com.example.typego.user;
 
 
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.example.typego.R;
+
+import org.jetbrains.annotations.NotNull;
+
 public class TimeConvert {
 
     public static String convertSecondsToStamp(int seconds) {
+        if (seconds < 1) return "00:00";
         int remainingSeconds = seconds;
         int remainingMinutes = remainingSeconds/60;
         remainingSeconds -= remainingMinutes * 60;
         String convertedSeconds = convertTimeValueToString(remainingSeconds);
         String convertedMinutes = convertTimeValueToString(remainingMinutes);
-        String convertedTime = convertedMinutes+":"+convertedSeconds;
-        return convertedTime;
+        return convertedMinutes + ":" + convertedSeconds;
     }
 
-    public static String convertSeconds(Context context, int seconds) {
+    public static String convertSeconds(@NotNull Context context, int seconds) {
         Resources res = context.getResources();
         int remainingSeconds = seconds;
         int remainingMinutes = remainingSeconds/60;

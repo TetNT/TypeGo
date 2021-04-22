@@ -1,4 +1,4 @@
-package com.example.typego;
+package com.example.typego.user;
 
 
 import java.util.Date;
