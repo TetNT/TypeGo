@@ -16,6 +16,10 @@ public class User implements Serializable {
     private ArrayList<TypingResult> resultList;
 
 
+    public User() {
+
+    }
+
     public User(int id, String userName, String password) {
         this.id = id;
         this.userName = userName;
