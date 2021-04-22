@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.typego.user.TimeConvert;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
