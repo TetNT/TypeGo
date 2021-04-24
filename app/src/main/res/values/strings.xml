@@ -1,40 +1,37 @@
 <resources>
-    <string name="app_name">TypeGo</string>
+    <string name="app_name" translatable="false">TypeGo</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
-
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
-
-    <!-- Sync Preferences -->
     <string name="title_activity_type" translatable="false">TypeActivity</string>
-    <string name="button_StartTest">Начать тестирование</string>
-    <string name="button_Profile">Мой профиль</string>
-    <string name="button_About_Program">О программе</string>
-    <string name="WordsPerMinute">Слов в минуту</string>
-    <string name="Previous_result">Предыдущий результат</string>
-    <string name="Best_result">Лучший результат</string>
-    <string name="Incorrect_words">Неправильных слов</string>
-    <string name="Continue">Продолжить</string>
-    <string name="Correct_words">Правильных слов</string>
-    <string name="Input_text_above">Вводите слова</string>
-    <string name="Time_left">Времени осталось</string>
-    <string name="Current_version">Текущая версия</string>
     <string name="Current_version_num" translatable="false">0.5.0</string>
-    <string name="Words_loading_error_occurred">Возникла проблема при инициализации слов для ввода</string>
-    <string name="test_setup_seconds">с.</string>
-    <string name="test_setup_minutes">м.</string>
-    <string name="Basic">Базовый</string>
-    <string name="Enhanced">Расширенный</string>
-    <string name="Allotted_time">Отведённое время</string>
-    <string name="Dictionary">Словарь</string>
-    <string name="Dictionary_type">Набор слов</string>
-    <string name="Testing">Тестирование</string>
-    <string name="Predictive_text">Подсказки ввода</string>
-    <string name="Amount_of_time">Количество времени</string>
-    <!-- Strings used for fragments for navigation -->
+    <string name="button_StartTest">Start testing!</string>
+    <string name="button_Profile">My profile</string>
+    <string name="button_About_App">App info</string>
+    <string name="WordsPerMinute">Words per minute</string>
+    <string name="Previous_result">Previous result</string>
+    <string name="Best_result">Best result</string>
+    <string name="Incorrect_words">Incorrect words</string>
+    <string name="Continue">Continue</string>
+    <string name="Correct_words">Correct words</string>
+    <string name="Input_text_above">Input words here</string>
+    <string name="Time_left">Time left</string>
+    <string name="Current_version">Current version</string>
+    <string name="Words_loading_error_occurred">An error occurred while initializing words dictionary</string>
+    <string name="test_setup_seconds">s.</string>
+    <string name="test_setup_minutes">m.</string>
+    <string name="Enhanced">Enhanced</string>
+    <string name="Basic">Basic</string>
     <string-array name="Languages_spinner">
-        <item>русский</item>
-        <item>английский</item>
+        <item>russian</item>
+        <item>english</item>
     </string-array>
+    <string name="Dictionary">Dictionary</string>
+    <string name="Allotted_time">Allotted time</string>
+    <string name="Testing">Testing</string>
+    <string name="Amount_of_time">Amount of time</string>
+    <string name="Dictionary_type">Dictionary type</string>
+    <string name="Predictive_text">Predictive text</string>
+    <string name="button_sign_in">Sign in</string>
+    <string name="button_sign_up">Sign up</string>
+    <string name="saving_results_error_occurred">An error occurred while saving the results</string>
+    <string name="sign_in_to_save_results">To save results you need to sign in</string>
 </resources>
