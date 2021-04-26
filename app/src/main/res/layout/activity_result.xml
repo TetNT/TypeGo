@@ -10,8 +10,7 @@
         android:id="@+id/bContinue"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:height="80sp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/mainbutton"
         android:focusable="false"
         android:onClick="SaveAndContinue"
@@ -23,15 +22,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_begin="24dp"
+        android:orientation="vertical"
+        android:id="@+id/result_guideline_start"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_end="24dp"
+        android:orientation="vertical"
+        android:id="@+id/result_guideline_end"
+        />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/bContinue"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/result_guideline_start"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -49,7 +64,6 @@
             android:id="@+id/tvPreviousResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="36dp"
             android:text="@string/Previous_result"
             android:textColor="@color/white"
@@ -59,7 +73,6 @@
             android:id="@+id/tvBestResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:text="@string/Best_result"
             android:textColor="@color/white"
@@ -69,7 +82,6 @@
             android:id="@+id/tvCorrectWords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:text="@string/Correct_words"
             android:textSize="24sp" />
@@ -78,7 +90,6 @@
             android:id="@+id/tvIncorrectWords"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:text="@string/Incorrect_words"
             android:textSize="24sp" />
@@ -87,7 +98,6 @@
             android:id="@+id/tvDictionary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:text="@string/Dictionary"
             android:textSize="24sp" />
@@ -96,10 +106,19 @@
             android:id="@+id/tvAllottedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:text="@string/Allotted_time"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvLanguage"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/selected_language"
+            android:textSize="24sp"
+
+            />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
