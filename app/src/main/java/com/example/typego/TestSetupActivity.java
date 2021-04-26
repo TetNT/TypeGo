@@ -3,34 +3,35 @@ package com.example.typego;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.typego.user.TimeConvert;
-import com.example.typego.user.User;
-import com.google.gson.Gson;
+import com.example.typego.utils.Language;
+import com.example.typego.utils.TimeConvert;
+
+import java.util.List;
+import java.util.Locale;
 
 public class TestSetupActivity extends AppCompatActivity {
     SeekBar sb;
     RadioGroup rbGroup;
     RadioButton radioButton;
+    Spinner spinner;
     int progressInSeconds;
-    //User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_setup);
-        SharedPreferences prefCurrentUser = getSharedPreferences(PreferencesManager.USER_STORAGE_FILE, MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = prefCurrentUser.getString("prefCurrentUser", "");
-        User user = gson.fromJson(json, User.class);
-        Log.d("TSA user", user.getUserName());
         sb = findViewById(R.id.seekBar);
         TextView tvSeekbarDisplay = findViewById(R.id.tvSeekBarDisplay);
         progressInSeconds = getSelectedSecondsOption(sb.getProgress());
@@ -52,17 +53,20 @@ public class TestSetupActivity extends AppCompatActivity {
 
             }
         });
+        selectCurrentLanguageOption();
     }
     public void startTesting(View view) {
-        rbGroup = findViewById(R.id.rbGroup);
+        rbGroup = findViewById(R.id.rbDictionaryType);
         radioButton = findViewById(rbGroup.getCheckedRadioButtonId());
+        Language language = (Language)spinner.getSelectedItem();
+        String languageId = language.getIdentifier();
+
         int selectedDictionaryIndex = rbGroup.indexOfChild(radioButton);
 
-
-        //TODO: Choose dictionary language by system's settings
         Intent intent = new Intent(this, TypingTestActivity.class);
         intent.putExtra("AmountOfSeconds", progressInSeconds);
         intent.putExtra("DictionaryType", selectedDictionaryIndex);
+        intent.putExtra("DictionaryLanguageId", languageId);
         startActivity(intent);
     }
 
@@ -75,6 +79,25 @@ public class TestSetupActivity extends AppCompatActivity {
         else if (progress==6) progressToSeconds = 180;
         else progressToSeconds = 300;
         return progressToSeconds;
+    }
+
+    public void selectCurrentLanguageOption() {
+        String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
+        spinner = findViewById(R.id.spinLanguageSelection);
+        List<Language> languageList = Language.getAvailableLanguages(this);
+        SpinnerAdapter adapter = new ArrayAdapter<>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item,
+                languageList);
+        spinner.setAdapter(adapter);
+        int systemLanguageIndex = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            String language = adapter.getItem(i).toString();
+            if (language.equals(systemLanguage))
+                systemLanguageIndex = i;
+        }
+        spinner.setSelection(systemLanguageIndex);
+
     }
 
 }
