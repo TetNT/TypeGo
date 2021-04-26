@@ -1,4 +1,4 @@
-package com.example.typego.user;
+package com.example.typego.utils;
 
 
 import android.content.Context;
