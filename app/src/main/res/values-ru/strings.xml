@@ -31,4 +31,13 @@
         <item>русский</item>
         <item>английский</item>
     </string-array>
+    <string name="english">английский</string>
+    <string name="russian">русский</string>
+    <string name="dialog_exit_test">Вы хотите покинуть тест?</string>
+    <string name="Exit">Выход</string>
+    <string name="No">Нет</string>
+    <string name="Yes">Да</string>
+    <string name="welcome_back">С возвращением!</string>
+    <string name="continue_testing">Вы хотите продолжить тест?</string>
+    <string name="selected_language">Выбранный язык</string>
 </resources>
