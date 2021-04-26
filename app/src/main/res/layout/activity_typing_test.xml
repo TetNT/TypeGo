@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/words"
         android:layout_width="0dp"
-        android:layout_height="280dp"
+        android:layout_height="0dp"
         android:background="@color/bg_dark_gray"
         android:clickable="false"
         android:ems="10"
@@ -17,30 +17,28 @@
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:paddingStart="8dp"
-        android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
-        android:paddingRight="8dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_percent="0.45"/>
 
     <EditText
         android:id="@+id/inpWord"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/text_input"
         android:ems="10"
         android:hint="@string/Input_text_above"
         android:inputType="textNoSuggestions|textPersonName"
         android:paddingStart="10dp"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/words"
-        app:layout_constraintVertical_bias="0.060000002" />
+        app:layout_constraintTop_toBottomOf="@+id/words" />
 
     <TextView
         android:id="@+id/tvTimeLeft"
@@ -51,7 +49,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/inpWord"
         app:layout_constraintStart_toEndOf="@+id/inpWord"
-        app:layout_constraintTop_toTopOf="@+id/inpWord" />
+        android:gravity="center"/>
 
     <ImageButton
         android:id="@+id/restartButton"
@@ -69,7 +67,7 @@
     <Button
         android:id="@+id/bCancelTest"
         style="@style/AccentButton"
-        android:layout_width="180dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/mainbutton"
         android:backgroundTint="@color/bg_dark_gray"
@@ -78,5 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
