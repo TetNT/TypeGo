@@ -1,9 +1,9 @@
 package com.example.typego;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.typego.user.TimeConvert;
+import com.example.typego.utils.TimeConvert;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,27 +39,26 @@ public class TypingTestActivity extends AppCompatActivity {
     int currentWordStartCursor;
     int currentWordEndCursor;
     String currentWord = "";
-    int DictionaryType;
+    int dictionaryType;
+    String dictionaryLanguageId;
     int timeInSeconds;
     int secondsRemaining;
     int scrollerCursorPosition;
     boolean testInitiallyPaused;
     static final int SCROLL_POWER = 25;
+    boolean initErrorFlag;
     CountDownTimer cd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typing_test);
-        Bundle bundle = getIntent().getExtras();
-        timeInSeconds = Integer.parseInt(bundle.get("AmountOfSeconds").toString());
-        secondsRemaining = timeInSeconds;
-        DictionaryType  = Integer.parseInt(bundle.get("DictionaryType").toString());
-        etWords = findViewById(R.id.words);
-        inpWord = findViewById(R.id.inpWord);
-        tvTimeLeft = findViewById(R.id.tvTimeLeft);
-        wordList = new ArrayList<String>();
-        initWords(DictionaryType);
+        initialize();
+        initWords();
+        if (initErrorFlag) {
+            finish();
+            return;
+        }
         inpWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,6 +103,30 @@ public class TypingTestActivity extends AppCompatActivity {
         initializeWordCursor();
     }
 
+    private void initialize() {
+        Bundle bundle = getIntent().getExtras();
+        timeInSeconds = Integer.parseInt(bundle.get("AmountOfSeconds").toString());
+        dictionaryType = Integer.parseInt(bundle.get("DictionaryType").toString());
+        dictionaryLanguageId = bundle.getString("DictionaryLanguageId");
+        initErrorFlag = false;
+        secondsRemaining = timeInSeconds;
+        etWords = findViewById(R.id.words);
+        inpWord = findViewById(R.id.inpWord);
+        tvTimeLeft = findViewById(R.id.tvTimeLeft);
+        wordList = new ArrayList<>();
+        initializeBackButtonCallback();
+    }
+
+    private void initializeBackButtonCallback() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                showExitTestDialog();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -114,21 +137,19 @@ public class TypingTestActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (testInitiallyPaused) return;
+        showContinueDialog();
+    }
+
+    private void showContinueDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Продолжить тестирование?").setTitle("Прерывание");
-        dialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                pauseTimer();
-                finish();
-            }
+        dialog.setMessage(getString(R.string.continue_testing)).setTitle(getString(R.string.welcome_back));
+        dialog.setNegativeButton(getString(R.string.No), (dial, which) -> {
+            pauseTimer();
+            finish();
         });
-        dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resumeTimer();
-                dialog.cancel();
-            }
+        dialog.setPositiveButton(getString(R.string.Yes), (dial, which) -> {
+            resumeTimer();
+            dial.cancel();
         });
         dialog.show();
         pauseTimer();
@@ -149,8 +170,9 @@ public class TypingTestActivity extends AppCompatActivity {
                 intent.putExtra("correctWords", correctWordsCount);
                 intent.putExtra("timeInSeconds", timeInSeconds);
                 intent.putExtra("totalWords", totalWordsPassed);
-                intent.putExtra("DictionaryType", DictionaryType);
+                intent.putExtra("DictionaryType", dictionaryType);
                 intent.putExtra("currentUser", getIntent().getSerializableExtra("currentUser"));
+                intent.putExtra("dictionaryLanguageId", dictionaryLanguageId);
                 finish();
                 startActivity(intent);
             }
@@ -184,21 +206,19 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     public void cancelTest(View view) {
+        showExitTestDialog();
+    }
+
+    private void showExitTestDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("Прервать тестирование?").setTitle("Прерывание");
-        dialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resumeTimer();
-                dialog.cancel();
-            }
+        dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.Exit);
+        dialog.setNegativeButton(R.string.No, (dial, which) -> {
+            resumeTimer();
+            dial.cancel();
         });
-        dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                pauseTimer();
-                finish();
-            }
+        dialog.setPositiveButton(R.string.Yes, (dial, which) -> {
+            pauseTimer();
+            finish();
         });
         dialog.show();
         pauseTimer();
@@ -206,7 +226,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
     public void restartTest(View view){
         pauseTimer();
-        initWords(DictionaryType);
+        initWords();
         resetAll();
     }
 
@@ -297,18 +317,18 @@ public class TypingTestActivity extends AppCompatActivity {
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
     }
 
-    protected void initWords(int DictionaryType){
+    protected void initWords(){
         AssetManager am = getAssets();
-        String Dictionary;
-        if (DictionaryType==0) {
-             Dictionary = "Basic";
+        String dictionary;
+        if (dictionaryType==0) {
+             dictionary = "Basic";
         } else {
-            Dictionary = "Enhanced";
+            dictionary = "Enhanced";
         }
         String str = "";
         InputStream is;
         try {
-            is = am.open("Words" + Dictionary + "RU.txt");
+            is = am.open("Words" + dictionary + dictionaryLanguageId +".txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String currLine;
             while ((currLine = reader.readLine()) != null) {
@@ -317,6 +337,8 @@ public class TypingTestActivity extends AppCompatActivity {
             is.close();
         } catch (IOException e) {
             Toast.makeText(this, getString(R.string.Words_loading_error_occurred), Toast.LENGTH_SHORT).show();
+            initErrorFlag = true;
+            return;
         }
         EditText words = findViewById(R.id.words);
         Random rnd = new Random();
