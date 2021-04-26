@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bStartTest"
+        android:id="@+id/bMainMenuStartTest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -32,7 +32,7 @@
         android:textAllCaps="false"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLabel" />
 
@@ -50,17 +50,17 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bStartTest" />
+        app:layout_constraintTop_toBottomOf="@+id/bMainMenuStartTest" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bApplicationInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/mainbutton"
-        android:text="@string/button_About_Program"
+        android:text="@string/button_About_App"
         android:textAllCaps="false"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
@@ -74,34 +74,6 @@
         android:background="@color/bg_dark_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="193dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_end"
-        app:layout_constraintTop_toBottomOf="@+id/bProfile"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
-
-    <Button
-        android:id="@+id/bSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Авторизоваться"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toTopOf="@+id/imageButton" />
-
-    <Button
-        android:id="@+id/bSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Зарегистрироваться"
-        app:layout_constraintStart_toStartOf="@+id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/bSignIn" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
