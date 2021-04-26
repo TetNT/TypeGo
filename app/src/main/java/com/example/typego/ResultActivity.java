@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.typego.user.TimeConvert;
-import com.example.typego.user.TypingResult;
-import com.example.typego.user.User;
+import com.example.typego.utils.TimeConvert;
+import com.example.typego.utils.TypingResult;
+import com.example.typego.utils.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,7 +31,7 @@ public class ResultActivity extends AppCompatActivity {
         spUser = getSharedPreferences(PreferencesManager.USER_STORAGE_FILE, MODE_PRIVATE);
         currentUser = User.getFromJson(spUser.getString("prefCurrentUser", ""));
         Log.d("RA user", currentUser.getUserName());
-
+        String dictionaryLanguageId;
         TextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvPreviousResult = findViewById(R.id.tvPreviousResult);
         TextView tvBestResult = findViewById(R.id.tvBestResult);
@@ -39,6 +39,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView tvIncorrectWords = findViewById(R.id.tvIncorrectWords);
         TextView tvDictionary = findViewById(R.id.tvDictionary);
         TextView tvAllottedTime = findViewById(R.id.tvAllottedTime);
+        TextView tvLanguage = findViewById(R.id.tvLanguage);
 
         tvPreviousResult.setText(getString(R.string.Previous_result) + ": " + currentUser.getLastResult());
         if (currentUser.getLastResult() == 0)
@@ -56,6 +57,7 @@ public class ResultActivity extends AppCompatActivity {
             timeInSeconds = Integer.parseInt(arguments.get("timeInSeconds").toString());
             int totalWords = Integer.parseInt(arguments.get("totalWords").toString());
             dictionaryType = arguments.getInt("DictionaryType");
+            dictionaryLanguageId = arguments.getString("dictionaryLanguageId");
             String DictionaryName;
             if (dictionaryType == 0) DictionaryName = getString(R.string.Basic);
             else DictionaryName = getString(R.string.Enhanced);
@@ -65,6 +67,7 @@ public class ResultActivity extends AppCompatActivity {
             tvCorrectWords.setText(getString(R.string.Correct_words) + ": " + correctWords);
             tvDictionary.setText(getString(R.string.Dictionary)+": " + DictionaryName);
             tvAllottedTime.setText(getString(R.string.Allotted_time) + ": " + TimeConvert.convertSeconds(this, timeInSeconds));
+            tvLanguage.setText(getString(R.string.selected_language) + ": " + dictionaryLanguageId);
             if (wpm>0) SaveResultData();
             else Toast.makeText(this, "Результаты с 0 слов в минуту не записываются", Toast.LENGTH_SHORT).show();
 
@@ -77,7 +80,7 @@ public class ResultActivity extends AppCompatActivity {
 
     private void SaveResultData() {
         if (currentUser == null) {
-            Toast.makeText(this, "Произошла ошибка при сохранении результатов", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.saving_results_error_occurred), Toast.LENGTH_SHORT).show();
             return;
         }
         currentUser.setLastResult((int)wpm);
@@ -89,7 +92,7 @@ public class ResultActivity extends AppCompatActivity {
         editor.apply();
         if (currentUser.getUserName().equals("Guest")) {
             // TODO: Separate TextView instead of this message:
-            Toast.makeText(this, "Авторизуйтесь для сохранения результатов", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.sign_in_to_save_results), Toast.LENGTH_SHORT).show();
             return;
         }
 
