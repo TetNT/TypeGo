@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_menu_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_menu_navigation"
+    app:startDestination="@id/testSetupActivity">
 
+    <activity
+        android:id="@+id/testSetupActivity"
+        android:name="com.example.typego.TestSetupActivity"
+        android:label="activity_test_setup"
+        tools:layout="@layout/activity_test_setup" />
+    <activity
+        android:id="@+id/accountActivity"
+        android:name="com.example.typego.AccountActivity"
+        android:label="activity_account"
+        tools:layout="@layout/activity_account" />
 </navigation>
