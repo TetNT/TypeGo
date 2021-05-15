@@ -6,119 +6,170 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@id/bFinish"
+        app:layout_constraintEnd_toStartOf="@id/result_guideline_end"
+        app:layout_constraintStart_toEndOf="@id/result_guideline_start"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bFinish"
+            app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/result_guideline_start"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.emoji.widget.EmojiTextView
+                android:id="@+id/tvWPM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:text="@string/WordsPerMinute"
+                android:textAlignment="center"
+                android:textColor="@color/text_accent"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPreviousResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Previous_result"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:drawableStartCompat="@drawable/ic_prev_res" />
+
+            <TextView
+                android:id="@+id/tvBestResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/Best_result"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:drawableStartCompat="@drawable/ic_star" />
+
+            <TextView
+                android:id="@+id/tvCorrectWords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/Correct_words"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_check" />
+
+            <TextView
+                android:id="@+id/tvIncorrectWords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/Incorrect_words"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_incorrect" />
+
+            <TextView
+                android:id="@+id/tvDictionary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/Dictionary"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_text" />
+
+            <TextView
+                android:id="@+id/tvAllottedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/Allotted_time"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_timer" />
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/selected_language"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/ic_language" />
+
+            <TextView
+                android:id="@+id/tvTextSuggestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Text suggestions"
+                android:textSize="20dp"
+                app:drawableStartCompat="@drawable/ic_info" />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
     <Button
-        android:id="@+id/bContinue"
-        android:layout_width="240dp"
+        android:id="@+id/bFinish"
+        style="@style/AccentButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:background="@drawable/mainbutton"
         android:focusable="false"
         android:onClick="SaveAndContinue"
-        android:text="@string/Continue"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/finish"
         android:textAllCaps="false"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:typeface="sans"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bStartOver"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/result_guideline_start"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintGuide_begin="24dp"
         android:orientation="vertical"
-        android:id="@+id/result_guideline_start"
-        />
+        app:layout_constraintGuide_begin="24dp" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/result_guideline_end"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintGuide_end="24dp"
         android:orientation="vertical"
-        android:id="@+id/result_guideline_end"
-        />
+        app:layout_constraintGuide_end="24dp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/bContinue"
-        app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/result_guideline_start"
-        app:layout_constraintTop_toTopOf="parent">
+    <Button
+        android:id="@+id/bStartOver"
+        style="@style/AccentButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mainbutton"
+        android:layout_marginBottom="24dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/start_over"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bFinish" />
 
-        <TextView
-            android:id="@+id/tvWPM"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/WordsPerMinute"
-            android:textAlignment="center"
-            android:textColor="@color/text_accent"
-            android:textSize="36sp"
-            android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvPreviousResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="@string/Previous_result"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvBestResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/Best_result"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvCorrectWords"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/Correct_words"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvIncorrectWords"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/Incorrect_words"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvDictionary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/Dictionary"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvAllottedTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/Allotted_time"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvLanguage"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/selected_language"
-            android:textSize="24sp"
-
-            />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
