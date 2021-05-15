@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.typego.utils.KeyConstants;
 import com.example.typego.utils.TimeConvert;
 
 import java.io.BufferedReader;
@@ -105,15 +107,18 @@ public class TypingTestActivity extends AppCompatActivity {
 
     private void initialize() {
         Bundle bundle = getIntent().getExtras();
-        timeInSeconds = Integer.parseInt(bundle.get("AmountOfSeconds").toString());
-        dictionaryType = Integer.parseInt(bundle.get("DictionaryType").toString());
-        dictionaryLanguageId = bundle.getString("DictionaryLanguageId");
+        timeInSeconds = bundle.getInt(KeyConstants.TEST_AMOUNT_OF_SECONDS);
+        dictionaryType = bundle.getInt(KeyConstants.TEST_DICTIONARY_TYPE);
+        boolean textSuggestionsIsOn = bundle.getBoolean(KeyConstants.TEST_SUGGESTIONS_ON);
+        dictionaryLanguageId = bundle.getString(KeyConstants.TEST_DICTIONARY_LANG);
         initErrorFlag = false;
         secondsRemaining = timeInSeconds;
         etWords = findViewById(R.id.words);
         inpWord = findViewById(R.id.inpWord);
         tvTimeLeft = findViewById(R.id.tvTimeLeft);
         wordList = new ArrayList<>();
+        if (textSuggestionsIsOn) inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        else inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         initializeBackButtonCallback();
     }
 
@@ -167,12 +172,12 @@ public class TypingTestActivity extends AppCompatActivity {
             public void onFinish() {
                 tvTimeLeft.setText("00:00");
                 Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
-                intent.putExtra("correctWords", correctWordsCount);
-                intent.putExtra("timeInSeconds", timeInSeconds);
-                intent.putExtra("totalWords", totalWordsPassed);
-                intent.putExtra("DictionaryType", dictionaryType);
-                intent.putExtra("currentUser", getIntent().getSerializableExtra("currentUser"));
-                intent.putExtra("dictionaryLanguageId", dictionaryLanguageId);
+                intent.putExtra(KeyConstants.TEST_CORRECT_WORDS, correctWordsCount);
+                intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, timeInSeconds); // may cause an exception
+                intent.putExtra(KeyConstants.TOTAL_WORDS, totalWordsPassed);
+                intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, dictionaryType);
+                intent.putExtra(KeyConstants.TEST_DICTIONARY_LANG, dictionaryLanguageId);
+                intent.putExtra(KeyConstants.TEST_SUGGESTIONS_ON, getIntent().getExtras().getBoolean(KeyConstants.TEST_SUGGESTIONS_ON));
                 finish();
                 startActivity(intent);
             }
@@ -325,7 +330,7 @@ public class TypingTestActivity extends AppCompatActivity {
         } else {
             dictionary = "Enhanced";
         }
-        String str = "";
+
         InputStream is;
         try {
             is = am.open("Words" + dictionary + dictionaryLanguageId +".txt");
@@ -342,9 +347,11 @@ public class TypingTestActivity extends AppCompatActivity {
         }
         EditText words = findViewById(R.id.words);
         Random rnd = new Random();
-        for (int i = 0; i<=150; i++) {
-            str += wordList.get(rnd.nextInt(wordList.size())) + " ";
+        StringBuilder str = new StringBuilder();
+        int amountOfWords = (int)(250 * (timeInSeconds / 60.0));
+        for (int i = 0; i <= amountOfWords; i++) {
+            str.append(wordList.get(rnd.nextInt(wordList.size()))).append(" ");
         }
-        words.setText(str);
+        words.setText(str.toString());
     }
 }
