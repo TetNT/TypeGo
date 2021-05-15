@@ -1,8 +1,11 @@
 package com.example.typego.utils;
 
+import android.content.ContentValues;
+
 import com.google.gson.Gson;
 
 import java.io.Serializable;
+import java.security.Key;
 import java.util.ArrayList;
 
 public class User implements Serializable {
@@ -12,7 +15,10 @@ public class User implements Serializable {
     private int lastResult;
     private int bestResult;
     private double averageWPM;
-    private String preferredLanguage;
+    private String preferredLanguageId;
+    private int preferredTimeMode;
+    private int preferredDictionaryType;
+    private boolean preferredTextSuggestions;
     private ArrayList<TypingResult> resultList;
 
 
@@ -29,6 +35,10 @@ public class User implements Serializable {
     public void addResult(TypingResult result) {
         if (resultList == null) resultList = new ArrayList<>();
         resultList.add(result);
+    }
+
+    public ArrayList<TypingResult> getResultList() {
+        return resultList;
     }
 
     public int getId() {
@@ -72,11 +82,43 @@ public class User implements Serializable {
     }
 
     public String getPreferredLanguage() {
-        return preferredLanguage;
+        return preferredLanguageId;
     }
 
     public void setPreferredLanguage(String preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
+        this.preferredLanguageId = preferredLanguage;
+    }
+
+    public String getPreferredLanguageId() {
+        return preferredLanguageId;
+    }
+
+    public void setPreferredLanguageId(String preferredLanguageId) {
+        this.preferredLanguageId = preferredLanguageId;
+    }
+
+    public int getPreferredTimeMode() {
+        return preferredTimeMode;
+    }
+
+    public void setPreferredTimeMode(int preferredTimeMode) {
+        this.preferredTimeMode = preferredTimeMode;
+    }
+
+    public int getPreferredDictionaryType() {
+        return preferredDictionaryType;
+    }
+
+    public void setPreferredDictionaryType(int preferredDictionaryType) {
+        this.preferredDictionaryType = preferredDictionaryType;
+    }
+
+    public boolean isPreferredTextSuggestions() {
+        return preferredTextSuggestions;
+    }
+
+    public void setPreferredTextSuggestions(boolean preferredTextSuggestions) {
+        this.preferredTextSuggestions = preferredTextSuggestions;
     }
 
     public static String serializeToJson(User user) {
