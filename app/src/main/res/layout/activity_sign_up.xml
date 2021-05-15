@@ -6,57 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        style="@style/input_fields"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/text_input"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        style="@style/input_fields"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/text_input"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvSignUpActivity"
+        style="@style/activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Регистрация"
-        android:textColor="@color/text_accent"
+        android:text="@string/button_sign_up"
         android:textSize="36sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/etSignUpEmail"
+        style="@style/input_fields"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="Email"
+        android:background="@drawable/text_input"
+        android:ems="10"
+        android:hint="Email"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSignUpActivity"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <EditText
+        android:id="@+id/etSignUpPassword"
+        style="@style/input_fields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_input"
+        android:ems="10"
+        android:hint="@string/Password"
+        android:autofillHints="@string/Password"
+        android:inputType="textPassword"
+        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpEmail" />
+
     <Button
-        android:id="@+id/bContinueSignup"
+        android:id="@+id/bContinueSignUp"
         style="@style/AccentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/mainbutton"
+        android:text="@string/button_sign_up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etSignUpPassword" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
