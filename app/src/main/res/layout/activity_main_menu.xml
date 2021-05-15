@@ -44,6 +44,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/mainbutton"
+        android:onClick="myProfileClick"
         android:text="@string/button_Profile"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -52,20 +53,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bMainMenuStartTest" />
 
-    <Button
-        android:id="@+id/bApplicationInfo"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tvMainMenuAccount"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/mainbutton"
-        android:text="@string/button_About_App"
-        android:textAllCaps="false"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Profile"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        android:drawableEnd="@drawable/ic_account"
+        android:drawablePadding="4dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -73,7 +69,7 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_dark_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="193dp" />
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -91,5 +87,6 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_begin="379dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
