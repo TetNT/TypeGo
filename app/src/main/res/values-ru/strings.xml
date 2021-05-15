@@ -40,4 +40,15 @@
     <string name="welcome_back">С возвращением!</string>
     <string name="continue_testing">Вы хотите продолжить тест?</string>
     <string name="selected_language">Выбранный язык</string>
+    <string name="Login">Логин</string>
+    <string name="Password">Пароль</string>
+    <string name="i_do_not_have_an_account"><u>У меня нет аккаунта</u></string>
+    <string name="german">немецкий</string>
+    <string name="text_suggestions">Подсказки ввода</string>
+    <string name="text_suggestions_enabled">Подсказки ввода включены.</string>
+    <string name="text_suggestions_disabled">Подсказки ввода отключены. Примечание: работает не со всеми клавиатурами.</string>
+    <string name="msg_results_with_zero_wpm">Результаты с 0 СВМ не записываются.</string>
+    <string name="language">Язык</string>
+    <string name="start_over">Заново</string>
+    <string name="finish">Завершить</string>
 </resources>
