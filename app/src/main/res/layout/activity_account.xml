@@ -33,10 +33,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
         app:layout_constraintStart_toStartOf="@+id/account_guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/activity_account_title">
+        app:layout_constraintTop_toBottomOf="@id/activity_account_title"
+        app:layout_constraintBottom_toTopOf="@+id/tvCurrentVersion"
+        >
 
 
         <LinearLayout
@@ -52,32 +54,87 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_account"
                 android:drawablePadding="8dp"
-                android:text="UserName" />
+                android:layout_marginBottom="16dp"
+                android:text="UserName"
+                android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/tvAverageWPM"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_keyboard"
-                android:drawablePadding="8dp"
-                android:text="Average WPM" />
-
-            <TextView
-                android:id="@+id/tvAccountLastResult"
+                android:id="@+id/tvAssessment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Last result"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:text="@string/assessment"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tvAverageWPM"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_keyboard"
+                    android:drawablePadding="8dp"
+                    android:text="@string/average_wpm" />
+
+                <TextView
+                    android:id="@+id/tvBestResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_star"
+                    android:drawablePadding="8dp"
+                    android:text="@string/Best_result"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/tvAccountLastResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_prev_res"
+                    android:drawablePadding="8dp"
+                    android:text="@string/last_result"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/tvTestsPassed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tests_passed"
+                    android:drawableStart="@drawable/ic_times_played"
+                    android:drawablePadding="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+
+                    android:background="@color/white" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvBestResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Best_result"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
+                android:text="The last result"
+                style="@style/SubmenuHeader"
+                android:layout_gravity="center"/>
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tvCurrentVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Current_version_num"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/account_guideline_left" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
