@@ -9,4 +9,6 @@ public class KeyConstants {
     public static final String TEST_DICTIONARY_LANG = "DictionaryLanguageId";
     public static final String TEST_CORRECT_WORDS = "correctWords";
     public static final String TOTAL_WORDS = "totalWords";
+    public static final String FRAGMENT_TEST_SETUP = "fragmentTestSetup";
+    public static final String FRAGMENT_ACCOUNT = "fragmentAccount";
 }
