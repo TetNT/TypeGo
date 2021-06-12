@@ -173,7 +173,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/mainbutton"
-        android:onClick="startTesting"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:text="@string/button_StartTest"
