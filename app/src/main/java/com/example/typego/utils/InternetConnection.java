@@ -10,7 +10,7 @@ public class InternetConnection {
     public static boolean isAvailable(Context context) {
         boolean wifiConnected = false;
         boolean mobileConnected = false;
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network[] networks = cm.getAllNetworks();
         for (Network network: networks
              ) {
@@ -21,10 +21,7 @@ public class InternetConnection {
             if (ni.getTypeName().equalsIgnoreCase("mobile")) {
                 if (ni.isConnected()) mobileConnected = true;
             }
-
-
         }
-
         return wifiConnected || mobileConnected;
     }
 
