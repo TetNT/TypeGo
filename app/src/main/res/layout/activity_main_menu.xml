@@ -31,44 +31,22 @@
         android:text="@string/button_StartTest"
         android:textAllCaps="false"
         android:textSize="24sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLabel" />
 
-    <Button
-        android:id="@+id/bProfile"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/mainbutton"
-        android:onClick="myProfileClick"
-        android:text="@string/button_Profile"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bMainMenuStartTest" />
-
-    <TextView
-        android:id="@+id/tvMainMenuAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        android:drawableEnd="@drawable/ic_account"
-        android:drawablePadding="4dp"/>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:itemBackground="@drawable/bottom_nav_item"
         android:background="@color/bg_dark_gray"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu"
         />
 
     <androidx.constraintlayout.widget.Guideline
@@ -87,6 +65,17 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_begin="379dp" />
+
+    <FrameLayout
+        android:id="@+id/fragmentFrame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bMainMenuStartTest"
+        app:layout="@layout/fragment_test_setup"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
