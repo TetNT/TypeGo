@@ -15,7 +15,7 @@
         android:ems="10"
         android:focusable="false"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:paddingStart="8dp"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_marginStart="10dp"
-            android:text="00:00"
+            android:text="@string/time_over"
             android:textSize="24sp" />
 
         <ImageButton
@@ -81,7 +81,7 @@
         android:background="@drawable/mainbutton"
         android:backgroundTint="@color/bg_dark_gray"
         android:onClick="cancelTest"
-        android:text="Прервать"
+        android:text="@string/Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
