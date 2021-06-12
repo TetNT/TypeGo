@@ -39,19 +39,6 @@ public class TestSetupActivity extends AppCompatActivity {
         currentUser = User.getFromJson(getSharedPreferences(KeyConstants.USER_STORAGE_FILE, MODE_PRIVATE).getString(KeyConstants.PREFERENCES_CURRENT_USER, null));
         cbTextSuggestions = findViewById(R.id.cbPredictiveText);
         rbDictionaryType = findViewById(R.id.rbDictionaryType);
-        BottomNavigationView bnv = findViewById(R.id.test_setup_bottom_nav);
-        bnv.setOnNavigationItemSelectedListener(item -> {
-            Intent intent;
-            switch (item.getItemId()) {
-                case R.id.testSetupActivity:
-                    break;
-                case R.id.accountActivity:
-                    intent = new Intent(TestSetupActivity.this, AccountActivity.class);
-                    finish();
-                    startActivity(intent);
-            }
-            return true;
-        });
         cbTextSuggestions.setOnClickListener((v) -> {
             if (cbTextSuggestions.isChecked())
                 Toast.makeText(this, getString(R.string.text_suggestions_enabled), Toast.LENGTH_SHORT).show();
@@ -92,7 +79,6 @@ public class TestSetupActivity extends AppCompatActivity {
         String languageId = language.getIdentifier();
 
         int selectedDictionaryIndex = rbDictionaryType.indexOfChild(radioButton);
-
         Intent intent = new Intent(this, TypingTestActivity.class);
         intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, progressInSeconds);
         intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, selectedDictionaryIndex);
@@ -148,7 +134,6 @@ public class TestSetupActivity extends AppCompatActivity {
                 systemLanguageIndex = i;
         }
         spinner.setSelection(systemLanguageIndex);
-        return;
     }
 
 }
