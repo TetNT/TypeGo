@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/testSetupActivity"
+        android:id="@+id/test_setup_menu_item"
         android:icon="@drawable/ic_assessment"
         android:title="@string/Testing" />
     <item
-        android:id="@+id/accountActivity"
+        android:id="@+id/account_menu_item"
         android:icon="@drawable/ic_account"
         android:title="@string/button_Profile" />
 </menu>
