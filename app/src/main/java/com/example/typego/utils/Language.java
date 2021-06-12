@@ -13,6 +13,11 @@ public class Language {
     private final String identifier;
     private final String name;
 
+    public Language(String identifier, String name) {
+        this.identifier = identifier;
+        this.name = name;
+    }
+
     public String getIdentifier() {
         return identifier;
     }
@@ -21,10 +26,6 @@ public class Language {
         return name;
     }
 
-    public Language(String identifier, String name) {
-        this.identifier = identifier;
-        this.name = name;
-    }
 
      /*Returns list of languages available for testing.
        New languages are adding here. */
