@@ -74,16 +74,18 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                // if user pressed space in empty text field
+                if (s.toString().equals(" ")) {
+                    inpWord.setText("");
+                    return;
+                }
+
                 // if a test hasn't started yet and user began to type
                 if (testInitiallyPaused && inpWord.getText().length()>0) {
                     startTimer(secondsRemaining);
                     testInitiallyPaused = false;
                 }
-                // if user pressed space in empty field
-                if (s.toString().equals(" ")) {
-                    inpWord.setText("");
-                    return;
-                }
+
                 // if last typed letter is space
                 if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
                     deselectCurrentWord();
@@ -170,7 +172,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                tvTimeLeft.setText("00:00");
+                tvTimeLeft.setText(getString(R.string.time_over));
                 Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
                 intent.putExtra(KeyConstants.TEST_CORRECT_WORDS, correctWordsCount);
                 intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, timeInSeconds); // may cause an exception
@@ -195,6 +197,7 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void checkSymbolsCorrectness() {
+        deselectSymbols(currentWordStartCursor, currentWordEndCursor);
         for (int i = 0; i<currentWord.length();i++) {
             if (i<inpWord.length()) {
                 char currInpChar = inpWord.getText().charAt(i);
@@ -224,6 +227,8 @@ public class TypingTestActivity extends AppCompatActivity {
         dialog.setPositiveButton(R.string.Yes, (dial, which) -> {
             pauseTimer();
             finish();
+            Intent intent = new Intent(TypingTestActivity.this, MainMenuActivity.class);
+            startActivity(intent);
         });
         dialog.show();
         pauseTimer();
