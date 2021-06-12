@@ -3,25 +3,24 @@ package com.example.typego;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.emoji.bundled.BundledEmojiCompatConfig;
 import androidx.emoji.text.EmojiCompat;
-import androidx.emoji.widget.EmojiEditText;
 import androidx.emoji.widget.EmojiTextView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.typego.utils.Emoji;
 import com.example.typego.utils.KeyConstants;
 import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.TypingResult;
 import com.example.typego.utils.User;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
@@ -33,6 +32,7 @@ public class ResultActivity extends AppCompatActivity {
     int dictionaryType;
     String dictionaryLanguageId;
     SharedPreferences spUser;
+    TextView tvBestResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class ResultActivity extends AppCompatActivity {
         currentUser = User.getFromJson(spUser.getString(KeyConstants.PREFERENCES_CURRENT_USER, null));
         EmojiTextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvPreviousResult = findViewById(R.id.tvPreviousResult);
-        TextView tvBestResult = findViewById(R.id.tvBestResult);
+        tvBestResult = findViewById(R.id.tvBestResult);
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
         TextView tvIncorrectWords = findViewById(R.id.tvIncorrectWords);
         TextView tvDictionary = findViewById(R.id.tvDictionary);
@@ -108,6 +108,7 @@ public class ResultActivity extends AppCompatActivity {
         currentUser.setLastResult((int)wpm);
         if (currentUser.getBestResult() < currentUser.getLastResult()) {
             currentUser.setBestResult(currentUser.getLastResult());
+            setTextViewDrawableColor(tvBestResult, Color.argb(255, 255, 213, 0));
         }
 
         TypingResult result = new TypingResult(wpm, dictionaryType, dictionaryLanguageId, timeInSeconds, Calendar.getInstance().getTime());
@@ -122,8 +123,15 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
+    private void setTextViewDrawableColor(TextView textView, int color) {
+        for (Drawable drawable: textView.getCompoundDrawables())
+            if (drawable!=null) drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
+    }
+
     public void SaveAndContinue(View view){
         finish();
+        Intent intent = new Intent(this, MainMenuActivity.class);
+        startActivity(intent);
     }
 
 }
