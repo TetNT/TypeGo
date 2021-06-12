@@ -55,8 +55,10 @@
     <string name="language">Language</string>
     <string name="start_over">Start over</string>
     <string name="finish">Finish</string>
-    <string name="assessment">Assessment</string>
+    <string name="assessment">My success</string>
     <string name="average_wpm">Average WPM</string>
     <string name="last_result">Last result</string>
     <string name="tests_passed">Tests passed</string>
+    <string name="my_account">My account</string>
+    <string name="time_over" translatable="false">00:00</string>
 </resources>

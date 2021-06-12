@@ -51,4 +51,9 @@
     <string name="language">Язык</string>
     <string name="start_over">Заново</string>
     <string name="finish">Завершить</string>
+    <string name="assessment">Мои успехи</string>
+    <string name="average_wpm">Средний СВМ</string>
+    <string name="last_result">Последний результат</string>
+    <string name="tests_passed">Тестов пройдено</string>
+    <string name="my_account">Мой аккаунт</string>
 </resources>
