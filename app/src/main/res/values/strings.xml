@@ -61,4 +61,5 @@
     <string name="tests_passed">Tests passed</string>
     <string name="my_account">My account</string>
     <string name="time_over" translatable="false">00:00</string>
+    <string name="Cancel">Cancel</string>
 </resources>

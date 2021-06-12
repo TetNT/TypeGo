@@ -56,4 +56,5 @@
     <string name="last_result">Последний результат</string>
     <string name="tests_passed">Тестов пройдено</string>
     <string name="my_account">Мой аккаунт</string>
+    <string name="Cancel">Прервать</string>
 </resources>
