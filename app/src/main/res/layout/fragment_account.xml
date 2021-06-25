@@ -33,6 +33,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/accountNestedScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
@@ -91,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:drawablePadding="8dp"
-                    android:text="@string/Best_result"
+                    android:text="@string/best_result"
                     style="@style/list_fields"
                     app:drawableStartCompat="@drawable/ic_star" />
 
@@ -117,7 +118,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.1dp"
                     android:layout_marginTop="8dp"
 
                     android:background="@color/white" />
@@ -126,8 +127,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="The last tests"
+                android:text="@string/passed_tests"
+                android:layout_marginBottom="8dp"
                 style="@style/SubmenuHeader"
+                />
+            <TextView
+                android:id="@+id/tvNothingToShow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/msg_nothing_to_show"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_passed_tests"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
                 />
         </LinearLayout>
 
@@ -137,7 +154,7 @@
         android:id="@+id/tvCurrentVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Current_version_num"
+        android:text="@string/current_version_num"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
