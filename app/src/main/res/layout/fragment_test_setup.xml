@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/Testing"
+        android:text="@string/testing"
         android:textColor="@color/text_accent"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -50,7 +50,7 @@
                     android:id="@+id/tvAmountOfTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Amount_of_time"
+                    android:text="@string/amount_of_time"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -65,8 +65,8 @@
                     <SeekBar
                         android:id="@+id/seekBar"
                         style="@style/Widget.AppCompat.SeekBar.Discrete"
-                        android:layout_width="156dp"
-                        android:layout_height="24dp"
+                        android:layout_width="200dp"
+                        android:layout_height="28dp"
                         android:max="7"
                         android:progress="1"
                         android:thumbTint="@color/button_main_green_unpressed" />
@@ -77,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -96,7 +96,7 @@
                     android:id="@+id/tvDictionaryType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Dictionary_type"
+                    android:text="@string/dictionary_type"
                     android:textAppearance="@style/SubmenuHeader" />
 
                 <RadioGroup
@@ -112,14 +112,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/button_main_green_unpressed"
-                        android:text="@string/Basic" />
+                        android:textSize="18sp"
+                        android:text="@string/basic" />
 
                     <RadioButton
                         android:id="@+id/rbEnhanced"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/button_main_green_unpressed"
-                        android:text="@string/Enhanced" />
+                        android:textSize="18sp"
+                        android:text="@string/enhanced" />
                 </RadioGroup>
 
             </LinearLayout>
@@ -141,14 +143,14 @@
 
                 <Spinner
                     android:id="@+id/spinLanguageSelection"
-                    android:layout_width="200dp"
-                    android:layout_height="24dp"
+                    android:layout_width="210dp"
+                    android:layout_height="30dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/text_input"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
                     android:paddingStart="4dp"
-                    android:paddingEnd="4dp"/>
+                    android:paddingEnd="4dp" />
             </LinearLayout>
 
             <CheckBox
@@ -157,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/button_main_green_unpressed"
                 android:checked="true"
+                android:textSize="18sp"
                 android:text="@string/text_suggestions"
                 />
 
