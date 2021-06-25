@@ -10,7 +10,7 @@
     <style name="AccentButton" >
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:text">@string/Continue</item>
+        <item name="android:text">@string/_continue</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingStart">32dp</item>
         <item name="android:paddingEnd">32dp</item>
