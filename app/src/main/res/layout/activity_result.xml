@@ -20,7 +20,7 @@
 
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/resultSection"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -35,74 +35,98 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:text="@string/WordsPerMinute"
+                android:text="@string/wordsPerMinute"
                 android:textAlignment="center"
                 android:textColor="@color/text_accent"
                 android:textSize="36sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvNewBestResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/new_best_result"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/golden"
 
+                android:visibility="gone"/>
             <TextView
                 android:id="@+id/tvPreviousResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Previous_result"
+                android:text="@string/previous_result"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_prev_res" />
+                app:drawableStartCompat="@drawable/ic_prev_res"
+                android:drawablePadding="4dp"
+                app:drawableTint="@color/white" />
 
             <TextView
                 android:id="@+id/tvBestResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/Best_result"
+                android:text="@string/best_result"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 style="@style/list_fields"
                 app:drawableStartCompat="@drawable/ic_star"
-                app:drawableTint="" />
+                android:drawablePadding="4dp"
+                app:drawableTint="@color/golden" />
 
             <TextView
                 android:id="@+id/tvCorrectWords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/Correct_words"
+                android:text="@string/correct_words"
                 android:textSize="20sp"
                 style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_check" />
+                app:drawableStartCompat="@drawable/ic_check"
+                android:drawablePadding="4dp"
+                app:drawableTint="@color/correct_green" />
 
             <TextView
                 android:id="@+id/tvIncorrectWords"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/Incorrect_words"
+                android:text="@string/incorrect_words"
                 android:textSize="20sp"
                 style="@style/list_fields"
                 app:drawableStartCompat="@drawable/ic_incorrect"
-                app:drawableTint="@color/design_default_color_error" />
+                app:drawableTint="@color/incorrect_red"
+                android:drawablePadding="4dp"/>
 
+            <TextView
+                style="@style/SubmenuHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/details"/>
             <TextView
                 android:id="@+id/tvDictionary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/Dictionary"
+                android:text="@string/dictionary"
                 android:textSize="20sp"
                 style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_text" />
+                app:drawableStartCompat="@drawable/ic_text"
+                android:drawablePadding="4dp"/>
 
             <TextView
                 android:id="@+id/tvAllottedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/Allotted_time"
+                android:text="@string/allotted_time"
                 android:textSize="20sp"
                 style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_timer" />
+                app:drawableStartCompat="@drawable/ic_timer"
+                android:drawablePadding="4dp"/>
 
             <TextView
                 android:id="@+id/tvLanguage"
@@ -112,7 +136,8 @@
                 android:text="@string/selected_language"
                 android:textSize="20sp"
                 style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_language" />
+                app:drawableStartCompat="@drawable/ic_language"
+                android:drawablePadding="4dp"/>
 
             <TextView
                 android:id="@+id/tvTextSuggestions"
@@ -122,7 +147,8 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/text_suggestions"
                 android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_info" />
+                app:drawableStartCompat="@drawable/ic_info"
+                android:drawablePadding="4dp"/>
 
         </LinearLayout>
 
