@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/Testing"
+        android:text="@string/testing"
         android:textColor="@color/text_accent"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -49,7 +49,7 @@
                     android:id="@+id/tvAmountOfTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Amount_of_time"
+                    android:text="@string/amount_of_time"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -95,7 +95,7 @@
                     android:id="@+id/tvDictionaryType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Dictionary_type"
+                    android:text="@string/dictionary_type"
                     android:textAppearance="@style/SubmenuHeader" />
 
                 <RadioGroup
@@ -111,14 +111,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/button_main_green_unpressed"
-                        android:text="@string/Basic" />
+                        android:text="@string/basic" />
 
                     <RadioButton
                         android:id="@+id/rbEnhanced"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/button_main_green_unpressed"
-                        android:text="@string/Enhanced" />
+                        android:text="@string/enhanced" />
                 </RadioGroup>
 
             </LinearLayout>
