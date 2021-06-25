@@ -8,7 +8,9 @@ public class KeyConstants {
     public static final String TEST_SUGGESTIONS_ON = "TextSuggestionsIsOn";
     public static final String TEST_DICTIONARY_LANG = "DictionaryLanguageId";
     public static final String TEST_CORRECT_WORDS = "correctWords";
+    public static final String TEST_CORRECT_WORDS_WEIGHT = "correctWordsWeight";
     public static final String TOTAL_WORDS = "totalWords";
+    public static final String CALLED_FROM_PASSED_RESULTS = "calledFromPassedResults";
     public static final String FRAGMENT_TEST_SETUP = "fragmentTestSetup";
     public static final String FRAGMENT_ACCOUNT = "fragmentAccount";
 }
