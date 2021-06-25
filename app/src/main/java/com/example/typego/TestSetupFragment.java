@@ -1,6 +1,5 @@
 package com.example.typego;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +26,11 @@ import com.example.typego.utils.KeyConstants;
 import com.example.typego.utils.Language;
 import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.User;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
 
 public class TestSetupFragment extends Fragment {
 
@@ -51,24 +51,30 @@ public class TestSetupFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test_setup, container, false);
 
+        return inflater.inflate(R.layout.fragment_test_setup, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        currentUser = User.getFromJson(getActivity().getSharedPreferences(KeyConstants.USER_STORAGE_FILE, Context.MODE_PRIVATE).getString(KeyConstants.PREFERENCES_CURRENT_USER, null));
+        currentUser =
+                User.getFromJson(getActivity()
+                        .getSharedPreferences(KeyConstants.USER_STORAGE_FILE, MODE_PRIVATE)
+                        .getString(KeyConstants.PREFERENCES_CURRENT_USER, null));
         cbTextSuggestions = view.findViewById(R.id.cbPredictiveText);
         rbDictionaryType = view.findViewById(R.id.rbDictionaryType);
         cbTextSuggestions.setOnClickListener((v) -> {
             if (cbTextSuggestions.isChecked())
-                Toast.makeText(getActivity(), getString(R.string.text_suggestions_enabled), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),
+                        getString(R.string.text_suggestions_enabled),
+                        Toast.LENGTH_SHORT).show();
             else
-                Toast.makeText(getActivity(), getString(R.string.text_suggestions_disabled), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),
+                        getString(R.string.text_suggestions_disabled),
+                        Toast.LENGTH_SHORT).show();
         });
         seekBar = view.findViewById(R.id.seekBar);
         TextView tvSeekbarDisplay = view.findViewById(R.id.tvSeekBarDisplay);
@@ -109,12 +115,13 @@ public class TestSetupFragment extends Fragment {
         else progressToSeconds = 300;
         return progressToSeconds;
     }
-    public void selectCurrentLanguageOption(View view) {
+    public void selectCurrentLanguageOption(@NotNull View view) {
         spinner = view.findViewById(R.id.spinLanguageSelection);
         List<Language> languageList = Language.getAvailableLanguages(getActivity());
         SpinnerAdapter adapter = new ArrayAdapter<>(
                 getActivity(),
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.spinner_style,
+                //R.layout.support_simple_spinner_dropdown_item,
                 languageList);
         spinner.setAdapter(adapter);
         int systemLanguageIndex = 0;
@@ -154,7 +161,9 @@ public class TestSetupFragment extends Fragment {
             currentUser.setPreferredDictionaryType(selectedDictionaryIndex);
             currentUser.setPreferredTextSuggestions(cbTextSuggestions.isChecked());
             currentUser.setPreferredTimeMode(seekBar.getProgress());
-            SharedPreferences.Editor editor = getActivity().getSharedPreferences(KeyConstants.USER_STORAGE_FILE, Context.MODE_PRIVATE).edit();
+            SharedPreferences.Editor editor = getActivity()
+                    .getSharedPreferences(KeyConstants.USER_STORAGE_FILE, MODE_PRIVATE)
+                    .edit();
             editor.putString(KeyConstants.PREFERENCES_CURRENT_USER,User.serializeToJson(currentUser));
             editor.apply();
         }
