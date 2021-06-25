@@ -4,7 +4,7 @@
     <item
         android:id="@+id/test_setup_menu_item"
         android:icon="@drawable/ic_assessment"
-        android:title="@string/Testing" />
+        android:title="@string/testing" />
     <item
         android:id="@+id/account_menu_item"
         android:icon="@drawable/ic_account"
