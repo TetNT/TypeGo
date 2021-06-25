@@ -11,4 +11,7 @@
     <color name="button_main_green_unpressed">#00a97f</color>
     <color name="button_main_green_pressed">#00886d</color>
     <color name="text_accent">#e4e1be</color>
+    <color name="golden">#ffcc00</color>
+    <color name="correct_green">#44ff00</color>
+    <color name="incorrect_red">#ff0000</color>
 </resources>
