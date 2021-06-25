@@ -1,32 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">TypeGo</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
     <string name="title_activity_type" translatable="false">TypeActivity</string>
-    <string name="Current_version_num" translatable="false">0.8.5</string>
+    <string name="current_version_num" translatable="false">0.9.0</string>
     <string name="button_StartTest">Start!</string>
     <string name="button_Profile">My profile</string>
     <string name="button_About_App">App info</string>
     <!-- <string name="WordsPerMinute">%1$f Words Per Minute</string> -->
-    <string name="WordsPerMinute">Words Per Minute</string>
-    <string name="Previous_result">Previous result</string>
-    <string name="Best_result">Best result</string>
-    <string name="Incorrect_words">Incorrect words</string>
-    <string name="Continue">Continue</string>
-    <string name="Correct_words">Correct words</string>
-    <string name="Input_text_above">Input words here</string>
-    <string name="Time_left">Time left</string>
-    <string name="Current_version">Current version</string>
-    <string name="Words_loading_error_occurred">An error occurred while initializing words dictionary</string>
+    <string name="wordsPerMinute">Words Per Minute</string>
+    <string name="previous_result">Previous result</string>
+    <string name="best_result">Best result</string>
+    <string name="incorrect_words">Incorrect words</string>
+    <string name="_continue">Continue</string>
+    <string name="correct_words">Correct words</string>
+    <string name="input_text_above">Input words here</string>
+    <string name="time_left">Time left</string>
+    <string name="current_version">Current version</string>
+    <string name="words_loading_error_occurred">An error occurred while initializing words dictionary</string>
     <string name="test_setup_seconds">s.</string>
     <string name="test_setup_minutes">m.</string>
-    <string name="Enhanced">Enhanced</string>
-    <string name="Basic">Basic</string>
-    <string name="Dictionary">Dictionary</string>
-    <string name="Allotted_time">Allotted time</string>
-    <string name="Testing">Testing</string>
-    <string name="Amount_of_time">Amount of time</string>
-    <string name="Dictionary_type">Dictionary type</string>
-    <string name="Predictive_text">Predictive text</string>
+    <string name="enhanced">Enhanced</string>
+    <string name="basic">Basic</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="allotted_time">Allotted time</string>
+    <string name="testing">Testing</string>
+    <string name="amount_of_time">Amount of time</string>
+    <string name="dictionary_type">Dictionary type</string>
+    <string name="predictive_text">Predictive text</string>
     <string name="button_sign_in">Sign in</string>
     <string name="button_sign_up">Sign up</string>
     <string name="saving_results_error_occurred">An error occurred while saving the results</string>
@@ -39,14 +40,14 @@
     <string name="russian">russian</string>
     <string name="dialog_exit_test">Do you want to stop the test?</string>
     <string name="Exit">Exit</string>
-    <string name="No">No</string>
-    <string name="Yes">Yes</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="continue_testing">Do you want to continue the test?</string>
     <string name="selected_language">Selected language</string>
     <string name="german">german</string>
-    <string name="Login">Login</string>
-    <string name="Password">Password</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
     <string name="i_do_not_have_an_account"><u>I don\'t have an account</u></string>
     <string name="text_suggestions">Text suggestions</string>
     <string name="text_suggestions_enabled">Text suggestions are enabled.</string>
@@ -61,5 +62,12 @@
     <string name="tests_passed">Tests passed</string>
     <string name="my_account">My account</string>
     <string name="time_over" translatable="false">00:00</string>
-    <string name="Cancel">Cancel</string>
+    <string name="cancel">Cancel</string>
+    <string name="details">Details</string>
+    <string name="passed_tests">Passed tests</string>
+    <string name="WPM">WPM</string>
+    <string name="msg_nothing_to_show">Nothing to show yet.\nGo pass some tests!</string>
+    <string name="msg_average_wpm_unavailable">Average WPM will be available after you pass 5 tests</string>
+    <string name="new_best_result">New best result!</string>
+
 </resources>
