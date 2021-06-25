@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.security.Key;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class User implements Serializable {
@@ -34,7 +36,7 @@ public class User implements Serializable {
 
     public void addResult(TypingResult result) {
         if (resultList == null) resultList = new ArrayList<>();
-        resultList.add(result);
+        resultList.add(0,result);
     }
 
     public ArrayList<TypingResult> getResultList() {
@@ -120,6 +122,7 @@ public class User implements Serializable {
     public void setPreferredTextSuggestions(boolean preferredTextSuggestions) {
         this.preferredTextSuggestions = preferredTextSuggestions;
     }
+
 
     public static String serializeToJson(User user) {
         Gson gson = new Gson();
