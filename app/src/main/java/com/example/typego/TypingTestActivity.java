@@ -1,9 +1,9 @@
 package com.example.typego;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -16,14 +16,20 @@ import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.typego.utils.KeyConstants;
 import com.example.typego.utils.TimeConvert;
-
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,17 +52,24 @@ public class TypingTestActivity extends AppCompatActivity {
     int timeInSeconds;
     int secondsRemaining;
     int scrollerCursorPosition;
+    int correctWordsWeight;
     boolean testInitiallyPaused;
     static final int SCROLL_POWER = 25;
     boolean initErrorFlag;
-    CountDownTimer cd;
+    CountDownTimer countdown;
+    public InterstitialAd mInterstitialAd;
+    private boolean adShown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typing_test);
+        adShown = false;
+        loadAd();
         initialize();
         initWords();
+
         if (initErrorFlag) {
             finish();
             return;
@@ -92,11 +105,13 @@ public class TypingTestActivity extends AppCompatActivity {
                     totalWordsPassed++;
                     if (wordIsCorrect()) {
                         correctWordsCount++;
+                        correctWordsWeight += currentWord.length();
                         selectCurrentWordAsCorrect();
                     }
                     else selectCurrentWordAsIncorrect();
                     setNextWordCursors();
                     selectNextWord();
+                    inpWord.setText("");
 
                 } else {
                     checkSymbolsCorrectness();
@@ -144,17 +159,18 @@ public class TypingTestActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (testInitiallyPaused) return;
-        showContinueDialog();
+        showContinueDialog(adShown);
     }
 
-    private void showContinueDialog() {
+    private void showContinueDialog(boolean adShown) {
+        if (adShown) return;
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(getString(R.string.continue_testing)).setTitle(getString(R.string.welcome_back));
-        dialog.setNegativeButton(getString(R.string.No), (dial, which) -> {
+        dialog.setNegativeButton(getString(R.string.no), (dial, which) -> {
             pauseTimer();
             finish();
         });
-        dialog.setPositiveButton(getString(R.string.Yes), (dial, which) -> {
+        dialog.setPositiveButton(getString(R.string.yes), (dial, which) -> {
             resumeTimer();
             dial.cancel();
         });
@@ -163,7 +179,7 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void startTimer(int seconds) {
-        cd = new CountDownTimer(seconds*1000, 1000) {
+        countdown = new CountDownTimer(seconds*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tvTimeLeft.setText(TimeConvert.convertSecondsToStamp((int)(millisUntilFinished/1000)));
@@ -172,23 +188,18 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                tvTimeLeft.setText(getString(R.string.time_over));
-                Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
-                intent.putExtra(KeyConstants.TEST_CORRECT_WORDS, correctWordsCount);
-                intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, timeInSeconds); // may cause an exception
-                intent.putExtra(KeyConstants.TOTAL_WORDS, totalWordsPassed);
-                intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, dictionaryType);
-                intent.putExtra(KeyConstants.TEST_DICTIONARY_LANG, dictionaryLanguageId);
-                intent.putExtra(KeyConstants.TEST_SUGGESTIONS_ON, getIntent().getExtras().getBoolean(KeyConstants.TEST_SUGGESTIONS_ON));
-                finish();
-                startActivity(intent);
+                if (mInterstitialAd == null) {
+                    showResultActivity();
+                }
+                else showAd();
+
             }
         }.start();
     }
 
     private void pauseTimer() {
-        if (cd == null) return;
-        cd.cancel();
+        if (countdown == null) return;
+        countdown.cancel();
     }
 
     private void resumeTimer() {
@@ -220,11 +231,11 @@ public class TypingTestActivity extends AppCompatActivity {
     private void showExitTestDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.Exit);
-        dialog.setNegativeButton(R.string.No, (dial, which) -> {
+        dialog.setNegativeButton(R.string.no, (dial, which) -> {
             resumeTimer();
             dial.cancel();
         });
-        dialog.setPositiveButton(R.string.Yes, (dial, which) -> {
+        dialog.setPositiveButton(R.string.yes, (dial, which) -> {
             pauseTimer();
             finish();
             Intent intent = new Intent(TypingTestActivity.this, MainMenuActivity.class);
@@ -242,6 +253,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
     protected void resetAll() {
         correctWordsCount = 0;
+        correctWordsWeight = 0;
         currentWordStartCursor = 0;
         currentWordEndCursor = 0;
         scrollerCursorPosition = 0;
@@ -298,13 +310,12 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     protected void selectNextWord() {
-        BackgroundColorSpan selectedWordBG = new BackgroundColorSpan(Color.rgb(0,100,100));
-        ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.WHITE);
-        etWords.getText().setSpan(selectedWordBG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        etWords.getText().setSpan(selectedWordFG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        BackgroundColorSpan backgroundSpan = new BackgroundColorSpan(Color.rgb(0,100,100));
+        ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.WHITE);
+        etWords.getText().setSpan(backgroundSpan, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        etWords.getText().setSpan(foregroundSpan, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         scrollerCursorPosition = currentWordEndCursor + SCROLL_POWER;
         etWords.setSelection(scrollerCursorPosition);
-        inpWord.setText("");
     }
 
     protected void setNextWordCursors() {
@@ -346,7 +357,7 @@ public class TypingTestActivity extends AppCompatActivity {
             }
             is.close();
         } catch (IOException e) {
-            Toast.makeText(this, getString(R.string.Words_loading_error_occurred), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.words_loading_error_occurred), Toast.LENGTH_SHORT).show();
             initErrorFlag = true;
             return;
         }
@@ -358,5 +369,71 @@ public class TypingTestActivity extends AppCompatActivity {
             str.append(wordList.get(rnd.nextInt(wordList.size()))).append(" ");
         }
         words.setText(str.toString());
+    }
+ //
+    private void loadAd() {
+        Log.i("LoadAD", "Start loading");
+        String testAdID = "ca-app-pub-7144745225390143/6975421286";
+        MobileAds.initialize(this, initializationStatus -> {});
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                this,
+                testAdID,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        setAdCallback();
+                        Log.i("LoadAD", "Ad loaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        Log.i("LoadAD", "Failed to load ad:" + loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+
+
+    }
+
+    private void setAdCallback() {
+        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+            @Override
+            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                Log.i("AD", "Failed to show ad:" + adError.getMessage());
+            }
+
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                adShown = true;
+                showResultActivity();
+            }
+        });
+    }
+
+    private void showAd() {
+        if (mInterstitialAd == null) {
+            Log.i("AD", "Ad did not load");
+            return;
+        }
+        adShown = true;
+        mInterstitialAd.show(this);
+    }
+
+    private void showResultActivity() {
+        tvTimeLeft.setText(getString(R.string.time_over));
+        Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
+        intent.putExtra(KeyConstants.TEST_CORRECT_WORDS, correctWordsCount);
+        intent.putExtra(KeyConstants.TEST_CORRECT_WORDS_WEIGHT, correctWordsWeight);
+        intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, timeInSeconds);
+        intent.putExtra(KeyConstants.TOTAL_WORDS, totalWordsPassed);
+        intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, dictionaryType);
+        intent.putExtra(KeyConstants.TEST_DICTIONARY_LANG, dictionaryLanguageId);
+        intent.putExtra(KeyConstants.TEST_SUGGESTIONS_ON,
+                getIntent().getExtras().getBoolean(KeyConstants.TEST_SUGGESTIONS_ON));
+        finish();
+        startActivity(intent);
     }
 }
