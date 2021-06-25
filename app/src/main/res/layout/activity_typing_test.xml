@@ -45,7 +45,7 @@
             android:layout_marginStart="8dp"
             android:background="@drawable/text_input"
             android:ems="10"
-            android:hint="@string/Input_text_above"
+            android:hint="@string/input_text_above"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textPersonName"
             android:paddingStart="10dp"
@@ -81,12 +81,22 @@
         android:background="@drawable/mainbutton"
         android:backgroundTint="@color/bg_dark_gray"
         android:onClick="cancelTest"
-        android:text="@string/Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="gone"/>
 
+    <ProgressBar
+        android:id="@+id/testLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/words"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
