@@ -5,6 +5,5 @@
         android:drawable="@color/button_main_green_unpressed"/>
     <item
         android:drawable="@color/bg_dark_gray"/>
-        <!--android:drawable="@color/bg_dark_gray"-->
 
 </selector>
