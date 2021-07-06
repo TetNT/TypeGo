@@ -21,7 +21,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.typego.utils.KeyConstants;
+import com.example.typego.utils.StringKeys;
+import com.example.typego.utils.Language;
 import com.example.typego.utils.TimeConvert;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
@@ -48,7 +49,7 @@ public class TypingTestActivity extends AppCompatActivity {
     int currentWordEndCursor;
     String currentWord = "";
     int dictionaryType;
-    String dictionaryLanguageId;
+    Language dictionaryLanguage;
     int timeInSeconds;
     int secondsRemaining;
     int scrollerCursorPosition;
@@ -59,6 +60,7 @@ public class TypingTestActivity extends AppCompatActivity {
     CountDownTimer countdown;
     public InterstitialAd mInterstitialAd;
     private boolean adShown;
+    public boolean fromMainMenu;
 
 
     @Override
@@ -124,10 +126,11 @@ public class TypingTestActivity extends AppCompatActivity {
 
     private void initialize() {
         Bundle bundle = getIntent().getExtras();
-        timeInSeconds = bundle.getInt(KeyConstants.TEST_AMOUNT_OF_SECONDS);
-        dictionaryType = bundle.getInt(KeyConstants.TEST_DICTIONARY_TYPE);
-        boolean textSuggestionsIsOn = bundle.getBoolean(KeyConstants.TEST_SUGGESTIONS_ON);
-        dictionaryLanguageId = bundle.getString(KeyConstants.TEST_DICTIONARY_LANG);
+        timeInSeconds = bundle.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS);
+        dictionaryType = bundle.getInt(StringKeys.TEST_DICTIONARY_TYPE);
+        boolean textSuggestionsIsOn = bundle.getBoolean(StringKeys.TEST_SUGGESTIONS_ON);
+        fromMainMenu = bundle.getBoolean(StringKeys.FROM_MAIN_MENU);
+        dictionaryLanguage = (Language)bundle.getSerializable(StringKeys.TEST_DICTIONARY_LANG);
         initErrorFlag = false;
         secondsRemaining = timeInSeconds;
         etWords = findViewById(R.id.words);
@@ -188,6 +191,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                inpWord.setEnabled(false);
                 if (mInterstitialAd == null) {
                     showResultActivity();
                 }
@@ -229,6 +233,9 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void showExitTestDialog() {
+        Intent intent;
+        if (fromMainMenu) intent = new Intent(TypingTestActivity.this, MainActivity.class);
+        else intent = new Intent(TypingTestActivity.this, AccountActivity.class);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.Exit);
         dialog.setNegativeButton(R.string.no, (dial, which) -> {
@@ -238,7 +245,7 @@ public class TypingTestActivity extends AppCompatActivity {
         dialog.setPositiveButton(R.string.yes, (dial, which) -> {
             pauseTimer();
             finish();
-            Intent intent = new Intent(TypingTestActivity.this, MainMenuActivity.class);
+
             startActivity(intent);
         });
         dialog.show();
@@ -264,6 +271,7 @@ public class TypingTestActivity extends AppCompatActivity {
         initializeWordCursor();
         selectNextWord();
         inpWord.requestFocus();
+        inpWord.setText("");
     }
 
     private void selectCurrentSymbolAsCorrect(int symbolIndex) {
@@ -349,7 +357,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
         InputStream is;
         try {
-            is = am.open("Words" + dictionary + dictionaryLanguageId +".txt");
+            is = am.open("Words" + dictionary + dictionaryLanguage.getIdentifier() +".txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String currLine;
             while ((currLine = reader.readLine()) != null) {
@@ -425,14 +433,14 @@ public class TypingTestActivity extends AppCompatActivity {
     private void showResultActivity() {
         tvTimeLeft.setText(getString(R.string.time_over));
         Intent intent = new Intent(TypingTestActivity.this, ResultActivity.class);
-        intent.putExtra(KeyConstants.TEST_CORRECT_WORDS, correctWordsCount);
-        intent.putExtra(KeyConstants.TEST_CORRECT_WORDS_WEIGHT, correctWordsWeight);
-        intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, timeInSeconds);
-        intent.putExtra(KeyConstants.TOTAL_WORDS, totalWordsPassed);
-        intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, dictionaryType);
-        intent.putExtra(KeyConstants.TEST_DICTIONARY_LANG, dictionaryLanguageId);
-        intent.putExtra(KeyConstants.TEST_SUGGESTIONS_ON,
-                getIntent().getExtras().getBoolean(KeyConstants.TEST_SUGGESTIONS_ON));
+        intent.putExtra(StringKeys.TEST_CORRECT_WORDS, correctWordsCount);
+        intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, correctWordsWeight);
+        intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, timeInSeconds);
+        intent.putExtra(StringKeys.TOTAL_WORDS, totalWordsPassed);
+        intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, dictionaryType);
+        intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, dictionaryLanguage);
+        intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON,
+                getIntent().getExtras().getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
         finish();
         startActivity(intent);
     }
