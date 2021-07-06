@@ -16,27 +16,33 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.typego.utils.KeyConstants;
+import com.example.typego.utils.StringKeys;
 import com.example.typego.utils.Language;
 import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.User;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 import java.util.Locale;
 
 public class TestSetupActivity extends AppCompatActivity {
+
     SeekBar seekBar;
     RadioGroup rbDictionaryType;
     Spinner spinner;
     int progressInSeconds;
     CheckBox cbTextSuggestions;
     User currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_setup);
-        currentUser = User.getFromJson(getSharedPreferences(KeyConstants.USER_STORAGE_FILE, MODE_PRIVATE).getString(KeyConstants.PREFERENCES_CURRENT_USER, null));
+        currentUser = User.getFromStoredData(this);
+        if (currentUser == null) {
+            Toast.makeText(this, "An error occurred while loading user data", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         cbTextSuggestions = findViewById(R.id.cbPredictiveText);
         rbDictionaryType = findViewById(R.id.rbDictionaryType);
         cbTextSuggestions.setOnClickListener((v) -> {
@@ -76,25 +82,24 @@ public class TestSetupActivity extends AppCompatActivity {
 
         RadioButton radioButton = findViewById(rbDictionaryType.getCheckedRadioButtonId());
         Language language = (Language)spinner.getSelectedItem();
-        String languageId = language.getIdentifier();
 
         int selectedDictionaryIndex = rbDictionaryType.indexOfChild(radioButton);
         Intent intent = new Intent(this, TypingTestActivity.class);
-        intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, progressInSeconds);
-        intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, selectedDictionaryIndex);
-        intent.putExtra(KeyConstants.TEST_SUGGESTIONS_ON, cbTextSuggestions.isChecked());
-        intent.putExtra(KeyConstants.TEST_DICTIONARY_LANG, languageId);
+        intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, progressInSeconds);
+        intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, selectedDictionaryIndex);
+        intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, cbTextSuggestions.isChecked());
+        intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, language);
+        intent.putExtra(StringKeys.FROM_MAIN_MENU, false);
 
         // remember user settings
         if (currentUser != null) {
-            currentUser.setPreferredLanguage(languageId);
+            currentUser.setPreferredLanguage(language);
             currentUser.setPreferredDictionaryType(selectedDictionaryIndex);
             currentUser.setPreferredTextSuggestions(cbTextSuggestions.isChecked());
             currentUser.setPreferredTimeMode(seekBar.getProgress());
-            SharedPreferences.Editor editor = getSharedPreferences(KeyConstants.USER_STORAGE_FILE, MODE_PRIVATE).edit();
-            editor.putString(KeyConstants.PREFERENCES_CURRENT_USER,User.serializeToJson(currentUser));
-            editor.apply();
+            currentUser.storeData(this);
         }
+        finish();
         startActivity(intent);
     }
 
@@ -109,6 +114,7 @@ public class TestSetupActivity extends AppCompatActivity {
         return progressToSeconds;
     }
 
+    // select either user preferred language or system language
     public void selectCurrentLanguageOption() {
         spinner = findViewById(R.id.spinLanguageSelection);
         List<Language> languageList = Language.getAvailableLanguages(this);
@@ -119,10 +125,10 @@ public class TestSetupActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
         int systemLanguageIndex = 0;
         String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
-        if (currentUser.getPreferredLanguageId()!=null) {
+        if (currentUser.getPreferredLanguage()!=null) {
             for (int i = 0; i < adapter.getCount(); i++) {
                 String languageId = ((Language) adapter.getItem(i)).getIdentifier();
-                if (languageId.equalsIgnoreCase(currentUser.getPreferredLanguageId()))
+                if (languageId.equalsIgnoreCase(currentUser.getPreferredLanguage().getIdentifier()))
                     systemLanguageIndex = i;
             }
             spinner.setSelection(systemLanguageIndex);
