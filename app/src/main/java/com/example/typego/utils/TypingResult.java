@@ -6,13 +6,14 @@ public class TypingResult {
 
     private final double WPM;
     private final int dictionaryType;
-    private final String language;
+    private final Language language;
     private final int timeInSeconds;
     private final Date completionDateTime;
     private final int correctWords;
     private final int correctWordsWeight;
     private final int totalWords;
     private final boolean textSuggestions;
+    private final double DIVISION_POWER = 4.0;
 
     public double getWPM() {
         return WPM;
@@ -22,7 +23,7 @@ public class TypingResult {
         return dictionaryType;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
@@ -54,7 +55,7 @@ public class TypingResult {
                         int correctWordsWeight,
                         int totalWords,
                         int dictionaryType,
-                        String language,
+                        Language language,
                         int timeInSeconds,
                         boolean textSuggestions,
                         Date completionDateTime) {
@@ -66,6 +67,6 @@ public class TypingResult {
         this.language = language;
         this.timeInSeconds = timeInSeconds;
         this.completionDateTime = completionDateTime;
-        WPM = (60.0 / this.timeInSeconds) * this.correctWords;
+        WPM = (60.0 / this.timeInSeconds) * (this.correctWordsWeight/DIVISION_POWER);
     }
 }
