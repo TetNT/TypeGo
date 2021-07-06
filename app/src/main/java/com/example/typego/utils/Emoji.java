@@ -3,7 +3,7 @@ package com.example.typego.utils;
 import java.util.Random;
 
 public class Emoji {
-    // emoji used in results
+    // emojis that are used in results
     public static final int COLLISION = 0x1F4A5;
     public static final int HUNDRED_POINTS = 0x1F4AF;
     public static final int OK_HAND = 0x1F44C;
