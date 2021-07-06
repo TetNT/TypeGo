@@ -14,4 +14,5 @@
     <color name="golden">#ffcc00</color>
     <color name="correct_green">#44ff00</color>
     <color name="incorrect_red">#ff0000</color>
+    <color name="cardview_background">#424242</color>
 </resources>
