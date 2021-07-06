@@ -75,7 +75,7 @@
 
     <Button
         android:id="@+id/bCancelTest"
-        style="@style/AccentButton"
+        style="@style/accent_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/mainbutton"
