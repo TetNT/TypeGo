@@ -101,7 +101,7 @@
                 android:drawablePadding="4dp"/>
 
             <TextView
-                style="@style/SubmenuHeader"
+                style="@style/submenu_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -157,7 +157,7 @@
 
     <Button
         android:id="@+id/bFinish"
-        style="@style/AccentButton"
+        style="@style/accent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -191,7 +191,7 @@
 
     <Button
         android:id="@+id/bStartOver"
-        style="@style/AccentButton"
+        style="@style/accent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/mainbutton"
