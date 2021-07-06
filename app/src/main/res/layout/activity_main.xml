@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        style="@style/activity_title"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView">
+
+        <LinearLayout
+            android:id="@+id/cardsSection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardUsualTest"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/cardview_background"
+                app:cardCornerRadius="24dp"
+                android:onClick="startBasicTest"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/cardUsualTestHeader"
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="4dp"
+                        android:drawableTint="@color/button_main_green_unpressed"
+                        android:text="Basic test"
+                        app:drawableStartCompat="@drawable/ic_testing"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cardUsualTestDescription"
+                        android:layout_width="200dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="16dp"
+                        android:text="Start a basic-dictionary 1 minute test and see how much WPM you will get!"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@id/spinnerBasicTestLanguageSelection"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardUsualTestHeader" />
+
+                    <Spinner
+                        android:id="@+id/spinnerBasicTestLanguageSelection"
+                        style="@style/Widget.AppCompat.Spinner.DropDown"
+                        android:layout_width="210dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="8dp"
+                        android:paddingStart="4dp"
+                        android:paddingTop="1dp"
+                        android:paddingEnd="4dp"
+
+                        android:paddingBottom="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/button"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/card_action_button"
+                        android:drawableEnd="@drawable/ic_arrow_forward_24"
+                        android:onClick="startBasicTest"
+                        android:text="Go"
+                        android:textAllCaps="false"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_arrow_forward_24"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_margin="8dp"
+                        app:tint="@color/button_main_green_unpressed"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCustomizableTest"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/cardview_background"
+                app:cardCornerRadius="24dp"
+                android:onClick="openTestCustomization">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/cardCustomTestHeader"
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:drawablePadding="4dp"
+                        android:drawableTint="@color/button_main_green_unpressed"
+                        android:text="Custom test"
+                        app:drawableStartCompat="@drawable/ic_settings"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cardCustomTestDescription"
+                        android:layout_width="200dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="16dp"
+                        android:text="Customizable test for every need. Set up dictionary type, language and so on!"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardCustomTestHeader" />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_arrow_forward_24"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_margin="8dp"
+                        app:tint="@color/button_main_green_unpressed"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardUserAccount"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="@color/cardview_background"
+                app:cardCornerRadius="24dp"
+                android:onClick="openUserAccount"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/cardAccountHeader"
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="4dp"
+                        android:text="Account"
+                        app:drawableStartCompat="@drawable/ic_account"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:drawableTint="@color/button_main_green_unpressed" />
+
+                    <TextView
+                        android:id="@+id/cardAccountDescription"
+                        android:layout_width="200dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="16dp"
+                        android:text="Statistics, passed tests, and achievements are here!"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardAccountHeader" />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_arrow_forward_24"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_margin="8dp"
+                        app:tint="@color/button_main_green_unpressed" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/current_version_num"
+            android:gravity="center_horizontal"/>
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
