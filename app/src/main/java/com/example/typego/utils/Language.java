@@ -7,9 +7,10 @@ import androidx.annotation.NonNull;
 
 import com.example.typego.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Language {
+public class Language implements Serializable {
     private final String identifier;
     private final String name;
 
@@ -32,10 +33,9 @@ public class Language {
     public static ArrayList<Language> getAvailableLanguages(Context context) {
         ArrayList<Language> languages = new ArrayList<>();
         Resources resources = context.getResources();
-        languages.add(new Language("EN", resources.getString(R.string.english)));
-        languages.add(new Language("RU", resources.getString(R.string.russian)));
+        languages.add(new Language(StringKeys.LANGUAGE_EN, resources.getString(R.string.english)));
+        languages.add(new Language(StringKeys.LANGUAGE_RU, resources.getString(R.string.russian)));
         return languages;
-
     }
 
     @NonNull
