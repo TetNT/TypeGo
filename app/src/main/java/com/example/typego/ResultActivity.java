@@ -16,7 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.typego.utils.Emoji;
-import com.example.typego.utils.KeyConstants;
+import com.example.typego.utils.StringKeys;
+import com.example.typego.utils.Language;
 import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.TypingResult;
 import com.example.typego.utils.User;
@@ -33,7 +34,7 @@ public class ResultActivity extends AppCompatActivity {
     int totalWords = 0;
     boolean calledFromResultsTab;
     boolean textSuggestionsIsOn;
-    String dictionaryLanguageId;
+    Language dictionaryLanguage;
     SharedPreferences spUser;
     TextView tvBestResult;
     TypingResult result;
@@ -44,8 +45,8 @@ public class ResultActivity extends AppCompatActivity {
         EmojiCompat.Config emojiConfig = new BundledEmojiCompatConfig(this);
         EmojiCompat.init(emojiConfig);
         setContentView(R.layout.activity_result);
-        spUser = getSharedPreferences(KeyConstants.USER_STORAGE_FILE, MODE_PRIVATE);
-        currentUser = User.getFromJson(spUser.getString(KeyConstants.PREFERENCES_CURRENT_USER, null));
+        spUser = User.getUserSharedPreferences(this);
+        currentUser = User.getFromStoredData(this);
         EmojiTextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvPreviousResult = findViewById(R.id.tvPreviousResult);
         tvBestResult = findViewById(R.id.tvBestResult);
@@ -81,7 +82,7 @@ public class ResultActivity extends AppCompatActivity {
         tvCorrectWords.setText(getString(R.string.correct_words) + ": " + correctWords);
         tvDictionary.setText(getString(R.string.dictionary) + ": " + DictionaryName);
         tvAllottedTime.setText(getString(R.string.allotted_time) + ": " + TimeConvert.convertSeconds(this, timeInSeconds));
-        tvLanguage.setText(getString(R.string.selected_language) + ": " + dictionaryLanguageId);
+        tvLanguage.setText(getString(R.string.selected_language) + ": " + dictionaryLanguage.getName());
         tvTextSuggestions.setText(getString(R.string.text_suggestions) + ": " + textSuggestions);
         if (wpm <= 0 && !calledFromResultsTab)
             Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT).show();
@@ -90,10 +91,10 @@ public class ResultActivity extends AppCompatActivity {
         Button bStartOver = findViewById(R.id.bStartOver);
         bStartOver.setOnClickListener(v -> {
             Intent intent = new Intent(ResultActivity.this, TypingTestActivity.class);
-            intent.putExtra(KeyConstants.TEST_SUGGESTIONS_ON, arguments.getBoolean(KeyConstants.TEST_SUGGESTIONS_ON));
-            intent.putExtra(KeyConstants.TEST_AMOUNT_OF_SECONDS, arguments.getInt(KeyConstants.TEST_AMOUNT_OF_SECONDS));
-            intent.putExtra(KeyConstants.TEST_DICTIONARY_TYPE, arguments.getInt(KeyConstants.TEST_DICTIONARY_TYPE));
-            intent.putExtra(KeyConstants.TEST_DICTIONARY_LANG, arguments.getString(KeyConstants.TEST_DICTIONARY_LANG));
+            intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
+            intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS));
+            intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, arguments.getInt(StringKeys.TEST_DICTIONARY_TYPE));
+            intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG));
             finish();
             startActivity(intent);
         });
@@ -105,14 +106,14 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     void initIntentData(Bundle arguments) {
-        correctWords = arguments.getInt(KeyConstants.TEST_CORRECT_WORDS);
-        correctWordsWeight = arguments.getInt(KeyConstants.TEST_CORRECT_WORDS_WEIGHT);
-        timeInSeconds = arguments.getInt(KeyConstants.TEST_AMOUNT_OF_SECONDS);
-        totalWords = arguments.getInt(KeyConstants.TOTAL_WORDS);
-        dictionaryType = arguments.getInt(KeyConstants.TEST_DICTIONARY_TYPE);
-        dictionaryLanguageId = arguments.getString(KeyConstants.TEST_DICTIONARY_LANG);
-        textSuggestionsIsOn = arguments.getBoolean(KeyConstants.TEST_SUGGESTIONS_ON);
-        calledFromResultsTab = arguments.getBoolean(KeyConstants.CALLED_FROM_PASSED_RESULTS);
+        correctWords = arguments.getInt(StringKeys.TEST_CORRECT_WORDS);
+        correctWordsWeight = arguments.getInt(StringKeys.TEST_CORRECT_WORDS_WEIGHT);
+        timeInSeconds = arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS);
+        totalWords = arguments.getInt(StringKeys.TOTAL_WORDS);
+        dictionaryType = arguments.getInt(StringKeys.TEST_DICTIONARY_TYPE);
+        dictionaryLanguage = (Language)arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG);
+        textSuggestionsIsOn = arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON);
+        calledFromResultsTab = arguments.getBoolean(StringKeys.CALLED_FROM_PASSED_RESULTS);
     }
 
     private void SaveResultData() {
@@ -130,35 +131,28 @@ public class ResultActivity extends AppCompatActivity {
 
         currentUser.addResult(result);
 
-        SharedPreferences.Editor editor = spUser.edit();
-        editor.putString(KeyConstants.PREFERENCES_CURRENT_USER,User.serializeToJson(currentUser));
-        editor.apply();
+        currentUser.storeData(this);
     }
 
-    private void setTextViewDrawableColor(TextView textView, int color) {
-        for (Drawable drawable: textView.getCompoundDrawables())
-            if (drawable!=null) drawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
-    }
 
     public void SaveAndContinue(View view){
         finish();
         if (!calledFromResultsTab) {
-            Intent intent = new Intent(this, MainMenuActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }
 
     private TypingResult getCurrentResult() {
-        TypingResult result = new TypingResult(
+        return new TypingResult(
                 correctWords,
                 correctWordsWeight,
                 totalWords,
                 dictionaryType,
-                dictionaryLanguageId,
+                dictionaryLanguage,
                 timeInSeconds,
                 textSuggestionsIsOn,
                 Calendar.getInstance().getTime());
-        return result;
     }
 
 }
