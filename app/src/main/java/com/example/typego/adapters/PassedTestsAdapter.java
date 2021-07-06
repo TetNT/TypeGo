@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.typego.R;
+import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.TypingResult;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,9 +20,9 @@ import java.util.Locale;
 
 public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.TestViewHolder> {
     ArrayList<TypingResult> results;
-    public final int PREV_RES_IMAGE = R.drawable.ic_prev_res;
     Context context;
-    private RecyclerViewOnClickListener listener;
+    private final RecyclerViewOnClickListener listener;
+    private final int MAX_ITEM_COUNT = 30;
 
     public PassedTestsAdapter(Context context, ArrayList<TypingResult> results, RecyclerViewOnClickListener listener) {
         this.context = context;
@@ -33,26 +34,24 @@ public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.
     public TestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.passed_tests_item, parent, false);
-
         return new TestViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
-        holder.itemImage.setImageResource(PREV_RES_IMAGE);
         Date completionTime = results.get(position).getCompletionDateTime();
         DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.DEFAULT, SimpleDateFormat.SHORT);
-        //DateFormat timeFormat = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT, context.getResources().getConfiguration().locale);
-        //holder.itemDateTime.setText(dateFormat.format(completionTime) + " " + timeFormat.format(completionTime));
         holder.itemDateTime.setText(dateFormat.format(completionTime));
         holder.itemWPM.setText(context.getText(R.string.WPM) + ": " + (int)results.get(position).getWPM());
+        holder.itemTimeInSeconds.setText(TimeConvert.convertSecondsToStamp(results.get(position).getTimeInSeconds()));
+        holder.itemLanguage.setText(results.get(position).getLanguage().getIdentifier());
     }
 
     @Override
     public int getItemCount() {
-        if (results!=null)
-        return results.size();
-        return 0;
+        if (results==null) return 0;
+        if (results.size() < MAX_ITEM_COUNT) return results.size();
+        return MAX_ITEM_COUNT;
     }
 
     public interface RecyclerViewOnClickListener {
@@ -63,14 +62,17 @@ public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.
     class TestViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView itemDateTime;
         TextView itemWPM;
+        TextView itemTimeInSeconds;
+        TextView itemLanguage;
         ImageView itemImage;
 
         public TestViewHolder(View itemView) {
             super(itemView);
-
             itemDateTime = itemView.findViewById(R.id.itemDateTime);
             itemWPM = itemView.findViewById(R.id.itemWPM);
             itemImage = itemView.findViewById(R.id.itemImage);
+            itemTimeInSeconds = itemView.findViewById(R.id.itemTimeInSeconds);
+            itemLanguage = itemView.findViewById(R.id.itemLanguage);
             itemView.setOnClickListener(this);
         }
 
