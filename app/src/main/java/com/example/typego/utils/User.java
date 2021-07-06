@@ -1,62 +1,37 @@
 package com.example.typego.utils;
 
-import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 
 import java.io.Serializable;
-import java.security.Key;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class User implements Serializable {
-    private int id;
-    private String userName;
-    private String password;
     private int lastResult;
     private int bestResult;
-    private double averageWPM;
-    private String preferredLanguageId;
+    private Language preferredLanguage;
     private int preferredTimeMode;
     private int preferredDictionaryType;
     private boolean preferredTextSuggestions;
     private ArrayList<TypingResult> resultList;
 
-
     public User() {
-
+        resultList = new ArrayList<>();
     }
 
-    public User(int id, String userName, String password) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-    }
-
-    public void addResult(TypingResult result) {
-        if (resultList == null) resultList = new ArrayList<>();
+    public void addResult(@NonNull TypingResult result) {
         resultList.add(0,result);
     }
 
+    @NonNull
     public ArrayList<TypingResult> getResultList() {
         return resultList;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public int getLastResult() {
@@ -75,28 +50,12 @@ public class User implements Serializable {
         this.bestResult = bestResult;
     }
 
-    public double getAverageWPM() {
-        return averageWPM;
+    public void setPreferredLanguage(Language preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
-    public void setAverageWPM(double averageWPM) {
-        this.averageWPM = averageWPM;
-    }
-
-    public String getPreferredLanguage() {
-        return preferredLanguageId;
-    }
-
-    public void setPreferredLanguage(String preferredLanguage) {
-        this.preferredLanguageId = preferredLanguage;
-    }
-
-    public String getPreferredLanguageId() {
-        return preferredLanguageId;
-    }
-
-    public void setPreferredLanguageId(String preferredLanguageId) {
-        this.preferredLanguageId = preferredLanguageId;
+    public Language getPreferredLanguage() {
+        return preferredLanguage;
     }
 
     public int getPreferredTimeMode() {
@@ -123,8 +82,7 @@ public class User implements Serializable {
         this.preferredTextSuggestions = preferredTextSuggestions;
     }
 
-
-    public static String serializeToJson(User user) {
+    public static String serializeToJson(@NonNull User user) {
         Gson gson = new Gson();
         return gson.toJson(user);
     }
@@ -132,4 +90,23 @@ public class User implements Serializable {
     public static User getFromJson(String json) {
         return new Gson().fromJson(json, User.class);
     }
+
+    public void storeData(@NonNull Context context) {
+        SharedPreferences spUser = getUserSharedPreferences(context);
+        SharedPreferences.Editor editor = spUser.edit();
+        editor.putString(StringKeys.PREFERENCES_CURRENT_USER, serializeToJson(this));
+        editor.apply();
+    }
+
+    public static User getFromStoredData(@NonNull Context context) {
+        User user;
+        SharedPreferences sharedPreferences = User.getUserSharedPreferences(context);
+        user = User.getFromJson(sharedPreferences.getString(StringKeys.PREFERENCES_CURRENT_USER, null));
+        return user;
+    }
+
+    public static SharedPreferences getUserSharedPreferences(@NonNull Context context) {
+        return context.getSharedPreferences(StringKeys.USER_STORAGE_FILE ,MODE_PRIVATE);
+    }
+
 }
