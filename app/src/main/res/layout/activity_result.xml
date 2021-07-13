@@ -150,6 +150,17 @@
                 app:drawableStartCompat="@drawable/ic_info"
                 android:drawablePadding="4dp"/>
 
+            <TextView
+                android:id="@+id/tvScreenOrientation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:drawableStartCompat="@drawable/ic_portrait"
+                style="@style/list_fields"
+                android:textSize="20sp"
+                android:drawablePadding="4dp"
+                android:text="@string/screen_orientation"/>
+
         </LinearLayout>
 
 
