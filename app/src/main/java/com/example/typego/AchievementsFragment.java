@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.typego.adapters.AchievementsAdapter;
-import com.example.typego.adapters.PassedTestsAdapter;
 import com.example.typego.utils.Achievement;
+import com.example.typego.utils.User;
 
 import java.util.ArrayList;
 
@@ -39,10 +39,13 @@ public class AchievementsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayList<Achievement> achievements = Achievement.getAchievementsList();
+        User currentUser = User.getFromStoredData(getContext());
+        ArrayList<Achievement> achievements = currentUser.getAchievements();
         RecyclerView rvAchievements = view.findViewById(R.id.rv_achievements);
         rvAchievements.setAdapter(new AchievementsAdapter(
-                getContext(), achievements));
+                getContext(),
+                achievements,
+                User.getFromStoredData(getContext())));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvAchievements.setLayoutManager(linearLayoutManager);
     }
