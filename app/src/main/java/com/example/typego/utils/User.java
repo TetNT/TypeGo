@@ -19,10 +19,16 @@ public class User implements Serializable {
     private int preferredTimeMode;
     private int preferredDictionaryType;
     private boolean preferredTextSuggestions;
-    private ArrayList<TypingResult> resultList;
+    private final ArrayList<TypingResult> resultList;
+    private ArrayList<Achievement> achievements;
 
     public User() {
         resultList = new ArrayList<>();
+        achievements = new ArrayList<>();
+    }
+
+    public void initAchievements(Context context) {
+        achievements = Achievement.getAchievementList(context);
     }
 
     public void addResult(@NonNull TypingResult result) {
@@ -82,6 +88,10 @@ public class User implements Serializable {
         this.preferredTextSuggestions = preferredTextSuggestions;
     }
 
+    public ArrayList<Achievement> getAchievements() {
+        return achievements;
+    }
+
     public static String serializeToJson(@NonNull User user) {
         Gson gson = new Gson();
         return gson.toJson(user);
@@ -108,5 +118,6 @@ public class User implements Serializable {
     public static SharedPreferences getUserSharedPreferences(@NonNull Context context) {
         return context.getSharedPreferences(StringKeys.USER_STORAGE_FILE ,MODE_PRIVATE);
     }
+
 
 }
