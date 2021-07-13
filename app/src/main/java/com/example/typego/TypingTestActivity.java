@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -49,13 +51,14 @@ public class TypingTestActivity extends AppCompatActivity {
     int currentWordEndCursor;
     String currentWord = "";
     int dictionaryType;
+    int screenOrientation;
     Language dictionaryLanguage;
     int timeInSeconds;
     int secondsRemaining;
     int scrollerCursorPosition;
     int correctWordsWeight;
     boolean testInitiallyPaused;
-    static final int SCROLL_POWER = 25;
+    int SCROLL_POWER = 25;
     boolean initErrorFlag;
     CountDownTimer countdown;
     public InterstitialAd mInterstitialAd;
@@ -70,6 +73,7 @@ public class TypingTestActivity extends AppCompatActivity {
         adShown = false;
         loadAd();
         initialize();
+        setScreenOrientation();
         initWords();
 
         if (initErrorFlag) {
@@ -128,6 +132,7 @@ public class TypingTestActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         timeInSeconds = bundle.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS);
         dictionaryType = bundle.getInt(StringKeys.TEST_DICTIONARY_TYPE);
+        screenOrientation = bundle.getInt(StringKeys.TEST_SCREEN_ORIENTATION);
         boolean textSuggestionsIsOn = bundle.getBoolean(StringKeys.TEST_SUGGESTIONS_ON);
         fromMainMenu = bundle.getBoolean(StringKeys.FROM_MAIN_MENU);
         dictionaryLanguage = (Language)bundle.getSerializable(StringKeys.TEST_DICTIONARY_LANG);
@@ -215,8 +220,8 @@ public class TypingTestActivity extends AppCompatActivity {
         deselectSymbols(currentWordStartCursor, currentWordEndCursor);
         for (int i = 0; i<currentWord.length();i++) {
             if (i<inpWord.length()) {
-                char currInpChar = inpWord.getText().charAt(i);
-                char currComparingChar = currentWord.charAt(i);
+                char currInpChar = Character.toLowerCase(inpWord.getText().charAt(i));
+                char currComparingChar = Character.toLowerCase(currentWord.charAt(i));
                 if (currInpChar == currComparingChar) {
                     selectCurrentSymbolAsCorrect(i+currentWordStartCursor);
                 } else {
@@ -235,9 +240,9 @@ public class TypingTestActivity extends AppCompatActivity {
     private void showExitTestDialog() {
         Intent intent;
         if (fromMainMenu) intent = new Intent(TypingTestActivity.this, MainActivity.class);
-        else intent = new Intent(TypingTestActivity.this, AccountActivity.class);
+        else intent = new Intent(TypingTestActivity.this, TestSetupActivity.class);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.Exit);
+        dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.exit);
         dialog.setNegativeButton(R.string.no, (dial, which) -> {
             resumeTimer();
             dial.cancel();
@@ -294,8 +299,9 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     protected boolean wordIsCorrect() {
-        String enteredWord = inpWord.getText().toString();
-        return enteredWord.equals(currentWord + " ");
+        String enteredWord = inpWord.getText().toString().trim();
+        String comparingWord = currentWord.replace("\t","");
+        return enteredWord.equalsIgnoreCase(comparingWord);
     }
 
     protected void deselectCurrentWord() {
@@ -358,7 +364,7 @@ public class TypingTestActivity extends AppCompatActivity {
         InputStream is;
         try {
             is = am.open("Words" + dictionary + dictionaryLanguage.getIdentifier() +".txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String currLine;
             while ((currLine = reader.readLine()) != null) {
                 wordList.add(currLine);
@@ -378,7 +384,18 @@ public class TypingTestActivity extends AppCompatActivity {
         }
         words.setText(str.toString());
     }
- //
+
+    private void setScreenOrientation() {
+        if (screenOrientation==0) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            SCROLL_POWER = 25;
+        }
+        else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            SCROLL_POWER = 0;
+        }
+    }
+
     private void loadAd() {
         Log.i("LoadAD", "Start loading");
         String testAdID = "ca-app-pub-7144745225390143/6975421286";
