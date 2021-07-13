@@ -1,41 +1,28 @@
 package com.example.typego.utils;
 
 import android.content.Context;
-import android.content.res.Resources;
-
 import androidx.annotation.NonNull;
-
 import com.example.typego.R;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Language implements Serializable {
     private final String identifier;
-    private final String name;
+    private final int languageNameResourceId;
+    private String name;
 
-    public Language(String identifier, String name) {
+    public Language(String identifier, int languageNameResourceId, Context context) {
         this.identifier = identifier;
-        this.name = name;
+        this.languageNameResourceId = languageNameResourceId;
+        name = context.getResources().getString(languageNameResourceId);
     }
 
     public String getIdentifier() {
         return identifier;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-     /*Returns list of languages available for testing.
-       New languages are adding here. */
-    public static ArrayList<Language> getAvailableLanguages(Context context) {
-        ArrayList<Language> languages = new ArrayList<>();
-        Resources resources = context.getResources();
-        languages.add(new Language(StringKeys.LANGUAGE_EN, resources.getString(R.string.english)));
-        languages.add(new Language(StringKeys.LANGUAGE_RU, resources.getString(R.string.russian)));
-        return languages;
+    public String getName(Context context) {
+        return context.getResources().getString(languageNameResourceId);
     }
 
     @NonNull
@@ -43,4 +30,18 @@ public class Language implements Serializable {
     public String toString() {
         return name;
     }
+
+    /*Returns list of languages available for testing.
+           New languages are adding here. */
+    public static ArrayList<Language> getAvailableLanguages(Context context) {
+        ArrayList<Language> languages = new ArrayList<>();
+        languages.add(new Language(StringKeys.LANGUAGE_EN, R.string.english, context));
+        languages.add(new Language(StringKeys.LANGUAGE_FR, R.string.french, context));
+        languages.add(new Language(StringKeys.LANGUAGE_DE, R.string.german, context));
+        languages.add(new Language(StringKeys.LANGUAGE_IT, R.string.italian, context));
+        languages.add(new Language(StringKeys.LANGUAGE_RU, R.string.russian, context));
+        languages.add(new Language(StringKeys.LANGUAGE_ES, R.string.spanish, context));
+        return languages;
+    }
+
 }
