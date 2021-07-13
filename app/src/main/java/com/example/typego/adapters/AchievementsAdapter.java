@@ -1,6 +1,8 @@
 package com.example.typego.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.typego.R;
 import com.example.typego.utils.Achievement;
-import com.google.android.gms.ads.appopen.AppOpenAd;
+import com.example.typego.utils.AchievementRequirement;
+import com.example.typego.utils.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.AchievementViewHolder> {
-    private ArrayList<Achievement> achievements;
-    private Context context;
+    private final User user;
+    private final ArrayList<Achievement> achievements;
+    private final Context context;
 
-    public AchievementsAdapter(@NonNull Context context, @NonNull ArrayList<Achievement> achievements) {
+    public AchievementsAdapter(@NonNull Context context, @NonNull ArrayList<Achievement> achievements, User user) {
         this.context = context;
         this.achievements = achievements;
+        this.user = user;
     }
 
     @NonNull
@@ -44,7 +51,24 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
             holder.progressBarAchievement.setVisibility(View.GONE);
             holder.tvProgressDescription.setVisibility(View.GONE);
         }
-
+        else {
+            AchievementRequirement currRequirement = currAchievement.getRequirements().get(0);
+            holder.progressBarAchievement.setMax(currRequirement.getRequiredAmount());
+            holder.progressBarAchievement.setProgress(currRequirement.getCurrentProgress(user));
+            holder.tvProgressDescription.setText(
+                    context.getString(
+                            R.string.achievement_progress,
+                            currRequirement.getCurrentProgress(user),
+                            currRequirement.getRequiredAmount()));
+        }
+        if (currAchievement.getCompletionDate()==null) {
+            holder.tvCompletionDate.setVisibility(View.INVISIBLE);
+            holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        }
+        else {
+            DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.DEFAULT, SimpleDateFormat.SHORT);
+            holder.tvCompletionDate.setText(dateFormat.format(currAchievement.getCompletionDate()));
+        }
     }
 
     @Override
@@ -52,7 +76,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
         return achievements.size();
     }
 
-    class AchievementViewHolder extends RecyclerView.ViewHolder {
+    static class AchievementViewHolder extends RecyclerView.ViewHolder {
         TextView tvAchievementName, tvAchievementDescription, tvCompletionDate, tvProgressDescription;
         ImageView imgAchievement;
         ProgressBar progressBarAchievement;
