@@ -3,7 +3,6 @@
     <string name="app_name" translatable="false">TypeGo</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
     <string name="title_activity_type" translatable="false">TypeActivity</string>
-    <string name="current_version_num" translatable="false">0.9.0</string>
     <string name="button_StartTest">Start!</string>
     <string name="button_Profile">My profile</string>
     <string name="button_About_App">App info</string>
@@ -32,20 +31,14 @@
     <string name="button_sign_up">Sign up</string>
     <string name="saving_results_error_occurred">An error occurred while saving the results</string>
     <string name="sign_in_to_save_results">To save results you need to sign in</string>
-    <string-array name="Languages_spinner">
-        <item>russian</item>
-        <item>english</item>
-    </string-array>
-    <string name="english">english</string>
-    <string name="russian">russian</string>
     <string name="dialog_exit_test">Do you want to stop the test?</string>
-    <string name="Exit">Exit</string>
+    <string name="exit">Exit</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="continue_testing">Do you want to continue the test?</string>
     <string name="selected_language">Selected language</string>
-    <string name="german">german</string>
+
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="i_do_not_have_an_account"><u>I don\'t have an account</u></string>
@@ -69,5 +62,37 @@
     <string name="msg_nothing_to_show">Nothing to show yet.\nGo pass some tests!</string>
     <string name="msg_average_wpm_unavailable">Average WPM will be available after you pass 5 tests</string>
     <string name="new_best_result">New best result!</string>
+    <string name="all">All</string>
+    <string name="achievements">Achievements</string>
+    <string name="custom_test">Custom test</string>
+    <string name="basic_test">Basic test</string>
+    <string name="profile">Profile</string>
+    <string name="basic_test_desc">Start a 1 minute test with basic dictionary and see how much WPM you will get!</string>
+    <string name="custom_test_desc">Customizable test for every need. Set up dictionary type, language and so on!</string>
+    <string name="profile_desc">Statistics, passed tests, and achievements are here!</string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="russian">Russian</string>
+    <string name="german">German</string>
+    <string name="italian">Italian</string>
+    <string name="spanish">Spanish</string>
+    <string name="screen_orientation">Screen orientation</string>
+    <string name="vertical">Portrait</string>
+    <string name="horizontal">Landscape</string>
+
+<!--  Placeholders  -->
+    <string name="previous_result_pl">Previous result: %1$d</string>
+    <string name="best_result_pl">Best result: %1$d</string>
+    <string name="correct_words_pl">Correct words: %1$d</string>
+    <string name="incorrect_words_pl">Incorrect words: %1$d</string>
+    <string name="dictionary_pl">Dictionary: %1$s</string>
+    <string name="wpm_pl">WPM: %1$d</string>
+    <string name="words_per_minute_pl">%1$d Words Per Minute</string>
+    <string name="selected_time_pl">Selected time: %1$s</string>
+    <string name="selected_language_pl">Selected language: %1$s</string>
+    <string name="text_suggestions_pl">Text suggestions: %1$s</string>
+    <string name="screen_orientation_pl">Screen orientation: %1$s</string>
+    <string name="tests_passed_pl">Tests passed: %1$d</string>
+    <string name="average_wpm_pl">Average WPM: %1$d</string>
 
 </resources>
