@@ -3,7 +3,6 @@ package com.example.typego;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,7 +26,7 @@ import java.util.Locale;
 public class TestSetupActivity extends AppCompatActivity {
 
     SeekBar seekBar;
-    RadioGroup rbDictionaryType;
+    RadioGroup rbDictionaryType, rbScreenOrientation;
     Spinner spinner;
     int progressInSeconds;
     CheckBox cbTextSuggestions;
@@ -45,6 +44,7 @@ public class TestSetupActivity extends AppCompatActivity {
         }
         cbTextSuggestions = findViewById(R.id.cbPredictiveText);
         rbDictionaryType = findViewById(R.id.rbDictionaryType);
+        rbScreenOrientation = findViewById(R.id.rbScreenOrientation);
         cbTextSuggestions.setOnClickListener((v) -> {
             if (cbTextSuggestions.isChecked())
                 Toast.makeText(this, getString(R.string.text_suggestions_enabled), Toast.LENGTH_SHORT).show();
@@ -82,13 +82,17 @@ public class TestSetupActivity extends AppCompatActivity {
 
         RadioButton radioButton = findViewById(rbDictionaryType.getCheckedRadioButtonId());
         Language language = (Language)spinner.getSelectedItem();
-
         int selectedDictionaryIndex = rbDictionaryType.indexOfChild(radioButton);
+
+        RadioButton screenOrientation = findViewById(rbScreenOrientation.getCheckedRadioButtonId());
+        int selectedScreenOrientation = rbScreenOrientation.indexOfChild(screenOrientation);
+
         Intent intent = new Intent(this, TypingTestActivity.class);
         intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, progressInSeconds);
         intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, selectedDictionaryIndex);
         intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, cbTextSuggestions.isChecked());
         intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, language);
+        intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, selectedScreenOrientation);
         intent.putExtra(StringKeys.FROM_MAIN_MENU, false);
 
         // remember user settings
@@ -135,7 +139,7 @@ public class TestSetupActivity extends AppCompatActivity {
             return;
         }
         for (int i = 0; i < adapter.getCount(); i++) {
-            String language = ((Language) adapter.getItem(i)).getName();
+            String language = ((Language) adapter.getItem(i)).getName(this);
             if (language.equals(systemLanguage))
                 systemLanguageIndex = i;
         }

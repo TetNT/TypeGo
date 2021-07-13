@@ -158,8 +158,49 @@
                 android:buttonTint="@color/button_main_green_unpressed"
                 android:checked="true"
                 android:textSize="18sp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/text_suggestions"
                 />
+
+            <LinearLayout
+                android:id="@+id/screenOrientationSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/submenu_header"
+                    android:text="@string/screen_orientation"/>
+
+                <RadioGroup
+                    android:id="@+id/rbScreenOrientation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <RadioButton
+                        android:id="@+id/rbVertical"
+                        android:checked="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vertical"
+                        android:textSize="18sp"
+                        android:buttonTint="@color/button_main_green_unpressed"
+                        />
+                    <RadioButton
+                        android:id="@+id/rbHorizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/horizontal"
+                        android:textSize="18sp"
+                        android:buttonTint="@color/button_main_green_unpressed"
+                        />
+                </RadioGroup>
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
