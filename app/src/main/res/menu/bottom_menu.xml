@@ -7,6 +7,6 @@
         android:title="@string/button_Profile" />
     <item
         android:id="@+id/achievements_menu_item"
-        android:icon="@drawable/ic_assessment"
+        android:icon="@drawable/ic_achievement_star"
         android:title="@string/achievements" />
 </menu>
