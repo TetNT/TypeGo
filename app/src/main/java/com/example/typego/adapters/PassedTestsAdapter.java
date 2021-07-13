@@ -15,14 +15,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.TestViewHolder> {
     ArrayList<TypingResult> results;
     Context context;
     private final RecyclerViewOnClickListener listener;
-    private final int MAX_ITEM_COUNT = 30;
 
     public PassedTestsAdapter(Context context, ArrayList<TypingResult> results, RecyclerViewOnClickListener listener) {
         this.context = context;
@@ -42,7 +40,7 @@ public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.
         Date completionTime = results.get(position).getCompletionDateTime();
         DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.DEFAULT, SimpleDateFormat.SHORT);
         holder.itemDateTime.setText(dateFormat.format(completionTime));
-        holder.itemWPM.setText(context.getText(R.string.WPM) + ": " + (int)results.get(position).getWPM());
+        holder.itemWPM.setText(context.getString(R.string.wpm_pl, (int)results.get(position).getWPM()));
         holder.itemTimeInSeconds.setText(TimeConvert.convertSecondsToStamp(results.get(position).getTimeInSeconds()));
         holder.itemLanguage.setText(results.get(position).getLanguage().getIdentifier());
     }
@@ -50,8 +48,8 @@ public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.
     @Override
     public int getItemCount() {
         if (results==null) return 0;
-        if (results.size() < MAX_ITEM_COUNT) return results.size();
-        return MAX_ITEM_COUNT;
+        int MAX_ITEM_COUNT = 30;
+        return Math.min(results.size(), MAX_ITEM_COUNT);
     }
 
     public interface RecyclerViewOnClickListener {
