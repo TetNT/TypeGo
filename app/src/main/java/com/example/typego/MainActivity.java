@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, 60);
         intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, 0);
         intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, true);
+        intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, 0);
         intent.putExtra(StringKeys.FROM_MAIN_MENU, true);
         startActivity(intent);
         finish();
@@ -76,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void userInit() {
         User currentUser = User.getFromStoredData(this);
-        if (currentUser==null) currentUser = new User();
+        if (currentUser==null) {
+            currentUser = new User();
+            currentUser.initAchievements(this);
+        }
         currentUser.storeData(this);
     }
 
