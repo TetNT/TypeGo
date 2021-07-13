@@ -2,7 +2,6 @@
 <resources>
     <string name="button_StartTest">Начать!</string>
     <string name="button_Profile">Мой профиль</string>
-    <string name="button_About_App">О приложении</string>
     <string name="wordsPerMinute">Слов в минуту</string>
     <string name="previous_result">Предыдущий результат</string>
     <string name="best_result">Лучший результат</string>
@@ -11,7 +10,7 @@
     <string name="correct_words">Правильных слов</string>
     <string name="input_text_above">Вводите текст выше</string>
     <string name="time_left">Осталось времени</string>
-    <string name="current_version">Текущая версия</string>
+    <string name="current_version">Версия %1$s</string>
     <string name="words_loading_error_occurred">Произошла ошибка при загрузке слов</string>
     <string name="test_setup_seconds">с.</string>
     <string name="test_setup_minutes">м.</string>
