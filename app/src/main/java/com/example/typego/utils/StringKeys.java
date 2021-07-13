@@ -11,6 +11,7 @@ public class StringKeys {
     public static final String TEST_DICTIONARY_LANG = "DictionaryLanguageId";
     public static final String TEST_CORRECT_WORDS = "correctWords";
     public static final String TEST_CORRECT_WORDS_WEIGHT = "correctWordsWeight";
+    public static final String TEST_SCREEN_ORIENTATION = "screenOrientation";
     public static final String TOTAL_WORDS = "totalWords";
     public static final String CALLED_FROM_PASSED_RESULTS = "calledFromPassedResults";
     public static final String FRAGMENT_TEST_SETUP = "fragmentTestSetup";
@@ -21,4 +22,8 @@ public class StringKeys {
     public static final String LANGUAGE_ALL = "ALL";
     public static final String LANGUAGE_RU = "RU";
     public static final String LANGUAGE_EN = "EN";
+    public static final String LANGUAGE_FR = "FR";
+    public static final String LANGUAGE_DE = "DE";
+    public static final String LANGUAGE_ES = "ES";
+    public static final String LANGUAGE_IT = "IT";
 }
