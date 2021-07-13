@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="the_first_step">Первый шаг</string>
+    <string name="typewriter">Печатная машинка</string>
+    <string name="unmistakable">Глаз-алмаз %1$s</string>
+    <string name="big_fan">Большой фанат %1$s</string>
+    <string name="beginner">Начинающий</string>
+    <string name="promising">Перспективный</string>
+    <string name="alien">Пришелец</string>
+    <string name="mastermind">Сверхразум</string>
+    <string name="type_bachelor">Печатный бакалавр</string>
+
+
+    <string name="the_first_step_desc">Заверши свой первый тест</string>
+    <string name="typewriter_wpm">Достигни как минимум %1$d СВМ</string>
+    <string name="unmistakable_desc_with_seconds">Заверши %1$d-секундный тест без ошибок</string>
+    <string name="unmistakable_desc_with_minutes">Заверши %1$d-минутный тест без ошибок</string>
+    <string name="big_fan_desc">Пройди %1$d тестов</string>
+
+    <string name="new_achievements_notification">Получено %1$d новых достижений. Загляни в свой профиль!</string>
+
+</resources>
