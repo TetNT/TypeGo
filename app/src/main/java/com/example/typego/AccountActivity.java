@@ -1,42 +1,50 @@
 package com.example.typego;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
+import android.util.Log;
 import com.example.typego.utils.StringKeys;
-import com.example.typego.utils.User;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class AccountActivity extends AppCompatActivity {
-    User currentUser;
     Fragment achievementsFragment;
     Fragment accountFragment;
+    FragmentManager fm;
+    AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        initFragmentManager();
+        initBottomNavigation();
+        initAdBanner();
+    }
 
-        Button buttonStart = findViewById(R.id.bMainMenuStartTest);
-        buttonStart.setEnabled(false);
-        currentUser = User.getFromStoredData(this);
-        currentUser.storeData(this);
-        buttonStart.setEnabled(true);
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationView);
 
-        FragmentManager fm = getSupportFragmentManager();
+
+    private void initFragmentManager() {
+        fm = getSupportFragmentManager();
         achievementsFragment = new AchievementsFragment();
         accountFragment = new AccountFragment();
 
         fm.beginTransaction().add(R.id.fragmentFrame, accountFragment, StringKeys.FRAGMENT_ACCOUNT).commit();
         fm.beginTransaction().add(R.id.fragmentFrame, achievementsFragment, StringKeys.FRAGMENT_TEST_SETUP).commit();
         fm.beginTransaction().hide(achievementsFragment).commit();
+    }
+
+    private void initBottomNavigation() {
+        if (fm ==null) throw new NullPointerException("Fragment manager is not initialized");
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             int selectedItem = item.getItemId();
             if (selectedItem == R.id.achievements_menu_item) {
@@ -50,15 +58,21 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-
-
-    public void startTesting_OnClick(View v) {
-        if (currentUser == null) {
-            throw new NullPointerException("User is not initialized.");
-        }
-        Intent intent = new Intent (AccountActivity.this, TestSetupActivity.class);
-        startActivity(intent);
+    private void initAdBanner() {
+        MobileAds.initialize(this, initializationStatus ->
+                Log.i("AD", initializationStatus.toString()));
+        mAdView = findViewById(R.id.adBanner);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.i("AD", "Failed: "+loadAdError.getMessage());
+            }
+        });
     }
+
+
 
 
 }
