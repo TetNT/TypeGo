@@ -16,6 +16,7 @@ public class RequirementFactory {
     }
 
     public static ArrayList<AchievementRequirement> getRequirementTimeModeNoMistakes(int timeInSeconds) {
+        final int MINIMAL_RESULT = 30;
         ArrayList<AchievementRequirement> requirements = new ArrayList<>();
         requirements.add(new AchievementRequirement(
                 AchievementRequirement.AchievementSection.TIME_MODE,
@@ -25,6 +26,11 @@ public class RequirementFactory {
                 AchievementRequirement.AchievementSection.MISTAKES,
                 AchievementRequirement.CompareType.EQUALS,
                 0));
+        requirements.add(new AchievementRequirement(
+                AchievementRequirement.AchievementSection.WPM,
+                AchievementRequirement.CompareType.MORE_OR_EQUALS,
+                MINIMAL_RESULT
+        ));
         return requirements;
     }
 
