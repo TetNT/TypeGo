@@ -20,6 +20,7 @@ import com.example.typego.utils.Language;
 import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +32,7 @@ public class TestSetupActivity extends AppCompatActivity {
     int progressInSeconds;
     CheckBox cbTextSuggestions;
     User currentUser;
+    TextView tvSeekbarDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,40 +44,21 @@ public class TestSetupActivity extends AppCompatActivity {
             finish();
             return;
         }
-        cbTextSuggestions = findViewById(R.id.cbPredictiveText);
+
         rbDictionaryType = findViewById(R.id.rbDictionaryType);
         rbScreenOrientation = findViewById(R.id.rbScreenOrientation);
-        cbTextSuggestions.setOnClickListener((v) -> {
-            if (cbTextSuggestions.isChecked())
-                Toast.makeText(this, getString(R.string.text_suggestions_enabled), Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(this, getString(R.string.text_suggestions_disabled), Toast.LENGTH_SHORT).show();
-        });
-        seekBar = findViewById(R.id.seekBar);
-        TextView tvSeekbarDisplay = findViewById(R.id.tvSeekBarDisplay);
+        ((RadioButton) rbDictionaryType.getChildAt(currentUser.getPreferredDictionaryType())).setChecked(true);
+        ((RadioButton) rbScreenOrientation.getChildAt(currentUser.getPreferredScreenOrientation())).setChecked(true);
+
+        initSeekBar();
+        initTextSuggestions();
         progressInSeconds = getSelectedSecondsOption(seekBar.getProgress());
         tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressInSeconds = getSelectedSecondsOption(progress);
-                tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
         selectCurrentLanguageOption();
         cbTextSuggestions.setChecked(currentUser.isPreferredTextSuggestions());
         seekBar.setProgress(currentUser.getPreferredTimeMode());
-        ((RadioButton) rbDictionaryType.getChildAt(currentUser.getPreferredDictionaryType())).setChecked(true);
+
     }
 
     public void startTesting(View view) {
@@ -97,25 +80,61 @@ public class TestSetupActivity extends AppCompatActivity {
 
         // remember user settings
         if (currentUser != null) {
-            currentUser.setPreferredLanguage(language);
-            currentUser.setPreferredDictionaryType(selectedDictionaryIndex);
-            currentUser.setPreferredTextSuggestions(cbTextSuggestions.isChecked());
-            currentUser.setPreferredTimeMode(seekBar.getProgress());
-            currentUser.storeData(this);
+            currentUser.rememberUserPreferences(this,
+                    language,
+                    seekBar.getProgress(),
+                    selectedDictionaryIndex,
+                    cbTextSuggestions.isChecked(),
+                    selectedScreenOrientation);
         }
         finish();
         startActivity(intent);
     }
 
     private int getSelectedSecondsOption(int progress) {
-        int progressToSeconds;
-        if (progress<4)
-            progressToSeconds = (progress+1)*15;
-        else if (progress==4) progressToSeconds = 90;
-        else if (progress==5) progressToSeconds = 120;
-        else if (progress==6) progressToSeconds = 180;
-        else progressToSeconds = 300;
-        return progressToSeconds;
+        switch (progress) {
+            case 0: return 15;
+            case 1: return 30;
+            case 2: return 60;
+            case 3: return 120;
+            case 4: return 180;
+            case 5: return 300;
+        }
+        return 15;
+    }
+
+    private void initSeekBar() {
+        tvSeekbarDisplay = findViewById(R.id.tvSeekBarDisplay);
+        seekBar = findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressInSeconds = getSelectedSecondsOption(progress);
+                tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    private void initTextSuggestions() {
+        cbTextSuggestions = findViewById(R.id.cbPredictiveText);
+        cbTextSuggestions.setOnClickListener((v) -> {
+            if (cbTextSuggestions.isChecked()) {
+                Toast.makeText(this, getString(R.string.text_suggestions_enabled), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, getString(R.string.text_suggestions_disabled), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // select either user preferred language or system language
@@ -124,26 +143,41 @@ public class TestSetupActivity extends AppCompatActivity {
         List<Language> languageList = Language.getAvailableLanguages(this);
         SpinnerAdapter adapter = new ArrayAdapter<>(
                 this,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.spinner_item,
                 languageList);
         spinner.setAdapter(adapter);
-        int systemLanguageIndex = 0;
-        String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
-        if (currentUser.getPreferredLanguage()!=null) {
-            for (int i = 0; i < adapter.getCount(); i++) {
-                String languageId = ((Language) adapter.getItem(i)).getIdentifier();
-                if (languageId.equalsIgnoreCase(currentUser.getPreferredLanguage().getIdentifier()))
-                    systemLanguageIndex = i;
-            }
-            spinner.setSelection(systemLanguageIndex);
-            return;
-        }
-        for (int i = 0; i < adapter.getCount(); i++) {
-            String language = ((Language) adapter.getItem(i)).getName(this);
-            if (language.equals(systemLanguage))
-                systemLanguageIndex = i;
-        }
-        spinner.setSelection(systemLanguageIndex);
+        int preferredLanguageIndex = getPreferredLanguageIndex();
+        if (preferredLanguageIndex < 0)
+            preferredLanguageIndex = getSystemLanguageIndex();
+        spinner.setSelection(preferredLanguageIndex);
     }
+
+
+    public int getPreferredLanguageIndex() {
+        ArrayList<Language> languages = Language.getAvailableLanguages(this);
+        if (currentUser.getPreferredLanguage() == null) return -1;
+        String preferredLanguageId = currentUser.getPreferredLanguage().getIdentifier();
+        int index = 0;
+        for (Language language:languages) {
+            if (language.getIdentifier().equalsIgnoreCase(preferredLanguageId))
+                return index;
+            index++;
+        }
+        return 0;
+    }
+
+    public int getSystemLanguageIndex() {
+        ArrayList<Language> languages = Language.getAvailableLanguages(this);
+        String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
+        int index = 0;
+        for (Language language:languages
+        ) {
+            if (language.getName(TestSetupActivity.this).equalsIgnoreCase(systemLanguage))
+                return index;
+            index++;
+        }
+        return 0;
+    }
+
 
 }
