@@ -39,13 +39,12 @@
         app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
         app:layout_constraintStart_toStartOf="@+id/account_guideline_left"
         app:layout_constraintTop_toBottomOf="@id/activity_account_title"
-        app:layout_constraintBottom_toTopOf="@+id/tvCurrentVersion"
+        app:layout_constraintBottom_toBottomOf="parent"
         style="@style/scrollbars"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
 
         <LinearLayout
@@ -132,25 +131,24 @@
 
                     android:background="@color/white" />
 
-
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/passed_tests"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 style="@style/submenu_header"
                 />
 
             <TextView
-                android:id="@+id/tvNothingToShow"
+                android:id="@+id/tvPassedTestsInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/msg_nothing_to_show"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone"/>
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_passed_tests"
@@ -163,13 +161,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <TextView
-        android:id="@+id/tvCurrentVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/account_guideline_left" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
