@@ -108,5 +108,24 @@ public class User implements Serializable {
         return context.getSharedPreferences(StringKeys.USER_STORAGE_FILE ,MODE_PRIVATE);
     }
 
+    public int getLastResultByLanguage(Language language) {
+        ArrayList<TypingResult> resultsByLanguage = ResultListUtils.getResultsByLanguage(resultList, language);
+        if (resultsByLanguage.size()==0) return 0;
+        return (int)resultsByLanguage.get(0).getWPM();
+    }
 
+    public int getBestResultByLanguage(Language language) {
+        ArrayList<TypingResult> resultsByLanguage = ResultListUtils.getResultsByLanguage(resultList, language);
+        if (resultsByLanguage.size()==0) return 0;
+        return ResultListUtils.getBestResult(resultsByLanguage);
+    }
+
+    public void rememberUserPreferences(Context context, Language language, int timeMode, int dictionaryTypeIndex, boolean textSuggestionsIsOn, int screenOrientation) {
+        preferredLanguage = language;
+        preferredTimeMode = timeMode;
+        preferredDictionaryType = dictionaryTypeIndex;
+        preferredTextSuggestions = textSuggestionsIsOn;
+        preferredScreenOrientation = screenOrientation;
+        storeData(context);
+    }
 }
