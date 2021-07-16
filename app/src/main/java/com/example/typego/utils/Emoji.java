@@ -18,8 +18,6 @@ public class Emoji {
     public static final int CROWN = 0x1F451;
     public static final int MOAI = 0x1F5FF;
 
-
-
     public static String getEmoji(int unicode) {
         try {
             return new String(Character.toChars(unicode));
@@ -27,7 +25,6 @@ public class Emoji {
             return "";
         }
     }
-
 
     public static String getEmojiOfWpm(int WPM) {
         StringBuilder emojiSet = new StringBuilder();
@@ -42,7 +39,7 @@ public class Emoji {
             else if (WPM<=60) emojiSet.append(getEmoji(MOAI));
             else if (WPM<=65) emojiSet.append(getEmoji(POLICE_CAR));
             else if (WPM<=70) emojiSet.append(getEmoji(UFO));
-            else if (WPM==100) emojiSet.append(getEmoji(HUNDRED_POINTS));
+            else if (WPM>=100) emojiSet.append(getEmoji(HUNDRED_POINTS));
             else emojiSet.append(getEmoji(MOAI));
         }
         return emojiSet.toString();
