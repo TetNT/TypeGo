@@ -79,7 +79,7 @@
 
 <!--  Placeholders  -->
     <string name="previous_result_pl">Previous result: %1$d</string>
-    <string name="best_result_pl">Best result: %1$d</string>
+    <string name="best_result_pl">Best result (%1$s): %2$d</string>
     <string name="correct_words_pl">Correct words: %1$d</string>
     <string name="incorrect_words_pl">Incorrect words: %1$d</string>
     <string name="dictionary_pl">Dictionary: %1$s</string>
@@ -91,5 +91,7 @@
     <string name="screen_orientation_pl">Screen orientation: %1$s</string>
     <string name="tests_passed_pl">Tests passed: %1$d</string>
     <string name="average_wpm_pl">Average WPM: %1$d</string>
+    <string name="korean">Korean</string>
+    <string name="msg_passed_tests_information">Tap on any of these to watch test details.</string>
 
 </resources>
