@@ -66,7 +66,7 @@
                         style="@style/Widget.AppCompat.SeekBar.Discrete"
                         android:layout_width="200dp"
                         android:layout_height="28dp"
-                        android:max="7"
+                        android:max="5"
                         android:progress="1"
                         android:thumbTint="@color/button_main_green_unpressed" />
 
