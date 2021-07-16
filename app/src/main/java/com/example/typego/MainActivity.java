@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         userInit();
         languageSpinnerInit();
+        TextView tvCurrentVersion = findViewById(R.id.tvCurrentVersion);
+        tvCurrentVersion.setText(getString(R.string.current_version, BuildConfig.VERSION_NAME));
     }
 
     public void startBasicTest(View v) {
