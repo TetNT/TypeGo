@@ -104,7 +104,7 @@ public class User implements Serializable {
         return user;
     }
 
-    public static SharedPreferences getUserSharedPreferences(@NonNull Context context) {
+    private static SharedPreferences getUserSharedPreferences(@NonNull Context context) {
         return context.getSharedPreferences(StringKeys.USER_STORAGE_FILE ,MODE_PRIVATE);
     }
 
