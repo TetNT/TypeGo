@@ -30,8 +30,6 @@ public class AccountActivity extends AppCompatActivity {
         initAdBanner();
     }
 
-
-
     private void initFragmentManager() {
         fm = getSupportFragmentManager();
         achievementsFragment = new AchievementsFragment();
@@ -60,19 +58,42 @@ public class AccountActivity extends AppCompatActivity {
 
     private void initAdBanner() {
         MobileAds.initialize(this, initializationStatus ->
-                Log.i("AD", initializationStatus.toString()));
+                Log.i("ADB", initializationStatus.getAdapterStatusMap().toString()));
         mAdView = findViewById(R.id.adBanner);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                Log.i("AD", "Failed: "+loadAdError.getMessage());
+                Log.i("ADB", "Failed: "+loadAdError.getMessage());
+            }
+
+            @Override
+            public void onAdLoaded() {
+                Log.i("ADB", "Loaded successfully");
             }
         });
     }
 
 
+    @Override
+    protected void onDestroy() {
+        if (mAdView!=null)
+            mAdView.destroy();
+        super.onDestroy();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mAdView!=null)
+            mAdView.resume();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mAdView!=null)
+            mAdView.pause();
+    }
 }
