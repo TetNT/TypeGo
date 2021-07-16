@@ -23,7 +23,7 @@ public final class ResultListUtils {
         ArrayList<TypingResult> selectedResults = new ArrayList<>();
         for (TypingResult res: results
         ) {
-            if (res.getLanguage().getIdentifier().equals(language.getIdentifier()))
+            if (res.getLanguage().getIdentifier().equalsIgnoreCase(language.getIdentifier()))
                 selectedResults.add(res);
         }
         return selectedResults;
