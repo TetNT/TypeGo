@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.emoji.bundled.BundledEmojiCompatConfig;
 import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.widget.EmojiTextView;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.typego.utils.Achievement;
 import com.example.typego.utils.Emoji;
 import com.example.typego.utils.StringKeys;
@@ -20,23 +17,22 @@ import com.example.typego.utils.Language;
 import com.example.typego.utils.TimeConvert;
 import com.example.typego.utils.TypingResult;
 import com.example.typego.utils.User;
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class ResultActivity extends AppCompatActivity {
     User currentUser;
-    double wpm;
+    int wpm;
     int correctWords;
     int correctWordsWeight;
     int timeInSeconds;
     int dictionaryType;
     int screenOrientation;
     int totalWords = 0;
+    int bestResultByLanguage;
     boolean calledFromResultsTab;
     boolean textSuggestionsIsOn;
     Language dictionaryLanguage;
-    SharedPreferences spUser;
-    TextView tvBestResult;
+    TextView tvBestResult, tvPreviousResult;
     TypingResult result;
 
     @Override
@@ -45,11 +41,12 @@ public class ResultActivity extends AppCompatActivity {
         EmojiCompat.Config emojiConfig = new BundledEmojiCompatConfig(this);
         EmojiCompat.init(emojiConfig);
         setContentView(R.layout.activity_result);
-        spUser = User.getUserSharedPreferences(this);
         currentUser = User.getFromStoredData(this);
+        initIntentData();
+        initPreviousResult();
+        initStartOverButton();
+        initBestResult();
         EmojiTextView tvWPM = findViewById(R.id.tvWPM);
-        TextView tvPreviousResult = findViewById(R.id.tvPreviousResult);
-        tvBestResult = findViewById(R.id.tvBestResult);
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
         TextView tvIncorrectWords = findViewById(R.id.tvIncorrectWords);
         TextView tvDictionary = findViewById(R.id.tvDictionary);
@@ -57,26 +54,14 @@ public class ResultActivity extends AppCompatActivity {
         TextView tvLanguage = findViewById(R.id.tvLanguage);
         TextView tvTextSuggestions = findViewById(R.id.tvTextSuggestions);
         TextView tvScreenOrientation = findViewById(R.id.tvScreenOrientation);
-
-        tvPreviousResult.setText(getString(R.string.previous_result_pl, currentUser.getLastResult()));
-        if (currentUser.getLastResult() == 0)
-            tvPreviousResult.setVisibility(View.GONE);
-        else tvPreviousResult.setVisibility(View.VISIBLE);
-        tvBestResult.setText(getString(R.string.best_result_pl, currentUser.getBestResult()));
-        if (currentUser.getBestResult() == 0)
-            tvBestResult.setVisibility(View.GONE);
-        else tvBestResult.setVisibility(View.VISIBLE);
-
-        Bundle arguments = getIntent().getExtras();
-        initIntentData(arguments);
         String textSuggestions = textSuggestionsIsOn ? getString(R.string.yes) : getString(R.string.no);
         String dictionaryName = (dictionaryType == 0) ? getString(R.string.basic) : getString(R.string.enhanced);
         String orientation = (screenOrientation == 0) ? getString(R.string.vertical) : getString(R.string.horizontal);
         result = getCurrentResult();
-        wpm = result.getWPM();
-        String wpmText = new DecimalFormat("0.#").format(wpm) + " " + getString(R.string.wordsPerMinute) + "\n" + Emoji.getEmojiOfWpm((int) wpm);
+        wpm = (int)result.getWPM();
+        String wpmText = wpm + " " + getString(R.string.wordsPerMinute) + "\n" + Emoji.getEmojiOfWpm(wpm);
         tvWPM.setText(wpmText);
-        tvIncorrectWords.setText(getString(R.string.incorrect_words_pl, (totalWords - correctWords)));
+        tvIncorrectWords.setText(getString(R.string.incorrect_words_pl, result.getIncorrectWords()));
         tvCorrectWords.setText(getString(R.string.correct_words_pl, correctWords));
         tvDictionary.setText(getString(R.string.dictionary_pl, dictionaryName));
         tvAllottedTime.setText(getString(R.string.selected_time_pl, TimeConvert.convertSeconds(this, timeInSeconds)));
@@ -86,25 +71,28 @@ public class ResultActivity extends AppCompatActivity {
         if (wpm <= 0 && !calledFromResultsTab)
             Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT).show();
         else if (wpm>0 && !calledFromResultsTab) SaveResultData();
-
-        Button bStartOver = findViewById(R.id.bStartOver);
-        bStartOver.setOnClickListener(v -> {
-            Intent intent = new Intent(ResultActivity.this, TypingTestActivity.class);
-            intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
-            intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS));
-            intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, arguments.getInt(StringKeys.TEST_DICTIONARY_TYPE));
-            intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG));
-            finish();
-            startActivity(intent);
-        });
-        if (calledFromResultsTab) {
-            bStartOver.setVisibility(View.GONE);
-            tvPreviousResult.setVisibility(View.GONE);
-        }
-
     }
 
-    void initIntentData(Bundle arguments) {
+    void initPreviousResult() {
+        tvPreviousResult = findViewById(R.id.tvPreviousResult);
+        int prevResultByLang = currentUser.getLastResultByLanguage(dictionaryLanguage);
+        tvPreviousResult.setText(getString(R.string.previous_result_pl, prevResultByLang));
+        if (prevResultByLang == 0)
+            tvPreviousResult.setVisibility(View.GONE);
+        else tvPreviousResult.setVisibility(View.VISIBLE);
+    }
+
+    void initBestResult() {
+        tvBestResult = findViewById(R.id.tvBestResult);
+        bestResultByLanguage = currentUser.getBestResultByLanguage(dictionaryLanguage);
+        tvBestResult.setText(getString(R.string.best_result_pl, dictionaryLanguage.getIdentifier(), bestResultByLanguage));
+        if (bestResultByLanguage == 0)
+            tvBestResult.setVisibility(View.GONE);
+        else tvBestResult.setVisibility(View.VISIBLE);
+    }
+
+    void initIntentData() {
+        Bundle arguments = getIntent().getExtras();
         correctWords = arguments.getInt(StringKeys.TEST_CORRECT_WORDS);
         correctWordsWeight = arguments.getInt(StringKeys.TEST_CORRECT_WORDS_WEIGHT);
         timeInSeconds = arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS);
@@ -121,10 +109,11 @@ public class ResultActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.saving_results_error_occurred), Toast.LENGTH_SHORT).show();
             return;
         }
-
-        currentUser.setLastResult((int)wpm);
+        currentUser.setLastResult(wpm);
         if (currentUser.getBestResult() < currentUser.getLastResult()) {
             currentUser.setBestResult(currentUser.getLastResult());
+        }
+        if (currentUser.getLastResult() > bestResultByLanguage) {
             TextView tvNewBestResult = findViewById(R.id.tvNewBestResult);
             tvNewBestResult.setVisibility(View.VISIBLE);
         }
@@ -136,12 +125,17 @@ public class ResultActivity extends AppCompatActivity {
 
     public void checkAchievements() {
         int newAchievements = 0;
+        Achievement notificationAchievement = null;
         for (Achievement achievement: currentUser.getAchievements()) {
             if (achievement.getCompletionDate()==null && achievement.isCompleted(currentUser, result)) {
                 achievement.setCompletionDate(Calendar.getInstance().getTime());
                 newAchievements++;
+                notificationAchievement = achievement;
             }
-            if (newAchievements>0)
+            if (newAchievements==1) {
+                Toast.makeText(this, getString(R.string.achievement_unlocked, notificationAchievement.getName()), Toast.LENGTH_SHORT).show();
+            }
+            else if (newAchievements>1)
                 Toast.makeText(
                         ResultActivity.this,
                         getString(R.string.new_achievements_notification, newAchievements),
@@ -168,6 +162,27 @@ public class ResultActivity extends AppCompatActivity {
                 timeInSeconds,
                 textSuggestionsIsOn,
                 Calendar.getInstance().getTime());
+    }
+
+
+
+    void initStartOverButton() {
+        Bundle arguments = getIntent().getExtras();
+        Button bStartOver = findViewById(R.id.bStartOver);
+        bStartOver.setOnClickListener(v -> {
+            Intent intent = new Intent(ResultActivity.this, TypingTestActivity.class);
+            intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
+            intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS));
+            intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, arguments.getInt(StringKeys.TEST_DICTIONARY_TYPE));
+            intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG));
+            intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, screenOrientation);
+            finish();
+            startActivity(intent);
+        });
+        if (calledFromResultsTab) {
+            bStartOver.setVisibility(View.GONE);
+            tvPreviousResult.setVisibility(View.GONE);
+        }
     }
 
 }
