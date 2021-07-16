@@ -27,9 +27,9 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     private final ArrayList<Achievement> achievements;
     private final Context context;
 
-    public AchievementsAdapter(@NonNull Context context, @NonNull ArrayList<Achievement> achievements, User user) {
+    public AchievementsAdapter(@NonNull Context context, @NonNull ArrayList<Achievement> baseAchievements, User user) {
         this.context = context;
-        this.achievements = achievements;
+        this.achievements = baseAchievements;
         this.user = user;
     }
 
@@ -43,6 +43,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull AchievementViewHolder holder, int position) {
+        Achievement userAchievement = user.getAchievements().get(position);
         Achievement currAchievement = achievements.get(position);
         holder.tvAchievementName.setText(currAchievement.getName());
         holder.tvAchievementDescription.setText(currAchievement.getDescription());
@@ -61,13 +62,13 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
                             currRequirement.getCurrentProgress(user),
                             currRequirement.getRequiredAmount()));
         }
-        if (currAchievement.getCompletionDate()==null) {
+        if (userAchievement.getCompletionDate()==null) {
             holder.tvCompletionDate.setVisibility(View.INVISIBLE);
             holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         }
         else {
             DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.DEFAULT, SimpleDateFormat.SHORT);
-            holder.tvCompletionDate.setText(dateFormat.format(currAchievement.getCompletionDate()));
+            holder.tvCompletionDate.setText(dateFormat.format(userAchievement.getCompletionDate()));
         }
     }
 

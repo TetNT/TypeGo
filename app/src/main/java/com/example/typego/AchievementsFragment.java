@@ -40,12 +40,12 @@ public class AchievementsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         User currentUser = User.getFromStoredData(getContext());
-        ArrayList<Achievement> achievements = currentUser.getAchievements();
+        ArrayList<Achievement> staticAchievements = Achievement.getAchievementList(getContext());
         RecyclerView rvAchievements = view.findViewById(R.id.rv_achievements);
         rvAchievements.setAdapter(new AchievementsAdapter(
                 getContext(),
-                achievements,
-                User.getFromStoredData(getContext())));
+                staticAchievements,
+                currentUser));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvAchievements.setLayoutManager(linearLayoutManager);
     }
