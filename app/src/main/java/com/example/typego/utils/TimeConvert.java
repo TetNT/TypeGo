@@ -11,13 +11,13 @@ import org.jetbrains.annotations.NotNull;
 public class TimeConvert {
 
     public static String convertSecondsToStamp(int seconds) {
-        if (seconds < 1) return "00:00";
+        if (seconds < 1) return "0:00";
         int remainingSeconds = seconds;
         int remainingMinutes = remainingSeconds/60;
         remainingSeconds -= remainingMinutes * 60;
         String convertedSeconds = convertTimeValueToString(remainingSeconds);
-        String convertedMinutes = convertTimeValueToString(remainingMinutes);
-        return convertedMinutes + ":" + convertedSeconds;
+        //String convertedMinutes = convertTimeValueToString(remainingMinutes);
+        return remainingMinutes + ":" + convertedSeconds;
     }
 
     public static String convertSeconds(@NotNull Context context, int seconds) {
