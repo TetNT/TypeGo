@@ -123,14 +123,14 @@ public class AccountFragment extends Fragment {
     }
 
     private void updateResults(@NonNull View view) {
-        TextView tvNothingToShow = view.findViewById(R.id.tvNothingToShow);
+        TextView tvInfo = view.findViewById(R.id.tvPassedTestsInfo);
         TextView tvAvgWpm = view.findViewById(R.id.tvAverageWPM);
         if (selectedResults == null || selectedResults.isEmpty()) {
-            tvNothingToShow.setVisibility(View.VISIBLE);
+            tvInfo.setText(getString(R.string.msg_nothing_to_show));
             tvAvgWpm.setText(getString(R.string.msg_average_wpm_unavailable));
             return;
         }
-        tvNothingToShow.setVisibility(View.GONE);
+        tvInfo.setText(getString(R.string.msg_passed_tests_information));
         TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
         TextView tvBestResult = view.findViewById(R.id.tvBestResult);
