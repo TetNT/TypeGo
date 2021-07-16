@@ -11,7 +11,7 @@ public class Language implements Serializable {
     private final int languageNameResourceId;
     private String name;
 
-    public Language(String identifier, int languageNameResourceId, Context context) {
+    public Language(String identifier, int languageNameResourceId, @NonNull Context context) {
         this.identifier = identifier;
         this.languageNameResourceId = languageNameResourceId;
         name = context.getResources().getString(languageNameResourceId);
@@ -39,6 +39,7 @@ public class Language implements Serializable {
         languages.add(new Language(StringKeys.LANGUAGE_FR, R.string.french, context));
         languages.add(new Language(StringKeys.LANGUAGE_DE, R.string.german, context));
         languages.add(new Language(StringKeys.LANGUAGE_IT, R.string.italian, context));
+        languages.add(new Language(StringKeys.LANGUAGE_KR, R.string.korean, context));
         languages.add(new Language(StringKeys.LANGUAGE_RU, R.string.russian, context));
         languages.add(new Language(StringKeys.LANGUAGE_ES, R.string.spanish, context));
         return languages;
