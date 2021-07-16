@@ -56,8 +56,6 @@ public class AccountFragment extends Fragment {
         currentUser = User.getFromStoredData(getContext());
         initLanguageSpinner(view);
         loadAccountData();
-        TextView tvCurrentVersion = getActivity().findViewById(R.id.tvCurrentVersion);
-        tvCurrentVersion.setText(getString(R.string.current_version, BuildConfig.VERSION_NAME));
     }
 
     @Override
@@ -87,7 +85,7 @@ public class AccountFragment extends Fragment {
         TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
 
         tvAvgWpm.setText(getString(R.string.average_wpm_pl, 0));
-        tvBestResult.setText(getString(R.string.best_result_pl, 0));
+        tvBestResult.setText(getString(R.string.best_result) + ": 0");
         tvLastResult.setText(getString(R.string.previous_result_pl, 0));
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
     }
@@ -135,7 +133,7 @@ public class AccountFragment extends Fragment {
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
         TextView tvBestResult = view.findViewById(R.id.tvBestResult);
         int bestResult = ResultListUtils.getBestResult(selectedResults);
-        tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
+        tvBestResult.setText(getString(R.string.best_result) + ": " + bestResult);
         TextView tvLastResult = view.findViewById(R.id.tvAccountLastResult);
         tvLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
         String wpmStr;
