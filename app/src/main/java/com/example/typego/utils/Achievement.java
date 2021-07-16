@@ -98,31 +98,31 @@ public class Achievement {
                 RequirementFactory.getRequirementWPMisMoreThan(80)));
         achievements.add(new Achievement(
                 context.getString(R.string.unmistakable, "I"),
-                context.getString(R.string.unmistakable_desc_with_seconds, 30),
+                context.getString(R.string.unmistakable_desc_with_seconds, 30, 30),
                 R.drawable.ic_unmistakable,
                 false,
                 RequirementFactory.getRequirementTimeModeNoMistakes(30)));
         achievements.add(new Achievement(
                 context.getString(R.string.unmistakable, "II"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 1),
+                context.getString(R.string.unmistakable_desc_with_minutes, 1, 30),
                 R.drawable.ic_unmistakable,
                 false,
                 RequirementFactory.getRequirementTimeModeNoMistakes(60)));
         achievements.add(new Achievement(
                 context.getString(R.string.unmistakable, "III"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 2),
+                context.getString(R.string.unmistakable_desc_with_minutes, 2, 30),
                 R.drawable.ic_unmistakable,
                 false,
                 RequirementFactory.getRequirementTimeModeNoMistakes(120)));
         achievements.add(new Achievement(
                 context.getString(R.string.unmistakable, "IV"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 3),
+                context.getString(R.string.unmistakable_desc_with_minutes, 3, 30),
                 R.drawable.ic_unmistakable,
                 false,
                 RequirementFactory.getRequirementTimeModeNoMistakes(180)));
         achievements.add(new Achievement(
                 context.getString(R.string.unmistakable, "V"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 5),
+                context.getString(R.string.unmistakable_desc_with_minutes, 5, 30),
                 R.drawable.ic_unmistakable,
                 false,
                 RequirementFactory.getRequirementTimeModeNoMistakes(300)));
