@@ -19,6 +19,7 @@ public class User implements Serializable {
     private int preferredTimeMode;
     private int preferredDictionaryType;
     private boolean preferredTextSuggestions;
+    private int preferredScreenOrientation;
     private final ArrayList<TypingResult> resultList;
     private ArrayList<Achievement> achievements;
 
@@ -56,10 +57,6 @@ public class User implements Serializable {
         this.bestResult = bestResult;
     }
 
-    public void setPreferredLanguage(Language preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
-    }
-
     public Language getPreferredLanguage() {
         return preferredLanguage;
     }
@@ -68,24 +65,16 @@ public class User implements Serializable {
         return preferredTimeMode;
     }
 
-    public void setPreferredTimeMode(int preferredTimeMode) {
-        this.preferredTimeMode = preferredTimeMode;
-    }
-
     public int getPreferredDictionaryType() {
         return preferredDictionaryType;
-    }
-
-    public void setPreferredDictionaryType(int preferredDictionaryType) {
-        this.preferredDictionaryType = preferredDictionaryType;
     }
 
     public boolean isPreferredTextSuggestions() {
         return preferredTextSuggestions;
     }
 
-    public void setPreferredTextSuggestions(boolean preferredTextSuggestions) {
-        this.preferredTextSuggestions = preferredTextSuggestions;
+    public int getPreferredScreenOrientation() {
+        return preferredScreenOrientation;
     }
 
     public ArrayList<Achievement> getAchievements() {
