@@ -26,4 +26,5 @@ public class StringKeys {
     public static final String LANGUAGE_DE = "DE";
     public static final String LANGUAGE_ES = "ES";
     public static final String LANGUAGE_IT = "IT";
+    public static final String LANGUAGE_KR = "KR";
 }
