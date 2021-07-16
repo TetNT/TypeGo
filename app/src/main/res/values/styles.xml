@@ -41,9 +41,12 @@
         <item name="android:textColor">#0645AD</item>
     </style>
 
-
     <style name="list_fields">
         <item name="android:drawableTint">@color/button_main_green_unpressed</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="spinner_item">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
     </style>
