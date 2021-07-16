@@ -13,10 +13,11 @@
 
     <string name="the_first_step_desc">Заверши свой первый тест</string>
     <string name="typewriter_wpm">Достигни как минимум %1$d СВМ</string>
-    <string name="unmistakable_desc_with_seconds">Заверши %1$d-секундный тест без ошибок</string>
-    <string name="unmistakable_desc_with_minutes">Заверши %1$d-минутный тест без ошибок</string>
+    <string name="unmistakable_desc_with_seconds">Заверши %1$d-секундный тест без ошибок и как минимум %2$d СВМ</string>
+    <string name="unmistakable_desc_with_minutes">Заверши %1$d-минутный тест без ошибок и как минимум %2$d СВМ</string>
     <string name="big_fan_desc">Пройди %1$d тестов</string>
 
     <string name="new_achievements_notification">Получено %1$d новых достижений. Загляни в свой профиль!</string>
+    <string name="achievement_unlocked">Достижение открыто: %1$s</string>
     <string name="achievement_image_content_description">Изображение для достижения</string>
 </resources>
