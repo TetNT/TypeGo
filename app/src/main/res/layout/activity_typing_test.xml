@@ -10,9 +10,9 @@
         android:id="@+id/words"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
         android:background="@color/bg_dark_gray"
         android:clickable="false"
-        android:ems="10"
         android:focusable="false"
         android:gravity="start|top"
         android:inputType="textMultiLine|textNoSuggestions"
@@ -20,58 +20,57 @@
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
         android:textSize="30sp"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/inpWord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/inputSection"
         />
 
-    <LinearLayout
-
-        android:id="@+id/inputSection"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
+    <EditText
+        android:id="@+id/inpWord"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/text_input"
+        android:hint="@string/input_text_above"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/inpWord"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/text_input"
-            android:ems="10"
-            android:hint="@string/input_text_above"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="textPersonName"
-            android:paddingStart="10dp"
+    <TextView
+        android:id="@+id/tvTimeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:text="@string/time_over"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
+        app:layout_constraintTop_toBottomOf="@+id/words" />
 
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/tvTimeLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginStart="10dp"
-            android:text="@string/time_over"
-            android:textSize="24sp" />
-
-        <ImageButton
-            android:id="@+id/restartButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:contentDescription="Restart test button"
-            android:focusable="false"
-            android:onClick="restartTest"
-            android:scaleType="centerCrop"
-            android:src="@android:drawable/ic_popup_sync" />
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/restartButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Restart test button"
+        android:focusable="false"
+        android:onClick="restartTest"
+        android:padding="8dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/ic_popup_sync"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTimeLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvTimeLeft"
+        app:layout_constraintTop_toTopOf="@+id/tvTimeLeft" />
 
     <Button
         android:id="@+id/bCancelTest"
