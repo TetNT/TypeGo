@@ -1,6 +1,8 @@
 package com.example.typego.utils;
 
 
+import java.util.ArrayList;
+
 public class AchievementRequirement {
 
     private final CompareType compareType;
@@ -29,7 +31,7 @@ public class AchievementRequirement {
         PASSED_TESTS_AMOUNT,
         MISTAKES,
         TIME_MODE,
-        TIME_MODE_NO_MISTAKES
+        MISTAKES_IN_A_ROW,
     }
 
     private int getComparingResultBySection(User user, TypingResult result) {
@@ -38,8 +40,8 @@ public class AchievementRequirement {
                 return (int)result.getWPM();
             case MISTAKES:
                 return result.getTotalWords()-result.getCorrectWords();
-            case TIME_MODE_NO_MISTAKES:
-                return timeModeHasNoMistakes(result, result.getTimeInSeconds())? 1: 0;
+            case MISTAKES_IN_A_ROW:
+                return getMistakesAmountInARow(user);
             case TIME_MODE:
                 return result.getTimeInSeconds();
             case PASSED_TESTS_AMOUNT:
@@ -49,10 +51,16 @@ public class AchievementRequirement {
         }
     }
 
-    private boolean timeModeHasNoMistakes(TypingResult result, int timeInSeconds) {
-        boolean timeIsMatching = (result.getTimeInSeconds() == timeInSeconds);
-        boolean noMistakes = (result.getTotalWords()-result.getCorrectWords() == 0);
-        return timeIsMatching && noMistakes;
+    private int getMistakesAmountInARow(User user) {
+        int inARow = 5;
+        if (user == null) return -1;
+        ArrayList<TypingResult> results = user.getResultList();
+        int mistakesAmount = 0;
+        if (results.size() < inARow) return -1;
+        for (int i = 0; i < inARow; i++) {
+            mistakesAmount += results.get(i).getIncorrectWords();
+        }
+        return mistakesAmount;
     }
 
     public int getCurrentProgress(User user) {
