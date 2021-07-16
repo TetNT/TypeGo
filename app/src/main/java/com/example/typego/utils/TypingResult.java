@@ -47,6 +47,10 @@ public class TypingResult {
         return correctWordsWeight;
     }
 
+    public int getIncorrectWords() {
+        return totalWords - correctWords;
+    }
+
     public int getTotalWords() {
         return totalWords;
     }
