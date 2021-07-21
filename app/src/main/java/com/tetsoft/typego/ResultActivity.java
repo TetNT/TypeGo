@@ -164,6 +164,13 @@ public class ResultActivity extends AppCompatActivity {
                 Calendar.getInstance().getTime());
     }
 
+    public void SaveAndContinue(View view){
+        finish();
+        Intent intent = null;
+        if (calledFromMainMenu) intent = new Intent(this, MainActivity.class);
+        else if (!calledFromResultsTab && !calledFromMainMenu) intent = new Intent (this, TestSetupActivity.class);
+        if (intent != null) startActivity(intent);
+    }
 
     Button bStartOver;
     Button bFinish;
