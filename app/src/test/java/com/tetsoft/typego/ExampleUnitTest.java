@@ -1,4 +1,4 @@
-package com.example.typego;
+package com.tetsoft.typego;
 
 import org.junit.Test;
 

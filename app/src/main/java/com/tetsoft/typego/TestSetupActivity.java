@@ -1,4 +1,4 @@
-package com.example.typego;
+package com.tetsoft.typego;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,10 +15,10 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.typego.utils.StringKeys;
-import com.example.typego.utils.Language;
-import com.example.typego.utils.TimeConvert;
-import com.example.typego.utils.User;
+import com.tetsoft.typego.utils.StringKeys;
+import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.TimeConvert;
+import com.tetsoft.typego.utils.User;
 
 import java.util.ArrayList;
 import java.util.List;

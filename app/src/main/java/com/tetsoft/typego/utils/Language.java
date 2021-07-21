@@ -1,8 +1,8 @@
-package com.example.typego.utils;
+package com.tetsoft.typego.utils;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
-import com.example.typego.R;
+import com.tetsoft.typego.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 

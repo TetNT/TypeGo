@@ -1,10 +1,10 @@
-package com.example.typego.utils;
+package com.tetsoft.typego.utils;
 
 
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.example.typego.R;
+import com.tetsoft.typego.R;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,21 +1,17 @@
-package com.example.typego;
+package com.tetsoft.typego;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.typego.adapters.AchievementsAdapter;
-import com.example.typego.utils.Achievement;
-import com.example.typego.utils.User;
-
+import com.tetsoft.typego.adapters.AchievementsAdapter;
+import com.tetsoft.typego.utils.Achievement;
+import com.tetsoft.typego.utils.User;
 import java.util.ArrayList;
 
 public class AchievementsFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.example.typego.utils;
+package com.tetsoft.typego.utils;
 
 import java.util.Random;
 

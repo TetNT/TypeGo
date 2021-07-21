@@ -1,4 +1,4 @@
-package com.example.typego.adapters;
+package com.tetsoft.typego.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.typego.R;
-import com.example.typego.utils.TimeConvert;
-import com.example.typego.utils.TypingResult;
+import com.tetsoft.typego.R;
+import com.tetsoft.typego.utils.TimeConvert;
+import com.tetsoft.typego.utils.TypingResult;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.typego;
+package com.tetsoft.typego;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -22,9 +22,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.typego.utils.StringKeys;
-import com.example.typego.utils.Language;
-import com.example.typego.utils.TimeConvert;
+import com.tetsoft.typego.utils.StringKeys;
+import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.TimeConvert;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;

@@ -1,4 +1,4 @@
-package com.example.typego.utils;
+package com.tetsoft.typego.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
