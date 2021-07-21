@@ -10,9 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import com.example.typego.utils.Language;
-import com.example.typego.utils.StringKeys;
-import com.example.typego.utils.User;
+import android.widget.Toast;
+
+import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.StringKeys;
+import com.tetsoft.typego.utils.User;
 import java.util.ArrayList;
 import java.util.Locale;
 
