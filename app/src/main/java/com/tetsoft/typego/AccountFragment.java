@@ -34,7 +34,6 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -54,16 +53,6 @@ public class AccountFragment extends Fragment {
         loadAccountData();
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            if (getView()!=null) {
-                NestedScrollView nestedScrollView = getView().findViewById(R.id.accountNestedScrollView);
-                nestedScrollView.smoothScrollTo(0, 0);
-            }
-        }
-    }
 
     private void loadAccountData() {
         View view = getView();
@@ -81,7 +70,7 @@ public class AccountFragment extends Fragment {
         TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
 
         tvAvgWpm.setText(getString(R.string.average_wpm_pl, 0));
-        tvBestResult.setText(getString(R.string.best_result) + ": 0");
+        tvBestResult.setText(getString(R.string.best_result_pl, 0));
         tvLastResult.setText(getString(R.string.previous_result_pl, 0));
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
     }
@@ -129,7 +118,7 @@ public class AccountFragment extends Fragment {
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
         TextView tvBestResult = view.findViewById(R.id.tvBestResult);
         int bestResult = ResultListUtils.getBestResult(selectedResults);
-        tvBestResult.setText(getString(R.string.best_result) + ": " + bestResult);
+        tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
         TextView tvLastResult = view.findViewById(R.id.tvAccountLastResult);
         tvLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
         String wpmStr;
