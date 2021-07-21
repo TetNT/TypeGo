@@ -1,4 +1,4 @@
-package com.example.typego;
+package com.tetsoft.typego;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.emoji.bundled.BundledEmojiCompatConfig;
@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.typego.utils.Achievement;
-import com.example.typego.utils.Emoji;
-import com.example.typego.utils.StringKeys;
-import com.example.typego.utils.Language;
-import com.example.typego.utils.TimeConvert;
-import com.example.typego.utils.TypingResult;
-import com.example.typego.utils.User;
+import com.tetsoft.typego.utils.Achievement;
+import com.tetsoft.typego.utils.Emoji;
+import com.tetsoft.typego.utils.StringKeys;
+import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.TimeConvert;
+import com.tetsoft.typego.utils.TypingResult;
+import com.tetsoft.typego.utils.User;
 import java.util.Calendar;
 
 public class ResultActivity extends AppCompatActivity {
