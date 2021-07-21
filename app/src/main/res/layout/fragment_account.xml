@@ -6,20 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AccountFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/account_guideline_left"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/account_guideline_right"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp"
-        />
 
     <TextView
         android:id="@+id/activity_account_title"
@@ -36,24 +23,43 @@
         android:id="@+id/accountNestedScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toStartOf="@+id/account_guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/account_guideline_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_account_title"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/scrollbars"
         >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/account_guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/account_guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp"
+                />
 
 
         <LinearLayout
             android:id="@+id/infoBodyLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="@id/account_guideline_left"
+            app:layout_constraintEnd_toEndOf="@id/account_guideline_right"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusableInTouchMode="true"
+            >
 
 
             <TextView
