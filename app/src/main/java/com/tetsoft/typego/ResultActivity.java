@@ -44,7 +44,7 @@ public class ResultActivity extends AppCompatActivity {
         currentUser = User.getFromStoredData(this);
         initIntentData();
         initPreviousResult();
-        initStartOverButton();
+        if (!calledFromResultsTab) temporarilyDisableButtons(2000);
         initBestResult();
         EmojiTextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
@@ -165,6 +165,20 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
+    Button bStartOver;
+    Button bFinish;
+    void temporarilyDisableButtons(int delayInMillis) {
+        bFinish = findViewById(R.id.bFinish);
+        bStartOver = findViewById(R.id.bStartOver);
+        bFinish.setEnabled(false);
+        bStartOver.setEnabled(false);
+        Handler handler = new Handler(Looper.getMainLooper());
+        Runnable runnable = () -> {
+            bFinish.setEnabled(true);
+            bStartOver.setEnabled(true);
+        };
+        handler.postDelayed(runnable, delayInMillis);
+    }
 
     void initStartOverButton() {
         Bundle arguments = getIntent().getExtras();
