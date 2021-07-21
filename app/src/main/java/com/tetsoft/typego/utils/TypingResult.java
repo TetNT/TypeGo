@@ -1,4 +1,4 @@
-package com.example.typego.utils;
+package com.tetsoft.typego.utils;
 
 
 import java.util.Date;
@@ -77,7 +77,17 @@ public class TypingResult {
         this.language = language;
         this.timeInSeconds = timeInSeconds;
         this.completionDateTime = completionDateTime;
+        this.WPM = calculateWPM();
+    }
+
+    private double calculateWPM() {
+        double WPM;
         double DIVISION_POWER = 4.0;
-        WPM = (60.0 / this.timeInSeconds) * (this.correctWordsWeight/ DIVISION_POWER);
+        try {
+            WPM = (60.0 / timeInSeconds) * (correctWordsWeight / DIVISION_POWER);
+        } catch (ArithmeticException ae) {
+            WPM = 0.0;
+        }
+        return WPM;
     }
 }
