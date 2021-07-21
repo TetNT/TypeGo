@@ -6,6 +6,8 @@ import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.widget.EmojiTextView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +31,7 @@ public class ResultActivity extends AppCompatActivity {
     int screenOrientation;
     int totalWords = 0;
     int bestResultByLanguage;
-    boolean calledFromResultsTab;
+    boolean calledFromResultsTab, calledFromMainMenu;
     boolean textSuggestionsIsOn;
     Language dictionaryLanguage;
     TextView tvBestResult, tvPreviousResult;
@@ -46,9 +48,11 @@ public class ResultActivity extends AppCompatActivity {
         initPreviousResult();
         if (!calledFromResultsTab) temporarilyDisableButtons(2000);
         initBestResult();
+        if (calledFromResultsTab) changeVisibilityFromResultsTab();
         EmojiTextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
         TextView tvIncorrectWords = findViewById(R.id.tvIncorrectWords);
+        TextView tvCorrectChars = findViewById(R.id.tvCorrectChars);
         TextView tvDictionary = findViewById(R.id.tvDictionary);
         TextView tvAllottedTime = findViewById(R.id.tvAllottedTime);
         TextView tvLanguage = findViewById(R.id.tvLanguage);
@@ -63,6 +67,7 @@ public class ResultActivity extends AppCompatActivity {
         tvWPM.setText(wpmText);
         tvIncorrectWords.setText(getString(R.string.incorrect_words_pl, result.getIncorrectWords()));
         tvCorrectWords.setText(getString(R.string.correct_words_pl, correctWords));
+        tvCorrectChars.setText(getString(R.string.correct_chars_pl, correctWordsWeight));
         tvDictionary.setText(getString(R.string.dictionary_pl, dictionaryName));
         tvAllottedTime.setText(getString(R.string.selected_time_pl, TimeConvert.convertSeconds(this, timeInSeconds)));
         tvLanguage.setText(getString(R.string.selected_language_pl, dictionaryLanguage.getName(this)));
@@ -85,10 +90,18 @@ public class ResultActivity extends AppCompatActivity {
     void initBestResult() {
         tvBestResult = findViewById(R.id.tvBestResult);
         bestResultByLanguage = currentUser.getBestResultByLanguage(dictionaryLanguage);
-        tvBestResult.setText(getString(R.string.best_result_pl, dictionaryLanguage.getIdentifier(), bestResultByLanguage));
+        tvBestResult.setText(getString(R.string.best_result_pl, bestResultByLanguage));
         if (bestResultByLanguage == 0)
             tvBestResult.setVisibility(View.GONE);
         else tvBestResult.setVisibility(View.VISIBLE);
+    }
+
+    void changeVisibilityFromResultsTab() {
+        bStartOver = findViewById(R.id.bStartOver);
+        bFinish = findViewById(R.id.bFinish);
+        bStartOver.setVisibility(View.GONE);
+        tvPreviousResult.setVisibility(View.GONE);
+        bFinish.setText(getString(R.string.close));
     }
 
     void initIntentData() {
@@ -102,6 +115,7 @@ public class ResultActivity extends AppCompatActivity {
         dictionaryLanguage = (Language)arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG);
         textSuggestionsIsOn = arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON);
         calledFromResultsTab = arguments.getBoolean(StringKeys.CALLED_FROM_PASSED_RESULTS);
+        calledFromMainMenu = arguments.getBoolean(StringKeys.FROM_MAIN_MENU);
     }
 
     private void SaveResultData() {
@@ -132,23 +146,15 @@ public class ResultActivity extends AppCompatActivity {
                 newAchievements++;
                 notificationAchievement = achievement;
             }
-            if (newAchievements==1) {
-                Toast.makeText(this, getString(R.string.achievement_unlocked, notificationAchievement.getName()), Toast.LENGTH_SHORT).show();
-            }
-            else if (newAchievements>1)
-                Toast.makeText(
-                        ResultActivity.this,
-                        getString(R.string.new_achievements_notification, newAchievements),
-                        Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void SaveAndContinue(View view){
-        finish();
-        if (!calledFromResultsTab) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+        if (newAchievements==1) {
+            Toast.makeText(this, getString(R.string.achievement_unlocked, notificationAchievement.getName()), Toast.LENGTH_SHORT).show();
         }
+        else if (newAchievements>1)
+            Toast.makeText(
+                    ResultActivity.this,
+                    getString(R.string.new_achievements_notification, newAchievements),
+                    Toast.LENGTH_LONG).show();
     }
 
     private TypingResult getCurrentResult() {
@@ -187,23 +193,18 @@ public class ResultActivity extends AppCompatActivity {
         handler.postDelayed(runnable, delayInMillis);
     }
 
-    void initStartOverButton() {
+
+    public void startOver(View v) {
         Bundle arguments = getIntent().getExtras();
-        Button bStartOver = findViewById(R.id.bStartOver);
-        bStartOver.setOnClickListener(v -> {
-            Intent intent = new Intent(ResultActivity.this, TypingTestActivity.class);
-            intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
-            intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS));
-            intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, arguments.getInt(StringKeys.TEST_DICTIONARY_TYPE));
-            intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG));
-            intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, screenOrientation);
-            finish();
-            startActivity(intent);
-        });
-        if (calledFromResultsTab) {
-            bStartOver.setVisibility(View.GONE);
-            tvPreviousResult.setVisibility(View.GONE);
-        }
+        Intent intent = new Intent(ResultActivity.this, TypingTestActivity.class);
+        intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
+        intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, arguments.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS));
+        intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, arguments.getInt(StringKeys.TEST_DICTIONARY_TYPE));
+        intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, arguments.getSerializable(StringKeys.TEST_DICTIONARY_LANG));
+        intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, screenOrientation);
+        finish();
+        startActivity(intent);
+
     }
 
 }
