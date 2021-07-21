@@ -11,158 +11,194 @@
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
-        android:fadeScrollbars="false"
-        android:scrollbars="vertical"
+        style="@style/scrollbars"
         app:layout_constraintBottom_toTopOf="@id/bFinish"
-        app:layout_constraintEnd_toStartOf="@id/result_guideline_end"
-        app:layout_constraintStart_toEndOf="@id/result_guideline_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <LinearLayout
-            android:id="@+id/resultSection"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/bFinish"
-            app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/result_guideline_start"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toStartOf="@id/result_guideline_end"
+            app:layout_constraintStart_toEndOf="@id/result_guideline_start"
+            >
 
-            <androidx.emoji.widget.EmojiTextView
-                android:id="@+id/tvWPM"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:text="@string/wordsPerMinute"
-                android:textAlignment="center"
-                android:textColor="@color/text_accent"
-                android:textSize="36sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/tvNewBestResult"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/new_best_result"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:layout_marginBottom="4dp"
-                android:textStyle="bold"
-                android:textColor="@color/golden"
-
-                android:visibility="gone"/>
-            <TextView
-                android:id="@+id/tvPreviousResult"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/result_guideline_start"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/previous_result"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_prev_res"
-                android:drawablePadding="4dp"
-                app:drawableTint="@color/white" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
 
-            <TextView
-                android:id="@+id/tvBestResult"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/result_guideline_end"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/best_result"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_star"
-                android:drawablePadding="4dp"
-                app:drawableTint="@color/golden" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="20dp" />
 
-            <TextView
-                android:id="@+id/tvCorrectWords"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/resultSection"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/correct_words"
-                android:textSize="20sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_check"
-                android:drawablePadding="4dp"
-                app:drawableTint="@color/correct_green" />
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/result_guideline_start"
+                app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvIncorrectWords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/incorrect_words"
-                android:textSize="20sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_incorrect"
-                app:drawableTint="@color/incorrect_red"
-                android:drawablePadding="4dp"/>
+                <androidx.emoji.widget.EmojiTextView
+                    android:id="@+id/tvWPM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:text="@string/wordsPerMinute"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_accent"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvNewBestResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_best_result"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:layout_marginBottom="4dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/golden"
+                    android:visibility="gone"/>
 
-            <TextView
-                style="@style/submenu_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/details"/>
-            <TextView
-                android:id="@+id/tvDictionary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/dictionary"
-                android:textSize="20sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_text"
-                android:drawablePadding="4dp"/>
+                <TextView
+                    android:id="@+id/tvPreviousResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/previous_result"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    style="@style/list_fields"
+                    app:drawableStartCompat="@drawable/ic_prev_res"
+                    android:drawablePadding="4dp"
+                    app:drawableTint="@color/white" />
 
-            <TextView
-                android:id="@+id/tvAllottedTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/allotted_time"
-                android:textSize="20sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_timer"
-                android:drawablePadding="4dp"/>
+                <TextView
+                    android:id="@+id/tvBestResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/best_result"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    style="@style/list_fields"
+                    app:drawableStartCompat="@drawable/ic_star"
+                    android:drawablePadding="4dp"
+                    app:drawableTint="@color/golden" />
 
-            <TextView
-                android:id="@+id/tvLanguage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/selected_language"
-                android:textSize="20sp"
-                style="@style/list_fields"
-                app:drawableStartCompat="@drawable/ic_language"
-                android:drawablePadding="4dp"/>
+                <TextView
+                    android:id="@+id/tvCorrectWords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/correct_words"
+                    android:textSize="20sp"
+                    style="@style/list_fields"
+                    app:drawableStartCompat="@drawable/ic_check"
+                    android:drawablePadding="4dp"
+                    app:drawableTint="@color/correct_green" />
 
-            <TextView
-                android:id="@+id/tvTextSuggestions"
-                style="@style/list_fields"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/text_suggestions"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_info"
-                android:drawablePadding="4dp"/>
+                <TextView
+                    android:id="@+id/tvIncorrectWords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/incorrect_words"
+                    android:textSize="20sp"
+                    style="@style/list_fields"
+                    app:drawableStartCompat="@drawable/ic_incorrect"
+                    app:drawableTint="@color/incorrect_red"
+                    android:drawablePadding="4dp"/>
 
-            <TextView
-                android:id="@+id/tvScreenOrientation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:drawableStartCompat="@drawable/ic_portrait"
-                style="@style/list_fields"
-                android:textSize="18sp"
-                android:drawablePadding="4dp"
-                android:text="@string/screen_orientation"/>
+                <TextView
+                    android:id="@+id/tvCorrectChars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/correct_characters"
+                    android:textSize="20sp"
+                    style="@style/list_fields"
+                    android:drawablePadding="4dp"
+                    app:drawableTint="@color/white"
+                    app:drawableStartCompat="@drawable/ic_chars"
+                    android:visibility="gone"/>
 
-        </LinearLayout>
+                <TextView
+                    style="@style/submenu_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/details"/>
+
+                <TextView
+                    android:id="@+id/tvLanguage"
+                    style="@style/list_fields"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="4dp"
+                    android:text="@string/selected_language"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_language" />
+
+                <TextView
+                    android:id="@+id/tvAllottedTime"
+                    style="@style/list_fields"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="4dp"
+                    android:text="@string/allotted_time"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_timer" />
+
+                <TextView
+                    android:id="@+id/tvDictionary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/dictionary"
+                    android:textSize="20sp"
+                    style="@style/list_fields"
+                    app:drawableStartCompat="@drawable/ic_text"
+                    android:drawablePadding="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvTextSuggestions"
+                    style="@style/list_fields"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/text_suggestions"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_info"
+                    android:drawablePadding="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvScreenOrientation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:drawableStartCompat="@drawable/ic_portrait"
+                    style="@style/list_fields"
+                    android:textSize="18sp"
+                    android:drawablePadding="4dp"
+                    android:text="@string/screen_orientation"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.core.widget.NestedScrollView>
@@ -179,45 +215,29 @@
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="@string/finish"
-        android:textAllCaps="false"
         android:textSize="24sp"
-        android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bStartOver"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/result_guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/result_guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
 
     <Button
         android:id="@+id/bStartOver"
         style="@style/accent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/mainbutton"
         android:layout_marginBottom="24dp"
+        android:background="@drawable/mainbutton"
+        android:focusable="false"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="@string/start_over"
-        android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bFinish" />
+        app:layout_constraintStart_toEndOf="@+id/bFinish"
+        android:onClick="startOver"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
