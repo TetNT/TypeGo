@@ -34,6 +34,7 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:scrollbarThumbVertical">@color/button_main_green_pressed</item>
         <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+        <item name="android:scrollbarSize">2dip</item>
     </style>
     <style name="textview_clickable">
         <item name="android:focusable">true</item>
