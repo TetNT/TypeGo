@@ -419,8 +419,6 @@ public class TypingTestActivity extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-
-
     }
 
     private void setAdCallback() {
@@ -458,6 +456,7 @@ public class TypingTestActivity extends AppCompatActivity {
         intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, dictionaryLanguage);
         intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON,
                 getIntent().getExtras().getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
+        intent.putExtra(StringKeys.FROM_MAIN_MENU, getIntent().getBooleanExtra(StringKeys.FROM_MAIN_MENU, false));
         finish();
         startActivity(intent);
     }
