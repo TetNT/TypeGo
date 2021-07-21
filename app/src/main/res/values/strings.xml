@@ -20,7 +20,7 @@
     <string name="enhanced">Enhanced</string>
     <string name="basic">Basic</string>
     <string name="dictionary">Dictionary</string>
-    <string name="allotted_time">Allotted time</string>
+    <string name="allotted_time">Selected time</string>
     <string name="testing">Testing</string>
     <string name="amount_of_time">Amount of time</string>
     <string name="dictionary_type">Dictionary type</string>
@@ -79,7 +79,7 @@
 
 <!--  Placeholders  -->
     <string name="previous_result_pl">Previous result: %1$d</string>
-    <string name="best_result_pl">Best result (%1$s): %2$d</string>
+    <string name="best_result_pl">Best result: %1$d</string>
     <string name="correct_words_pl">Correct words: %1$d</string>
     <string name="incorrect_words_pl">Incorrect words: %1$d</string>
     <string name="dictionary_pl">Dictionary: %1$s</string>
@@ -93,5 +93,8 @@
     <string name="average_wpm_pl">Average WPM: %1$d</string>
     <string name="korean">Korean</string>
     <string name="msg_passed_tests_information">Tap on any of these to watch test details.</string>
+    <string name="correct_chars_pl">Correct characters: %1$d</string>
+    <string name="correct_characters">Correct characters</string>
+    <string name="close">Close</string>
 
 </resources>

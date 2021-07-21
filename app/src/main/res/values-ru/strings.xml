@@ -73,7 +73,7 @@
     <string name="vertical">Вертикальное</string>
     <string name="horizontal">Горизонтальное</string>
     <string name="previous_result_pl">Предыдущий результат: %1$d</string>
-    <string name="best_result_pl">Лучший результат (%1$s): %2$d</string>
+    <string name="best_result_pl">Лучший результат: %1$d</string>
     <string name="correct_words_pl">Правильных слов: %1$d</string>
     <string name="incorrect_words_pl">Неправильных слов: %1$d</string>
     <string name="dictionary_pl">Словарь: %1$s</string>
@@ -87,4 +87,7 @@
     <string name="average_wpm_pl">Средний СВМ: %1$d</string>
     <string name="korean">Корейский</string>
     <string name="msg_passed_tests_information">Нажми на любой чтобы посмотреть информацию.</string>
+    <string name="correct_chars_pl">Правильных символов: %1$d</string>
+    <string name="correct_characters">Правильных символов</string>
+    <string name="close">Закрыть</string>
 </resources>
