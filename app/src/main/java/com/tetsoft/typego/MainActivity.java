@@ -10,8 +10,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.User;
@@ -138,11 +136,5 @@ public class MainActivity extends AppCompatActivity {
             index++;
         }
         return 0;
-    }
-
-    public void resetUser(View view) {
-        User currentUser = new User();
-        currentUser.initAchievements(this);
-        currentUser.storeData(this);
     }
 }
