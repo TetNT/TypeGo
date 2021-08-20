@@ -110,6 +110,7 @@ public class TypingTestActivity extends AppCompatActivity {
                 // if the last typed letter is space
                 if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
                     deselectCurrentWord();
+                    addWordToTypedList(inpWord.getText().toString().trim(), currentWord.trim());
                     totalWordsPassed++;
                     if (wordIsCorrect()) {
                         correctWordsCount++;
@@ -130,6 +131,10 @@ public class TypingTestActivity extends AppCompatActivity {
         initializeWordCursor();
     }
 
+    private void addWordToTypedList(String inputted, String original) {
+        typedWordsList.add(new Word(inputted, original, getMistakeIndexes(inputted, original)));
+    }
+
     private void initialize() {
         Bundle bundle = getIntent().getExtras();
         timeInSeconds = bundle.getInt(StringKeys.TEST_AMOUNT_OF_SECONDS);
@@ -143,7 +148,8 @@ public class TypingTestActivity extends AppCompatActivity {
         etWords = findViewById(R.id.words);
         inpWord = findViewById(R.id.inpWord);
         tvTimeLeft = findViewById(R.id.tvTimeLeft);
-        wordList = new ArrayList<>();
+        loadingWordList = new ArrayList<>();
+        typedWordsList = new ArrayList<>();
         if (textSuggestionsIsOn) inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         else inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
     }
@@ -353,6 +359,15 @@ public class TypingTestActivity extends AppCompatActivity {
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
     }
 
+    protected ArrayList<Integer> getMistakeIndexes(String inputted, String original) {
+        ArrayList<Integer> mistakeIndexes = new ArrayList<>();
+        for (int i = 0; i<inputted.length(); i++) {
+            if (i >= original.length()) mistakeIndexes.add(i);
+            else if (inputted.toLowerCase().charAt(i) != original.toLowerCase().charAt(i)) mistakeIndexes.add(i);
+        }
+        return mistakeIndexes;
+    }
+
     protected void initWords(){
         AssetManager am = getAssets();
         String dictionary;
@@ -457,6 +472,7 @@ public class TypingTestActivity extends AppCompatActivity {
         intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, dictionaryLanguage);
         intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON,
                 getIntent().getExtras().getBoolean(StringKeys.TEST_SUGGESTIONS_ON));
+        intent.putExtra(StringKeys.TEST_TYPED_WORDS_LIST, typedWordsList);
         intent.putExtra(StringKeys.FROM_MAIN_MENU, getIntent().getBooleanExtra(StringKeys.FROM_MAIN_MENU, false));
         finish();
         startActivity(intent);
