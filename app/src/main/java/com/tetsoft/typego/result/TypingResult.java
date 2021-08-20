@@ -1,6 +1,6 @@
-package com.tetsoft.typego.utils;
+package com.tetsoft.typego.result;
 
-
+import com.tetsoft.typego.utils.Language;
 import java.util.Date;
 public class TypingResult {
 
