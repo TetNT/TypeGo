@@ -96,5 +96,9 @@
     <string name="correct_chars_pl">Correct characters: %1$d</string>
     <string name="correct_characters">Correct characters</string>
     <string name="close">Close</string>
+    <string name="typed_words_log">Typed words list</string>
+    <string name="typed_words_log_description">Words that you\'ve typed are on the left and actual are on the right.</string>
+    <string name="leave_a_feedback">Leave a feedback</string>
+    <string name="typed_words_log_disabled">List only available in a test that you just passed.</string>
 
 </resources>

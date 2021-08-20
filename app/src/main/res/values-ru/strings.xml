@@ -90,4 +90,8 @@
     <string name="correct_chars_pl">Правильных символов: %1$d</string>
     <string name="correct_characters">Правильных символов</string>
     <string name="close">Закрыть</string>
+    <string name="typed_words_log">Список введённых слов</string>
+    <string name="typed_words_log_description">Слева слова, которые вы ввели, а справа их правильное написание.</string>
+    <string name="leave_a_feedback">Оставить отзыв</string>
+    <string name="typed_words_log_disabled">Список доступен лишь для теста, который был только что пройден.</string>
 </resources>
