@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.emoji.bundled.BundledEmojiCompatConfig;
 import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.widget.EmojiTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,14 +14,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.tetsoft.typego.utils.Achievement;
+import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.adapters.WordsAdapter;
 import com.tetsoft.typego.utils.Emoji;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.TimeConvert;
-import com.tetsoft.typego.utils.TypingResult;
+import com.tetsoft.typego.result.TypingResult;
 import com.tetsoft.typego.utils.User;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
     User currentUser;
@@ -36,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
     Language dictionaryLanguage;
     TextView tvBestResult, tvPreviousResult;
     TypingResult result;
+    ArrayList<Word> typedWordsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +52,9 @@ public class ResultActivity extends AppCompatActivity {
         currentUser = User.getFromStoredData(this);
         initIntentData();
         initPreviousResult();
-        if (!calledFromResultsTab) temporarilyDisableButtons(2000);
+        if (!calledFromResultsTab) temporarilyDisableButtons();
         initBestResult();
+        initTypedWords();
         if (calledFromResultsTab) changeVisibilityFromResultsTab();
         EmojiTextView tvWPM = findViewById(R.id.tvWPM);
         TextView tvCorrectWords = findViewById((R.id.tvCorrectWords));
@@ -76,6 +83,19 @@ public class ResultActivity extends AppCompatActivity {
         if (wpm <= 0 && !calledFromResultsTab)
             Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT).show();
         else if (wpm>0 && !calledFromResultsTab) SaveResultData();
+    }
+
+    void initTypedWords() {
+        if (calledFromResultsTab) {
+            TextView tvTypedWordsDescription = findViewById(R.id.tvTypedWordsDescription);
+            tvTypedWordsDescription.setText(getString(R.string.typed_words_log_disabled));
+            return;
+        }
+        RecyclerView rvWords = findViewById(R.id.rvTypedWords);
+        List<Word> words = typedWordsList;
+        rvWords.setAdapter(new WordsAdapter(words));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        rvWords.setLayoutManager(layoutManager);
     }
 
     void initPreviousResult() {
@@ -116,6 +136,7 @@ public class ResultActivity extends AppCompatActivity {
         textSuggestionsIsOn = arguments.getBoolean(StringKeys.TEST_SUGGESTIONS_ON);
         calledFromResultsTab = arguments.getBoolean(StringKeys.CALLED_FROM_PASSED_RESULTS);
         calledFromMainMenu = arguments.getBoolean(StringKeys.FROM_MAIN_MENU);
+        typedWordsList = (ArrayList<Word>)arguments.getSerializable(StringKeys.TEST_TYPED_WORDS_LIST);
     }
 
     private void SaveResultData() {
@@ -174,13 +195,13 @@ public class ResultActivity extends AppCompatActivity {
         finish();
         Intent intent = null;
         if (calledFromMainMenu) intent = new Intent(this, MainActivity.class);
-        else if (!calledFromResultsTab && !calledFromMainMenu) intent = new Intent (this, TestSetupActivity.class);
+        else if (!calledFromResultsTab) intent = new Intent (this, TestSetupActivity.class);
         if (intent != null) startActivity(intent);
     }
 
     Button bStartOver;
     Button bFinish;
-    void temporarilyDisableButtons(int delayInMillis) {
+    void temporarilyDisableButtons() {
         bFinish = findViewById(R.id.bFinish);
         bStartOver = findViewById(R.id.bStartOver);
         bFinish.setEnabled(false);
@@ -190,7 +211,7 @@ public class ResultActivity extends AppCompatActivity {
             bFinish.setEnabled(true);
             bStartOver.setEnabled(true);
         };
-        handler.postDelayed(runnable, delayInMillis);
+        handler.postDelayed(runnable, 2000);
     }
 
 
