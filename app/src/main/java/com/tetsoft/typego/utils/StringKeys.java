@@ -17,6 +17,7 @@ public class StringKeys {
     public static final String FRAGMENT_TEST_SETUP = "fragmentTestSetup";
     public static final String FRAGMENT_ACCOUNT = "fragmentAccount";
     public static final String FROM_MAIN_MENU = "fromMainMenu";
+    public static final String TEST_TYPED_WORDS_LIST = "typedWordsList";
 
     // language identifiers
     public static final String LANGUAGE_ALL = "ALL";
