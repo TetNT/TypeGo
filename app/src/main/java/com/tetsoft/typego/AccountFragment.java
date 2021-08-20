@@ -1,6 +1,7 @@
 package com.tetsoft.typego;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +20,7 @@ import com.tetsoft.typego.adapters.PassedTestsAdapter;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.ResultListUtils;
-import com.tetsoft.typego.utils.TypingResult;
+import com.tetsoft.typego.result.TypingResult;
 import com.tetsoft.typego.utils.User;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class AccountFragment extends Fragment {
         currentUser = User.getFromStoredData(getContext());
         initLanguageSpinner(view);
         loadAccountData();
+        leaveFeedbackClick();
     }
 
 
@@ -129,6 +131,22 @@ public class AccountFragment extends Fragment {
             tvAvgWpm.setText(wpmStr);
         } else
             tvAvgWpm.setText(getString(R.string.msg_average_wpm_unavailable));
+    }
+
+    public void leaveFeedbackClick() {
+        TextView tvLeaveFeedback = getActivity().findViewById(R.id.tvLeaveFeedback);
+        tvLeaveFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String appPackageName = getContext().getPackageName();
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            }
+        });
+
     }
 
     public void loadLastResultsData(@NonNull View view) {
