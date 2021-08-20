@@ -46,8 +46,8 @@ public class TypingTestActivity extends AppCompatActivity {
     TextView tvTimeLeft;
     int correctWordsCount;
     int totalWordsPassed;
-    ArrayList<String> wordList;
-    int currentWordStartCursor;
+    ArrayList<String> loadingWordList;
+    int currentWordStartCursor; // the beginning of the current word
     int currentWordEndCursor;
     String currentWord = "";
     int dictionaryType;
@@ -62,8 +62,9 @@ public class TypingTestActivity extends AppCompatActivity {
     boolean initErrorFlag;
     CountDownTimer countdown;
     public InterstitialAd mInterstitialAd;
-    private boolean adShown;
-    public boolean fromMainMenu;
+    boolean adShown;
+    boolean fromMainMenu;
+    ArrayList<Word> typedWordsList;
 
 
     @Override
@@ -73,6 +74,7 @@ public class TypingTestActivity extends AppCompatActivity {
         adShown = false;
         loadAd();
         initialize();
+        initializeBackButtonCallback();
         setScreenOrientation();
         initWords();
 
@@ -93,19 +95,19 @@ public class TypingTestActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // if user pressed space in empty text field
+                // if a user pressed space in empty text field
                 if (s.toString().equals(" ")) {
                     inpWord.setText("");
                     return;
                 }
 
-                // if a test hasn't started yet and user began to type
+                // if a test hasn't started yet and a user began to type
                 if (testInitiallyPaused && inpWord.getText().length()>0) {
                     startTimer(secondsRemaining);
                     testInitiallyPaused = false;
                 }
 
-                // if last typed letter is space
+                // if the last typed letter is space
                 if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
                     deselectCurrentWord();
                     totalWordsPassed++;
@@ -144,7 +146,6 @@ public class TypingTestActivity extends AppCompatActivity {
         wordList = new ArrayList<>();
         if (textSuggestionsIsOn) inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         else inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        initializeBackButtonCallback();
     }
 
     private void initializeBackButtonCallback() {
@@ -227,7 +228,7 @@ public class TypingTestActivity extends AppCompatActivity {
                 } else {
                     selectCurrentSymbolAsIncorrect(i+currentWordStartCursor);
                 }
-            } else {
+            } else { // if a user hasn't finished typing then deselect the rest of a word
                 deselectSymbols(i+currentWordStartCursor, currentWordEndCursor);
             }
         }
@@ -280,8 +281,8 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void selectCurrentSymbolAsCorrect(int symbolIndex) {
-        ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(0,128,0));
-        etWords.getText().setSpan(selectedWordFG, symbolIndex, symbolIndex+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ForegroundColorSpan charSpan = new ForegroundColorSpan(Color.rgb(0,128,0));
+        etWords.getText().setSpan(charSpan, symbolIndex, symbolIndex+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     private void selectCurrentSymbolAsIncorrect(int symbolIndex) {
@@ -367,7 +368,7 @@ public class TypingTestActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String currLine;
             while ((currLine = reader.readLine()) != null) {
-                wordList.add(currLine);
+                loadingWordList.add(currLine);
             }
             is.close();
         } catch (IOException e) {
@@ -380,7 +381,7 @@ public class TypingTestActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
         int amountOfWords = (int)(250 * (timeInSeconds / 60.0));
         for (int i = 0; i <= amountOfWords; i++) {
-            str.append(wordList.get(rnd.nextInt(wordList.size()))).append(" ");
+            str.append(loadingWordList.get(rnd.nextInt(loadingWordList.size()))).append(" ");
         }
         words.setText(str.toString());
     }
