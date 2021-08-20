@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.utils.TimeConvert;
-import com.tetsoft.typego.utils.TypingResult;
+import com.tetsoft.typego.result.TypingResult;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
