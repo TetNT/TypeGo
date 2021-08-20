@@ -179,5 +179,6 @@ public class TestSetupActivity extends AppCompatActivity {
         return 0;
     }
 
+    public void closeActivity(View view) { finish(); }
 
 }
