@@ -18,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toStartOf="@id/result_guideline_end"
             app:layout_constraintStart_toEndOf="@id/result_guideline_start"
+            android:descendantFocusability="blocksDescendants"
             >
 
             <androidx.constraintlayout.widget.Guideline
@@ -195,6 +195,29 @@
                     android:drawablePadding="4dp"
                     android:text="@string/screen_orientation"/>
 
+                <TextView
+                    android:id="@+id/tvTypedWordsLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/submenu_header"
+                    android:text="@string/typed_words_log"
+                    android:layout_marginTop="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvTypedWordsDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/typed_words_log_description"
+                    android:textSize="18sp"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTypedWords"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    tools:listitem="@layout/word_item"/>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
