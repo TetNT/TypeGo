@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.result.TypingResult;
 
 import java.io.Serializable;
 import java.util.ArrayList;
