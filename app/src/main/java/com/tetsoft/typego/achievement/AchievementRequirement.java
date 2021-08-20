@@ -1,5 +1,8 @@
-package com.tetsoft.typego.utils;
+package com.tetsoft.typego.achievement;
 
+
+import com.tetsoft.typego.result.TypingResult;
+import com.tetsoft.typego.utils.User;
 
 import java.util.ArrayList;
 
