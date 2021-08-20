@@ -2,6 +2,8 @@ package com.tetsoft.typego.utils;
 
 import androidx.annotation.NonNull;
 
+import com.tetsoft.typego.result.TypingResult;
+
 import java.util.ArrayList;
 
 public final class ResultListUtils {
