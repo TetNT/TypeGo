@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AccountFragment">
 
-
-
     <TextView
         android:id="@+id/activity_account_title"
         style="@style/activity_title"
@@ -129,7 +127,6 @@
                     style="@style/list_fields"
                     app:drawableStartCompat="@drawable/ic_times_played" />
 
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
@@ -163,10 +160,21 @@
                 tools:listitem="@layout/passed_tests_item"
                 />
 
+            <TextView
+                android:id="@+id/tvLeaveFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/button_main_green_unpressed"
+                android:text="@string/leave_a_feedback"
+                android:padding="8dp"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                />
         </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
