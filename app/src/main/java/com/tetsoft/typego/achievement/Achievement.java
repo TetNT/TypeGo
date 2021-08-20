@@ -1,8 +1,11 @@
-package com.tetsoft.typego.utils;
+package com.tetsoft.typego.achievement;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
 import com.tetsoft.typego.R;
+import com.tetsoft.typego.result.TypingResult;
+import com.tetsoft.typego.utils.User;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
