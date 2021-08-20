@@ -18,7 +18,11 @@
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="closeActivity"
+        app:drawableStartCompat="@drawable/ic_arrow_back" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/TestSetupNestedScroll"

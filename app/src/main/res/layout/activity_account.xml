@@ -17,7 +17,13 @@
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@drawable/ic_arrow_back"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="closeActivity"
+        />
+
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
