@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import com.tetsoft.typego.achievement.AchievementsFragment;
 import com.tetsoft.typego.utils.StringKeys;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -75,7 +77,6 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onDestroy() {
         if (mAdView!=null)
@@ -96,4 +97,6 @@ public class AccountActivity extends AppCompatActivity {
         if (mAdView!=null)
             mAdView.pause();
     }
+
+    public void closeActivity(View view){ finish(); }
 }
