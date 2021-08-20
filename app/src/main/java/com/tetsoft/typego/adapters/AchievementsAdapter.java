@@ -14,8 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.utils.Achievement;
-import com.tetsoft.typego.utils.AchievementRequirement;
+import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.achievement.AchievementRequirement;
 import com.tetsoft.typego.utils.User;
 
 import java.text.DateFormat;
