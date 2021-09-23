@@ -1,8 +1,8 @@
-package com.tetsoft.typego.utils;
+package com.tetsoft.typego.testing;
 
 import androidx.annotation.NonNull;
 
-import com.tetsoft.typego.result.TypingResult;
+import com.tetsoft.typego.utils.Language;
 
 import java.util.ArrayList;
 

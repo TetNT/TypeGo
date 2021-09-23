@@ -1,4 +1,4 @@
-package com.tetsoft.typego.adapters;
+package com.tetsoft.typego.achievement;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.achievement.Achievement;
-import com.tetsoft.typego.achievement.AchievementRequirement;
 import com.tetsoft.typego.utils.User;
 
 import java.text.DateFormat;

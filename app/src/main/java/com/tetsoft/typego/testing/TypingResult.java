@@ -1,4 +1,4 @@
-package com.tetsoft.typego.result;
+package com.tetsoft.typego.testing;
 
 import com.tetsoft.typego.utils.Language;
 import java.util.Date;
