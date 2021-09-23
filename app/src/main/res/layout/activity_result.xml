@@ -234,7 +234,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/mainbutton"
         android:focusable="false"
-        android:onClick="SaveAndContinue"
+        android:onClick="saveAndContinue"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="@string/finish"

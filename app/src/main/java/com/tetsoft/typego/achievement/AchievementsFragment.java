@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.adapters.AchievementsAdapter;
 import com.tetsoft.typego.utils.User;
 import java.util.ArrayList;
 

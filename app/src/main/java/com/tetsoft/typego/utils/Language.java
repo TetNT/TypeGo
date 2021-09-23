@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Language implements Serializable {
     private final String identifier;
     private final int languageNameResourceId;
-    private String name;
+    private final String name;
 
     public Language(String identifier, int languageNameResourceId, @NonNull Context context) {
         this.identifier = identifier;
@@ -32,7 +32,8 @@ public class Language implements Serializable {
     }
 
     /*Returns list of languages available for testing.
-           New languages are adding here. */
+      New languages are adding here.
+    */
     public static ArrayList<Language> getAvailableLanguages(Context context) {
         ArrayList<Language> languages = new ArrayList<>();
         languages.add(new Language(StringKeys.LANGUAGE_EN, R.string.english, context));
