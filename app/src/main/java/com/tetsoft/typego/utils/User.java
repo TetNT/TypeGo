@@ -7,7 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.tetsoft.typego.achievement.Achievement;
-import com.tetsoft.typego.result.TypingResult;
+import com.tetsoft.typego.testing.ResultListUtils;
+import com.tetsoft.typego.testing.TypingResult;
 
 import java.io.Serializable;
 import java.util.ArrayList;

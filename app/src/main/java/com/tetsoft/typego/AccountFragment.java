@@ -16,11 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import com.tetsoft.typego.adapters.PassedTestsAdapter;
+import com.tetsoft.typego.testing.PassedTestsAdapter;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.ResultListUtils;
-import com.tetsoft.typego.result.TypingResult;
+import com.tetsoft.typego.testing.ResultListUtils;
+import com.tetsoft.typego.testing.TypingResult;
 import com.tetsoft.typego.utils.User;
 
 import java.util.ArrayList;
