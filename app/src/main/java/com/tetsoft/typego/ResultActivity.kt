@@ -13,8 +13,9 @@ import androidx.emoji.widget.EmojiTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.achievement.Achievement
-import com.tetsoft.typego.adapters.WordsAdapter
+import com.tetsoft.typego.testing.WordsAdapter
 import com.tetsoft.typego.testing.TypingResult
+import com.tetsoft.typego.testing.Word
 import com.tetsoft.typego.utils.*
 import java.util.*
 import kotlinx.android.synthetic.main.activity_result.*

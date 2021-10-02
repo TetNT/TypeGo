@@ -1,4 +1,4 @@
-package com.tetsoft.typego
+package com.tetsoft.typego.testing
 
 import java.io.Serializable
 

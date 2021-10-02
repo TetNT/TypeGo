@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tetsoft.typego.testing.Word;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.TimeConvert;
@@ -47,7 +49,7 @@ public class TypingTestActivity extends AppCompatActivity {
     int correctWordsCount;
     int totalWordsPassed;
     ArrayList<String> loadingWordList;
-    int currentWordStartCursor; // the beginning of the current word
+    int currentWordStartCursor; // index of the beginning of the current word
     int currentWordEndCursor;
     String currentWord = "";
     int dictionaryType;
@@ -107,7 +109,7 @@ public class TypingTestActivity extends AppCompatActivity {
                     testInitiallyPaused = false;
                 }
 
-                // if the last typed letter is space
+                // if the last typed character is space
                 if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
                     deselectCurrentWord();
                     addWordToTypedList(inpWord.getText().toString().trim(), currentWord.trim());
