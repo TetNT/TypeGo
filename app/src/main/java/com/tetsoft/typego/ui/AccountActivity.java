@@ -7,7 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import com.tetsoft.typego.achievement.AchievementsFragment;
+
+import com.tetsoft.typego.R;
 import com.tetsoft.typego.utils.StringKeys;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -20,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class AccountActivity extends AppCompatActivity {
     Fragment achievementsFragment;
     Fragment accountFragment;
+    Fragment statisticsFragment;
     FragmentManager fm;
     AdView mAdView;
 
@@ -36,23 +38,33 @@ public class AccountActivity extends AppCompatActivity {
         fm = getSupportFragmentManager();
         achievementsFragment = new AchievementsFragment();
         accountFragment = new AccountFragment();
+        statisticsFragment = new StatisticsFragment();
 
         fm.beginTransaction().add(R.id.fragmentFrame, accountFragment, StringKeys.FRAGMENT_ACCOUNT).commit();
         fm.beginTransaction().add(R.id.fragmentFrame, achievementsFragment, StringKeys.FRAGMENT_TEST_SETUP).commit();
+        fm.beginTransaction().add(R.id.fragmentFrame, statisticsFragment, StringKeys.FRAGMENT_STATISTICS).commit();
         fm.beginTransaction().hide(achievementsFragment).commit();
+        fm.beginTransaction().hide(statisticsFragment).commit();
     }
 
     private void initBottomNavigation() {
         if (fm ==null) throw new NullPointerException("Fragment manager is not initialized");
         BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationView);
+        bottomNavigation.setSelectedItemId(R.id.account_menu_item);
         bottomNavigation.setOnNavigationItemSelectedListener(item -> {
             int selectedItem = item.getItemId();
             if (selectedItem == R.id.achievements_menu_item) {
                 fm.beginTransaction().show(achievementsFragment).commit();
                 fm.beginTransaction().hide(accountFragment).commit();
+                fm.beginTransaction().hide(statisticsFragment).commit();
             } else if (selectedItem == R.id.account_menu_item) {
                 fm.beginTransaction().show(accountFragment).commit();
                 fm.beginTransaction().hide(achievementsFragment).commit();
+                fm.beginTransaction().hide(statisticsFragment).commit();
+            } else if (selectedItem == R.id.statistics_menu_item) {
+                fm.beginTransaction().show(statisticsFragment).commit();
+                fm.beginTransaction().hide(achievementsFragment).commit();
+                fm.beginTransaction().hide(accountFragment).commit();
             }
             return true;
         });
