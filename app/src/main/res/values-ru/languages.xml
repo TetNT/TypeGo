@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="FR">Французский</string>
+    <string name="EN">Английский</string>
+    <string name="RU">Русский</string>
+    <string name="DE">Немецкий</string>
+    <string name="IT">Итальянский</string>
+    <string name="ES">Испанский</string>
+    <string name="KR">Корейский</string>
+    <string name="BG">Болгарский</string>
+
+</resources>
