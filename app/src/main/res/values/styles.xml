@@ -53,4 +53,8 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="basic_cardview">
+        <item name="cardBackgroundColor">@color/cardview_main_dark_gray</item>
+        <item name="cardCornerRadius">24dp</item>
+    </style>
 </resources>
