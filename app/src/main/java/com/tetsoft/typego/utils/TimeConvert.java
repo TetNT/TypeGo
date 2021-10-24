@@ -16,7 +16,6 @@ public class TimeConvert {
         int remainingMinutes = remainingSeconds/60;
         remainingSeconds -= remainingMinutes * 60;
         String convertedSeconds = convertTimeValueToString(remainingSeconds);
-        //String convertedMinutes = convertTimeValueToString(remainingMinutes);
         return remainingMinutes + ":" + convertedSeconds;
     }
 
