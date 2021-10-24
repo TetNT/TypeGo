@@ -53,6 +53,7 @@
                         android:layout_margin="16dp"
                         android:drawablePadding="4dp"
                         android:text="@string/basic_test"
+                        android:fontFamily="@font/redring_bold"
                         app:drawableStartCompat="@drawable/ic_testing"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -64,6 +65,7 @@
                         android:layout_height="0dp"
                         android:layout_margin="16dp"
                         android:text="@string/basic_test_desc"
+                        android:fontFamily="@font/redring_regular"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@id/spinnerBasicTestLanguageSelection"
                         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +80,6 @@
                         android:paddingStart="4dp"
                         android:paddingTop="1dp"
                         android:paddingEnd="4dp"
-
                         android:paddingBottom="1dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -127,6 +128,7 @@
                         android:layout_width="200dp"
                         android:layout_height="0dp"
                         android:layout_margin="16dp"
+                        android:fontFamily="@font/redring_regular"
                         android:text="@string/custom_test_desc"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -178,6 +180,7 @@
                         android:layout_width="200dp"
                         android:layout_height="0dp"
                         android:layout_margin="16dp"
+                        android:fontFamily="@font/redring_regular"
                         android:text="@string/profile_desc"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -201,6 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/redring_regular"
                 android:text="@string/current_version"
                 android:layout_gravity="center_horizontal"
                 />
