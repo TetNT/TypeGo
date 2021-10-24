@@ -36,8 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/cardview_background"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:onClick="startBasicTest"
                 >
 
@@ -102,8 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/cardview_background"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:onClick="openTestCustomization">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -152,8 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/cardview_background"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:onClick="openUserAccount"
                 >
 
