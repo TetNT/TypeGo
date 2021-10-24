@@ -1,15 +1,14 @@
-package com.tetsoft.typego.utils;
+package com.tetsoft.typego.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.tetsoft.typego.achievement.Achievement;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
-
+import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.StringKeys;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -123,7 +122,12 @@ public class User implements Serializable {
         return ResultListUtils.getBestResult(resultsByLanguage);
     }
 
-    public void rememberUserPreferences(Context context, Language language, int timeMode, int dictionaryTypeIndex, boolean textSuggestionsIsOn, int screenOrientation) {
+    public void rememberUserPreferences(Context context,
+                                        Language language,
+                                        int timeMode,
+                                        int dictionaryTypeIndex,
+                                        boolean textSuggestionsIsOn,
+                                        int screenOrientation) {
         preferredLanguage = language;
         preferredTimeMode = timeMode;
         preferredDictionaryType = dictionaryTypeIndex;
