@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountActivity">
+    tools:context=".ui.AccountActivity">
 
     <TextView
-        android:id="@+id/tvLabel"
+        android:id="@+id/tv_account_activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/button_Profile"
         android:textColor="@color/text_accent"
-        android:textSize="48sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,8 +22,17 @@
         android:clickable="true"
         android:focusable="true"
         android:onClick="closeActivity"
+        style="@style/activity_title"
         />
 
+    <View
+        android:id="@+id/account_activity_title_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_account_activity_title" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,31 +47,14 @@
         app:menu="@menu/bottom_menu"
         />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="32dp"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_end="32dp" />
-
     <FrameLayout
         android:id="@+id/fragmentFrame"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/adBanner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabel"
+        app:layout_constraintTop_toBottomOf="@+id/account_activity_title_divider"
         tools:layout="@layout/fragment_account">
     </FrameLayout>
 
