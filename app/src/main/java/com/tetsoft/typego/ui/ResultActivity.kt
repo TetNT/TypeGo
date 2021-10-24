@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.emoji.bundled.BundledEmojiCompatConfig
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.widget.EmojiTextView
@@ -51,6 +52,7 @@ class ResultActivity : AppCompatActivity() {
         initTypedWords()
         if (calledFromResultsTab) changeVisibilityFromResultsTab()
         val tvWPM = findViewById<EmojiTextView>(R.id.tvWPM)
+        tvWPM.typeface = ResourcesCompat.getFont(this, R.font.redring_bold)
         val textSuggestions = if (textSuggestionsIsOn) getString(R.string.yes) else getString(R.string.no)
         val dictionaryName = if (dictionaryType == 0) getString(R.string.basic) else getString(R.string.enhanced)
         val orientation = if (screenOrientation == 0) getString(R.string.vertical) else getString(R.string.horizontal)
