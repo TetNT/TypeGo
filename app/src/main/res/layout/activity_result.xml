@@ -9,10 +9,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="16dp"
         style="@style/scrollbars"
-        app:layout_constraintBottom_toTopOf="@id/bFinish"
+        app:layout_constraintBottom_toTopOf="@id/result_activity_divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,19 +29,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="20dp" />
+                app:layout_constraintGuide_begin="12dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/result_guideline_end"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="20dp" />
+                app:layout_constraintGuide_end="12dp" />
 
             <LinearLayout
                 android:id="@+id/resultSection"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingTop="32dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="@id/result_guideline_start"
                 app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
@@ -58,7 +57,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/text_accent"
                     android:textSize="36sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/redring_black" />
                 <TextView
                     android:id="@+id/tvNewBestResult"
                     android:layout_width="match_parent"
@@ -71,54 +70,75 @@
                     android:textColor="@color/golden"
                     android:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/tvPreviousResult"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/previous_result"
-                    android:textColor="@color/white"
-                    android:textSize="22sp"
-                    style="@style/list_fields"
-                    app:drawableStartCompat="@drawable/ic_prev_res"
-                    android:drawablePadding="4dp"
-                    app:drawableTint="@color/white" />
+                    style="@style/basic_cardview"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginBottom="16dp"
+                    >
 
-                <TextView
-                    android:id="@+id/tvBestResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/best_result"
-                    android:textColor="@color/white"
-                    android:textSize="22sp"
-                    style="@style/list_fields"
-                    app:drawableStartCompat="@drawable/ic_star"
-                    android:drawablePadding="4dp"
-                    app:drawableTint="@color/golden" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        >
 
-                <TextView
-                    android:id="@+id/tvCorrectWords"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/correct_words"
-                    android:textSize="20sp"
-                    style="@style/list_fields"
-                    app:drawableStartCompat="@drawable/ic_check"
-                    android:drawablePadding="4dp"
-                    app:drawableTint="@color/correct_green" />
+                        <TextView
+                            android:id="@+id/tvPreviousResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/previous_result"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            style="@style/list_fields"
+                            app:drawableStartCompat="@drawable/ic_prev_res"
+                            android:drawablePadding="4dp"
+                            app:drawableTint="@color/white" />
 
-                <TextView
-                    android:id="@+id/tvIncorrectWords"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/incorrect_words"
-                    android:textSize="20sp"
-                    style="@style/list_fields"
-                    app:drawableStartCompat="@drawable/ic_incorrect"
-                    app:drawableTint="@color/incorrect_red"
-                    android:drawablePadding="4dp"/>
+                        <TextView
+                            android:id="@+id/tvBestResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/best_result"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            style="@style/list_fields"
+                            app:drawableStartCompat="@drawable/ic_star"
+                            android:drawablePadding="4dp"
+                            app:drawableTint="@color/golden" />
+
+                        <TextView
+                            android:id="@+id/tvCorrectWords"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/correct_words"
+                            android:textSize="20sp"
+                            style="@style/list_fields"
+                            app:drawableStartCompat="@drawable/ic_check"
+                            android:drawablePadding="4dp"
+                            app:drawableTint="@color/correct_green" />
+
+                        <TextView
+                            android:id="@+id/tvIncorrectWords"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/incorrect_words"
+                            android:textSize="20sp"
+                            style="@style/list_fields"
+                            app:drawableStartCompat="@drawable/ic_incorrect"
+                            app:drawableTint="@color/incorrect_red"
+                            android:drawablePadding="4dp"/>
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/tvCorrectChars"
@@ -137,63 +157,82 @@
                     style="@style/submenu_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/details"/>
+                    android:text="@string/details"
+                    android:layout_marginBottom="4dp"/>
 
-                <TextView
-                    android:id="@+id/tvLanguage"
-                    style="@style/list_fields"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="4dp"
-                    android:text="@string/selected_language"
-                    android:textSize="20sp"
-                    app:drawableStartCompat="@drawable/ic_language" />
+                    style="@style/basic_cardview"
+                    android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:id="@+id/tvAllottedTime"
-                    style="@style/list_fields"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="4dp"
-                    android:text="@string/allotted_time"
-                    android:textSize="20sp"
-                    app:drawableStartCompat="@drawable/ic_timer" />
 
-                <TextView
-                    android:id="@+id/tvDictionary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/dictionary"
-                    android:textSize="20sp"
-                    style="@style/list_fields"
-                    app:drawableStartCompat="@drawable/ic_text"
-                    android:drawablePadding="4dp"/>
 
-                <TextView
-                    android:id="@+id/tvTextSuggestions"
-                    style="@style/list_fields"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/text_suggestions"
-                    android:textSize="20sp"
-                    app:drawableStartCompat="@drawable/ic_info"
-                    android:drawablePadding="4dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvScreenOrientation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:drawableStartCompat="@drawable/ic_portrait"
-                    style="@style/list_fields"
-                    android:textSize="18sp"
-                    android:drawablePadding="4dp"
-                    android:text="@string/screen_orientation"/>
+
+
+                        <TextView
+                            android:id="@+id/tvLanguage"
+                            style="@style/list_fields"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="4dp"
+                            android:text="@string/selected_language"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_language" />
+
+                        <TextView
+                            android:id="@+id/tvAllottedTime"
+                            style="@style/list_fields"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:drawablePadding="4dp"
+                            android:text="@string/allotted_time"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_timer" />
+
+                        <TextView
+                            android:id="@+id/tvDictionary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/dictionary"
+                            android:textSize="20sp"
+                            style="@style/list_fields"
+                            app:drawableStartCompat="@drawable/ic_text"
+                            android:drawablePadding="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvTextSuggestions"
+                            style="@style/list_fields"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/text_suggestions"
+                            android:textSize="20sp"
+                            app:drawableStartCompat="@drawable/ic_info"
+                            android:drawablePadding="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvScreenOrientation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            app:drawableStartCompat="@drawable/ic_portrait"
+                            style="@style/list_fields"
+                            android:textSize="20sp"
+                            android:drawablePadding="4dp"
+                            android:text="@string/screen_orientation"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/tvTypedWordsLog"
@@ -204,20 +243,41 @@
                     android:layout_marginTop="16dp"
                     />
 
-                <TextView
-                    android:id="@+id/tvTypedWordsDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/typed_words_log_description"
-                    android:textSize="18sp"
-                    />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvTypedWords"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    tools:listitem="@layout/word_item"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    style="@style/basic_cardview"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/tvTypedWordsDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/redring_regular"
+                            android:text="@string/typed_words_log_description"
+                            android:textSize="18sp"
+                            />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTypedWords"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            tools:listitem="@layout/word_item"/>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -226,18 +286,28 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <View
+        android:id="@+id/result_activity_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/bFinish"
+        android:layout_marginBottom="12dp"
+        />
+
     <Button
         android:id="@+id/bFinish"
         style="@style/accent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/mainbutton"
         android:focusable="false"
         android:onClick="saveAndContinue"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="@string/finish"
+        android:fontFamily="@font/redring_regular"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bStartOver"
@@ -250,12 +320,13 @@
         style="@style/accent_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/mainbutton"
         android:focusable="false"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="@string/start_over"
+        android:fontFamily="@font/redring_regular"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
