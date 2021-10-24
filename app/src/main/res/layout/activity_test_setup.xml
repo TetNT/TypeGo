@@ -13,228 +13,297 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/custom_test"
-        android:textColor="@color/text_accent"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:clickable="true"
         android:focusable="true"
         android:onClick="closeActivity"
-        app:drawableStartCompat="@drawable/ic_arrow_back" />
+        android:text="@string/custom_test"
+        android:textColor="@color/text_accent"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/activity_title"/>
+
+    <View
+        android:id="@+id/test_setup_title_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvTestSetup" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/TestSetupNestedScroll"
+        style="@style/scrollbars"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintStart_toEndOf="@id/left_guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTestSetup"
-        app:layout_constraintBottom_toTopOf="@id/bStartTesting"
-        style="@style/scrollbars">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/test_setup_title_divider">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="48dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
 
-            <LinearLayout
-                android:id="@+id/SectionAmountOfTime"
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvAmountOfTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/amount_of_time"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
-
-                    <SeekBar
-                        android:id="@+id/seekBar"
-                        style="@style/Widget.AppCompat.SeekBar.Discrete"
-                        android:layout_width="200dp"
-                        android:layout_height="28dp"
-                        android:max="5"
-                        android:progress="1"
-                        android:thumbTint="@color/button_main_green_unpressed" />
+                    android:id="@+id/SectionAmountOfTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
                     <TextView
-                        android:id="@+id/tvSeekBarDisplay"
-                        android:layout_width="0dp"
+                        android:id="@+id/tvAmountOfTime"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:text="@string/amount_of_time"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <SeekBar
+                            android:id="@+id/seekBar"
+                            style="@style/Widget.AppCompat.SeekBar.Discrete"
+                            android:layout_width="200dp"
+                            android:layout_height="28dp"
+                            android:max="5"
+                            android:progress="1"
+                            android:thumbTint="@color/button_main_green_unpressed" />
+
+                        <TextView
+                            android:id="@+id/tvSeekBarDisplay"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/SectionDictionaryType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvDictionaryType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/dictionary_type"
+                        android:textAppearance="@style/submenu_header" />
+
+                    <RadioGroup
+                        android:id="@+id/rbDictionaryType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@id/rbBasic"
+                        android:hapticFeedbackEnabled="true">
+
+                        <RadioButton
+                            android:id="@+id/rbBasic"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:text="@string/basic"
+                            android:fontFamily="@font/redring_regular"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/rbEnhanced"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:text="@string/enhanced"
+                            android:fontFamily="@font/redring_regular"
+                            android:textSize="18sp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/SectionLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/language" />
+
+                    <Spinner
+                        android:id="@+id/spinLanguageSelection"
+                        android:layout_width="200dp"
+                        android:layout_height="24dp"
+                        android:paddingStart="4dp"
+                        android:paddingTop="1dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="1dp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/text_suggestions" />
+
+                    <CheckBox
+                        android:id="@+id/cbPredictiveText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/button_main_green_unpressed"
+                        android:checked="true"
+                        android:text="@string/activate"
+                        android:fontFamily="@font/redring_regular"
+                        android:textSize="18sp" />
+
                 </LinearLayout>
 
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
 
-            <LinearLayout
-                android:id="@+id/SectionDictionaryType"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="16dp">
-
-                <TextView
-                    android:id="@+id/tvDictionaryType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dictionary_type"
-                    android:textAppearance="@style/submenu_header" />
-
-                <RadioGroup
-                    android:id="@+id/rbDictionaryType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:checkedButton="@id/rbBasic"
-                    android:hapticFeedbackEnabled="true">
-
-                    <RadioButton
-                        android:id="@+id/rbBasic"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/button_main_green_unpressed"
-                        android:textSize="18sp"
-                        android:text="@string/basic" />
-
-                    <RadioButton
-                        android:id="@+id/rbEnhanced"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/button_main_green_unpressed"
-                        android:textSize="18sp"
-                        android:text="@string/enhanced" />
-                </RadioGroup>
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:id="@+id/SectionLanguage"
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="16dp">
+                android:layout_marginBottom="16dp">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/screenOrientationSection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/language"
-                    style="@style/submenu_header"/>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <Spinner
-                    android:id="@+id/spinLanguageSelection"
-                    android:layout_width="200dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="8dp"
-                    android:paddingTop="1dp"
-                    android:paddingBottom="1dp"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"/>
-            </LinearLayout>
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/screen_orientation" />
 
-            <CheckBox
-                android:id="@+id/cbPredictiveText"
+                    <RadioGroup
+                        android:id="@+id/rbScreenOrientation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/rbVertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:checked="true"
+                            android:text="@string/vertical"
+                            android:fontFamily="@font/redring_regular"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/rbHorizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:text="@string/horizontal"
+                            android:fontFamily="@font/redring_regular"
+                            android:textSize="18sp" />
+                    </RadioGroup>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/bStartTesting"
+                style="@style/accent_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/button_main_green_unpressed"
-                android:checked="true"
-                android:textSize="18sp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp"
-                android:text="@string/text_suggestions"
-                />
-
-            <LinearLayout
-                android:id="@+id/screenOrientationSection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/submenu_header"
-                    android:text="@string/screen_orientation"/>
-
-                <RadioGroup
-                    android:id="@+id/rbScreenOrientation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-
-                    <RadioButton
-                        android:id="@+id/rbVertical"
-                        android:checked="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/vertical"
-                        android:textSize="18sp"
-                        android:buttonTint="@color/button_main_green_unpressed"
-                        />
-                    <RadioButton
-                        android:id="@+id/rbHorizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/horizontal"
-                        android:textSize="18sp"
-                        android:buttonTint="@color/button_main_green_unpressed"
-                        />
-                </RadioGroup>
-
-            </LinearLayout>
-
+                android:background="@drawable/mainbutton"
+                android:onClick="startTesting"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:text="@string/button_StartTest"
+                android:textStyle="italic"
+                android:fontFamily="@font/redring_bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/bStartTesting"
-        style="@style/accent_button"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/mainbutton"
-        android:onClick="startTesting"
-        android:paddingStart="32dp"
-        android:paddingEnd="32dp"
-        android:text="@string/button_StartTest"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/left_guideline"
-        android:layout_width="8dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="8dp"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_arrow_forward_24"
+        android:backgroundTint="@color/button_main_green_unpressed"
+        android:tint="@color/white"
+        android:layout_margin="16dp"
+        android:onClick="startTesting"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
