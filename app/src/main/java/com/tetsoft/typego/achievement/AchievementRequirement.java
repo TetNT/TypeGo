@@ -2,7 +2,7 @@ package com.tetsoft.typego.achievement;
 
 
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.utils.User;
+import com.tetsoft.typego.account.User;
 
 import java.util.ArrayList;
 
