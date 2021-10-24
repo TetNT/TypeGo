@@ -58,9 +58,10 @@ class ResultActivity : AppCompatActivity() {
         val orientation = if (screenOrientation == 0) getString(R.string.vertical) else getString(R.string.horizontal)
         result = currentResult
         wpm = result!!.wpm.toInt()
-        val wpmText = """$wpm ${getString(R.string.wordsPerMinute)}
+        // TODO: return emojis using string resource placeholders
+        val wpmText = """$wpm ${getString(R.string.words_per_minute_pl)}
             |${Emoji.getEmojiOfWpm(wpm)}""".trimMargin()
-        tvWPM.text = wpmText
+        tvWPM.text = getString(R.string.words_per_minute_pl, wpm)
         tvIncorrectWords.text = getString(R.string.incorrect_words_pl, result!!.incorrectWords)
         tvCorrectWords.text = getString(R.string.correct_words_pl, correctWords)
         tvCorrectChars.text = getString(R.string.correct_chars_pl, correctWordsWeight)
