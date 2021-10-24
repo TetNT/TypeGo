@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.utils.User;
+import com.tetsoft.typego.account.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
