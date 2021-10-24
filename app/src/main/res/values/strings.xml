@@ -112,5 +112,6 @@
     <string name="your_preferences">Your preferences</string>
     <string name="msg_stats_not_enough_information">We need to gather more information to show you statistics. Pass more tests!</string>
     <string name="my_statistics">My statistics</string>
+    <string name="statistics">Statistics</string>
 
 </resources>

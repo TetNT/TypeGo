@@ -107,4 +107,5 @@
     <string name="your_preferences">Твои предпочтения</string>
     <string name="msg_stats_not_enough_information">Нам нужно собрать больше информации для отображения статистики. Проходи больше тестов!</string>
     <string name="my_statistics">Моя статистика</string>
+    <string name="statistics">Статистика</string>
 </resources>
