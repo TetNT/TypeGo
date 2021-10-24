@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class RequirementFactory {
 
-    public static ArrayList<AchievementRequirement> getRequirementWPMisMoreThan(int moreOrEquals) {
+    public static ArrayList<AchievementRequirement> WPMisMoreThan(int moreOrEquals) {
         AchievementRequirement requirement = new AchievementRequirement(
                 AchievementRequirement.AchievementSection.WPM,
                 AchievementRequirement.CompareType.MORE_OR_EQUALS,
@@ -15,8 +15,8 @@ public class RequirementFactory {
 
     }
 
-    public static ArrayList<AchievementRequirement> getRequirementTimeModeNoMistakes(int timeInSeconds) {
-        final int MINIMAL_RESULT = 30;
+    public static ArrayList<AchievementRequirement> timeModeNoMistakes(int timeInSeconds) {
+        final int MINIMAL_WPM = 30;
         ArrayList<AchievementRequirement> requirements = new ArrayList<>();
         requirements.add(new AchievementRequirement(
                 AchievementRequirement.AchievementSection.TIME_MODE,
@@ -29,13 +29,13 @@ public class RequirementFactory {
         requirements.add(new AchievementRequirement(
                 AchievementRequirement.AchievementSection.WPM,
                 AchievementRequirement.CompareType.MORE_OR_EQUALS,
-                MINIMAL_RESULT
+                MINIMAL_WPM
         ));
         return requirements;
     }
 
 
-    public static ArrayList<AchievementRequirement> getRequirementPassedTestsAmount(int amount) {
+    public static ArrayList<AchievementRequirement> passedTestsAmount(int amount) {
         AchievementRequirement requirement = new AchievementRequirement(
                 AchievementRequirement.AchievementSection.PASSED_TESTS_AMOUNT,
                 AchievementRequirement.CompareType.MORE_OR_EQUALS,
