@@ -1,4 +1,4 @@
-package com.tetsoft.typego.achievement;
+package com.tetsoft.typego.ui;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.utils.User;
+import com.tetsoft.typego.account.User;
+import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.achievement.AchievementsAdapter;
+
 import java.util.ArrayList;
 
 public class AchievementsFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.tetsoft.typego
+package com.tetsoft.typego.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +12,10 @@ import androidx.emoji.text.EmojiCompat
 import androidx.emoji.widget.EmojiTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tetsoft.typego.R
 import com.tetsoft.typego.achievement.Achievement
-import com.tetsoft.typego.testing.WordsAdapter
-import com.tetsoft.typego.testing.TypingResult
-import com.tetsoft.typego.testing.Word
+import com.tetsoft.typego.account.User
+import com.tetsoft.typego.testing.*
 import com.tetsoft.typego.utils.*
 import java.util.*
 import kotlinx.android.synthetic.main.activity_result.*

@@ -1,4 +1,4 @@
-package com.tetsoft.typego;
+package com.tetsoft.typego.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,12 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import com.tetsoft.typego.R;
+import com.tetsoft.typego.account.User;
+import com.tetsoft.typego.ui.ResultActivity;
 import com.tetsoft.typego.testing.PassedTestsAdapter;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.utils.User;
 
 import java.util.ArrayList;
 

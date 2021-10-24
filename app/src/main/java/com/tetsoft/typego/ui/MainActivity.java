@@ -1,4 +1,4 @@
-package com.tetsoft.typego;
+package com.tetsoft.typego.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -10,9 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
+import com.tetsoft.typego.BuildConfig;
+import com.tetsoft.typego.R;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.utils.User;
+import com.tetsoft.typego.account.User;
 import java.util.ArrayList;
 import java.util.Locale;
 

@@ -1,4 +1,4 @@
-package com.tetsoft.typego;
+package com.tetsoft.typego.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
