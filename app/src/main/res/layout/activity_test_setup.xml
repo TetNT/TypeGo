@@ -5,7 +5,7 @@
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestSetupActivity">
+    tools:context=".ui.TestSetupActivity">
 
     <TextView
         android:id="@+id/tvTestSetup"
