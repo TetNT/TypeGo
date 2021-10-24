@@ -48,13 +48,15 @@ public class Language implements Serializable {
     */
     public static ArrayList<Language> getAvailableLanguages(Context context) {
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language(StringKeys.LANGUAGE_EN, R.string.english, context));
-        languages.add(new Language(StringKeys.LANGUAGE_FR, R.string.french, context));
-        languages.add(new Language(StringKeys.LANGUAGE_DE, R.string.german, context));
-        languages.add(new Language(StringKeys.LANGUAGE_IT, R.string.italian, context));
-        languages.add(new Language(StringKeys.LANGUAGE_KR, R.string.korean, context));
-        languages.add(new Language(StringKeys.LANGUAGE_RU, R.string.russian, context));
-        languages.add(new Language(StringKeys.LANGUAGE_ES, R.string.spanish, context));
+        languages.add(new Language(StringKeys.LANGUAGE_EN, R.string.EN, context));
+        languages.add(new Language(StringKeys.LANGUAGE_FR, R.string.FR, context));
+        languages.add(new Language(StringKeys.LANGUAGE_DE, R.string.DE, context));
+        languages.add(new Language(StringKeys.LANGUAGE_IT, R.string.IT, context));
+        languages.add(new Language(StringKeys.LANGUAGE_KR, R.string.KR, context));
+        languages.add(new Language(StringKeys.LANGUAGE_RU, R.string.RU, context));
+        languages.add(new Language(StringKeys.LANGUAGE_ES, R.string.ES, context));
+        languages.add(new Language(StringKeys.LANGUAGE_BG, R.string.BG, context));
+        languages.add(new Language(StringKeys.LANGUAGE_UA, R.string.UA, context));
         return languages;
     }
 
