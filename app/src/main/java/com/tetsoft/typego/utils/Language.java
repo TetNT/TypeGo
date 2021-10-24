@@ -1,6 +1,8 @@
 package com.tetsoft.typego.utils;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import com.tetsoft.typego.R;
 import java.io.Serializable;
@@ -22,7 +24,17 @@ public class Language implements Serializable {
     }
 
     public String getName(Context context) {
-        return context.getResources().getString(languageNameResourceId);
+        try {
+            return context.getResources().getString(getResourceIdByName(context));
+        }
+        catch (Exception e) {
+            Log.i("EX", "Failed to get resource: " + e.getMessage());
+            return toString();
+        }
+    }
+
+    private int getResourceIdByName(Context context) {
+        return context.getResources().getIdentifier(identifier, "string", context.getPackageName());
     }
 
     @NonNull
