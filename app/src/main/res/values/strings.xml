@@ -20,7 +20,7 @@
     <string name="enhanced">Enhanced</string>
     <string name="basic">Basic</string>
     <string name="dictionary">Dictionary</string>
-    <string name="allotted_time">Selected time</string>
+    <string name="allotted_time">Time</string>
     <string name="testing">Testing</string>
     <string name="amount_of_time">Amount of time</string>
     <string name="dictionary_type">Dictionary type</string>
@@ -35,7 +35,7 @@
     <string name="yes">Yes</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="continue_testing">Do you want to continue the test?</string>
-    <string name="selected_language">Selected language</string>
+    <string name="selected_language">Language</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="i_do_not_have_an_account"><u>I don\'t have an account</u></string>
@@ -46,7 +46,7 @@
     <string name="language">Language</string>
     <string name="start_over">Start over</string>
     <string name="finish">Finish</string>
-    <string name="assessment">My success</string>
+    <string name="assessment">My results</string>
     <string name="average_wpm">Average WPM</string>
     <string name="last_result">Last result</string>
     <string name="tests_passed">Tests passed</string>
@@ -67,17 +67,12 @@
     <string name="basic_test_desc">Start a 1 minute test with basic dictionary and see how much WPM you will get!</string>
     <string name="custom_test_desc">Customizable test for every need. Set up dictionary type, language and so on!</string>
     <string name="profile_desc">Statistics, passed tests, and achievements are here!</string>
-    <string name="french">French</string>
-    <string name="english">English</string>
-    <string name="russian">Russian</string>
-    <string name="german">German</string>
-    <string name="italian">Italian</string>
-    <string name="spanish">Spanish</string>
-    <string name="screen_orientation">Screen orientation</string>
+
+    <string name="screen_orientation">Orientation</string>
     <string name="vertical">Portrait</string>
     <string name="horizontal">Landscape</string>
 
-<!--  Placeholders  -->
+    <!--  Placeholders  -->
     <string name="previous_result_pl">Previous result: %1$d</string>
     <string name="best_result_pl">Best result: %1$d</string>
     <string name="correct_words_pl">Correct words: %1$d</string>
@@ -86,19 +81,36 @@
     <string name="wpm_pl">WPM: %1$d</string>
     <string name="words_per_minute_pl">%1$d Words Per Minute</string>
     <string name="selected_time_pl">Selected time: %1$s</string>
-    <string name="selected_language_pl">Selected language: %1$s</string>
+    <string name="selected_language_pl">Language: %1$s</string>
     <string name="text_suggestions_pl">Text suggestions: %1$s</string>
-    <string name="screen_orientation_pl">Screen orientation: %1$s</string>
+    <string name="screen_orientation_pl">Orientation: %1$s</string>
     <string name="tests_passed_pl">Tests passed: %1$d</string>
     <string name="average_wpm_pl">Average WPM: %1$d</string>
-    <string name="korean">Korean</string>
+
     <string name="msg_passed_tests_information">Tap on any of these to watch test details.</string>
     <string name="correct_chars_pl">Correct characters: %1$d</string>
     <string name="correct_characters">Correct characters</string>
     <string name="close">Close</string>
     <string name="typed_words_log">Typed words list</string>
-    <string name="typed_words_log_description">Words that you\'ve typed are on the left and actual are on the right.</string>
+    <string name="typed_words_log_description">Words that you\'ve typed are on the left and actual ones are on the right.</string>
     <string name="leave_a_feedback">Leave a feedback</string>
     <string name="typed_words_log_disabled">List only available in a test that you just passed.</string>
+    <string name="activate">Activate</string>
+    <string name="stats_wpm_pl">%1$d WPM</string>
+    <string name="progression">progression</string>
+    <string name="stats_progression_pl" translatable="false">%1$d\%%</string>
+    <string name="stats_days_since_first_test_pl">%1$d\n days with us since the first test!</string>
+    <string name="stats_words_written_total_pl">%1$d words written in total</string>
+    <string name="stats_accuracy_pl">%1$d%% accuracy</string>
+    <string name="stats_total_minutes_of_testing_pl">%1$d\n minutes of testing</string>
+    <string name="stats_avg_result_in_the_past">Avg. result in the past</string>
+    <string name="stats_avg_result_now">Avg. result now</string>
+    <string name="stats_time_mode_pl">Time mode: %1$s</string>
+    <string name="stats_language_pl">Language: %1$s</string>
+    <string name="stats_achievements_done_pl">Achievements done: %1$d/%2$d</string>
+    <string name="stats_last_earned_achievement_pl">Last earned achievement: %1$s</string>
+    <string name="your_preferences">Your preferences</string>
+    <string name="msg_stats_not_enough_information">We need to gather more information to show you statistics. Pass more tests!</string>
+    <string name="my_statistics">My statistics</string>
 
 </resources>

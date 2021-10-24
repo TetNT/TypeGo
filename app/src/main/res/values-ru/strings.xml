@@ -17,7 +17,7 @@
     <string name="enhanced">Расширенный</string>
     <string name="basic">Базовый</string>
     <string name="dictionary">Словарь</string>
-    <string name="allotted_time">Выделенное время</string>
+    <string name="allotted_time">Время</string>
     <string name="testing">Тестирование</string>
     <string name="amount_of_time">Количество времени</string>
     <string name="dictionary_type">Набор слов</string>
@@ -26,19 +26,18 @@
     <string name="button_sign_up">Создать профиль</string>
     <string name="saving_results_error_occurred">Произошла ошибка при сохранении результатов</string>
     <string name="sign_in_to_save_results">Для сохранения результатов необходимо авторизоваться</string>
-    <string name="english">Английский</string>
-    <string name="russian">Русский</string>
+
     <string name="dialog_exit_test">Вы хотите покинуть тест?</string>
     <string name="exit">Выход</string>
     <string name="no">Нет</string>
     <string name="yes">Да</string>
     <string name="welcome_back">С возвращением!</string>
     <string name="continue_testing">Вы хотите продолжить тест?</string>
-    <string name="selected_language">Выбранный язык</string>
+    <string name="selected_language">Язык</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="i_do_not_have_an_account"><u>У меня нет аккаунта</u></string>
-    <string name="german">Немецкий</string>
+
     <string name="text_suggestions">Подсказки ввода</string>
     <string name="text_suggestions_enabled">Подсказки ввода включены.</string>
     <string name="text_suggestions_disabled">Подсказки ввода отключены. Примечание: работает не со всеми клавиатурами.</string>
@@ -46,7 +45,7 @@
     <string name="language">Язык</string>
     <string name="start_over">Заново</string>
     <string name="finish">Завершить</string>
-    <string name="assessment">Мои успехи</string>
+    <string name="assessment">Мои результаты</string>
     <string name="average_wpm">Средний СВМ</string>
     <string name="last_result">Последний результат</string>
     <string name="tests_passed">Тестов пройдено</string>
@@ -66,10 +65,8 @@
     <string name="basic_test_desc">Начни минутный тест по базовым словам и посмотри сколько СВМ ты наберёшь!</string>
     <string name="custom_test_desc">Настраиваемый тест под любой запрос. Настрой тип словаря, язык и прочее!</string>
     <string name="profile_desc">Статистика, пройденные тесты и достижения находятся здесь!</string>
-    <string name="french">Французский</string>
-    <string name="italian">Итальянский</string>
-    <string name="spanish">Испанский</string>
-    <string name="screen_orientation">Положение экрана</string>
+
+    <string name="screen_orientation">Положение</string>
     <string name="vertical">Вертикальное</string>
     <string name="horizontal">Горизонтальное</string>
     <string name="previous_result_pl">Предыдущий результат: %1$d</string>
@@ -80,12 +77,12 @@
     <string name="wpm_pl">СВМ: %1$d</string>
     <string name="words_per_minute_pl">%1$d Слов В Минуту</string>
     <string name="selected_time_pl">Выбранное время: %1$s</string>
-    <string name="selected_language_pl">Выбранный язык: %1$s</string>
+    <string name="selected_language_pl">Язык: %1$s</string>
     <string name="text_suggestions_pl">Подсказки ввода: %1$s</string>
-    <string name="screen_orientation_pl">Положение экрана: %1$s</string>
+    <string name="screen_orientation_pl">Положение: %1$s</string>
     <string name="tests_passed_pl">Тестов пройдено: %1$d</string>
     <string name="average_wpm_pl">Средний СВМ: %1$d</string>
-    <string name="korean">Корейский</string>
+
     <string name="msg_passed_tests_information">Нажми на любой чтобы посмотреть информацию.</string>
     <string name="correct_chars_pl">Правильных символов: %1$d</string>
     <string name="correct_characters">Правильных символов</string>
@@ -94,4 +91,20 @@
     <string name="typed_words_log_description">Слева слова, которые вы ввели, а справа их правильное написание.</string>
     <string name="leave_a_feedback">Оставить отзыв</string>
     <string name="typed_words_log_disabled">Список доступен лишь для теста, который был только что пройден.</string>
+    <string name="activate">Активировать</string>
+    <string name="stats_wpm_pl">%1$d СВМ</string>
+    <string name="progression">прогресс</string>
+    <string name="stats_days_since_first_test_pl">%1$d\n дней с прохождения первого теста</string>
+    <string name="stats_words_written_total_pl">%1$d\n слов всего написано</string>
+    <string name="stats_accuracy_pl">%1$d%% точность</string>
+    <string name="stats_total_minutes_of_testing_pl">%1$d\n минут тестирования пройдено</string>
+    <string name="stats_avg_result_in_the_past">Ср. результат раньше</string>
+    <string name="stats_avg_result_now">Ср. результат сейчас</string>
+    <string name="stats_time_mode_pl">Время: %1$s</string>
+    <string name="stats_language_pl">Язык: %1$s</string>
+    <string name="stats_achievements_done_pl">Выполнено: %1$d/%2$d</string>
+    <string name="stats_last_earned_achievement_pl">Последнее достижение: %1$s</string>
+    <string name="your_preferences">Твои предпочтения</string>
+    <string name="msg_stats_not_enough_information">Нам нужно собрать больше информации для отображения статистики. Проходи больше тестов!</string>
+    <string name="my_statistics">Моя статистика</string>
 </resources>
