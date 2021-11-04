@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.achievement.AchievementMigration;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
 import com.tetsoft.typego.utils.Language;
