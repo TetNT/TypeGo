@@ -55,12 +55,12 @@ public class AchievementRequirement {
     }
 
     private int getMistakesAmountInARow(User user) {
-        int inARow = 5;
+        final int IN_A_ROW = 5;
         if (user == null) return -1;
         ArrayList<TypingResult> results = user.getResultList();
         int mistakesAmount = 0;
-        if (results.size() < inARow) return -1;
-        for (int i = 0; i < inARow; i++) {
+        if (results.size() < IN_A_ROW) return -1;
+        for (int i = 0; i < IN_A_ROW; i++) {
             mistakesAmount += results.get(i).getIncorrectWords();
         }
         return mistakesAmount;
