@@ -51,17 +51,20 @@ class ResultActivity : AppCompatActivity() {
         initBestResult()
         initTypedWords()
         if (calledFromResultsTab) changeVisibilityFromResultsTab()
-        val tvWPM = findViewById<EmojiTextView>(R.id.tvWPM)
-        tvWPM.typeface = ResourcesCompat.getFont(this, R.font.redring_bold)
         val textSuggestions = if (textSuggestionsIsOn) getString(R.string.yes) else getString(R.string.no)
         val dictionaryName = if (dictionaryType == 0) getString(R.string.basic) else getString(R.string.enhanced)
         val orientation = if (screenOrientation == 0) getString(R.string.vertical) else getString(R.string.horizontal)
         result = currentResult
         wpm = result!!.wpm.toInt()
+        val animationManager = AnimationManager()
+        val countAnimation = animationManager.getCountAnimation(0, wpm, 1000)
+        animationManager.applyCountAnimation(
+                countAnimation,
+                tvWPM)
+        countAnimation.start()
         // TODO: return emojis using string resource placeholders
-        val wpmText = """$wpm ${getString(R.string.words_per_minute_pl)}
-            |${Emoji.getEmojiOfWpm(wpm)}""".trimMargin()
-        tvWPM.text = getString(R.string.words_per_minute_pl, wpm)
+
+        tvWPM.text = getString(R.string.results_wpm_pl, wpm)
         tvIncorrectWords.text = getString(R.string.incorrect_words_pl, result!!.incorrectWords)
         tvCorrectWords.text = getString(R.string.correct_words_pl, correctWords)
         tvCorrectChars.text = getString(R.string.correct_chars_pl, correctWordsWeight)
