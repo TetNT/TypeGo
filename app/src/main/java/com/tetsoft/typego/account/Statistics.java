@@ -90,9 +90,10 @@ public class Statistics {
     public int getAveragePastWPM() {
         if (results.size() < PICK_SIZE * 2) return 0;
         int WPM = 0;
-        for (int i = results.size()-1; i > results.size() - PICK_SIZE; i--)
+        int PICK_ENHANCEMENT = PICK_SIZE + (results.size()/5);
+        for (int i = results.size()-1; i > results.size() - PICK_ENHANCEMENT; i--)
             WPM += results.get(i).getWPM();
-        return WPM/PICK_SIZE;
+        return WPM/PICK_ENHANCEMENT;
     }
 
     public int getAverageCurrentWPM() {
