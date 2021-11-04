@@ -59,7 +59,7 @@
     <string name="msg_nothing_to_show">Nothing to show yet.\nGo pass some tests!</string>
     <string name="msg_average_wpm_unavailable">Average WPM will be available after you pass 5 tests</string>
     <string name="new_best_result">New best result!</string>
-    <string name="all">All</string>
+    <string name="ALL">All</string>
     <string name="achievements">Achievements</string>
     <string name="custom_test">Custom test</string>
     <string name="basic_test">Basic test</string>
@@ -79,7 +79,7 @@
     <string name="incorrect_words_pl">Incorrect words: %1$d</string>
     <string name="dictionary_pl">Dictionary: %1$s</string>
     <string name="wpm_pl">WPM: %1$d</string>
-    <string name="words_per_minute_pl">%1$d Words Per Minute</string>
+    <string name="results_wpm_pl" translatable="false">%1$d</string>
     <string name="selected_time_pl">Selected time: %1$s</string>
     <string name="selected_language_pl">Language: %1$s</string>
     <string name="text_suggestions_pl">Text suggestions: %1$s</string>
@@ -110,8 +110,20 @@
     <string name="stats_achievements_done_pl">Achievements done: %1$d/%2$d</string>
     <string name="stats_last_earned_achievement_pl">Last earned achievement: %1$s</string>
     <string name="your_preferences">Your preferences</string>
-    <string name="msg_stats_not_enough_information">We need to gather more information to show you statistics. Pass more tests!</string>
+    <string name="msg_stats_not_enough_information">Pass at least one test so we can show you statistics!</string>
     <string name="my_statistics">My statistics</string>
     <string name="statistics">Statistics</string>
+    <string name="stats_locked_cards">Some cards are still locked. Pass more tests to unlock them! Cards left: %1$d</string>
+
+    <string name="release_notes_description">
+        • New Statistics section in your profile\n
+        Now you can see the progress you\'ve made and a lot of joyful information!\n \n
+        • Bulgarian and Ukrainian languages are added\n
+        Welcome to the club, buddy!\n \n
+        • Major UI improvements\n
+        Animations, better design, fonts, fixed visual bugs. All included!
+    </string>
+    <string name="splash_text">It\'s even better now!</string>
+    <string name="whats_new_pl">%1$s: what\'s new</string>
 
 </resources>

@@ -55,9 +55,9 @@
     <string name="passed_tests">Пройденные тесты</string>
     <string name="WPM">СВМ</string>
     <string name="msg_nothing_to_show">Пока что нечего отображать.\nПройди пару тестов!</string>
-    <string name="msg_average_wpm_unavailable">Средний СВМ будет доступен после того, как вы пройдёте 5 тестов</string>
+    <string name="msg_average_wpm_unavailable">Средний СВМ будет доступен с прохождением 5 тестов</string>
     <string name="new_best_result">Новый лучший результат!</string>
-    <string name="all">Все</string>
+    <string name="ALL">Все</string>
     <string name="achievements">Достижения</string>
     <string name="custom_test">Свой тест</string>
     <string name="basic_test">Базовый тест</string>
@@ -75,7 +75,6 @@
     <string name="incorrect_words_pl">Неправильных слов: %1$d</string>
     <string name="dictionary_pl">Словарь: %1$s</string>
     <string name="wpm_pl">СВМ: %1$d</string>
-    <string name="words_per_minute_pl">%1$d Слов В Минуту</string>
     <string name="selected_time_pl">Выбранное время: %1$s</string>
     <string name="selected_language_pl">Язык: %1$s</string>
     <string name="text_suggestions_pl">Подсказки ввода: %1$s</string>
@@ -94,10 +93,10 @@
     <string name="activate">Активировать</string>
     <string name="stats_wpm_pl">%1$d СВМ</string>
     <string name="progression">прогресс</string>
-    <string name="stats_days_since_first_test_pl">%1$d\n дней с прохождения первого теста</string>
-    <string name="stats_words_written_total_pl">%1$d\n слов всего написано</string>
+    <string name="stats_days_since_first_test_pl">%1$d\n дней прошло с первого теста</string>
+    <string name="stats_words_written_total_pl">%1$d слов написано всего</string>
     <string name="stats_accuracy_pl">%1$d%% точность</string>
-    <string name="stats_total_minutes_of_testing_pl">%1$d\n минут тестирования пройдено</string>
+    <string name="stats_total_minutes_of_testing_pl">%1$d\n минут тестов пройдено</string>
     <string name="stats_avg_result_in_the_past">Ср. результат раньше</string>
     <string name="stats_avg_result_now">Ср. результат сейчас</string>
     <string name="stats_time_mode_pl">Время: %1$s</string>
@@ -105,7 +104,16 @@
     <string name="stats_achievements_done_pl">Выполнено: %1$d/%2$d</string>
     <string name="stats_last_earned_achievement_pl">Последнее достижение: %1$s</string>
     <string name="your_preferences">Твои предпочтения</string>
-    <string name="msg_stats_not_enough_information">Нам нужно собрать больше информации для отображения статистики. Проходи больше тестов!</string>
+    <string name="msg_stats_not_enough_information">Пройди как минимум один тест и мы сможем показать тебе статистику.</string>
     <string name="my_statistics">Моя статистика</string>
     <string name="statistics">Статистика</string>
+    <string name="stats_locked_cards">Некоторые карточки всё ещё заблокированы. Проходи больше тестов, чтобы их разблокировать! Карточек осталось: %1$d</string>
+
+    <string name="release_notes_description">
+        • Новый раздел "Статистика" в профиле\nТеперь ты можешь видеть проделанный прогресс и кучу интересной информации!\n\n
+        • Добавлены болгарский и украинский языки\nДобро пожаловать в клуб!\n\n
+        • Глобальное улучшение интерфейса\nАнимации, лучший дизайн, шрифты, исправленные визуальные баги. Всё включено!
+    </string>
+    <string name="splash_text">Теперь ещё лучше!</string>
+    <string name="whats_new_pl">%1$s: что нового</string>
 </resources>

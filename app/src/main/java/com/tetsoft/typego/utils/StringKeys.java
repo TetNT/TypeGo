@@ -4,6 +4,7 @@ public class StringKeys {
     // common strings
     public static final String USER_STORAGE_FILE = "user_storage";
     public static final String PREFERENCES_CURRENT_USER = "prefCurrentUser";
+    public static final String PREFERENCES_TEST_USER = "prefTestUser";
     public static final String TEST_AMOUNT_OF_SECONDS = "AmountOfSeconds";
     public static final String TEST_DICTIONARY_TYPE = "DictionaryType";
     public static final String TEST_SUGGESTIONS_ON = "TextSuggestionsIsOn";
