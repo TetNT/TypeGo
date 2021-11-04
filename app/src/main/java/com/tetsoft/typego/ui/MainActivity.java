@@ -10,9 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import com.tetsoft.typego.R;
+import com.tetsoft.typego.account.UserPreferences;
+import com.tetsoft.typego.utils.Dictionary;
 import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.account.User;
+import com.tetsoft.typego.utils.TimeMode;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -43,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(StringKeys.FROM_MAIN_MENU, true);
         startActivity(intent);
         User user = User.getFromStoredData(this);
+        UserPreferences preferences = new UserPreferences(selectedLanguage,
+                new TimeMode(DEFAULT_AMOUNT_OF_SECONDS),
+                new Dictionary(Dictionary.Type.BASIC),
+                DEFAULT_SUGGESTIONS_IS_ON,
+                new ScreenOrientation(ScreenOrientation.Orientation.PORTRAIT));
+        user.setPreferences(preferences);
         user.rememberUserPreferences(this,
                 selectedLanguage,
                 2,
