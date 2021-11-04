@@ -25,6 +25,8 @@ public class User implements Serializable {
     private int preferredScreenOrientation;
     private final ArrayList<TypingResult> resultList;
     private ArrayList<Achievement> achievements;
+    private UserPreferences preferences;
+
 
     public User() {
         resultList = new ArrayList<>();
@@ -141,5 +143,13 @@ public class User implements Serializable {
         preferredTextSuggestions = textSuggestionsIsOn;
         preferredScreenOrientation = screenOrientation;
         storeData(context);
+    }
+
+    public UserPreferences getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(UserPreferences preferences) {
+        this.preferences = preferences;
     }
 }
