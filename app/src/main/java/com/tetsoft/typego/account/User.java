@@ -31,7 +31,13 @@ public class User implements Serializable {
     }
 
     public void initAchievements(Context context) {
-        achievements = Achievement.getAchievementList(context);
+        ArrayList<Achievement> actualAchievementList = Achievement.getAchievementList(context);
+        if (achievements.isEmpty()) {
+            achievements = actualAchievementList;
+            return;
+        }
+        AchievementMigration migration = new AchievementMigration(achievements, actualAchievementList);
+        achievements = migration.getMergedAchievementList();
     }
 
     public void addResult(@NonNull TypingResult result) {
