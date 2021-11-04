@@ -9,9 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-
-import com.tetsoft.typego.BuildConfig;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.StringKeys;
@@ -32,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         userInit();
         languageSpinnerInit();
-        TextView tvCurrentVersion = findViewById(R.id.tvCurrentVersion);
-        tvCurrentVersion.setText(getString(R.string.current_version, BuildConfig.VERSION_NAME));
     }
 
     public void startBasicTest(View v) {
