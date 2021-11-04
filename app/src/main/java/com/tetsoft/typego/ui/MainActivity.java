@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
         User currentUser = User.getFromStoredData(this);
         if (currentUser==null) {
             currentUser = new User();
-            currentUser.initAchievements(this);
         }
+        currentUser.initAchievements(this);
         currentUser.storeData(this);
     }
 
