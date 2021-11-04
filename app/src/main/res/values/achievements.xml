@@ -22,4 +22,7 @@
     <string name="new_achievements_notification">You got %1$d new achievements. Check your profile!</string>
     <string name="achievement_unlocked">Achievement unlocked: %1$s</string>
     <string name="achievement_image_content_description">Achievement image</string>
+
+    <string name="achievement_test" translatable="false">Achievement test</string>
+    <string name="achievement_test_desc" translatable="false">Test description</string>
 </resources>
