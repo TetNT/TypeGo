@@ -14,8 +14,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Statistics {
-    private User user;
-    private ArrayList<TypingResult> results;
+    private final User user;
+    private final ArrayList<TypingResult> results;
 
     public Statistics(User user) {
         this.user = user;
