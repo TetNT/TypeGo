@@ -83,7 +83,7 @@ public class AccountFragment extends Fragment {
     public void initLanguageSpinner(@NonNull View view) {
         ArrayList<Language> languages = Language.getAvailableLanguages(getContext());
         // an option to show the whole stats
-        languages.add(0, new Language(StringKeys.LANGUAGE_ALL, R.string.all, getContext()));
+        languages.add(0, new Language(StringKeys.LANGUAGE_ALL, getContext()));
         spinner = view.findViewById(R.id.spinnerResultsLanguageSelection);
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, languages);
         spinner.setAdapter(spinnerAdapter);
