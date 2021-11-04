@@ -88,7 +88,7 @@ public class Statistics {
 
     final int PICK_SIZE = 10;
     public int getAveragePastWPM() {
-        if (results.size() < PICK_SIZE) return 0;
+        if (results.size() < PICK_SIZE * 2) return 0;
         int WPM = 0;
         for (int i = results.size()-1; i > results.size() - PICK_SIZE; i--)
             WPM += results.get(i).getWPM();
@@ -96,7 +96,7 @@ public class Statistics {
     }
 
     public int getAverageCurrentWPM() {
-        if (results.size() < PICK_SIZE) return 0;
+        if (results.size() < PICK_SIZE * 2) return 0;
         int WPM = 0;
         for (int i = 0; i < PICK_SIZE; i++)
             WPM += results.get(i).getWPM();
