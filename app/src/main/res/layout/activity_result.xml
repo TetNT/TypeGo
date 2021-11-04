@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/result_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ResultActivity">
@@ -48,16 +49,25 @@
                 app:layout_constraintEnd_toEndOf="@id/result_guideline_end"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.emoji.widget.EmojiTextView
+                <TextView
                     android:id="@+id/tvWPM"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp"
-                    android:text="@string/wordsPerMinute"
+                    android:text="@string/results_wpm_pl"
                     android:textAlignment="center"
                     android:textColor="@color/text_accent"
-                    android:textSize="36sp"
-                    android:fontFamily="@font/redring_black" />
+                    android:textSize="72sp"
+                    android:fontFamily="@font/redring_black"
+                    android:layout_marginBottom="-8dp"/>
+                <androidx.emoji.widget.EmojiTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="28sp"
+                    android:textColor="@color/text_accent"
+                    android:fontFamily="@font/redring_bold"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/wordsPerMinute"/>
                 <TextView
                     android:id="@+id/tvNewBestResult"
                     android:layout_width="match_parent"

@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/assessment"
+                android:layout_margin="8dp"
                 android:textStyle="bold"
                 style="@style/submenu_header"
                  />
