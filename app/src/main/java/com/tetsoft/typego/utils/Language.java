@@ -1,22 +1,19 @@
 package com.tetsoft.typego.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-import com.tetsoft.typego.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Language implements Serializable {
     private final String identifier;
-    private final int languageNameResourceId;
     private final String name;
 
-    public Language(String identifier, int languageNameResourceId, @NonNull Context context) {
+    public Language(String identifier, @NonNull Context context) {
         this.identifier = identifier;
-        this.languageNameResourceId = languageNameResourceId;
-        name = context.getResources().getString(languageNameResourceId);
+        name = context.getString(getResourceIdByName(context));
     }
 
     public String getIdentifier() {
@@ -25,9 +22,9 @@ public class Language implements Serializable {
 
     public String getName(Context context) {
         try {
-            return context.getResources().getString(getResourceIdByName(context));
+            return context.getString(getResourceIdByName(context));
         }
-        catch (Exception e) {
+        catch (Resources.NotFoundException e) {
             Log.i("EX", "Failed to get resource: " + e.getMessage());
             return toString();
         }
@@ -48,15 +45,15 @@ public class Language implements Serializable {
     */
     public static ArrayList<Language> getAvailableLanguages(Context context) {
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language(StringKeys.LANGUAGE_EN, R.string.EN, context));
-        languages.add(new Language(StringKeys.LANGUAGE_FR, R.string.FR, context));
-        languages.add(new Language(StringKeys.LANGUAGE_DE, R.string.DE, context));
-        languages.add(new Language(StringKeys.LANGUAGE_IT, R.string.IT, context));
-        languages.add(new Language(StringKeys.LANGUAGE_KR, R.string.KR, context));
-        languages.add(new Language(StringKeys.LANGUAGE_RU, R.string.RU, context));
-        languages.add(new Language(StringKeys.LANGUAGE_ES, R.string.ES, context));
-        languages.add(new Language(StringKeys.LANGUAGE_BG, R.string.BG, context));
-        languages.add(new Language(StringKeys.LANGUAGE_UA, R.string.UA, context));
+        languages.add(new Language(StringKeys.LANGUAGE_EN, context));
+        languages.add(new Language(StringKeys.LANGUAGE_FR, context));
+        languages.add(new Language(StringKeys.LANGUAGE_DE, context));
+        languages.add(new Language(StringKeys.LANGUAGE_IT, context));
+        languages.add(new Language(StringKeys.LANGUAGE_KR, context));
+        languages.add(new Language(StringKeys.LANGUAGE_RU, context));
+        languages.add(new Language(StringKeys.LANGUAGE_ES, context));
+        languages.add(new Language(StringKeys.LANGUAGE_BG, context));
+        languages.add(new Language(StringKeys.LANGUAGE_UA, context));
         return languages;
     }
 
