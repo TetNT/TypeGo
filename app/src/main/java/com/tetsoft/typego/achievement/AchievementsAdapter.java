@@ -54,11 +54,10 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
             AchievementRequirement currRequirement = currAchievement.getRequirements().get(0);
             holder.progressBarAchievement.setMax(currRequirement.getRequiredAmount());
             holder.progressBarAchievement.setProgress(currRequirement.getCurrentProgress(user));
-            holder.tvProgressDescription.setText(
-                    context.getString(
-                            R.string.achievement_progress,
-                            currRequirement.getCurrentProgress(user),
-                            currRequirement.getRequiredAmount()));
+            holder.tvProgressDescription.setText(context.getString(
+                    R.string.achievement_progress,
+                    currRequirement.getCurrentProgress(user),
+                    currRequirement.getRequiredAmount()));
         }
         if (userAchievement.getCompletionDate()==null) {
             holder.tvCompletionDate.setVisibility(View.INVISIBLE);
