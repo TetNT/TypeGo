@@ -116,4 +116,6 @@
     </string>
     <string name="splash_text">Теперь ещё лучше!</string>
     <string name="whats_new_pl">%1$s: что нового</string>
+    <string name="text_suggestions_note">* это также зависит и от настроек самой клавиатуры.</string>
+    <string name="dictionary_type_note">* базовый набор ограничен 200 словами.</string>
 </resources>

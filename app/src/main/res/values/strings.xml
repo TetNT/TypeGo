@@ -126,4 +126,7 @@
     <string name="splash_text">It\'s even better now!</string>
     <string name="whats_new_pl">%1$s: what\'s new</string>
 
+    <string name="text_suggestions_note">* it also depends on your keyboard settings.</string>
+    <string name="dictionary_type_note">* the basic dictionary is limited to 200 words.</string>
+
 </resources>
