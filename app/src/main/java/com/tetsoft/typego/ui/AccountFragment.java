@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import com.tetsoft.typego.AnimationManager;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.account.User;
 import com.tetsoft.typego.ui.ResultActivity;
@@ -169,5 +172,13 @@ public class AccountFragment extends Fragment {
         rvPassedTests.setAdapter(new PassedTestsAdapter(getContext(), selectedResults,listener));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPassedTests.setLayoutManager(linearLayoutManager);
+
+        AnimationManager animationManager = new AnimationManager();
+        Animation slideIn = animationManager.getSlideInAnimation(0, 50f, 500);
+        Animation fadeIn = animationManager.getFadeInAnimation(500);
+        AnimationSet animationSet = new AnimationSet(false);
+        animationSet.addAnimation(slideIn);
+        animationSet.addAnimation(fadeIn);
+        rvPassedTests.setAnimation(animationSet);
     }
 }
