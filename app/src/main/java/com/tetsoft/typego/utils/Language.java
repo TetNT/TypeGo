@@ -17,6 +17,11 @@ public class Language implements Serializable {
         name = context.getString(getResourceIdByName(context));
     }
 
+    public Language(String identifier, String name) {
+        this.identifier = identifier;
+        this.name = name;
+    }
+
     public String getIdentifier() {
         return identifier;
     }
