@@ -132,8 +132,7 @@ public class Statistics {
 
     public int getTotalWordsWritten() {
         int total = 0;
-        for (TypingResult result: results
-             ) {
+        for (TypingResult result: results) {
             total += result.getCorrectWords();
             total += result.getIncorrectWords();
         }
@@ -156,7 +155,7 @@ public class Statistics {
         Date lastCompletionDate = new Date(0);
         Achievement lastCompletedAchievement = null;
         for (Achievement achievement: user.getAchievements()) {
-            if (achievement.getCompletionDate()!=null) {
+            if (achievement.isCompleted()) {
                 if (achievement.getCompletionDate().getTime() > lastCompletionDate.getTime()) {
                     lastCompletedAchievement = achievement;
                     lastCompletionDate = achievement.getCompletionDate();
