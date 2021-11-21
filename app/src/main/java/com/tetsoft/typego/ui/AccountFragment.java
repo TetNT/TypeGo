@@ -21,12 +21,15 @@ import android.widget.TextView;
 import com.tetsoft.typego.AnimationManager;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.account.User;
-import com.tetsoft.typego.ui.ResultActivity;
 import com.tetsoft.typego.testing.PassedTestsAdapter;
+import com.tetsoft.typego.testing.TestSettings;
+import com.tetsoft.typego.utils.DictionaryType;
+import com.tetsoft.typego.utils.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
+import com.tetsoft.typego.utils.TimeMode;
 
 import java.util.ArrayList;
 
