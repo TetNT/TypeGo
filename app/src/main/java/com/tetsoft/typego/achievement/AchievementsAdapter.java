@@ -59,7 +59,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
                     currRequirement.getCurrentProgress(user),
                     currRequirement.getRequiredAmount()));
         }
-        if (userAchievement.getCompletionDate()==null) {
+        if (!userAchievement.isCompleted()) {
             holder.tvCompletionDate.setVisibility(View.INVISIBLE);
             holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         }
