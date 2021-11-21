@@ -148,8 +148,13 @@
                             android:buttonTint="@color/button_main_green_unpressed"
                             android:text="@string/enhanced"
                             android:fontFamily="@font/redring_regular"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:layout_marginBottom="8dp"/>
                     </RadioGroup>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/dictionary_type_note"/>
 
                 </LinearLayout>
 
@@ -214,7 +219,14 @@
                         android:checked="true"
                         android:text="@string/activate"
                         android:fontFamily="@font/redring_regular"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/text_suggestions_note"
+                        />
 
                 </LinearLayout>
 
