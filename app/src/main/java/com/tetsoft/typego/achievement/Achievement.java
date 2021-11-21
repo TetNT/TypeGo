@@ -173,6 +173,10 @@ public class Achievement {
         return achievements;
     }
 
+    public boolean isCompleted() {
+       return completionDate != null;
+    }
+
     // Returns true if user completed the achievement.
     public boolean requirementsAreComplete(User user, TypingResult result) {
        for (AchievementRequirement requirement: requirements)
