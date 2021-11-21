@@ -31,12 +31,15 @@ public class TestSetupActivity extends AppCompatActivity {
     int progressInSeconds;
     CheckBox cbTextSuggestions;
     User currentUser;
-    TextView tvSeekbarDisplay;
+    UserPreferences userPreferences;
+    ActivityTestSetupBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_setup);
+        userPreferences = ((TypeGoApp)getApplication()).getPreferences();
+        binding = ActivityTestSetupBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         currentUser = User.getFromStoredData(this);
         if (currentUser == null) {
             Toast.makeText(this, "An error occurred while loading user data", Toast.LENGTH_SHORT).show();
@@ -49,26 +52,32 @@ public class TestSetupActivity extends AppCompatActivity {
         ((RadioButton) rbDictionaryType.getChildAt(currentUser.getPreferredDictionaryType())).setChecked(true);
         ((RadioButton) rbScreenOrientation.getChildAt(currentUser.getPreferredScreenOrientation())).setChecked(true);
 
-        initSeekBar();
-        initTextSuggestions();
-        progressInSeconds = getSelectedSecondsOption(seekBar.getProgress());
-        tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
+        binding.seekBar.setProgress(timeModeToProgress(userPreferences.getTimeMode()));
+
+        ((RadioButton) binding.rbDictionaryType.getChildAt(dictionaryChildIndex)).setChecked(true);
+        ((RadioButton) binding.rbScreenOrientation.getChildAt(screenChildIndex)).setChecked(true);
+
+        setupSeekBar();
+        int progressInSeconds = selectedProgressToSeconds(binding.seekBar.getProgress());
+        binding.tvSeekBarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
 
         selectCurrentLanguageOption();
-        cbTextSuggestions.setChecked(currentUser.isPreferredTextSuggestions());
-        seekBar.setProgress(currentUser.getPreferredTimeMode());
+        binding.cbPredictiveText.setChecked(userPreferences.isSuggestionsActivated());
 
     }
 
     public void startTesting(View view) {
 
-        RadioButton radioButton = findViewById(rbDictionaryType.getCheckedRadioButtonId());
-        Language language = (Language)spinner.getSelectedItem();
-        int selectedDictionaryIndex = rbDictionaryType.indexOfChild(radioButton);
+        RadioButton radioButton = findViewById(binding.rbDictionaryType.getCheckedRadioButtonId());
+        Language language = (Language)binding.spinLanguageSelection.getSelectedItem();
+        int selectedDictionaryIndex = binding.rbDictionaryType.indexOfChild(radioButton);
+        DictionaryType dictionaryType = (selectedDictionaryIndex == 0)?
+                DictionaryType.BASIC : DictionaryType.ENHANCED;
 
-        RadioButton screenOrientation = findViewById(rbScreenOrientation.getCheckedRadioButtonId());
-        int selectedScreenOrientation = rbScreenOrientation.indexOfChild(screenOrientation);
-
+        RadioButton screenOrientation = findViewById(binding.rbScreenOrientation.getCheckedRadioButtonId());
+        int selectedScreenOrientation = binding.rbScreenOrientation.indexOfChild(screenOrientation);
+        ScreenOrientation orientation = (selectedScreenOrientation == 0)? ScreenOrientation.PORTRAIT :
+                ScreenOrientation.LANDSCAPE;
         Intent intent = new Intent(this, TypingTestActivity.class);
         intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, progressInSeconds);
         intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, selectedDictionaryIndex);
@@ -102,25 +111,21 @@ public class TestSetupActivity extends AppCompatActivity {
         return 15;
     }
 
-    private void initSeekBar() {
-        tvSeekbarDisplay = findViewById(R.id.tvSeekBarDisplay);
-        seekBar = findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    private void setupSeekBar() {
+        binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressInSeconds = getSelectedSecondsOption(progress);
-                tvSeekbarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
+                binding.tvSeekBarDisplay.setText(
+                        TimeConvert.convertSeconds(
+                        TestSetupActivity.this,
+                        selectedProgressToSeconds(progress)));
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
     }
 
@@ -144,11 +149,11 @@ public class TestSetupActivity extends AppCompatActivity {
                 this,
                 R.layout.spinner_item,
                 languageList);
-        spinner.setAdapter(adapter);
+        binding.spinLanguageSelection.setAdapter(adapter);
         int preferredLanguageIndex = getPreferredLanguageIndex();
         if (preferredLanguageIndex < 0)
             preferredLanguageIndex = getSystemLanguageIndex();
-        spinner.setSelection(preferredLanguageIndex);
+        binding.spinLanguageSelection.setSelection(preferredLanguageIndex);
     }
 
 
