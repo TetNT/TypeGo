@@ -17,6 +17,7 @@ public class Achievement {
     private final String description;
     private Date completionDate;
     private final boolean progressAttached;
+    // Progress will be shown based of it's very first value.
     private final ArrayList<AchievementRequirement> requirements;
 
    public Achievement(int id, @NonNull String name, @NonNull String description, int assignedImageId, boolean progressAttached, ArrayList<AchievementRequirement> requirements) {
