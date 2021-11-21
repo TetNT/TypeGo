@@ -12,21 +12,21 @@ import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.StringKeys;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class User implements Serializable {
-    private int lastResult;
     private int bestResult;
-    private Language preferredLanguage;
-    private int preferredTimeMode;
-    private int preferredDictionaryType;
-    private boolean preferredTextSuggestions;
-    private int preferredScreenOrientation;
     private final ArrayList<TypingResult> resultList;
     private ArrayList<Achievement> achievements;
-    private UserPreferences preferences;
 
+    /**
+     * This HashMap key is achievement ID and value is completion date.
+     * It will be used in the future to handle achievements progress independently,
+     * instead of list comparison.
+     */
+    private HashMap<Integer, Date> achievementsCompletionDateMap;
 
     public User() {
         resultList = new ArrayList<>();
@@ -52,14 +52,6 @@ public class User implements Serializable {
         return resultList;
     }
 
-    public int getLastResult() {
-        return lastResult;
-    }
-
-    public void setLastResult(int lastResult) {
-        this.lastResult = lastResult;
-    }
-
     public int getBestResult() {
         return bestResult;
     }
@@ -68,36 +60,16 @@ public class User implements Serializable {
         this.bestResult = bestResult;
     }
 
-    public Language getPreferredLanguage() {
-        return preferredLanguage;
-    }
-
-    public int getPreferredTimeMode() {
-        return preferredTimeMode;
-    }
-
-    public int getPreferredDictionaryType() {
-        return preferredDictionaryType;
-    }
-
-    public boolean isPreferredTextSuggestions() {
-        return preferredTextSuggestions;
-    }
-
-    public int getPreferredScreenOrientation() {
-        return preferredScreenOrientation;
-    }
-
     public ArrayList<Achievement> getAchievements() {
         return achievements;
     }
 
-    public static String serializeToJson(@NonNull User user) {
+    private static String serializeToJson(@NonNull User user) {
         Gson gson = new Gson();
         return gson.toJson(user);
     }
 
-    public static User getFromJson(String json) {
+    private static User getFromJson(String json) {
         return new Gson().fromJson(json, User.class);
     }
 
@@ -116,40 +88,19 @@ public class User implements Serializable {
     }
 
     private static SharedPreferences getUserSharedPreferences(@NonNull Context context) {
-        return context.getSharedPreferences(StringKeys.USER_STORAGE_FILE ,MODE_PRIVATE);
+        return context.getSharedPreferences(StringKeys.USER_STORAGE, Context.MODE_PRIVATE);
     }
 
-    public int getLastResultByLanguage(Language language) {
+    public int getLastResultByLanguage(@NonNull Language language) {
         ArrayList<TypingResult> resultsByLanguage = ResultListUtils.getResultsByLanguage(resultList, language);
         if (resultsByLanguage.size()==0) return 0;
         return (int)resultsByLanguage.get(0).getWPM();
     }
 
-    public int getBestResultByLanguage(Language language) {
+    public int getBestResultByLanguage(@NonNull Language language) {
         ArrayList<TypingResult> resultsByLanguage = ResultListUtils.getResultsByLanguage(resultList, language);
         if (resultsByLanguage.size()==0) return 0;
-        return ResultListUtils.getBestResult(resultsByLanguage);
+        return ResultListUtils.getBestResultWPM(resultsByLanguage);
     }
 
-    public void rememberUserPreferences(Context context,
-                                        Language language,
-                                        int timeMode,
-                                        int dictionaryTypeIndex,
-                                        boolean textSuggestionsIsOn,
-                                        int screenOrientation) {
-        preferredLanguage = language;
-        preferredTimeMode = timeMode;
-        preferredDictionaryType = dictionaryTypeIndex;
-        preferredTextSuggestions = textSuggestionsIsOn;
-        preferredScreenOrientation = screenOrientation;
-        storeData(context);
-    }
-
-    public UserPreferences getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(UserPreferences preferences) {
-        this.preferences = preferences;
-    }
 }
