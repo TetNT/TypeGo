@@ -62,22 +62,24 @@ public class TypingResult {
     public TypingResult(int correctWords,
                         int correctWordsWeight,
                         int totalWords,
-                        int dictionaryType,
-                        int screenOrientation,
+                        DictionaryType dictionaryType,
+                        ScreenOrientation screenOrientation,
                         Language language,
-                        int timeInSeconds,
+                        TimeMode timeMode,
                         boolean textSuggestions,
                         Date completionDateTime) {
         this.correctWords = correctWords;
         this.correctWordsWeight = correctWordsWeight;
         this.totalWords = totalWords;
-        this.dictionaryType = dictionaryType;
-        this.screenOrientation = screenOrientation;
-        this.textSuggestions = textSuggestions;
+        if (dictionaryType == DictionaryType.BASIC) this.dictionaryType = 0;
+        else this.dictionaryType = 1;
+        if (screenOrientation == ScreenOrientation.PORTRAIT) this.screenOrientation = 0;
+        else this.screenOrientation = 1;
         this.language = language;
-        this.timeInSeconds = timeInSeconds;
+        timeInSeconds = timeMode.getTimeInSeconds();
+        this.textSuggestions = textSuggestions;
         this.completionDateTime = completionDateTime;
-        this.WPM = calculateWPM();
+        WPM = calculateWPM();
     }
 
     private double calculateWPM() {
