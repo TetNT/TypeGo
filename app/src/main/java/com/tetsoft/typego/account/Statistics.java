@@ -81,6 +81,7 @@ public class Statistics {
         return count;
     }
 
+    // Returns the percentage of done achievements out of all achievements.
     public int getAchievementsProgressInPercents() {
         if (getDoneAchievementsCount() == 0 || user.getAchievements().size() == 0) return 0;
         return (getDoneAchievementsCount()*100)/user.getAchievements().size();
