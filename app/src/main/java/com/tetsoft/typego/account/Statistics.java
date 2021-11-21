@@ -77,7 +77,7 @@ public class Statistics {
     public int getDoneAchievementsCount() {
         int count = 0;
         for (Achievement achievement: user.getAchievements())
-            if (achievement.getCompletionDate() != null) count++;
+            if (achievement.isCompleted()) count++;
         return count;
     }
 
