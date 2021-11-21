@@ -4,14 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.tetsoft.typego.AnimationManager;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.utils.TimeConvert;
 
@@ -47,13 +43,6 @@ public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.
         holder.itemWPM.setText(context.getString(R.string.wpm_pl, (int)results.get(position).getWPM()));
         holder.itemTimeInSeconds.setText(TimeConvert.convertSecondsToStamp(results.get(position).getTimeInSeconds()));
         holder.itemLanguage.setText(results.get(position).getLanguage().getIdentifier());
-        AnimationManager animationManager = new AnimationManager();
-        Animation slideIn = animationManager.getSlideInAnimation(0, 50f, 500);
-        Animation fadeIn = animationManager.getFadeInAnimation(500);
-        AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(slideIn);
-        animationSet.addAnimation(fadeIn);
-        holder.itemView.setAnimation(animationSet);
     }
 
     @Override
