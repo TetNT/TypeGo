@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Language implements Serializable {
+    // identifier is a unique two uppercase letters combination
     private final String identifier;
     private final String name;
 
@@ -20,6 +21,7 @@ public class Language implements Serializable {
         return identifier;
     }
 
+    // returns translated name from string resources. If resource is not found, returns identifier.
     public String getName(Context context) {
         try {
             return context.getString(getResourceIdByName(context));
