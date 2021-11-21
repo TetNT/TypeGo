@@ -148,15 +148,21 @@ public class AccountFragment extends Fragment {
         RecyclerView rvPassedTests = view.findViewById(R.id.rv_passed_tests);
         PassedTestsAdapter.RecyclerViewOnClickListener listener = (v, position) -> {
             TypingResult resultInfo = selectedResults.get(position);
+            DictionaryType dictionaryType =
+                    (resultInfo.getDictionaryType() == 0) ? DictionaryType.BASIC : DictionaryType.ENHANCED;
+            ScreenOrientation orientation =
+                    (resultInfo.getScreenOrientation() == 0) ? ScreenOrientation.PORTRAIT : ScreenOrientation.LANDSCAPE;
             Intent intent = new Intent(getContext(), ResultActivity.class);
+            TestSettings testSettings = new TestSettings(
+                    resultInfo.getLanguage(),
+                    new TimeMode(resultInfo.getTimeInSeconds()),
+                    dictionaryType,
+                    resultInfo.isTextSuggestions(),
+                    orientation);
             intent.putExtra(StringKeys.TEST_CORRECT_WORDS, resultInfo.getCorrectWords());
             intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, resultInfo.getCorrectWordsWeight());
-            intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, resultInfo.getTimeInSeconds());
             intent.putExtra(StringKeys.TOTAL_WORDS, resultInfo.getTotalWords());
-            intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, resultInfo.getDictionaryType());
-            intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, resultInfo.getLanguage());
-            intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, resultInfo.getScreenOrientation());
-            intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, resultInfo.isTextSuggestions());
+            intent.putExtra(StringKeys.TEST_SETTINGS, testSettings);
             intent.putExtra(StringKeys.CALLED_FROM_PASSED_RESULTS, true);
             startActivity(intent);
         };
