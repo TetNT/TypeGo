@@ -1,7 +1,11 @@
 package com.tetsoft.typego.testing;
 
+import com.tetsoft.typego.utils.DictionaryType;
 import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.utils.ScreenOrientation;
+import com.tetsoft.typego.utils.TimeMode;
 import java.util.Date;
+
 public class TypingResult {
 
     private final double WPM;
