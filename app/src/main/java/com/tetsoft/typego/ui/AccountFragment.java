@@ -61,22 +61,17 @@ public class AccountFragment extends Fragment {
     private void loadAccountData() {
         View view = getView();
         if (view==null) return;
-        initStatFields(view);
+        setupStatFields(view);
         initResultSet();
         updateResults(view);
         loadLastResultsData(view);
     }
 
-    private void initStatFields(@NonNull View view) {
-        TextView tvAvgWpm = view.findViewById(R.id.tvAverageWPM);
-        TextView tvBestResult = view.findViewById(R.id.tvBestResult);
-        TextView tvLastResult = view.findViewById(R.id.tvAccountLastResult);
-        TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
-
-        tvAvgWpm.setText(getString(R.string.average_wpm_pl, 0));
-        tvBestResult.setText(getString(R.string.best_result_pl, 0));
-        tvLastResult.setText(getString(R.string.previous_result_pl, 0));
-        tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
+    private void setupStatFields(@NonNull View view) {
+        view.<TextView>findViewById(R.id.tvAverageWPM).setText(getString(R.string.average_wpm_pl, 0));
+        view.<TextView>findViewById(R.id.tvBestResult).setText(getString(R.string.best_result_pl, 0));
+        view.<TextView>findViewById(R.id.tvAccountLastResult).setText(getString(R.string.previous_result_pl, 0));
+        view.<TextView>findViewById(R.id.tvTestsPassed).setText(getString(R.string.tests_passed_pl, 0));
     }
 
     Spinner spinner;
@@ -95,9 +90,7 @@ public class AccountFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
 
@@ -106,7 +99,7 @@ public class AccountFragment extends Fragment {
         Language selectedLanguage = (Language)spinner.getSelectedItem();
         if (selectedLanguage.getIdentifier().equalsIgnoreCase(StringKeys.LANGUAGE_ALL))
             selectedResults = currentUser.getResultList();
-        else selectedResults = ResultListUtils.getResultsByLanguage(currentUser.getResultList() ,selectedLanguage);
+        else selectedResults = ResultListUtils.getResultsByLanguage(currentUser.getResultList(), selectedLanguage);
     }
 
     private void updateResults(@NonNull View view) {
@@ -121,7 +114,7 @@ public class AccountFragment extends Fragment {
         TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
         TextView tvBestResult = view.findViewById(R.id.tvBestResult);
-        int bestResult = ResultListUtils.getBestResult(selectedResults);
+        int bestResult = ResultListUtils.getBestResultWPM(selectedResults);
         tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
         TextView tvLastResult = view.findViewById(R.id.tvAccountLastResult);
         tvLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
