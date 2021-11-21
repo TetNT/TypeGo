@@ -121,13 +121,13 @@ public class Statistics {
         return (int)TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
     }
 
-    public int getTotalTimeSpent() {
+    public int getTotalTimeSpentInMinutes() {
         int total = 0;
         for (TypingResult result : results
              ) {
             total += result.getTimeInSeconds();
         }
-        return total;
+        return total/60;
     }
 
     public int getTotalWordsWritten() {
