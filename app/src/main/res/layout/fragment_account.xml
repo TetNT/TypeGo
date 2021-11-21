@@ -59,7 +59,6 @@
             android:focusableInTouchMode="true"
             >
 
-
             <TextView
                 android:id="@+id/tvAssessment"
                 android:layout_width="match_parent"
@@ -84,7 +83,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/basic_cardview">
+                style="@style/basic_cardview"
+                android:layout_marginVertical="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
