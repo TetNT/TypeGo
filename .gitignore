@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/java/com/tetsoft/typego/Config.java
+/app/src/main/res/values/application_ads.xml
