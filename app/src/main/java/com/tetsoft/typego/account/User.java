@@ -92,15 +92,11 @@ public class User implements Serializable {
     }
 
     public int getLastResultByLanguage(@NonNull Language language) {
-        ArrayList<TypingResult> resultsByLanguage = ResultListUtils.getResultsByLanguage(resultList, language);
-        if (resultsByLanguage.size()==0) return 0;
-        return (int)resultsByLanguage.get(0).getWPM();
+        return (int)ResultListUtils.getLastResultByLanguage(resultList, language).getWPM();
     }
 
     public int getBestResultByLanguage(@NonNull Language language) {
-        ArrayList<TypingResult> resultsByLanguage = ResultListUtils.getResultsByLanguage(resultList, language);
-        if (resultsByLanguage.size()==0) return 0;
-        return ResultListUtils.getBestResultWPM(resultsByLanguage);
+        return (int)ResultListUtils.getBestResultByLanguage(resultList, language).getWPM();
     }
 
 }
