@@ -48,7 +48,6 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
@@ -120,7 +119,7 @@ public class AccountFragment extends Fragment {
         TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
         tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
         TextView tvBestResult = view.findViewById(R.id.tvBestResult);
-        int bestResult = ResultListUtils.getBestResultWPM(selectedResults);
+        int bestResult = (int)ResultListUtils.getBestResult(selectedResults).getWPM();
         tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
         TextView tvLastResult = view.findViewById(R.id.tvAccountLastResult);
         tvLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
