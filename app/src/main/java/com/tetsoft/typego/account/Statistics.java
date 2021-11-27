@@ -3,6 +3,7 @@ package com.tetsoft.typego.account;
 import android.content.Context;
 
 import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.TimeConvert;
@@ -166,4 +167,17 @@ public class Statistics {
         return lastCompletedAchievement.getName();
     }
 
+    public int getCorrectCharactersTotal() {
+        int total = 0;
+        for (TypingResult result: results) {
+            total += result.getCorrectWordsWeight();
+        }
+        return total;
+    }
+
+    public Date getBestResultCompletionDate() {
+        TypingResult best = ResultListUtils.getBestResult(results);
+        if (best != null) return best.getCompletionDateTime();
+        return null;
+    }
 }
