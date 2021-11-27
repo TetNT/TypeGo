@@ -44,4 +44,13 @@ public class RequirementFactory {
         requirements.add(requirement);
         return requirements;
     }
+
+    public static ArrayList<AchievementRequirement> differentLanguagesAmount(int amount) {
+        ArrayList<AchievementRequirement> requirements = new ArrayList<>();
+        requirements.add(new AchievementRequirement(
+                AchievementRequirement.AchievementSection.DIFFERENT_LANGUAGES_COUNT,
+                AchievementRequirement.CompareType.MORE_OR_EQUALS,
+                amount));
+        return requirements;
+    }
 }
