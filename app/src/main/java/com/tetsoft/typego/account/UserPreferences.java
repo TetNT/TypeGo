@@ -84,4 +84,12 @@ public class UserPreferences extends TestMetadata {
         setScreenOrientation(screenOrientation);
     }
 
+    public void update(TestMetadata testMetadata) {
+        setLanguage(testMetadata.getLanguage());
+        setTimeMode(testMetadata.getTimeMode());
+        setDictionaryType(testMetadata.getDictionaryType());
+        setSuggestionsActivated(testMetadata.isSuggestionsActivated());
+        setScreenOrientation(testMetadata.getScreenOrientation());
+    }
+
 }
