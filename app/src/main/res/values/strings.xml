@@ -99,17 +99,17 @@
     <string name="stats_wpm_pl">%1$d WPM</string>
     <string name="progression">progression</string>
     <string name="stats_progression_pl" translatable="false">%1$d\%%</string>
-    <string name="stats_days_since_first_test_pl">%1$d\n days with us since the first test!</string>
+    <string name="stats_days_since_first_test_pl">%1$d days with us since the first test!</string>
     <string name="stats_words_written_total_pl">%1$d words written in total</string>
     <string name="stats_accuracy_pl">%1$d%% accuracy</string>
-    <string name="stats_total_minutes_of_testing_pl">%1$d\n minutes of testing</string>
+    <string name="stats_total_minutes_of_testing_pl">%1$d minutes of testing</string>
     <string name="stats_avg_result_in_the_past">Avg. result in the past</string>
     <string name="stats_avg_result_now">Avg. result now</string>
     <string name="stats_time_mode_pl">Time mode: %1$s</string>
     <string name="stats_language_pl">Language: %1$s</string>
     <string name="stats_achievements_done_pl">Achievements done: %1$d/%2$d</string>
     <string name="stats_last_earned_achievement_pl">Last earned achievement: %1$s</string>
-    <string name="your_preferences">Your preferences</string>
+    <string name="stats_favorites_header">Your favorites</string>
     <string name="msg_stats_not_enough_information">Pass at least one test so we can show you statistics!</string>
     <string name="my_statistics">My statistics</string>
     <string name="statistics">Statistics</string>
@@ -129,4 +129,7 @@
     <string name="text_suggestions_note">* it also depends on your keyboard settings.</string>
     <string name="dictionary_type_note">* the basic dictionary is limited to 200 words.</string>
 
+    <string name="favorite_language_description_pl">%1$d out of %2$d tests are completed in this language.</string>
+    <string name="favorite_timemode_description_pl">%1$d out of %2$d tests are completed in this time mode.</string>
+    <string name="stats_best_result">%1$d\nis your current record!</string>
 </resources>
