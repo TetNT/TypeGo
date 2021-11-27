@@ -37,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/statistics_description"
-                app:cardBackgroundColor="@color/cardview_main_dark_gray"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:layout_margin="16dp">
 
                 <LinearLayout
@@ -72,8 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/statistics_description"
-                app:cardBackgroundColor="@color/cardview_main_dark_gray"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:layout_margin="16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,7 +89,6 @@
                         android:ems="4"
                         android:textAlignment="center"
                         android:textSize="40sp"
-                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:fontFamily="@font/redring_black"
                         android:text="@string/stats_wpm_pl" />
@@ -129,7 +126,6 @@
                         android:ems="4"
                         android:textAlignment="center"
                         android:textSize="40sp"
-                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:fontFamily="@font/redring_black"
                         android:text="@string/stats_wpm_pl"/>
@@ -185,8 +181,7 @@
                 android:id="@+id/stats_card_accuracy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/cardview_main_dark_gray"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:padding="16dp"
                 android:layout_margin="16dp">
 
@@ -199,16 +194,16 @@
                         android:id="@+id/tv_stats_words_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:padding="16dp"
-                        android:textAlignment="viewEnd"
-                        android:textSize="54sp"
-                        android:textStyle="bold"
-                        android:text="@string/stats_words_written_total_pl"
-                        android:textColor="@color/white"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/redring_black"
-                        />
+                        android:padding="16dp"
+                        android:text="@string/stats_words_written_total_pl"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@color/white"
+                        android:textSize="54sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_accuracy"
@@ -228,11 +223,47 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/stats_card_best_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/basic_cardview"
+                android:padding="16dp"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/redring_black"
+                        android:gravity="center_horizontal"
+                        android:text="@string/stats_best_result"
+                        android:textColor="@color/white"
+                        android:textSize="36sp"
+                        app:drawableTint="@color/golden"
+                        app:drawableTopCompat="@drawable/ic_stats_star" />
+
+                    <TextView
+                        android:id="@+id/stats_record_set_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="It has been set on %1$s"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/stats_card_time_spent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/cardview_main_dark_gray"
-                app:cardCornerRadius="24dp"
+                style="@style/basic_cardview"
                 android:layout_margin="16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -251,7 +282,6 @@
                         android:layout_gravity="center_horizontal"
                         android:textSize="24sp"
                         android:padding="8dp"
-                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textAlignment="center"
                         android:fontFamily="@font/redring_bold"
@@ -281,13 +311,11 @@
                         android:textAlignment="center"
                         android:padding="8dp"
                         android:text="@string/stats_total_minutes_of_testing_pl"
-                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:fontFamily="@font/redring_bold"
                         app:drawableTopCompat="@drawable/ic_stats_timer"
                         app:drawableTint="@color/button_main_green_unpressed" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -296,9 +324,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="@color/cardview_main_dark_gray"
+                style="@style/basic_cardview"
                 >
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -310,7 +338,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/submenu_header"
-                        android:text="@string/your_preferences"
+                        android:text="@string/stats_favorites_header"
                         android:textSize="28sp"/>
 
                     <TextView
@@ -327,6 +355,13 @@
                         app:drawableTint="@color/white" />
 
                     <TextView
+                        android:id="@+id/stats_favorite_language_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favorite_language_description_pl"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
                         android:id="@+id/stats_favorite_time_mode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -339,6 +374,11 @@
                         app:drawableStartCompat="@drawable/ic_timer"
                         app:drawableTint="@color/white" />
 
+                    <TextView
+                        android:id="@+id/stats_favorite_timemode_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favorite_timemode_description_pl"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -400,8 +440,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
-                app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="@color/cardview_main_dark_gray">
+                style="@style/basic_cardview">
 
                 <LinearLayout
                     android:layout_width="match_parent"
