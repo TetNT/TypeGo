@@ -25,36 +25,4 @@ public class Emoji {
             return "";
         }
     }
-
-    public static String getEmojiOfWpm(int WPM) {
-        StringBuilder emojiSet = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
-            if (WPM <= 15) emojiSet.append(getEmoji(BABY));
-            else if (WPM<=20) emojiSet.append(getEmoji(OK_HAND));
-            else if (WPM<=30) emojiSet.append(getEmoji(THUMBS_UP));
-            else if (WPM<=35) emojiSet.append(getEmoji(FLEXED_BICEPS));
-            else if (WPM<=45) emojiSet.append(getRandomEmoji());
-            else if (WPM<=50) emojiSet.append(getEmoji(MEDAL));
-            else if (WPM<=55) emojiSet.append(getEmoji(CROWN));
-            else if (WPM<=60) emojiSet.append(getEmoji(MOAI));
-            else if (WPM<=65) emojiSet.append(getEmoji(POLICE_CAR));
-            else if (WPM<=70) emojiSet.append(getEmoji(UFO));
-            else if (WPM>=100) emojiSet.append(getEmoji(HUNDRED_POINTS));
-            else emojiSet.append(getEmoji(MOAI));
-        }
-        return emojiSet.toString();
-    }
-
-    public static String getRandomEmoji() {
-        Random rnd = new Random();
-        int pick = rnd.nextInt(3);
-        switch (pick) {
-            case 0:
-                return getEmoji(FIRE);
-            case 1:
-                return getEmoji(COLLISION);
-            default:
-                return getEmoji(ROCKET);
-        }
-    }
 }
