@@ -6,30 +6,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
+import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.R;
+import com.tetsoft.typego.account.UserPreferences;
+import com.tetsoft.typego.databinding.ActivityTestSetupBinding;
+import com.tetsoft.typego.testing.TestSettings;
+import com.tetsoft.typego.utils.DictionaryType;
+import com.tetsoft.typego.utils.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.TimeConvert;
 import com.tetsoft.typego.account.User;
+import com.tetsoft.typego.utils.TimeMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class TestSetupActivity extends AppCompatActivity {
 
-    SeekBar seekBar;
-    RadioGroup rbDictionaryType, rbScreenOrientation;
-    Spinner spinner;
-    int progressInSeconds;
-    CheckBox cbTextSuggestions;
     User currentUser;
     UserPreferences userPreferences;
     ActivityTestSetupBinding binding;
@@ -47,10 +47,13 @@ public class TestSetupActivity extends AppCompatActivity {
             return;
         }
 
-        rbDictionaryType = findViewById(R.id.rbDictionaryType);
-        rbScreenOrientation = findViewById(R.id.rbScreenOrientation);
-        ((RadioButton) rbDictionaryType.getChildAt(currentUser.getPreferredDictionaryType())).setChecked(true);
-        ((RadioButton) rbScreenOrientation.getChildAt(currentUser.getPreferredScreenOrientation())).setChecked(true);
+        int dictionaryChildIndex = 0;
+        if (userPreferences.getDictionaryType() == DictionaryType.ENHANCED)
+            dictionaryChildIndex = 1;
+
+        int screenChildIndex = 0;
+        if (userPreferences.getScreenOrientation() == ScreenOrientation.LANDSCAPE)
+            screenChildIndex = 1;
 
         binding.seekBar.setProgress(timeModeToProgress(userPreferences.getTimeMode()));
 
@@ -67,48 +70,59 @@ public class TestSetupActivity extends AppCompatActivity {
     }
 
     public void startTesting(View view) {
-
-        RadioButton radioButton = findViewById(binding.rbDictionaryType.getCheckedRadioButtonId());
         Language language = (Language)binding.spinLanguageSelection.getSelectedItem();
-        int selectedDictionaryIndex = binding.rbDictionaryType.indexOfChild(radioButton);
-        DictionaryType dictionaryType = (selectedDictionaryIndex == 0)?
-                DictionaryType.BASIC : DictionaryType.ENHANCED;
-
-        RadioButton screenOrientation = findViewById(binding.rbScreenOrientation.getCheckedRadioButtonId());
-        int selectedScreenOrientation = binding.rbScreenOrientation.indexOfChild(screenOrientation);
-        ScreenOrientation orientation = (selectedScreenOrientation == 0)? ScreenOrientation.PORTRAIT :
-                ScreenOrientation.LANDSCAPE;
         Intent intent = new Intent(this, TypingTestActivity.class);
-        intent.putExtra(StringKeys.TEST_AMOUNT_OF_SECONDS, progressInSeconds);
-        intent.putExtra(StringKeys.TEST_DICTIONARY_TYPE, selectedDictionaryIndex);
-        intent.putExtra(StringKeys.TEST_SUGGESTIONS_ON, cbTextSuggestions.isChecked());
-        intent.putExtra(StringKeys.TEST_DICTIONARY_LANG, language);
-        intent.putExtra(StringKeys.TEST_SCREEN_ORIENTATION, selectedScreenOrientation);
-        intent.putExtra(StringKeys.FROM_MAIN_MENU, false);
-
-        // remember user settings
-        if (currentUser != null) {
-            currentUser.rememberUserPreferences(this,
-                    language,
-                    seekBar.getProgress(),
-                    selectedDictionaryIndex,
-                    cbTextSuggestions.isChecked(),
-                    selectedScreenOrientation);
-        }
+        TestSettings testSettings = new TestSettings(
+                language,
+                new TimeMode(selectedProgressToSeconds(binding.seekBar.getProgress())),
+                getSelectedDictionaryType(),
+                binding.cbPredictiveText.isActivated(),
+                getSelectedScreenOrientation());
+        intent.putExtra(StringKeys.TEST_SETTINGS, testSettings);
+        userPreferences.update(testSettings);
         finish();
         startActivity(intent);
     }
 
-    private int getSelectedSecondsOption(int progress) {
-        switch (progress) {
-            case 0: return 15;
-            case 1: return 30;
-            case 2: return 60;
-            case 3: return 120;
-            case 4: return 180;
-            case 5: return 300;
+    private DictionaryType getSelectedDictionaryType() {
+        RadioButton radioButton = findViewById(binding.rbDictionaryType.getCheckedRadioButtonId());
+        int selectedDictionaryIndex = binding.rbDictionaryType.indexOfChild(radioButton);
+        if (selectedDictionaryIndex == 0) return DictionaryType.BASIC;
+        else return DictionaryType.ENHANCED;
+    }
+
+    private ScreenOrientation getSelectedScreenOrientation() {
+        RadioButton screenOrientation = findViewById(binding.rbScreenOrientation.getCheckedRadioButtonId());
+        int selectedScreenOrientation = binding.rbScreenOrientation.indexOfChild(screenOrientation);
+        if (selectedScreenOrientation == 0) return ScreenOrientation.PORTRAIT;
+        else return ScreenOrientation.LANDSCAPE;
+    }
+
+    private int selectedProgressToSeconds(int progress) {
+        HashMap<Integer, Integer> seekbarValues = new HashMap<>();
+        seekbarValues.put(0, 15);
+        seekbarValues.put(1, 30);
+        seekbarValues.put(2, 60);
+        seekbarValues.put(3, 120);
+        seekbarValues.put(4, 180);
+        seekbarValues.put(5, 300);
+        Integer match = seekbarValues.get(progress);
+        if (match == null) return 2;
+        else return match;
+    }
+
+    private int timeModeToProgress(TimeMode timeMode) {
+        HashMap<Integer, Integer> seekbarValues = new HashMap<>();
+        seekbarValues.put(0, 15);
+        seekbarValues.put(1, 30);
+        seekbarValues.put(2, 60);
+        seekbarValues.put(3, 120);
+        seekbarValues.put(4, 180);
+        seekbarValues.put(5, 300);
+        for (Map.Entry<Integer, Integer> entry: seekbarValues.entrySet()) {
+            if (entry.getValue().equals(timeMode.getTimeInSeconds())) return entry.getKey();
         }
-        return 15;
+        return 2;
     }
 
     private void setupSeekBar() {
@@ -129,21 +143,8 @@ public class TestSetupActivity extends AppCompatActivity {
         });
     }
 
-    private void initTextSuggestions() {
-        cbTextSuggestions = findViewById(R.id.cbPredictiveText);
-        cbTextSuggestions.setOnClickListener((v) -> {
-            if (cbTextSuggestions.isChecked()) {
-                Toast.makeText(this, getString(R.string.text_suggestions_enabled), Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(this, getString(R.string.text_suggestions_disabled), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    // select either user preferred language or system language
+    // Selects either user preferred language or system language
     public void selectCurrentLanguageOption() {
-        spinner = findViewById(R.id.spinLanguageSelection);
         List<Language> languageList = Language.getAvailableLanguages(this);
         SpinnerAdapter adapter = new ArrayAdapter<>(
                 this,
@@ -159,8 +160,8 @@ public class TestSetupActivity extends AppCompatActivity {
 
     public int getPreferredLanguageIndex() {
         ArrayList<Language> languages = Language.getAvailableLanguages(this);
-        if (currentUser.getPreferredLanguage() == null) return -1;
-        String preferredLanguageId = currentUser.getPreferredLanguage().getIdentifier();
+        if (userPreferences.getLanguage() == null) return -1;
+        String preferredLanguageId = userPreferences.getLanguage().getIdentifier();
         int index = 0;
         for (Language language:languages) {
             if (language.getIdentifier().equalsIgnoreCase(preferredLanguageId))
@@ -174,8 +175,7 @@ public class TestSetupActivity extends AppCompatActivity {
         ArrayList<Language> languages = Language.getAvailableLanguages(this);
         String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
         int index = 0;
-        for (Language language:languages
-        ) {
+        for (Language language:languages) {
             if (language.getName(TestSetupActivity.this).equalsIgnoreCase(systemLanguage))
                 return index;
             index++;
