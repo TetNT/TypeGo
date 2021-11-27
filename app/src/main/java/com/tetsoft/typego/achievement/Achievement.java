@@ -170,6 +170,24 @@ public class Achievement {
                 R.drawable.ic_times_played,
                 true,
                 RequirementFactory.passedTestsAmount(500)));
+        achievements.add(new Achievement(18,
+                context.getString(R.string.double_agent),
+                context.getString(R.string.polyglot_desc, 2),
+                R.drawable.ic_language,
+                true,
+                RequirementFactory.differentLanguagesAmount(2)));
+        achievements.add(new Achievement(19,
+                context.getString(R.string.linguist),
+                context.getString(R.string.polyglot_desc, 3),
+                R.drawable.ic_language,
+                true,
+                RequirementFactory.differentLanguagesAmount(3)));
+        achievements.add(new Achievement(19,
+                context.getString(R.string.polyglot),
+                context.getString(R.string.polyglot_desc, 5),
+                R.drawable.ic_language,
+                true,
+                RequirementFactory.differentLanguagesAmount(5)));
         return achievements;
     }
 

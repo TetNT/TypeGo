@@ -9,13 +9,16 @@
     <string name="alien">Пришелец</string>
     <string name="mastermind">Сверхразум</string>
     <string name="type_bachelor">Печатный бакалавр</string>
-
+    <string name="double_agent">Двойной агент</string>
+    <string name="linguist">Лингвист</string>
+    <string name="polyglot">Полиглот</string>
 
     <string name="the_first_step_desc">Заверши свой первый тест</string>
     <string name="typewriter_wpm">Достигни как минимум %1$d СВМ</string>
     <string name="unmistakable_desc_with_seconds">Заверши %1$d-секундный тест без ошибок и как минимум %2$d СВМ</string>
     <string name="unmistakable_desc_with_minutes">Заверши %1$d-минутный тест без ошибок и как минимум %2$d СВМ</string>
     <string name="big_fan_desc">Пройди %1$d тестов</string>
+    <string name="polyglot_desc">Пройди тесты на %1$d разных языках.</string>
 
     <string name="new_achievements_notification">Получено %1$d новых достижений.</string>
     <string name="check_profile">Посмотреть профиль</string>

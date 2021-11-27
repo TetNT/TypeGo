@@ -1,6 +1,7 @@
 package com.tetsoft.typego.achievement;
 
 
+import com.tetsoft.typego.testing.ResultList;
 import com.tetsoft.typego.testing.TypingResult;
 import com.tetsoft.typego.account.User;
 
@@ -35,6 +36,7 @@ public class AchievementRequirement {
         MISTAKES,
         TIME_MODE,
         MISTAKES_IN_A_ROW,
+        DIFFERENT_LANGUAGES_COUNT,
     }
 
     private int getComparingResultBySection(User user, TypingResult result) {
@@ -49,6 +51,8 @@ public class AchievementRequirement {
                 return result.getTimeInSeconds();
             case PASSED_TESTS_AMOUNT:
                 return user.getResultList().size();
+            case DIFFERENT_LANGUAGES_COUNT:
+                return countUniqueLanguageEntries(user.getResultList());
             default:
                 throw new IllegalArgumentException("Wrong achievement section type: "+ achievementSection);
         }
@@ -75,6 +79,18 @@ public class AchievementRequirement {
             default:
                 return 0;
         }
+    }
+
+    // returns the amount of different languages in a results list
+    public int countUniqueLanguageEntries(ArrayList<TypingResult> results) {
+        ArrayList<String> metLanguagesId = new ArrayList<>();
+        for (TypingResult result: results) {
+            String resultId = result.getLanguage().getIdentifier();
+            if (!metLanguagesId.contains(resultId)) {
+                metLanguagesId.add(resultId);
+            }
+        }
+        return metLanguagesId.size();
     }
 
     public boolean isMatching(User user, TypingResult result) {
