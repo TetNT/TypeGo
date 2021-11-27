@@ -1,60 +1,45 @@
 package com.tetsoft.typego.testing;
 
-import com.tetsoft.typego.utils.Dictionary;
+import com.tetsoft.typego.utils.DictionaryType;
 import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.ScreenOrientation;
 import com.tetsoft.typego.utils.TimeMode;
 
+import java.io.Serializable;
 
-public class TestMetadata {
-    private final Language language;
-    private final TimeMode timeMode;
-    private final Dictionary dictionary;
-    private final boolean suggestionsActivated;
-    private final ScreenOrientation screenOrientation;
-    private final boolean fromMainMenu;
-
-    public static final int DEFAULT_AMOUNT_OF_SECONDS = 60;
-    public static final int DEFAULT_DICTIONARY_TYPE_INDEX = 0;
-    public static final boolean DEFAULT_SUGGESTIONS_IS_ON = true;
-    public static final int DEFAULT_SCREEN_ORIENTATION = 0;
+/**
+ * Base class that describes all test data available.
+ */
+public abstract class TestMetadata implements Serializable {
+    protected Language language;
+    protected TimeMode timeMode;
+    protected DictionaryType dictionaryType;
+    protected boolean suggestionsActivated;
+    protected ScreenOrientation screenOrientation;
 
     public TestMetadata(Language language,
                         TimeMode timeMode,
-                        Dictionary dictionary,
+                        DictionaryType dictionary,
                         boolean suggestionsActivated,
-                        ScreenOrientation screenOrientation,
-                        boolean fromMainMenu) {
+                        ScreenOrientation screenOrientation) {
         this.language = language;
         this.timeMode = timeMode;
-        this.dictionary = dictionary;
+        this.dictionaryType = dictionary;
         this.suggestionsActivated = suggestionsActivated;
         this.screenOrientation = screenOrientation;
-        this.fromMainMenu = fromMainMenu;
     }
 
-    public Language getLanguage() {
-        return language;
+
+    protected TestMetadata() {
     }
 
-    public TimeMode getTimeMode() {
-        return timeMode;
-    }
+    abstract public Language getLanguage();
 
-    public Dictionary getDictionary() {
-        return dictionary;
-    }
+    abstract public TimeMode getTimeMode();
 
-    public boolean isSuggestionsActivated() {
-        return suggestionsActivated;
-    }
+    abstract public DictionaryType getDictionaryType();
 
-    public ScreenOrientation getScreenOrientation() {
-        return screenOrientation;
-    }
+    abstract public boolean isSuggestionsActivated();
 
-    public boolean isFromMainMenu() {
-        return fromMainMenu;
-    }
-
+    abstract public ScreenOrientation getScreenOrientation();
 }
