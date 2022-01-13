@@ -3,7 +3,7 @@ package com.tetsoft.typego.storage
 import android.content.Context
 import com.tetsoft.typego.utils.StringKeys
 
-class UserAchievementsStorage(context: Context) : Storage {
+class UserAchievementsStorage(context: Context) : StringValueStorage {
     private val sharedPreferences =
         context.getSharedPreferences(StringKeys.USER_STORAGE, Context.MODE_PRIVATE)
 

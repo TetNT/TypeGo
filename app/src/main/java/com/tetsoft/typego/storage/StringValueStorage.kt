@@ -1,7 +1,7 @@
 package com.tetsoft.typego.storage
 
-interface Storage {
+interface StringValueStorage {
     fun store(key: String?, value: String?)
 
-    fun getString(key: String?): Any
+    fun getString(key: String?): String
 }
