@@ -151,7 +151,7 @@ public class TypingTestActivity extends AppCompatActivity {
         loadingWordList = new ArrayList<>();
         typedWordsList = new ArrayList<>();
         if (testSettings.isSuggestionsActivated())
-            inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+            inpWord.setInputType(InputType.TYPE_CLASS_TEXT);
         else inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
     }
 
