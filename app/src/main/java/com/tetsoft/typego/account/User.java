@@ -64,7 +64,7 @@ public class User implements Serializable {
         return achievements;
     }
 
-    private static String serializeToJson(@NonNull User user) {
+    private static String serializeToJson(User user) {
         Gson gson = new Gson();
         return gson.toJson(user);
     }
@@ -73,21 +73,21 @@ public class User implements Serializable {
         return new Gson().fromJson(json, User.class);
     }
 
-    public void storeData(@NonNull Context context) {
+    public void storeData(Context context) {
         SharedPreferences spUser = getUserSharedPreferences(context);
         SharedPreferences.Editor editor = spUser.edit();
         editor.putString(StringKeys.PREFERENCES_CURRENT_USER, serializeToJson(this));
         editor.apply();
     }
 
-    public static User getFromStoredData(@NonNull Context context) {
+    public static User getFromStoredData(Context context) {
         User user;
         SharedPreferences sharedPreferences = User.getUserSharedPreferences(context);
         user = User.getFromJson(sharedPreferences.getString(StringKeys.PREFERENCES_CURRENT_USER, null));
         return user;
     }
 
-    private static SharedPreferences getUserSharedPreferences(@NonNull Context context) {
+    private static SharedPreferences getUserSharedPreferences(Context context) {
         return context.getSharedPreferences(StringKeys.USER_STORAGE, Context.MODE_PRIVATE);
     }
 
