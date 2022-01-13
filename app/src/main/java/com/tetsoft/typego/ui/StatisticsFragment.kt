@@ -16,6 +16,9 @@ import com.tetsoft.typego.R
 import com.tetsoft.typego.account.Statistics
 import com.tetsoft.typego.account.User
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
+import com.tetsoft.typego.testing.ResultList
+import com.tetsoft.typego.testing.ResultListUtils
+import com.tetsoft.typego.utils.TimeConvert
 
 
 class StatisticsFragment : Fragment() {
@@ -33,8 +36,9 @@ class StatisticsFragment : Fragment() {
         visibleCards = getVisibleCardsArrayList()
         val cardsCount : Int = visibleCards.size
         displayOrHideProgressionCard(stats)
-        displayOrHideTimeSpentCard(stats)
         displayOrHideAccuracyCard(stats)
+        displayOrHideRecordCard(stats)
+        displayOrHideTimeSpentCard(stats)
         displayOrHidePreferencesCard(stats)
         displayOrHideAchievementsCard(stats, currentUser)
         if (cardsHidden == cardsCount) {
@@ -45,14 +49,14 @@ class StatisticsFragment : Fragment() {
             binding.statsCardLocked.visibility = View.VISIBLE
         }
         val animationManager = AnimationManager()
-        val pastWpmAnim = animationManager.getCountAnimation(0,stats.averagePastWPM,2500)
-        val currentWpmAnim = animationManager.getCountAnimation(0,stats.averageCurrentWPM,2500)
-        val progressionAnim = animationManager.getCountAnimation(0,stats.progression,2500)
-        val totalWordsAnim = animationManager.getCountAnimation(0,stats.totalWordsWritten,2500)
+        val pastWpmAnim = animationManager.getCountAnimation(0,stats.averagePastWPM,1000)
+        val currentWpmAnim = animationManager.getCountAnimation(0,stats.averageCurrentWPM,1000)
+        val progressionAnim = animationManager.getCountAnimation(0,stats.progression,1000)
+        val totalWordsAnim = animationManager.getCountAnimation(0,stats.totalWordsWritten,1000)
         applyCountWPM(pastWpmAnim, binding.startWpm)
         applyCountWPM(currentWpmAnim, binding.currentWpm)
         applyCountProgression(progressionAnim, binding.progression)
-        applyCountWrittenTotal(totalWordsAnim, binding.tvStatsWordsTotal)
+        applyCountWrittenTotal(totalWordsAnim, binding.tvStatsWordsDescription)
         pastWpmAnim.start()
         currentWpmAnim.start()
         progressionAnim.start()
@@ -114,6 +118,35 @@ class StatisticsFragment : Fragment() {
         if (progress < 0) binding.progression.setTextColor(Color.RED)
     }
 
+    private fun displayOrHideAccuracyCard(stats: Statistics) {
+        val totalWordsWritten : Int = stats.totalWordsWritten
+        if (totalWordsWritten <= 0) {
+            binding.statsCardAccuracy.visibility = View.GONE
+            cardsHidden++
+            return
+        }
+        val accuracy : Int = stats.accuracy
+        binding.tvStatsWordsDescription.text = getString(R.string.stats_words_written_total_pl, totalWordsWritten)
+        binding.tvAccuracy.text = getString(R.string.stats_accuracy_pl, accuracy)
+        when {
+            accuracy < 50 -> binding.tvAccuracy.setTextColor(Color.rgb(128, 0, 0))
+            accuracy < 80 -> binding.tvAccuracy.setTextColor(Color.rgb(255, 255, 0))
+            else -> binding.tvAccuracy.setTextColor(Color.rgb(0,192,0))
+        }
+    }
+
+    private fun displayOrHideRecordCard(stats: Statistics) {
+        if (stats.bestResult == null) {
+            binding.statsCardBestResult.visibility = View.GONE
+            cardsHidden++
+            return
+        }
+        binding.tvStatsBestResult.text = getString(R.string.stats_best_result,
+            stats.bestResult.wpm.toInt()
+        )
+        binding.tvStatsRecordSetTime.text = getString(R.string.stats_best_result_set_time, stats.daysSinceRecordHasBeenSet)
+    }
+
     private fun displayOrHideTimeSpentCard(stats : Statistics) {
         val daysSinceFirstTest : Int = stats.daysSinceFirstTest
         if (daysSinceFirstTest < 1) {
@@ -125,33 +158,30 @@ class StatisticsFragment : Fragment() {
         binding.tvStatsTimeSpentTotal.text = getString(R.string.stats_total_minutes_of_testing_pl, stats.totalTimeSpentInMinutes)
     }
 
-    private fun displayOrHideAccuracyCard(stats: Statistics) {
-        val totalWordsWritten : Int = stats.totalWordsWritten
-        if (totalWordsWritten <= 0) {
-            binding.statsCardAccuracy.visibility = View.GONE
-            cardsHidden++
-            return
-        }
-        val accuracy : Int = stats.accuracy
-        binding.tvStatsWordsTotal.text = getString(R.string.stats_words_written_total_pl, totalWordsWritten)
-        binding.tvAccuracy.text = getString(R.string.stats_accuracy_pl, accuracy)
-        when {
-            accuracy < 50 -> binding.tvAccuracy.setTextColor(Color.rgb(128, 0, 0))
-            accuracy < 80 -> binding.tvAccuracy.setTextColor(Color.rgb(255, 255, 0))
-            else -> binding.tvAccuracy.setTextColor(Color.rgb(0,192,0))
-        }
-    }
 
     private fun displayOrHidePreferencesCard(stats: Statistics) {
-        val favLang : String = stats.getFavoriteLanguageName(context)
-        val favTimeMode : String = stats.getFavoriteTimeMode(context)
-        if (favLang == "" || favTimeMode == "") {
+        val favLang = stats.getFavoriteLanguage(context)
+        val favTimeMode = stats.favoriteTimeMode
+        if (favLang == null || favTimeMode == null) {
             binding.statsCardPreferences.visibility = View.GONE
             cardsHidden++
             return
         }
-        binding.statsFavoriteLanguage.text = getString(R.string.stats_language_pl, favLang)
-        binding.statsFavoriteTimeMode.text = getString(R.string.stats_time_mode_pl, favTimeMode)
+        binding.statsFavoriteLanguage.text = getString(R.string.stats_language_pl,
+            context?.let { favLang.getName(it) })
+        binding.statsFavoriteTimeMode.text =
+            getString(R.string.stats_time_mode_pl,
+                context?.let { TimeConvert.convertSeconds(it, favTimeMode.timeInSeconds) })
+        binding.statsFavoriteLanguageDescription.text =
+            getString(R.string.favorite_language_description_pl,
+                ResultListUtils.getResultsByLanguage(stats.results, favLang).size,
+                stats.resultsCount
+            )
+        binding.statsFavoriteTimemodeDescription.text =
+            getString(R.string.favorite_timemode_description_pl,
+                ResultListUtils.getResultsByTimeMode(stats.results, favTimeMode).size,
+                stats.resultsCount
+            )
     }
 
     private fun displayOrHideAchievementsCard(stats: Statistics, currentUser : User) {
@@ -170,22 +200,6 @@ class StatisticsFragment : Fragment() {
                 stats.lastCompletedAchievementName)
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        if (!hidden) AnimationManager().applyAnimationToEachView(
-                visibleCards as Collection<View>,
-                getAnimationSet(),
-                100,
-                true)
-
-    }
-
-    private fun getAnimationSet() : AnimationSet {
-        val animationSet = AnimationSet(false)
-        val animationManager = AnimationManager()
-        animationSet.addAnimation(animationManager.getFadeInAnimation(ANIMATION_DURATION))
-        animationSet.addAnimation(animationManager.getSlideInAnimation(0f, 50f, ANIMATION_DURATION))
-        return animationSet
-    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
