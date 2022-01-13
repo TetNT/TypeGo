@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class AchievementsFragment extends Fragment {
 
-
     FragmentAchievementsBinding _binding;
 
     private @NonNull FragmentAchievementsBinding getBinding() {
@@ -55,6 +54,7 @@ public class AchievementsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (getContext() == null) return;
         User currentUser = User.getFromStoredData(getContext());
         ArrayList<Achievement> staticAchievements = Achievement.getAchievementList(getContext());
         getBinding().rvAchievements.setAdapter(new AchievementsAdapter(
