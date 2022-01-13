@@ -195,7 +195,7 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void startTimer(int seconds) {
-        countdown = new CountDownTimer(seconds*1000, 1000) {
+        countdown = new CountDownTimer(seconds* 1000L, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tvTimeLeft.setText(TimeConvert.convertSecondsToStamp((int)(millisUntilFinished/1000)));
