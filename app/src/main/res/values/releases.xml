@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="release_notes_description_140">
+        • New Statistics section in your profile\nNow you can see the progress you\'ve made and a lot of joyful information!\n\n
+        • Bulgarian and Ukrainian languages are added\nWelcome to the club, buddy!\n\n
+        • Major UI improvements\nAnimations, better design, fonts, fixed visual bugs. All included!
+    </string>
+
+    <string name="release_notes_description_143">
+        • Less ads\nAds appear less in short tests (15 secs, 30 secs).\n\n
+        • More statistics\nStatistics became more informative.\n\n
+        • Other improvements\nNow it\'s shown in a typed word list if an inputted word is shorter than the original.\n\n
+        • Bug fixes\nFixed a bug caused text suggestions not to work.\nFixed a bug when statistics displayed the wrong time a user has spent on tests.
+    </string>
+
+</resources>

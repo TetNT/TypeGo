@@ -109,12 +109,7 @@
     <string name="statistics">Статистика</string>
     <string name="stats_locked_cards">Некоторые карточки всё ещё заблокированы. Проходи больше тестов, чтобы их разблокировать! Карточек осталось: %1$d</string>
 
-    <string name="release_notes_description">
-        • Новый раздел "Статистика" в профиле\nТеперь ты можешь видеть проделанный прогресс и кучу интересной информации!\n\n
-        • Добавлены болгарский и украинский языки\nДобро пожаловать в клуб!\n\n
-        • Глобальное улучшение интерфейса\nАнимации, лучший дизайн, шрифты, исправленные визуальные баги. Всё включено!
-    </string>
-    <string name="splash_text">Теперь ещё лучше!</string>
+    <string name="splash_text">Снова здесь!</string>
     <string name="whats_new_pl">%1$s: что нового</string>
     <string name="text_suggestions_note">* это также зависит и от настроек самой клавиатуры.</string>
     <string name="dictionary_type_note">* базовый набор ограничен 200 словами.</string>
