@@ -38,8 +38,7 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
-        val rootView = binding.root
-        setContentView(rootView)
+        setContentView(binding.root)
         currentUser = User.getFromStoredData(this)
         testSettings = intent.extras?.getSerializable(StringKeys.TEST_SETTINGS) as TestSettings
         initIntentData()
@@ -78,11 +77,11 @@ class ResultActivity : AppCompatActivity() {
             binding.tvTypedWordsDescription.text = getString(R.string.typed_words_log_disabled)
             return
         }
-        val rvWords = findViewById<RecyclerView>(R.id.rvTypedWords)
+
         val words: List<Word>? = typedWordsList
-        rvWords.adapter = WordsAdapter(words!!)
+        binding.rvTypedWords.adapter = WordsAdapter(words!!)
         val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rvWords.layoutManager = layoutManager
+        binding.rvTypedWords.layoutManager = layoutManager
     }
 
     private fun initPreviousResult() {
