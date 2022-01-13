@@ -55,7 +55,8 @@ public class TestSetupActivity extends AppCompatActivity {
         if (userPreferences.getScreenOrientation() == ScreenOrientation.LANDSCAPE)
             screenChildIndex = 1;
 
-        binding.seekBar.setProgress(timeModeToProgress(userPreferences.getTimeMode()));
+        if (userPreferences.getTimeMode() != null)
+            binding.seekBar.setProgress(timeModeToProgress(userPreferences.getTimeMode()));
 
         ((RadioButton) binding.rbDictionaryType.getChildAt(dictionaryChildIndex)).setChecked(true);
         ((RadioButton) binding.rbScreenOrientation.getChildAt(screenChildIndex)).setChecked(true);
