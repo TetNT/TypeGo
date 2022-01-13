@@ -240,6 +240,7 @@
                     >
 
                     <TextView
+                        android:id="@+id/tv_stats_best_result"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/redring_black"
@@ -251,10 +252,20 @@
                         app:drawableTopCompat="@drawable/ic_stats_star" />
 
                     <TextView
-                        android:id="@+id/stats_record_set_time"
+                        android:id="@+id/tv_stats_best_result_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="It has been set on %1$s"
+                        android:fontFamily="@font/redring_black"
+                        android:gravity="center_horizontal"
+                        android:text="@string/stats_best_result_description"
+                        android:textColor="@color/white"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:id="@+id/tv_stats_record_set_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stats_best_result_set_time"
                         android:gravity="center"/>
 
                 </LinearLayout>
@@ -380,7 +391,8 @@
                         android:id="@+id/stats_favorite_timemode_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/favorite_timemode_description_pl"/>
+                        android:text="@string/favorite_timemode_description_pl"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
