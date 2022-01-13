@@ -6,12 +6,12 @@ import com.tetsoft.typego.achievement.Achievement;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
 import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.TimeConvert;
+import com.tetsoft.typego.utils.TimeMode;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Statistics {
@@ -23,35 +23,30 @@ public class Statistics {
         results = user.getResultList();
     }
 
-    public String getFavoriteLanguageName(Context context) {
-        if (results.isEmpty()) return "";
-        Hashtable<Language, Integer> usedLanguages = new Hashtable<>();
-        for (TypingResult result : results) {
-            Language pickedLanguage = result.getLanguage();
-            Integer languageFrequency = 0;
-            if (usedLanguages.containsKey(pickedLanguage)) {
-                languageFrequency = usedLanguages.get(pickedLanguage);
-            }
-            usedLanguages.put(pickedLanguage, languageFrequency + 1);
-        }
-        Set<Language> languageKeys = usedLanguages.keySet();
-        Iterator<Language> iterator = languageKeys.iterator();
-        int biggestAmount = 0;
-        Language mostFrequentLanguage = null;
-        while (iterator.hasNext()){
-            Language currentLanguage = iterator.next();
-            int currentAmount = usedLanguages.get(currentLanguage);
-            if (currentAmount > biggestAmount) {
-                biggestAmount = currentAmount;
-                mostFrequentLanguage = currentLanguage;
-            }
-        }
-        if (mostFrequentLanguage == null) return "";
-        return mostFrequentLanguage.getName(context);
+    public int getResultsCount() {
+        return results.size();
     }
 
-    public String getFavoriteTimeMode(Context context) {
-        if (results.isEmpty()) return "";
+    public ArrayList<TypingResult> getResults() {
+        return results;
+    }
+
+    public Language getFavoriteLanguage(Context context) {
+        if (results.isEmpty()) return null;
+        Language mostFrequentLanguage = null;
+        int mostFrequency = 0;
+        for (Language language : Language.getAvailableLanguages(context)) {
+            int langFrequency = ResultListUtils.getResultsByLanguage(results, language).size();
+            if (langFrequency > mostFrequency) {
+                mostFrequency = langFrequency;
+                mostFrequentLanguage = language;
+            }
+        }
+        return mostFrequentLanguage;
+    }
+
+    public TimeMode getFavoriteTimeMode() {
+        if (results.isEmpty()) return null;
         Hashtable<Integer, Integer> usedTimeModes = new Hashtable<>();
         for (TypingResult result : results) {
             Integer pickedTimeMode = result.getTimeInSeconds();
@@ -72,7 +67,7 @@ public class Statistics {
                 mostFrequentTimeMode = currentTimeMode;
             }
         }
-        return TimeConvert.convertSeconds(context, mostFrequentTimeMode);
+        return new TimeMode(mostFrequentTimeMode);
     }
 
     public int getDoneAchievementsCount() {
@@ -175,9 +170,26 @@ public class Statistics {
         return total;
     }
 
-    public Date getBestResultCompletionDate() {
+
+
+    private Date getBestResultCompletionDate() {
         TypingResult best = ResultListUtils.getBestResult(results);
-        if (best != null) return best.getCompletionDateTime();
-        return null;
+        if (best == null) return null;
+        return best.getCompletionDateTime();
     }
+
+    public TypingResult getBestResult() {
+        return ResultListUtils.getBestResult(results);
+    }
+
+
+    public int getDaysSinceRecordHasBeenSet() {
+        Date firstResultCompletionDate = getBestResultCompletionDate();
+        if (firstResultCompletionDate == null) return 0;
+        Date lastResultCompletionDate = Calendar.getInstance().getTime();
+        long dateDiff = lastResultCompletionDate.getTime() - firstResultCompletionDate.getTime();
+        return (int)TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
+    }
+
+
 }
