@@ -27,16 +27,27 @@ class WordsAdapter(val wordsList:List<Word>) : RecyclerView.Adapter<WordsAdapter
         holder.tvInputted.text = wordsList[position].inputtedText
         holder.tvOriginal.text = wordsList[position].originalText
         holder.tvIndex.text = "" + (position+1) + "."
-        var spannableOrig = SpannableString(holder.tvOriginal.text)
+        var hasMistakes = false
+        var spannableOrig = SpannableString(holder.tvOriginal.text)  // span of the original word
         spannableOrig.setSpan(getGreenSpan(), 0, holder.tvOriginal.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        var spannableStr = SpannableString(holder.tvInputted.text)
-        spannableStr.setSpan(getGreenSpan(), 0, holder.tvInputted.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        holder.tvInputted.text = spannableStr
+        var spannableInp = SpannableString(holder.tvInputted.text)  // span of the inputted word
+        spannableInp.setSpan(getGreenSpan(), 0, holder.tvInputted.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        holder.tvInputted.text = spannableInp
         for (incorrectCharInd in words[position].incorrectCharsIndices) {
-            spannableStr = SpannableString(holder.tvInputted.text)
-            spannableStr.setSpan(getRedSpan(), incorrectCharInd, incorrectCharInd+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            holder.tvInputted.text = spannableStr
+            spannableInp = SpannableString(holder.tvInputted.text)
+            spannableInp.setSpan(getRedSpan(), incorrectCharInd, incorrectCharInd+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            holder.tvInputted.text = spannableInp
+            hasMistakes = true
         }
+        if (words[position].inputtedText < words[position].originalText)
+            hasMistakes = true
+        if (hasMistakes) {
+            var spannableIndex = SpannableString(holder.tvIndex.text)
+            spannableIndex.setSpan(getRedSpan(), 0, spannableIndex.length - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            holder.tvIndex.text = spannableIndex
+        }
+
+
     }
 
     private fun getRedSpan() : ForegroundColorSpan = ForegroundColorSpan(Color.rgb(192, 0, 0))
