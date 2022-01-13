@@ -72,7 +72,7 @@ public class AccountFragment extends Fragment {
         loadLastResultsData(view);
     }
 
-    private void setupStatFields(@NonNull View view) {
+    private void setupStatFields(View view) {
         view.<TextView>findViewById(R.id.tvAverageWPM).setText(getString(R.string.average_wpm_pl, 0));
         view.<TextView>findViewById(R.id.tvBestResult).setText(getString(R.string.best_result_pl, 0));
         view.<TextView>findViewById(R.id.tvAccountLastResult).setText(getString(R.string.previous_result_pl, 0));
@@ -80,7 +80,7 @@ public class AccountFragment extends Fragment {
     }
 
     Spinner spinner;
-    public void initLanguageSpinner(@NonNull View view) {
+    public void initLanguageSpinner(View view) {
         ArrayList<Language> languages = Language.getAvailableLanguages(getContext());
         // an option to show the whole stats
         languages.add(0, new Language(StringKeys.LANGUAGE_ALL, getContext()));
