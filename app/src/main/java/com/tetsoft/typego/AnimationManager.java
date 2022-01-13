@@ -47,18 +47,4 @@ public class AnimationManager {
         animator.addUpdateListener(animation -> view.setText(String.valueOf(animation.getAnimatedValue())));
     }
 
-    public void applyAnimationToEachView(@NonNull Collection<View> views,
-                                         AnimationSet animationSet,
-                                         long offset,
-                                         boolean offsetSequentially) {
-        int i = 0;
-        for (View view: views) {
-            if (offsetSequentially)
-                animationSet.setStartOffset(offset * i);
-            else animationSet.setStartOffset(offset);
-            view.setAnimation(animationSet);
-            i++;
-        }
-    }
-
 }
