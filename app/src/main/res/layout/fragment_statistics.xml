@@ -150,6 +150,8 @@
                         android:text="@string/stats_progression_pl"
                         android:textSize="40sp"
                         android:textStyle="bold"
+                        android:ems="3"
+                        android:textAlignment="center"
                         android:textColor="@color/button_main_green_unpressed"
                         app:layout_constraintStart_toEndOf="@id/progression_divider"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +193,7 @@
                     android:padding="8dp">
 
                     <TextView
-                        android:id="@+id/tv_stats_words_total"
+                        android:id="@+id/tv_stats_words_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -199,24 +201,24 @@
                         android:fontFamily="@font/redring_black"
                         android:padding="16dp"
                         android:text="@string/stats_words_written_total_pl"
-                        android:textAlignment="viewEnd"
                         android:textColor="@color/white"
-                        android:textSize="54sp"
+                        android:textSize="48sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
 
                     <TextView
                         android:id="@+id/tv_accuracy"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_stats_words_total"
-                        app:layout_constraintEnd_toEndOf="@id/tv_stats_words_total"
+                        app:layout_constraintTop_toBottomOf="@id/tv_stats_words_description"
+                        app:layout_constraintStart_toStartOf="@id/tv_stats_words_description"
                         android:text="@string/stats_accuracy_pl"
-                        android:textSize="28sp"
+                        android:textSize="24sp"
                         android:textColor="@color/correct_green"
                         android:textAlignment="viewEnd"
                         android:fontFamily="@font/redring_regular"
-                        android:layout_marginEnd="12dp"/>
+                        android:layout_marginStart="12dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
