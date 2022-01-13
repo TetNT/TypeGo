@@ -77,7 +77,7 @@ public class TestSetupActivity extends AppCompatActivity {
                 language,
                 new TimeMode(selectedProgressToSeconds(binding.seekBar.getProgress())),
                 getSelectedDictionaryType(),
-                binding.cbPredictiveText.isActivated(),
+                binding.cbPredictiveText.isChecked(),
                 getSelectedScreenOrientation());
         intent.putExtra(StringKeys.TEST_SETTINGS, testSettings);
         userPreferences.update(testSettings);
