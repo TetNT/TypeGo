@@ -65,7 +65,6 @@ public class TypingTestActivity extends AppCompatActivity {
     int correctWordsWeight;
     boolean testInitiallyPaused; // a flag that decides if timer should start or not.
     int SCROLL_POWER = 25;
-    boolean initErrorFlag;
     CountDownTimer countdown;
     public InterstitialAd mInterstitialAd;
     boolean adShown;
@@ -86,10 +85,6 @@ public class TypingTestActivity extends AppCompatActivity {
         setScreenOrientation();
         initWords();
 
-        if (initErrorFlag) {
-            finish();
-            return;
-        }
         inpWord.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -146,7 +141,6 @@ public class TypingTestActivity extends AppCompatActivity {
     private void initialize() {
         Bundle bundle = getIntent().getExtras();
         testSettings = (TestSettings)bundle.getSerializable(StringKeys.TEST_SETTINGS);
-        initErrorFlag = false;
         timeTotalAmount = testSettings.getTimeMode().getTimeInSeconds();
         secondsRemaining = timeTotalAmount;
         etWords = findViewById(R.id.words);
@@ -395,7 +389,6 @@ public class TypingTestActivity extends AppCompatActivity {
             inputStream.close();
         } catch (IOException e) {
             Toast.makeText(this, getString(R.string.words_loading_error_occurred), Toast.LENGTH_SHORT).show();
-            initErrorFlag = true;
             return;
         }
         EditText words = findViewById(R.id.words);
@@ -461,7 +454,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
     private void showAd() {
         if (mInterstitialAd == null) {
-            Log.i("AD", "Ad did not load");
+            Log.i("AD", "showAd(): Ad is null");
             return;
         }
         adShown = true;
