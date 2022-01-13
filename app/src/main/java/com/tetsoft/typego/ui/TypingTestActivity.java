@@ -23,7 +23,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.tetsoft.typego.AdsCounter;
 import com.tetsoft.typego.Config;
+import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.testing.TestSettings;
 import com.tetsoft.typego.testing.Word;
 import com.tetsoft.typego.R;
@@ -69,12 +71,14 @@ public class TypingTestActivity extends AppCompatActivity {
     boolean adShown;
     ArrayList<Word> typedWordsList;
     TestSettings testSettings;
+    AdsCounter adsCounter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_typing_test);
+        adsCounter = ((TypeGoApp)getApplication()).getAdsCounter();
         adShown = false;
         loadAd();
         initialize();
@@ -205,7 +209,8 @@ public class TypingTestActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 inpWord.setEnabled(false);
-                if (mInterstitialAd == null) {
+                adsCounter.addValue(timeTotalAmount/60f);
+                if (mInterstitialAd == null || !adsCounter.enoughToShowAd()) {
                     showResultActivity();
                 }
                 else showAd();
@@ -448,6 +453,7 @@ public class TypingTestActivity extends AppCompatActivity {
             @Override
             public void onAdDismissedFullScreenContent() {
                 adShown = true;
+                adsCounter.reset();
                 showResultActivity();
             }
         });
