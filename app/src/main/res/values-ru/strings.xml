@@ -115,5 +115,6 @@
     <string name="dictionary_type_note">* базовый набор ограничен 200 словами.</string>
     <string name="favorite_language_description_pl">%1$d из %2$d тестов выполнены на этом языке.</string>
     <string name="favorite_timemode_description_pl">%1$d из %2$d тестов выполнены в этом режиме.</string>
-    <string name="stats_best_result">%1$d\nтвой текущий лучший результат!</string>
+    <string name="stats_best_result_description">твой текущий рекорд!</string>
+    <string name="stats_best_result_set_time">Был установлен %1$d дней назад</string>
 </resources>

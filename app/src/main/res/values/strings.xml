@@ -124,5 +124,7 @@
 
     <string name="favorite_language_description_pl">%1$d out of %2$d tests are completed in this language.</string>
     <string name="favorite_timemode_description_pl">%1$d out of %2$d tests are completed in this time mode.</string>
-    <string name="stats_best_result">%1$d\nis your current record!</string>
+    <string name="stats_best_result" translatable="false">%1$d</string>
+    <string name="stats_best_result_description">is your current record!</string>
+    <string name="stats_best_result_set_time">It\'s been set %1$d days ago</string>
 </resources>
