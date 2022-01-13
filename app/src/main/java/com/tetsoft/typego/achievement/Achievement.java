@@ -1,12 +1,9 @@
 package com.tetsoft.typego.achievement;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.testing.TypingResult;
 import com.tetsoft.typego.account.User;
-
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,10 +14,9 @@ public class Achievement {
     private final String description;
     private Date completionDate;
     private final boolean progressAttached;
-    // Progress will be shown based of it's very first value.
-    private final ArrayList<AchievementRequirement> requirements;
+    private final ArrayList<AchievementRequirement> requirements; // Progress will be shown based of it's very first value.
 
-   public Achievement(int id, @NonNull String name, @NonNull String description, int assignedImageId, boolean progressAttached, ArrayList<AchievementRequirement> requirements) {
+   public Achievement(int id, String name, String description, int assignedImageId, boolean progressAttached, ArrayList<AchievementRequirement> requirements) {
        this.id = id;
        this.name = name;
        this.description = description;
@@ -65,7 +61,6 @@ public class Achievement {
         return requirements;
     }
 
-    @NotNull
     public static ArrayList<Achievement> getAchievementList(Context context) {
         ArrayList<Achievement> achievements = new ArrayList<>();
         achievements.add(new Achievement(1,
