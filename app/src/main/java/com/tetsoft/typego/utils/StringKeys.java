@@ -4,6 +4,9 @@ public class StringKeys {
     // user's storage and preferences
     public static final String USER_STORAGE = "user_storage";
     public static final String USER_PREFERENCES_STORAGE = "user_preferences_storage";
+    public static final String USER_RESULTS_STORAGE = "user_results_storage";
+    public static final String ADS_COUNTER_STORAGE = "ads_counter_storage";
+    public static final String ADS_COUNTER_VALUE = "ads_counter_value";
     public static final String USER_PREFERENCES = "userPreferences";
     public static final String PREFERENCE_LANGUAGE = "language";
     public static final String PREFERENCE_TIMEMODE = "timemode";
@@ -24,15 +27,13 @@ public class StringKeys {
     public static final String TEST_CORRECT_WORDS_WEIGHT = "correctWordsWeight";
     public static final String TEST_SCREEN_ORIENTATION = "screenOrientation";
     public static final String TOTAL_WORDS = "totalWords";
+
+    // intent navigation extras
     public static final String CALLED_FROM_PASSED_RESULTS = "calledFromPassedResults";
     public static final String FROM_MAIN_MENU = "fromMainMenu";
+    public static final String TO_ACHIEVEMENT_SECTION = "toAchievementSection";
     public static final String TEST_TYPED_WORDS_LIST = "typedWordsList";
     public static final String TEST_SETTINGS = "testSettings";
-
-    // names of account fragments for FragmentManager in AccountActivity
-    public static final String FRAGMENT_TEST_SETUP = "fragmentTestSetup";
-    public static final String FRAGMENT_ACCOUNT = "fragmentAccount";
-    public static final String FRAGMENT_STATISTICS = "fragmentStatistics";
 
     // language identifiers
     public static final String LANGUAGE_ALL = "ALL";
