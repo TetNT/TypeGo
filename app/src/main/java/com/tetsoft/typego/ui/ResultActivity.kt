@@ -141,18 +141,25 @@ class ResultActivity : AppCompatActivity() {
                 notificationAchievement = achievement
             }
         }
+        val intent = Intent(
+            this, AccountActivity::class.java)
+            .putExtra(StringKeys.TO_ACHIEVEMENT_SECTION, true)
         if (newAchievements == 1) {
             Snackbar.make(findViewById(
                     R.id.result_constraint_layout),
                     getString(R.string.achievement_unlocked, notificationAchievement!!.name),
-                    Snackbar.LENGTH_LONG).show()
+                    Snackbar.LENGTH_LONG)
+                .setAction(R.string.check_profile) {
+                    startActivity(intent)
+                    finish()
+                }.show()
         } else if (newAchievements > 1)
             Snackbar.make(findViewById(
                 R.id.result_constraint_layout),
                 getString(R.string.new_achievements_notification, newAchievements),
                 Snackbar.LENGTH_LONG)
                 .setAction(R.string.check_profile) {
-                    startActivity(Intent(this, AccountActivity::class.java))
+                    startActivity(intent)
                     finish()
             }.show()
     }
