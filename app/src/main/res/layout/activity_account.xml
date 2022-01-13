@@ -47,25 +47,31 @@
         app:menu="@menu/bottom_menu"
         />
 
-    <FrameLayout
-        android:id="@+id/fragmentFrame"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/adBanner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_activity_title_divider"
-        tools:layout="@layout/fragment_account">
-    </FrameLayout>
+
+
+
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-7144745225390143/6437612079"
+        app:adUnitId="@string/banner_ad_id"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_activity_title_divider"
+        app:layout_constraintBottom_toTopOf="@id/adBanner"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/account_navigation"
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
