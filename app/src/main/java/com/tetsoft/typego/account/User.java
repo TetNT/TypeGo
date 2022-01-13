@@ -91,12 +91,16 @@ public class User implements Serializable {
         return context.getSharedPreferences(StringKeys.USER_STORAGE, Context.MODE_PRIVATE);
     }
 
-    public int getLastResultByLanguage(@NonNull Language language) {
-        return (int)ResultListUtils.getLastResultByLanguage(resultList, language).getWPM();
+    public int getLastResultByLanguage(Language language) {
+        TypingResult lastResult = ResultListUtils.getLastResultByLanguage(resultList, language);
+        if (lastResult == null) return 0;
+        return (int)lastResult.getWPM();
     }
 
-    public int getBestResultByLanguage(@NonNull Language language) {
-        return (int)ResultListUtils.getBestResultByLanguage(resultList, language).getWPM();
+    public int getBestResultByLanguage(Language language) {
+        TypingResult bestResult = ResultListUtils.getBestResultByLanguage(resultList, language);
+        if (bestResult == null) return 0;
+        return (int)bestResult.getWPM();
     }
 
 }
