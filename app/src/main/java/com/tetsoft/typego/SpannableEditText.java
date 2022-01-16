@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 
 
@@ -12,9 +13,6 @@ public class SpannableEditText extends androidx.appcompat.widget.AppCompatEditTe
     private static final int GREEN_COLOR = Color.rgb(0, 128, 0);
     private static final int RED_COLOR = Color.rgb(192, 0, 0);
     private static final int EXCLUSIVE = Spannable.SPAN_EXCLUSIVE_EXCLUSIVE;
-
-    public static final ForegroundColorSpan FOREGROUND_GREEN = new ForegroundColorSpan(GREEN_COLOR);
-    public static final ForegroundColorSpan FOREGROUND_RED = new ForegroundColorSpan(RED_COLOR);
 
     public SpannableEditText(Context context) {
         super(context);
@@ -34,6 +32,12 @@ public class SpannableEditText extends androidx.appcompat.widget.AppCompatEditTe
         this.getText().setSpan(foregroundColor, charIndex, charIndex + 1, EXCLUSIVE);
     }
 
+    public void paintForeground(int charIndex, int endIndex, ForegroundColorSpan foregroundColor) {
+        if (this.getText() == null) return;
+        if (charIndex + 1 > this.getText().length()) return;
+        this.getText().setSpan(foregroundColor, charIndex, endIndex, EXCLUSIVE);
+    }
+
     public void paintBackground(int startIndex, int endIndex, BackgroundColorSpan backgroundColor) {
         if (this.getText() == null) return;
         if (startIndex + 1 > this.getText().length() || endIndex + 1 > this.getText().length())
@@ -49,6 +53,24 @@ public class SpannableEditText extends androidx.appcompat.widget.AppCompatEditTe
                 this.getText().removeSpan(span);
             }
         }
+    }
+
+    public void clearBackground(int startIndex, int endIndex) {
+        if (this.getText() == null) return;
+        final Object[] removableSpans = this.getText().getSpans(startIndex, endIndex, Object.class);
+        for (final Object span : removableSpans) {
+            if (span instanceof BackgroundColorSpan || span instanceof StyleSpan || span instanceof ForegroundColorSpan) {
+                this.getText().removeSpan(span);
+            }
+        }
+    }
+
+    public static ForegroundColorSpan getGreenForeground() {
+        return new ForegroundColorSpan(GREEN_COLOR);
+    }
+
+    public static ForegroundColorSpan getRedForeground() {
+        return new ForegroundColorSpan(RED_COLOR);
     }
 }
 
