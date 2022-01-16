@@ -157,7 +157,7 @@ public class TypingTestActivity extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                showExitTestDialog();
+                showExitDialog();
             }
         };
         this.getOnBackPressedDispatcher().addCallback(this, callback);
@@ -241,10 +241,10 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     public void cancelTest(View view) {
-        showExitTestDialog();
+        showExitDialog();
     }
 
-    private void showExitTestDialog() {
+    private void showExitDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.exit);
         dialog.setNegativeButton(R.string.no, (dial, which) -> {
@@ -345,17 +345,17 @@ public class TypingTestActivity extends AppCompatActivity {
         while (currentWordEndCursor<etWords.length() && etWords.getText().charAt(currentWordEndCursor)!=' ') {
             currentWordEndCursor++;
         }
-        setCurrentWord();
+        updateCurrentWord();
     }
 
     private void initializeWordCursor() {
         while (currentWordEndCursor<etWords.length() && etWords.getText().charAt(currentWordEndCursor)!=' ') {
             currentWordEndCursor++;
         }
-        setCurrentWord();
+        updateCurrentWord();
     }
 
-    private void setCurrentWord() {
+    private void updateCurrentWord() {
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
     }
 
@@ -391,14 +391,13 @@ public class TypingTestActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.words_loading_error_occurred), Toast.LENGTH_SHORT).show();
             return;
         }
-        EditText words = findViewById(R.id.words);
         Random rnd = new Random();
         StringBuilder str = new StringBuilder();
         int amountOfWords = (int)(250 * (timeTotalAmount / 60.0));
         for (int i = 0; i <= amountOfWords; i++) {
             str.append(loadingWordList.get(rnd.nextInt(loadingWordList.size()))).append(" ");
         }
-        words.setText(str.toString());
+        etWords.setText(str.toString());
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
