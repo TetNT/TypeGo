@@ -78,15 +78,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupLanguageSpinner() {
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(
+        LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(
                 this,
-                R.layout.spinner_item,
-                Language.getAvailableLanguages(this));
+                new LanguageList().getTranslatableList(this));
         binding.spinnerBasicTestLanguageSelection.setAdapter(spinnerAdapter);
-        int preferredLanguageIndex = getPreferredLanguageIndex();
-        if (preferredLanguageIndex < 0)
-            preferredLanguageIndex = getSystemLanguageIndex();
-        binding.spinnerBasicTestLanguageSelection.setSelection(preferredLanguageIndex);
+        if (userPreferences.getLanguage() != null) {
+            binding.spinnerBasicTestLanguageSelection.setSelection(
+                    spinnerAdapter.getItemIndexByLanguage(userPreferences.getLanguage())
+            );
+        } else {
+            binding.spinnerBasicTestLanguageSelection.setSelection(
+                    spinnerAdapter.getItemIndexBySystemLanguage()
+            );
+        }
     }
 
     // Returns an index of the preferred language in the list.
