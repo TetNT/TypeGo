@@ -85,14 +85,12 @@ public class AchievementRequirement {
 
     // returns the amount of different languages in a results list
     public int countUniqueLanguageEntries(ArrayList<TypingResult> results) {
-        ArrayList<String> metLanguagesId = new ArrayList<>();
-        for (TypingResult result: results) {
-            String resultId = result.getLanguage().getIdentifier();
-            if (!metLanguagesId.contains(resultId)) {
-                metLanguagesId.add(resultId);
-            }
+        int entries = 0;
+        for (Language language : new LanguageList().getList()) {
+            if (!ResultListUtils.getResultsByLanguage(results, language).isEmpty())
+                entries++;
         }
-        return metLanguagesId.size();
+        return entries;
     }
 
     public boolean isMatching(User user, TypingResult result) {
