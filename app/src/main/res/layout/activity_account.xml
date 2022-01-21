@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AccountActivity">
+    tools:context=".ui.activity.AccountActivity">
 
     <TextView
         android:id="@+id/tv_account_activity_title"
@@ -20,7 +20,6 @@
         app:drawableStartCompat="@drawable/ic_arrow_back"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="closeActivity"
         style="@style/activity_title"
         />
 
@@ -31,7 +30,6 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="8dp"
         android:background="@color/white"
-
         app:layout_constraintTop_toBottomOf="@id/tv_account_activity_title" />
 
 

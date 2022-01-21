@@ -1,8 +1,8 @@
 package com.tetsoft.typego;
 
-import com.tetsoft.typego.achievement.Achievement;
-import com.tetsoft.typego.achievement.AchievementMigration;
-import com.tetsoft.typego.achievement.RequirementFactory;
+import com.tetsoft.typego.data.achievement.Achievement;
+import com.tetsoft.typego.data.achievement.AchievementMigration;
+import com.tetsoft.typego.data.achievement.RequirementFactory;
 
 import org.junit.Test;
 import java.util.ArrayList;

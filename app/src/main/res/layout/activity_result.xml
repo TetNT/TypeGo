@@ -5,7 +5,7 @@
     android:id="@+id/result_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ResultActivity">
+    tools:context=".ui.activity.ResultActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -216,7 +216,7 @@
                             android:text="@string/dictionary"
                             android:textSize="20sp"
                             style="@style/list_fields"
-                            app:drawableStartCompat="@drawable/ic_text"
+                            app:drawableStartCompat="@drawable/ic_dictionary"
                             android:drawablePadding="4dp"/>
 
                         <TextView

@@ -1,8 +1,8 @@
 package com.tetsoft.typego
 
 import android.app.Application
-import com.tetsoft.typego.account.User
-import com.tetsoft.typego.account.UserPreferences
+import com.tetsoft.typego.data.AdsCounter
+import com.tetsoft.typego.data.account.UserPreferences
 import com.tetsoft.typego.storage.AdsCounterStorage
 import com.tetsoft.typego.storage.UserPreferencesStorage
 import com.tetsoft.typego.storage.UserStorage

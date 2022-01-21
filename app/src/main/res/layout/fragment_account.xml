@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.AccountFragment">
+    tools:context=".ui.fragment.AccountFragment">
 
     <TextView
         android:id="@+id/activity_account_title"
@@ -86,7 +86,7 @@
                         android:src="@drawable/ic_language"
                         android:layout_marginStart="8dp"/>
 
-                    <Spinner
+                    <com.tetsoft.typego.ui.custom.LanguageSpinner
                         android:id="@+id/spinnerResultsLanguageSelection"
                         android:layout_width="210dp"
                         android:layout_height="30dp"

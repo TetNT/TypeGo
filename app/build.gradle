@@ -16,8 +16,8 @@ android {
         applicationId "com.tetsoft.typego"
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 14
-        versionName "1.4.5"
+        versionCode 15
+        versionName "1.4.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,4 +56,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-runtime-ktx:2.3.5'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }

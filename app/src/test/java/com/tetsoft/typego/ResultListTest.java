@@ -1,17 +1,15 @@
 package com.tetsoft.typego;
 
-import com.tetsoft.typego.testing.ResultList;
+import com.tetsoft.typego.data.account.ResultList;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.utils.DictionaryType;
-import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.ScreenOrientation;
-import com.tetsoft.typego.utils.TimeMode;
+import com.tetsoft.typego.data.DictionaryType;
+import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.ScreenOrientation;
+import com.tetsoft.typego.data.TimeMode;
 
-import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -47,7 +45,7 @@ public class ResultListTest {
                     correctWords+5,
                     DictionaryType.BASIC,
                     ScreenOrientation.PORTRAIT,
-                    new Language("Test", "Test language"),
+                    new Language("Test"),
                     new TimeMode(30),
                     true,
                     Calendar.getInstance().getTime());
