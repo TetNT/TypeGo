@@ -1,9 +1,9 @@
 package com.tetsoft.typego.ui.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -21,8 +21,14 @@ class AccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initBottomNavigation()
+
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        binding.bottomNavigationView.setupWithNavController(navHost.navController)
+
         initAdBanner()
+
+        binding.tvAccountActivityTitle.setOnClickListener { finish() }
     }
 
     override fun onStart() {
@@ -30,33 +36,27 @@ class AccountActivity : AppCompatActivity() {
         val toAchievementSection : Boolean? = intent.extras?.getBoolean(StringKeys.TO_ACHIEVEMENT_SECTION)
         if (toAchievementSection != null && toAchievementSection) {
             findNavController(R.id.fragmentContainerView).navigate(R.id.action_navigation_account_to_achievements)
-
         }
     }
 
-    private fun initBottomNavigation() {
-        val navHost =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        binding.bottomNavigationView.setupWithNavController(navHost.navController)
-    }
-
+    @SuppressLint("MissingPermission")
     private fun initAdBanner() {
         MobileAds.initialize(this) { initializationStatus: InitializationStatus ->
             Log.i("ADB", initializationStatus.adapterStatusMap.toString())
         }
         mAdView = findViewById(R.id.adBanner)
         val adRequest = AdRequest.Builder().build()
-        mAdView.let { it!!.loadAd(adRequest) }
-        mAdView.let {
-            it!!.setAdListener(object : AdListener() {
+        binding.adBanner.loadAd(adRequest)
+        binding.adBanner.let {
+            it.adListener = object : AdListener() {
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    Log.i("ADB", "Failed: " + loadAdError.message)
+                    Log.i("AdBanner", "Failed: " + loadAdError.message)
                 }
 
                 override fun onAdLoaded() {
-                    Log.i("ADB", "Loaded successfully")
+                    Log.i("AdBanner", "Loaded successfully")
                 }
-            })
+            }
         }
     }
 
@@ -75,7 +75,4 @@ class AccountActivity : AppCompatActivity() {
         if (mAdView != null) mAdView!!.pause()
     }
 
-    fun closeActivity(view: View?) {
-        finish()
-    }
 }
