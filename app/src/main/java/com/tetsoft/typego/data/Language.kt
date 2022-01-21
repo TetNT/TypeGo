@@ -22,26 +22,6 @@ class Language(// identifier is a unique two uppercase letters combination
     }
 
     override fun toString(): String {
-        return name
-    }
-
-    companion object {
-        /*Returns list of languages available for testing.
-      New languages are adding here.
-    */
-        @JvmStatic
-        fun getAvailableLanguages(context: Context): ArrayList<Language> {
-            val languages = ArrayList<Language>()
-            languages.add(Language(StringKeys.LANGUAGE_EN, context))
-            languages.add(Language(StringKeys.LANGUAGE_FR, context))
-            languages.add(Language(StringKeys.LANGUAGE_DE, context))
-            languages.add(Language(StringKeys.LANGUAGE_IT, context))
-            languages.add(Language(StringKeys.LANGUAGE_KR, context))
-            languages.add(Language(StringKeys.LANGUAGE_RU, context))
-            languages.add(Language(StringKeys.LANGUAGE_ES, context))
-            languages.add(Language(StringKeys.LANGUAGE_BG, context))
-            languages.add(Language(StringKeys.LANGUAGE_UA, context))
-            return languages
-        }
+        return identifier
     }
 }
