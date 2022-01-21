@@ -141,28 +141,18 @@ public class TestSetupActivity extends AppCompatActivity {
 
     // Selects either user preferred language or system language
     public void selectCurrentLanguageOption() {
-        List<Language> languageList = Language.getAvailableLanguages(this);
-        SpinnerAdapter adapter = new ArrayAdapter<>(
+        LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(
                 this,
-                R.layout.spinner_item,
-                languageList);
-        binding.spinLanguageSelection.setAdapter(adapter);
-        int preferredLanguageIndex = getPreferredLanguageIndex();
-        if (preferredLanguageIndex < 0)
-            preferredLanguageIndex = getSystemLanguageIndex();
-        binding.spinLanguageSelection.setSelection(preferredLanguageIndex);
-    }
-
-
-    public int getPreferredLanguageIndex() {
-        ArrayList<Language> languages = Language.getAvailableLanguages(this);
-        if (userPreferences.getLanguage() == null) return -1;
-        String preferredLanguageId = userPreferences.getLanguage().getIdentifier();
-        int index = 0;
-        for (Language language:languages) {
-            if (language.getIdentifier().equalsIgnoreCase(preferredLanguageId))
-                return index;
-            index++;
+                new LanguageList().getTranslatableList(this));
+        binding.spinLanguageSelection.setAdapter(spinnerAdapter);
+        if (userPreferences.getLanguage() != null) {
+            binding.spinLanguageSelection.setSelection(
+                    spinnerAdapter.getItemIndexByLanguage(userPreferences.getLanguage())
+            );
+        } else {
+            binding.spinLanguageSelection.setSelection(
+                    spinnerAdapter.getItemIndexBySystemLanguage()
+            );
         }
     }
 
