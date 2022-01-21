@@ -1,7 +1,5 @@
 package com.tetsoft.typego.data.account;
 
-import android.content.Context;
-
 import com.tetsoft.typego.data.LanguageList;
 import com.tetsoft.typego.data.achievement.Achievement;
 import com.tetsoft.typego.testing.ResultListUtils;
@@ -32,11 +30,11 @@ public class Statistics {
         return results;
     }
 
-    public Language getFavoriteLanguage(Context context) {
+    public Language getFavoriteLanguage() {
         if (results.isEmpty()) return null;
         Language mostFrequentLanguage = null;
         int mostFrequency = 0;
-        for (Language language : Language.getAvailableLanguages(context)) {
+        for (Language language : new LanguageList().getList()) {
             int langFrequency = ResultListUtils.getResultsByLanguage(results, language).size();
             if (langFrequency > mostFrequency) {
                 mostFrequency = langFrequency;
