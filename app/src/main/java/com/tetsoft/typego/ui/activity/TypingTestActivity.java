@@ -53,7 +53,6 @@ public class TypingTestActivity extends AppCompatActivity {
     TextView tvTimeLeft;
     int correctWordsCount;
     int totalWordsPassed;
-    ArrayList<String> loadingWordList;
     int currentWordStartCursor; // index of the beginning of the current word
     int currentWordEndCursor;
     String currentWord = "";
@@ -61,11 +60,12 @@ public class TypingTestActivity extends AppCompatActivity {
     int secondsRemaining;
     int scrollerCursorPosition; // scroller cursor is used to automatically scroll down the text
     int correctWordsWeight;
-    boolean testInitiallyPaused; // a flag that decides if timer should start or not.
+    boolean testInitiallyPaused; // a flag that decides if the timer should start or not.
     int SCROLL_POWER = 25;
     CountDownTimer countdown;
     public InterstitialAd mInterstitialAd;
     boolean adShown;
+    boolean ignoreCase = true;
     ArrayList<Word> typedWordsList;
     TestSettings testSettings;
     AdsCounter adsCounter;
@@ -102,34 +102,42 @@ public class TypingTestActivity extends AppCompatActivity {
                     return;
                 }
 
-                // if a test hasn't started yet and a user began to type
+                // if a test hasn't started yet and the user began to type
                 if (testInitiallyPaused && inpWord.getText().length()>0) {
                     startTimer(secondsRemaining);
                     testInitiallyPaused = false;
                 }
 
-                // if the last typed character is space
-                if (s.length()>0 && s.charAt(s.length()-1) == ' ') {
-                    deselectCurrentWord();
-                    addWordToTypedList(inpWord.getText().toString().trim(), currentWord.trim());
-                    totalWordsPassed++;
-                    if (wordIsCorrect()) {
-                        correctWordsCount++;
-                        correctWordsWeight += currentWord.length();
-                        selectCurrentWordAsCorrect();
-                    }
-                    else selectCurrentWordAsIncorrect();
-                    setNextWordCursors();
-                    selectNextWord();
-                    inpWord.setText("");
-
-                } else {
-                    checkSymbolsCorrectness();
+                if (s.length() < 1) {
+                    deselectLetters(currentWordStartCursor, currentWordEndCursor + 1);
+                    return;
                 }
+
+                if (s.length() > 0 && !lastCharIsSpace(s)) {
+                    checkCorrectnessByLetter();
+                    return;
+                }
+
+                // if user's input is not empty and it has space at the end
+                deselectCurrentWord();
+                addWordToTypedList(inpWord.getText().toString().trim(), currentWord.trim());
+                totalWordsPassed++;
+                if (wordIsCorrect(ignoreCase)) {
+                    correctWordsCount++;
+                    correctWordsWeight += currentWord.length();
+                    selectCurrentWordAsCorrect();
+                } else selectCurrentWordAsIncorrect();
+                setNextWordCursors();
+                selectNextWord();
+                inpWord.setText("");
             }
         });
         resetAll();
         initializeWordCursor();
+    }
+
+    private boolean lastCharIsSpace(Editable s) {
+        return s.charAt(s.length() - 1) == ' ';
     }
 
     private void addWordToTypedList(String inputted, String original) {
@@ -144,7 +152,6 @@ public class TypingTestActivity extends AppCompatActivity {
         etWords = findViewById(R.id.words);
         inpWord = findViewById(R.id.inpWord);
         tvTimeLeft = findViewById(R.id.tvTimeLeft);
-        loadingWordList = new ArrayList<>();
         typedWordsList = new ArrayList<>();
         if (testSettings.isSuggestionsActivated())
             inpWord.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -206,7 +213,6 @@ public class TypingTestActivity extends AppCompatActivity {
                     showResultActivity();
                 }
                 else showAd();
-
             }
         }.start();
     }
@@ -221,21 +227,28 @@ public class TypingTestActivity extends AppCompatActivity {
         startTimer(secondsRemaining);
     }
 
-    private void checkSymbolsCorrectness() {
-        deselectSymbols(currentWordStartCursor, currentWordEndCursor);
-        for (int i = 0; i<currentWord.length();i++) {
-            if (i<inpWord.length()) {
-                char currInpChar = Character.toLowerCase(inpWord.getText().charAt(i));
-                char currComparingChar = Character.toLowerCase(currentWord.charAt(i));
-                if (currInpChar == currComparingChar) {
-                    selectCurrentSymbolAsCorrect(i+currentWordStartCursor);
-                } else {
-                    selectCurrentSymbolAsIncorrect(i+currentWordStartCursor);
-                }
-            } else { // if a user hasn't finished typing then deselect the rest of a word
-                deselectSymbols(i+currentWordStartCursor, currentWordEndCursor);
+    private void checkCorrectnessByLetter() {
+        deselectLetters(currentWordStartCursor, currentWordEndCursor);
+        for (int i = 0; i < currentWord.length(); i++) {
+            // if a user hasn't finished typing then deselect the rest of a word
+            if (i >= inpWord.length()) {
+                deselectLetters(i + currentWordStartCursor, currentWordEndCursor);
+                return;
+            }
+            if (charactersMatch(inpWord.getText().charAt(i), currentWord.charAt(i), ignoreCase)) {
+                selectCurrentLetterAsCorrect(i + currentWordStartCursor);
+            } else {
+                selectCurrentLetterAsIncorrect(i + currentWordStartCursor);
             }
         }
+    }
+
+    public boolean charactersMatch(char char1, char char2, boolean ignoreCase) {
+        if (ignoreCase) {
+            char1 = Character.toLowerCase(char1);
+            char2 = Character.toLowerCase(char2);
+        }
+        return (char1 == char2);
     }
 
     public void cancelTest(View view) {
@@ -318,10 +331,17 @@ public class TypingTestActivity extends AppCompatActivity {
     private void selectNextWord() {
         BackgroundColorSpan backgroundSpan = new BackgroundColorSpan(Color.rgb(0,80,100));
         ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.WHITE);
-        etWords.getText().setSpan(backgroundSpan, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        etWords.getText().setSpan(foregroundSpan, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        etWords.paintBackground(currentWordStartCursor, currentWordEndCursor, backgroundSpan);
+        etWords.paintForeground(currentWordStartCursor, currentWordEndCursor, foregroundSpan);
+        updateAutoScroll();
+    }
+
+    private void updateAutoScroll() {
         scrollerCursorPosition = currentWordEndCursor + SCROLL_POWER;
-        etWords.setSelection(scrollerCursorPosition);
+        if (scrollerCursorPosition > etWords.length())
+            etWords.setSelection(currentWordEndCursor);
+        else
+            etWords.setSelection(scrollerCursorPosition);
     }
 
     private void setNextWordCursors() {
@@ -348,7 +368,8 @@ public class TypingTestActivity extends AppCompatActivity {
         ArrayList<Integer> mistakeIndexes = new ArrayList<>();
         for (int i = 0; i<inputted.length(); i++) {
             if (i >= original.length()) mistakeIndexes.add(i);
-            else if (inputted.toLowerCase().charAt(i) != original.toLowerCase().charAt(i)) mistakeIndexes.add(i);
+            else if (inputted.toLowerCase().charAt(i) != original.toLowerCase().charAt(i))
+                mistakeIndexes.add(i);
         }
         return mistakeIndexes;
     }
@@ -358,7 +379,9 @@ public class TypingTestActivity extends AppCompatActivity {
         else return "WordLists/Enhanced/";
     }
 
+    // TODO: move this method to a class that will implement a TextSource interface
     private void initWords(){
+        ArrayList<String> loadingWordList = new ArrayList<>();
         AssetManager assets = getAssets();
         InputStream inputStream;
         try {
