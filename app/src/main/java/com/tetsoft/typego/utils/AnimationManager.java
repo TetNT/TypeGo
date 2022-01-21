@@ -2,16 +2,12 @@ package com.tetsoft.typego.utils;
 
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
-import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import java.util.Collection;
 
 public class AnimationManager {
 
