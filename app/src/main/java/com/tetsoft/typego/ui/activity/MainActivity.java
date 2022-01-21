@@ -1,18 +1,13 @@
 package com.tetsoft.typego.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.SpinnerAdapter;
-
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.account.UserPreferences;
 import com.tetsoft.typego.databinding.ActivityMainBinding;
-import com.tetsoft.typego.storage.UserStorage;
 import com.tetsoft.typego.testing.TestSettings;
 import com.tetsoft.typego.data.DictionaryType;
 import com.tetsoft.typego.data.ScreenOrientation;
@@ -29,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     UserPreferences userPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public void startBasicTest(View v) {
         Intent intent = new Intent(this, TypingTestActivity.class);
         TestSettings DEFAULT_TEST_SETTINGS = new TestSettings(
-                (Language)binding.spinnerBasicTestLanguageSelection.getSelectedItem(),
+                binding.spinnerBasicTestLanguageSelection.getSelectedLanguage(),
                 DEFAULT_TIME_MODE,
                 DEFAULT_DICTIONARY_TYPE,
                 DEFAULT_SUGGESTIONS_IS_ON,
@@ -60,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     public void openUserAccount(View v) {
         startActivity(new Intent(this, AccountActivity.class));
     }
-
 
     public void userInit() {
         User currentUser = User.getFromStoredData(this);
@@ -85,31 +80,5 @@ public class MainActivity extends AppCompatActivity {
                     spinnerAdapter.getItemIndexBySystemLanguage()
             );
         }
-    }
-
-    // Returns an index of the preferred language in the list.
-    public int getPreferredLanguageIndex() {
-        ArrayList<Language> languages = Language.getAvailableLanguages(this);
-        if (userPreferences.getLanguage() == null) return -1;
-        String preferredLanguageId = userPreferences.getLanguage().getIdentifier();
-        int index = 0;
-        for (Language language:languages) {
-            if (language.getIdentifier().equalsIgnoreCase(preferredLanguageId))
-                return index;
-            index++;
-        }
-        return 0;
-    }
-
-    public int getSystemLanguageIndex() {
-        ArrayList<Language> languages = Language.getAvailableLanguages(this);
-        String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
-        int index = 0;
-        for (Language language:languages) {
-            if (language.getName(MainActivity.this).equalsIgnoreCase(systemLanguage))
-                return index;
-            index++;
-        }
-        return 0;
     }
 }
