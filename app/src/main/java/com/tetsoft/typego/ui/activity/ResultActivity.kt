@@ -54,7 +54,7 @@ class ResultActivity : AppCompatActivity() {
         val dictionaryName = if (testSettings.dictionaryType == DictionaryType.BASIC) getString(R.string.basic) else getString(R.string.enhanced)
         val orientation = if (testSettings.screenOrientation == ScreenOrientation.PORTRAIT) getString(R.string.vertical) else getString(R.string.horizontal)
         result = currentResult
-        wpm = result!!.wpm.toInt()
+        wpm = result!!.WPM.toInt()
         val animationManager = AnimationManager()
         val countAnimation = animationManager.getCountAnimation(0, wpm, 1000)
         animationManager.applyCountAnimation(
