@@ -6,7 +6,11 @@ import com.tetsoft.typego.utils.StringKeys
 // This class manages the logic behind showing ads.
 // If a user passes shorter tests, then ads will be shown to him less often.
 class AdsCounter(private val adsCounterStorage: AdsCounterStorage) {
-    private val MINIMUM_TO_SHOW_AD : Float = 1f
+
+    companion object {
+        const val MINIMUM_TO_SHOW_AD : Float = 1f
+    }
+
     fun addValue(float: Float) {
         val storedValue = adsCounterStorage.getFloat(StringKeys.ADS_COUNTER_VALUE)
         adsCounterStorage.store(StringKeys.ADS_COUNTER_VALUE, storedValue + float)
