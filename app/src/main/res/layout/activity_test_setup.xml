@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/tvTestSetup"
+        style="@style/activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -20,8 +21,7 @@
         android:textColor="@color/text_accent"
         app:drawableStartCompat="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/activity_title"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/test_setup_title_divider"
@@ -45,9 +45,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="48dp"
+            android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 
@@ -179,20 +179,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/button_main_green_unpressed"
-                            android:text="@string/basic"
                             android:fontFamily="@font/redring_regular"
+                            android:text="@string/basic"
                             android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rbEnhanced"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
                             android:buttonTint="@color/button_main_green_unpressed"
-                            android:text="@string/enhanced"
                             android:fontFamily="@font/redring_regular"
-                            android:textSize="18sp"
-                            android:layout_marginBottom="8dp"/>
+                            android:text="@string/enhanced"
+                            android:textSize="18sp" />
                     </RadioGroup>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -209,7 +210,6 @@
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
-                    android:id="@+id/SectionLanguage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -267,8 +267,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="@string/text_suggestions_note"
-                        />
+                        android:text="@string/text_suggestions_note" />
 
                 </LinearLayout>
 
@@ -307,8 +306,8 @@
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/button_main_green_unpressed"
                             android:checked="true"
-                            android:text="@string/vertical"
                             android:fontFamily="@font/redring_regular"
+                            android:text="@string/vertical"
                             android:textSize="18sp" />
 
                         <RadioButton
@@ -316,8 +315,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/button_main_green_unpressed"
-                            android:text="@string/horizontal"
                             android:fontFamily="@font/redring_regular"
+                            android:text="@string/horizontal"
                             android:textSize="18sp" />
                     </RadioGroup>
 
@@ -334,14 +333,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/mainbutton"
+                android:fontFamily="@font/redring_bold"
                 android:onClick="startTesting"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:text="@string/button_StartTest"
                 android:textStyle="italic"
-                android:fontFamily="@font/redring_bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -349,14 +348,13 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_arrow_forward_24"
-        android:backgroundTint="@color/button_main_green_unpressed"
-        android:tint="@color/white"
         android:layout_margin="16dp"
-        android:onClick="startTesting"
+        android:backgroundTint="@color/button_main_green_unpressed"
         android:contentDescription="@string/button_StartTest"
-        />
+        android:onClick="startTesting"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_arrow_forward_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
