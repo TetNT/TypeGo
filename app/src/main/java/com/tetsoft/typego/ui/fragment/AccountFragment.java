@@ -49,7 +49,7 @@ public class AccountFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         _binding = FragmentAccountBinding.inflate(inflater, container, false);
         return getBinding().getRoot();
@@ -61,7 +61,7 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         currentUser = User.getFromStoredData(getContext());
-        initLanguageSpinner(view);
+        initLanguageSpinner();
         loadAccountData();
         leaveFeedbackClick();
     }
@@ -70,10 +70,10 @@ public class AccountFragment extends Fragment {
     private void loadAccountData() {
         View view = getView();
         if (view==null) return;
-        setupStatFields(view);
+        setupStatFields();
         initResultSet();
-        updateResults(view);
-        loadLastResultsData(view);
+        updateResults();
+        loadLastResultsData();
     }
 
     private void setupStatFields() {
@@ -112,9 +112,7 @@ public class AccountFragment extends Fragment {
         else selectedResults = ResultListUtils.getResultsByLanguage(currentUser.getResultList(), selectedLanguage);
     }
 
-    private void updateResults(@NonNull View view) {
-        TextView tvInfo = view.findViewById(R.id.tvPassedTestsInfo);
-        TextView tvAvgWpm = view.findViewById(R.id.tvAverageWPM);
+    private void updateResults() {
         if (selectedResults == null || selectedResults.isEmpty()) {
             getBinding().tvPassedTestsInfo.setText(getString(R.string.msg_nothing_to_show));
             getBinding().tvAverageWPM.setText(getString(R.string.msg_average_wpm_unavailable));
@@ -150,8 +148,7 @@ public class AccountFragment extends Fragment {
 
     }
 
-    public void loadLastResultsData(@NonNull View view) {
-        RecyclerView rvPassedTests = view.findViewById(R.id.rv_passed_tests);
+    public void loadLastResultsData() {
         PassedTestsAdapter.RecyclerViewOnClickListener listener = (v, position) -> {
             TypingResult resultInfo = selectedResults.get(position);
             DictionaryType dictionaryType =
