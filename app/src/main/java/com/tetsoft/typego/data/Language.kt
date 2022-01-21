@@ -2,31 +2,17 @@ package com.tetsoft.typego.data
 
 import android.content.Context
 import android.content.res.Resources.NotFoundException
-import android.util.Log
 import java.io.Serializable
-import java.util.ArrayList
 
-class Language : Serializable {
-    // identifier is a unique two uppercase letters combination
+class Language(// identifier is a unique two uppercase letters combination
     val identifier: String
-    private val name: String
-
-    constructor(identifier: String, context: Context) {
-        this.identifier = identifier
-        name = context.getString(getResourceIdByName(context))
-    }
-
-    constructor(identifier: String, name: String) {
-        this.identifier = identifier
-        this.name = name
-    }
+) : Serializable {
 
     // returns translated name from string resources. If resource is not found, returns identifier.
     fun getName(context: Context): String {
         return try {
             context.getString(getResourceIdByName(context))
         } catch (e: NotFoundException) {
-            Log.i("EX", "Failed to get resource: " + e.message)
             identifier
         }
     }
