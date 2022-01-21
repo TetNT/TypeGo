@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,16 +83,18 @@ public class AccountFragment extends Fragment {
         getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
     }
 
-    Spinner spinner;
-    public void initLanguageSpinner(View view) {
-        ArrayList<Language> languages = Language.getAvailableLanguages(getContext());
+    public void initLanguageSpinner() {
+        ArrayList<LanguageSpinnerItem> languages = new LanguageList().getTranslatableList(getContext());
         // an option to show the whole stats
-        languages.add(0, new Language(StringKeys.LANGUAGE_ALL, getContext()));
-        spinner = view.findViewById(R.id.spinnerResultsLanguageSelection);
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, languages);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setSelection(0);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        LanguageSpinnerItem spinnerItem = new LanguageSpinnerItem(
+                new Language(StringKeys.LANGUAGE_ALL),
+                getContext().getString(R.string.ALL),
+                R.drawable.ic_language);
+        languages.add(0, spinnerItem);
+        LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(getContext(), languages);
+        getBinding().spinnerResultsLanguageSelection.setAdapter(spinnerAdapter);
+        getBinding().spinnerResultsLanguageSelection.setSelection(0);
+        getBinding().spinnerResultsLanguageSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 loadAccountData();
