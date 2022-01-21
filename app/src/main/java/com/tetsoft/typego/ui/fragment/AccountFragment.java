@@ -37,6 +37,9 @@ import java.util.ArrayList;
 
 public class AccountFragment extends Fragment {
 
+    FragmentAccountBinding _binding;
+    @NonNull private FragmentAccountBinding getBinding() { return _binding; }
+
     public AccountFragment() {
 
     }
@@ -49,7 +52,8 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        _binding = FragmentAccountBinding.inflate(inflater, container, false);
+        return getBinding().getRoot();
     }
 
     User currentUser;
@@ -73,11 +77,11 @@ public class AccountFragment extends Fragment {
         loadLastResultsData(view);
     }
 
-    private void setupStatFields(View view) {
-        view.<TextView>findViewById(R.id.tvAverageWPM).setText(getString(R.string.average_wpm_pl, 0));
-        view.<TextView>findViewById(R.id.tvBestResult).setText(getString(R.string.best_result_pl, 0));
-        view.<TextView>findViewById(R.id.tvAccountLastResult).setText(getString(R.string.previous_result_pl, 0));
-        view.<TextView>findViewById(R.id.tvTestsPassed).setText(getString(R.string.tests_passed_pl, 0));
+    private void setupStatFields() {
+        getBinding().tvAverageWPM.setText(getString(R.string.average_wpm_pl, 0));
+        getBinding().tvBestResult.setText(getString(R.string.best_result_pl, 0));
+        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, 0));
+        getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
     }
 
     Spinner spinner;
@@ -101,8 +105,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void initResultSet() {
-        if (currentUser==null) return;
-        Language selectedLanguage = (Language)spinner.getSelectedItem();
+        Language selectedLanguage = getBinding().spinnerResultsLanguageSelection.getSelectedLanguage();
         if (selectedLanguage.getIdentifier().equalsIgnoreCase(StringKeys.LANGUAGE_ALL))
             selectedResults = currentUser.getResultList();
         else selectedResults = ResultListUtils.getResultsByLanguage(currentUser.getResultList(), selectedLanguage);
@@ -112,31 +115,27 @@ public class AccountFragment extends Fragment {
         TextView tvInfo = view.findViewById(R.id.tvPassedTestsInfo);
         TextView tvAvgWpm = view.findViewById(R.id.tvAverageWPM);
         if (selectedResults == null || selectedResults.isEmpty()) {
-            tvInfo.setText(getString(R.string.msg_nothing_to_show));
-            tvAvgWpm.setText(getString(R.string.msg_average_wpm_unavailable));
+            getBinding().tvPassedTestsInfo.setText(getString(R.string.msg_nothing_to_show));
+            getBinding().tvAverageWPM.setText(getString(R.string.msg_average_wpm_unavailable));
             return;
         }
-        tvInfo.setText(getString(R.string.msg_passed_tests_information));
-        TextView tvTestsPassed = view.findViewById(R.id.tvTestsPassed);
-        tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
-        TextView tvBestResult = view.findViewById(R.id.tvBestResult);
+        getBinding().tvPassedTestsInfo.setText(getString(R.string.msg_passed_tests_information));
+        getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
         int bestResult = (int)ResultListUtils.getBestResult(selectedResults).getWPM();
-        tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
-        TextView tvLastResult = view.findViewById(R.id.tvAccountLastResult);
-        tvLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
+        getBinding().tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
+        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
         String wpmStr;
         if (selectedResults.size()>=5) {
             double wpmSum = 0;
             for (TypingResult res: selectedResults) wpmSum += res.getWPM();
             wpmStr = getString(R.string.average_wpm) + ": " + (int)(wpmSum/selectedResults.size());
-            tvAvgWpm.setText(wpmStr);
+            getBinding().tvAverageWPM.setText(wpmStr);
         } else
-            tvAvgWpm.setText(getString(R.string.msg_average_wpm_unavailable));
+            getBinding().tvAverageWPM.setText(getString(R.string.msg_average_wpm_unavailable));
     }
 
     public void leaveFeedbackClick() {
-        TextView tvLeaveFeedback = getActivity().findViewById(R.id.tvLeaveFeedback);
-        tvLeaveFeedback.setOnClickListener(new View.OnClickListener() {
+        getBinding().tvLeaveFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String appPackageName = getContext().getPackageName();
@@ -172,9 +171,9 @@ public class AccountFragment extends Fragment {
             intent.putExtra(StringKeys.CALLED_FROM_PASSED_RESULTS, true);
             startActivity(intent);
         };
-        rvPassedTests.setAdapter(new PassedTestsAdapter(getContext(), selectedResults,listener));
+        getBinding().rvPassedTests.setAdapter(new PassedTestsAdapter(getContext(), selectedResults,listener));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rvPassedTests.setLayoutManager(linearLayoutManager);
+        getBinding().rvPassedTests.setLayoutManager(linearLayoutManager);
 
         AnimationManager animationManager = new AnimationManager();
         Animation slideIn = animationManager.getSlideInAnimation(0, 50f, 500);
@@ -182,6 +181,12 @@ public class AccountFragment extends Fragment {
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.addAnimation(slideIn);
         animationSet.addAnimation(fadeIn);
-        rvPassedTests.setAnimation(animationSet);
+        getBinding().rvPassedTests.setAnimation(animationSet);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        _binding = null;
     }
 }
