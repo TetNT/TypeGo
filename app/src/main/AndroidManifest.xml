@@ -29,17 +29,17 @@
             android:value="@string/application_ad_id" />
 
         <activity
-            android:name=".ui.AccountActivity"
+            android:name=".ui.activity.AccountActivity"
             android:configChanges="orientation|screenSize">
         </activity>
         <activity
-            android:name=".ui.ResultActivity" />
+            android:name=".ui.activity.ResultActivity" />
         <activity
-            android:name=".ui.TypingTestActivity"
+            android:name=".ui.activity.TypingTestActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.TestSetupActivity" />
+            android:name=".ui.activity.TestSetupActivity" />
     </application>
 
 
