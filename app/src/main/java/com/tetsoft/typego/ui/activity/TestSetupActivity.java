@@ -5,26 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import com.tetsoft.typego.TypeGoApp;
-import com.tetsoft.typego.R;
-import com.tetsoft.typego.account.UserPreferences;
+import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
+import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.data.account.UserPreferences;
 import com.tetsoft.typego.databinding.ActivityTestSetupBinding;
 import com.tetsoft.typego.testing.TestSettings;
 import com.tetsoft.typego.data.DictionaryType;
 import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.utils.Language;
 import com.tetsoft.typego.utils.TimeConvert;
 import com.tetsoft.typego.data.account.User;
 import com.tetsoft.typego.data.TimeMode;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class TestSetupActivity extends AppCompatActivity {
@@ -70,10 +66,9 @@ public class TestSetupActivity extends AppCompatActivity {
     }
 
     public void startTesting(View view) {
-        Language language = (Language)binding.spinLanguageSelection.getSelectedItem();
         Intent intent = new Intent(this, TypingTestActivity.class);
         TestSettings testSettings = new TestSettings(
-                language,
+                binding.spinLanguageSelection.getSelectedLanguage(),
                 new TimeMode(selectedProgressToSeconds(binding.seekBar.getProgress())),
                 getSelectedDictionaryType(),
                 binding.cbPredictiveText.isChecked(),
@@ -98,6 +93,7 @@ public class TestSetupActivity extends AppCompatActivity {
         else return ScreenOrientation.LANDSCAPE;
     }
 
+    // TODO: refactor this method and move it outside of the activity
     private int selectedProgressToSeconds(int progress) {
         HashMap<Integer, Integer> seekbarValues = new HashMap<>();
         seekbarValues.put(0, 15);
@@ -168,19 +164,6 @@ public class TestSetupActivity extends AppCompatActivity {
                 return index;
             index++;
         }
-        return 0;
-    }
-
-    public int getSystemLanguageIndex() {
-        ArrayList<Language> languages = Language.getAvailableLanguages(this);
-        String systemLanguage = Locale.getDefault().getDisplayLanguage().toLowerCase();
-        int index = 0;
-        for (Language language:languages) {
-            if (language.getName(TestSetupActivity.this).equalsIgnoreCase(systemLanguage))
-                return index;
-            index++;
-        }
-        return 0;
     }
 
     public void closeActivity(View view) { finish(); }
