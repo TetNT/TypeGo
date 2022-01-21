@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.tetsoft.typego.data.AdsCounter;
 import com.tetsoft.typego.Config;
+import com.tetsoft.typego.ui.custom.SpannableEditText;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.testing.TestSettings;
 import com.tetsoft.typego.data.Word;
@@ -47,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TypingTestActivity extends AppCompatActivity {
-    EditText etWords;
+    SpannableEditText etWords;
     EditText inpWord;
     TextView tvTimeLeft;
     int correctWordsCount;
@@ -283,52 +284,39 @@ public class TypingTestActivity extends AppCompatActivity {
         inpWord.setText("");
     }
 
-    private void selectCurrentSymbolAsCorrect(int symbolIndex) {
-        ForegroundColorSpan charSpan = new ForegroundColorSpan(Color.rgb(0,128,0));
-        etWords.getText().setSpan(charSpan, symbolIndex, symbolIndex+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private void selectCurrentLetterAsCorrect(int symbolIndex) {
+        etWords.paintForeground(symbolIndex, SpannableEditText.getGreenForeground());
     }
 
-    private void selectCurrentSymbolAsIncorrect(int symbolIndex) {
-        ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(192,0,0));
-        etWords.getText().setSpan(selectedWordFG, symbolIndex, symbolIndex+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private void selectCurrentLetterAsIncorrect(int symbolIndex) {
+        etWords.paintForeground(symbolIndex, SpannableEditText.getRedForeground());
     }
 
-    private void deselectSymbols(int startIndex, int endIndex) {
-        final Object[] removableSpans = etWords.getText().getSpans(startIndex, endIndex, Object.class);
-        for (final Object span : removableSpans) {
-            if (span instanceof ForegroundColorSpan) {
-                etWords.getText().removeSpan(span);
-            }
-        }
+    private void deselectLetters(int startIndex, int endIndex) {
+        etWords.clearForeground(startIndex, endIndex);
     }
 
-    private boolean wordIsCorrect() {
-        String enteredWord = inpWord.getText().toString().trim();
-        String comparingWord = currentWord.replace("\t","");
-        return enteredWord.equalsIgnoreCase(comparingWord);
+    private boolean wordIsCorrect(boolean ignoreCase) {
+        String enteredWord = inpWord.getText().toString().trim();  // remove a space at the end
+        String comparingWord = currentWord;
+        if (ignoreCase) return enteredWord.equalsIgnoreCase(comparingWord);
+        return enteredWord.equals(comparingWord);
     }
 
     private void deselectCurrentWord() {
-        final Object[] removableSpans = etWords.getText().getSpans(currentWordStartCursor, currentWordEndCursor, Object.class);
-        for (final Object span : removableSpans) {
-            if (span instanceof BackgroundColorSpan || span instanceof StyleSpan || span instanceof ForegroundColorSpan) {
-                etWords.getText().removeSpan(span);
-            }
-        }
+        etWords.clearBackground(currentWordStartCursor, currentWordEndCursor);
     }
 
     private void selectCurrentWordAsIncorrect() {
-        ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(192,0,0));
-        etWords.getText().setSpan(selectedWordFG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        etWords.paintForeground(currentWordStartCursor, currentWordEndCursor, SpannableEditText.getRedForeground());
     }
 
     private void selectCurrentWordAsCorrect() {
-        ForegroundColorSpan selectedWordFG = new ForegroundColorSpan(Color.rgb(0,128,0));
-        etWords.getText().setSpan(selectedWordFG, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        etWords.paintForeground(currentWordStartCursor, currentWordEndCursor, SpannableEditText.getGreenForeground());
     }
 
     private void selectNextWord() {
-        BackgroundColorSpan backgroundSpan = new BackgroundColorSpan(Color.rgb(0,100,100));
+        BackgroundColorSpan backgroundSpan = new BackgroundColorSpan(Color.rgb(0,80,100));
         ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(Color.WHITE);
         etWords.getText().setSpan(backgroundSpan, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         etWords.getText().setSpan(foregroundSpan, currentWordStartCursor, currentWordEndCursor, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
