@@ -1,8 +1,8 @@
 package com.tetsoft.typego.testing;
 
 import androidx.annotation.NonNull;
-import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.TimeMode;
+import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.TimeMode;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public final class ResultListUtils {
     public static TypingResult getLastResultByLanguage(@NonNull ArrayList<TypingResult> results, Language language) {
         ArrayList<TypingResult> resultsByLanguage = getResultsByLanguage(results, language);
         if (resultsByLanguage.size() == 0) return null;
-        // TODO: when changed to ResultList class, replace parameter below "0" with "results.size()" method.
+        // TODO: when changed to ResultList class, replace parameter "0" with "results.size()" method.
         return resultsByLanguage.get(0);
     }
 }
