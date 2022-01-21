@@ -35,7 +35,7 @@ public class User implements Serializable {
     }
 
     public void initAchievements(Context context) {
-        ArrayList<Achievement> actualAchievementList = Achievement.getAchievementList(context);
+        ArrayList<Achievement> actualAchievementList = new AchievementList(context).get();
         if (achievements.isEmpty()) {
             achievements = actualAchievementList;
             return;
