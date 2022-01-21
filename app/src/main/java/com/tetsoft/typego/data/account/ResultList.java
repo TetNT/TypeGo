@@ -1,6 +1,7 @@
-package com.tetsoft.typego.testing;
+package com.tetsoft.typego.data.account;
 
-import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.testing.TypingResult;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.tetsoft.typego.testing;
+package com.tetsoft.typego.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

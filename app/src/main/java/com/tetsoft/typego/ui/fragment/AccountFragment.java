@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui;
+package com.tetsoft.typego.ui.fragment;
 
 import android.content.Intent;
 import android.net.Uri;

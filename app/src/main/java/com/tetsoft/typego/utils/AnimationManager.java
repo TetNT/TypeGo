@@ -1,4 +1,4 @@
-package com.tetsoft.typego;
+package com.tetsoft.typego.utils;
 
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;

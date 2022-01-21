@@ -1,4 +1,4 @@
-package com.tetsoft.typego.achievement;
+package com.tetsoft.typego.data.achievement;
 
 import java.util.ArrayList;
 

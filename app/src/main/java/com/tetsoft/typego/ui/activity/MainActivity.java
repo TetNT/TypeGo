@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.main;
+package com.tetsoft.typego.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

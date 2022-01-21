@@ -1,4 +1,4 @@
-package com.tetsoft.typego.testing
+package com.tetsoft.typego.adapter
 
 import android.graphics.Color
 import android.text.Spannable
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
+import com.tetsoft.typego.data.Word
 
 class WordsAdapter(val wordsList:List<Word>) : RecyclerView.Adapter<WordsAdapter.WordsViewHolder>() {
     private val words = wordsList

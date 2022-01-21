@@ -1,9 +1,9 @@
-package com.tetsoft.typego.achievement;
+package com.tetsoft.typego.data.achievement;
 
 import android.content.Context;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.account.User;
+import com.tetsoft.typego.data.account.User;
 import java.util.ArrayList;
 import java.util.Date;
 

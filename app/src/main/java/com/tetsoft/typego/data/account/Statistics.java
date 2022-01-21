@@ -1,12 +1,13 @@
-package com.tetsoft.typego.account;
+package com.tetsoft.typego.data.account;
 
 import android.content.Context;
 
-import com.tetsoft.typego.achievement.Achievement;
+import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.data.achievement.Achievement;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.TimeMode;
+import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.TimeMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

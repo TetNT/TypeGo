@@ -1,9 +1,11 @@
-package com.tetsoft.typego.achievement;
+package com.tetsoft.typego.data.achievement;
 
 
-import com.tetsoft.typego.testing.ResultList;
+import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.account.User;
+import com.tetsoft.typego.data.account.User;
 
 import java.util.ArrayList;
 

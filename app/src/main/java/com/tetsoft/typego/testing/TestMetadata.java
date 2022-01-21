@@ -1,9 +1,9 @@
 package com.tetsoft.typego.testing;
 
-import com.tetsoft.typego.utils.DictionaryType;
-import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.ScreenOrientation;
-import com.tetsoft.typego.utils.TimeMode;
+import com.tetsoft.typego.data.DictionaryType;
+import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.ScreenOrientation;
+import com.tetsoft.typego.data.TimeMode;
 
 import java.io.Serializable;
 

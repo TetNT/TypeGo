@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui
+package com.tetsoft.typego.ui.fragment
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -11,10 +11,10 @@ import android.view.animation.AnimationSet
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.tetsoft.typego.AnimationManager
+import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.R
-import com.tetsoft.typego.account.Statistics
-import com.tetsoft.typego.account.User
+import com.tetsoft.typego.data.account.Statistics
+import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
 import com.tetsoft.typego.testing.ResultList
 import com.tetsoft.typego.testing.ResultListUtils

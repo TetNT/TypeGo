@@ -1,14 +1,15 @@
-package com.tetsoft.typego.account;
+package com.tetsoft.typego.data.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import com.google.gson.Gson;
-import com.tetsoft.typego.achievement.Achievement;
-import com.tetsoft.typego.achievement.AchievementMigration;
+import com.tetsoft.typego.data.achievement.Achievement;
+import com.tetsoft.typego.data.achievement.AchievementList;
+import com.tetsoft.typego.data.achievement.AchievementMigration;
 import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.utils.Language;
+import com.tetsoft.typego.data.Language;
 import com.tetsoft.typego.utils.StringKeys;
 import java.io.Serializable;
 import java.util.ArrayList;

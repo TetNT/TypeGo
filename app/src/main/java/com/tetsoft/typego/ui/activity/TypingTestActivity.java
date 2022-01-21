@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui;
+package com.tetsoft.typego.ui.activity;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -23,15 +23,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.tetsoft.typego.AdsCounter;
+import com.tetsoft.typego.data.AdsCounter;
 import com.tetsoft.typego.Config;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.testing.TestSettings;
-import com.tetsoft.typego.testing.Word;
+import com.tetsoft.typego.data.Word;
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.ui.main.MainActivity;
-import com.tetsoft.typego.utils.DictionaryType;
-import com.tetsoft.typego.utils.ScreenOrientation;
+import com.tetsoft.typego.data.DictionaryType;
+import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.TimeConvert;
 import com.google.android.gms.ads.AdError;

@@ -1,4 +1,4 @@
-package com.tetsoft.typego
+package com.tetsoft.typego.data
 
 import com.tetsoft.typego.storage.AdsCounterStorage
 import com.tetsoft.typego.utils.StringKeys

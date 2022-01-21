@@ -1,4 +1,4 @@
-package com.tetsoft.typego.utils
+package com.tetsoft.typego.data
 
 import android.content.Context
 import android.content.res.Resources.NotFoundException
