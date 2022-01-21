@@ -14,17 +14,11 @@ import com.tetsoft.typego.account.UserPreferences;
 import com.tetsoft.typego.databinding.ActivityMainBinding;
 import com.tetsoft.typego.storage.UserStorage;
 import com.tetsoft.typego.testing.TestSettings;
-import com.tetsoft.typego.ui.AccountActivity;
-import com.tetsoft.typego.ui.TestSetupActivity;
-import com.tetsoft.typego.ui.TypingTestActivity;
-import com.tetsoft.typego.utils.DictionaryType;
-import com.tetsoft.typego.utils.Language;
-import com.tetsoft.typego.utils.ScreenOrientation;
+import com.tetsoft.typego.data.DictionaryType;
+import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.account.User;
-import com.tetsoft.typego.utils.TimeMode;
-import java.util.ArrayList;
-import java.util.Locale;
+import com.tetsoft.typego.data.account.User;
+import com.tetsoft.typego.data.TimeMode;
 
 public class MainActivity extends AppCompatActivity {
 
