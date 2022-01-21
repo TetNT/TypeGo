@@ -4,9 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.widget.AppCompatEditText
 import android.text.style.ForegroundColorSpan
-import com.tetsoft.typego.ui.custom.SpannableEditText
 import android.text.style.BackgroundColorSpan
-import android.text.style.StyleSpan
 import android.text.Spannable
 import android.util.AttributeSet
 
