@@ -86,7 +86,7 @@
                         android:src="@drawable/ic_language"
                         android:layout_marginStart="8dp"/>
 
-                    <Spinner
+                    <com.tetsoft.typego.ui.custom.LanguageSpinner
                         android:id="@+id/spinnerResultsLanguageSelection"
                         android:layout_width="210dp"
                         android:layout_height="30dp"

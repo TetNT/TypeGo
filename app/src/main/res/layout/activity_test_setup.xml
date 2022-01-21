@@ -59,6 +59,47 @@
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
+                    android:id="@+id/SectionLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/language"
+                        android:drawablePadding="4dp"
+                        app:drawableStartCompat="@drawable/ic_language" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/spinner_background"
+                        android:padding="2dp">
+
+                        <com.tetsoft.typego.ui.custom.LanguageSpinner
+                            android:id="@+id/spinLanguageSelection"
+                            android:layout_width="200dp"
+                            android:layout_height="24dp"
+                            android:paddingHorizontal="4dp"
+                            android:paddingVertical="1dp" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
                     android:id="@+id/SectionAmountOfTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
