@@ -72,18 +72,6 @@ public class UserPreferences extends TestMetadata {
         storage.store(StringKeys.PREFERENCE_SCREEN_ORIENTATION, new Gson().toJson(screenOrientation));
     }
 
-    public void update(Language language,
-                          TimeMode timeMode,
-                          DictionaryType dictionaryType,
-                          boolean suggestionsActivated,
-                          ScreenOrientation screenOrientation) {
-        setLanguage(language);
-        setTimeMode(timeMode);
-        setDictionaryType(dictionaryType);
-        setSuggestionsActivated(suggestionsActivated);
-        setScreenOrientation(screenOrientation);
-    }
-
     public void update(TestMetadata testMetadata) {
         setLanguage(testMetadata.getLanguage());
         setTimeMode(testMetadata.getTimeMode());
