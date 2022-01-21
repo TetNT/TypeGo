@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationSet
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -16,7 +15,6 @@ import com.tetsoft.typego.R
 import com.tetsoft.typego.data.account.Statistics
 import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
-import com.tetsoft.typego.testing.ResultList
 import com.tetsoft.typego.testing.ResultListUtils
 import com.tetsoft.typego.utils.TimeConvert
 
@@ -142,7 +140,7 @@ class StatisticsFragment : Fragment() {
             return
         }
         binding.tvStatsBestResult.text = getString(R.string.stats_best_result,
-            stats.bestResult.wpm.toInt()
+            stats.bestResult.WPM.toInt()
         )
         binding.tvStatsRecordSetTime.text = getString(R.string.stats_best_result_set_time, stats.daysSinceRecordHasBeenSet)
     }
@@ -160,7 +158,7 @@ class StatisticsFragment : Fragment() {
 
 
     private fun displayOrHidePreferencesCard(stats: Statistics) {
-        val favLang = stats.getFavoriteLanguage(context)
+        val favLang = stats.favoriteLanguage
         val favTimeMode = stats.favoriteTimeMode
         if (favLang == null || favTimeMode == null) {
             binding.statsCardPreferences.visibility = View.GONE
