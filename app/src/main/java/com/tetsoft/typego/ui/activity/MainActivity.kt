@@ -1,85 +1,92 @@
-package com.tetsoft.typego.ui.activity;
+package com.tetsoft.typego.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import com.tetsoft.typego.TypeGoApp;
-import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
-import com.tetsoft.typego.data.LanguageList;
-import com.tetsoft.typego.data.account.UserPreferences;
-import com.tetsoft.typego.databinding.ActivityMainBinding;
-import com.tetsoft.typego.testing.TestSettings;
-import com.tetsoft.typego.data.DictionaryType;
-import com.tetsoft.typego.data.ScreenOrientation;
-import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.data.account.User;
-import com.tetsoft.typego.data.TimeMode;
+import androidx.appcompat.app.AppCompatActivity
+import com.tetsoft.typego.data.account.UserPreferences
+import android.os.Bundle
+import com.tetsoft.typego.TypeGoApp
+import android.content.Intent
+import android.view.View
+import com.tetsoft.typego.testing.TestSettings
+import com.tetsoft.typego.utils.StringKeys
+import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
+import com.tetsoft.typego.data.LanguageList
+import com.tetsoft.typego.data.TimeMode
+import com.tetsoft.typego.data.DictionaryType
+import com.tetsoft.typego.data.ScreenOrientation
+import com.tetsoft.typego.data.account.User
+import com.tetsoft.typego.databinding.ActivityMainBinding
 
-public class MainActivity extends AppCompatActivity {
+class MainActivity : AppCompatActivity() {
+    var binding: ActivityMainBinding? = null
+    var userPreferences: UserPreferences? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        userPreferences = (application as TypeGoApp).preferences
+        setContentView(binding!!.root)
+        userInit()
+        setupLanguageSpinner()
 
-    static final TimeMode DEFAULT_TIME_MODE = new TimeMode(60);
-    static final DictionaryType DEFAULT_DICTIONARY_TYPE = DictionaryType.BASIC;
-    static final boolean DEFAULT_SUGGESTIONS_IS_ON = true;
-    static final ScreenOrientation DEFAULT_SCREEN_ORIENTATION = ScreenOrientation.PORTRAIT;
-
-    ActivityMainBinding binding;
-    UserPreferences userPreferences;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        userPreferences = ((TypeGoApp)getApplication()).getPreferences();
-        setContentView(binding.getRoot());
-        userInit();
-        setupLanguageSpinner();
     }
 
-    public void startBasicTest(View v) {
-        Intent intent = new Intent(this, TypingTestActivity.class);
-        TestSettings DEFAULT_TEST_SETTINGS = new TestSettings(
-                binding.spinnerBasicTestLanguageSelection.getSelectedLanguage(),
-                DEFAULT_TIME_MODE,
-                DEFAULT_DICTIONARY_TYPE,
-                DEFAULT_SUGGESTIONS_IS_ON,
-                DEFAULT_SCREEN_ORIENTATION);
-        intent.putExtra(StringKeys.TEST_SETTINGS, DEFAULT_TEST_SETTINGS);
-        intent.putExtra(StringKeys.FROM_MAIN_MENU, true);
-        startActivity(intent);
-        finish();
+    override fun onResume() {
+        super.onResume()
+
     }
 
-    public void openTestCustomization(View v) {
-        startActivity(new Intent(this, TestSetupActivity.class));
+    fun startBasicTest(v: View?) {
+        val intent = Intent(this, TypingTestActivity::class.java)
+        val DEFAULT_TEST_SETTINGS = TestSettings(
+            binding!!.spinnerBasicTestLanguageSelection.getSelectedLanguage(),
+            DEFAULT_TIME_MODE,
+            DEFAULT_DICTIONARY_TYPE,
+            DEFAULT_SUGGESTIONS_IS_ON,
+            DEFAULT_SCREEN_ORIENTATION
+        )
+        intent.putExtra(StringKeys.TEST_SETTINGS, DEFAULT_TEST_SETTINGS)
+        intent.putExtra(StringKeys.FROM_MAIN_MENU, true)
+        startActivity(intent)
+        finish()
     }
 
-    public void openUserAccount(View v) {
-        startActivity(new Intent(this, AccountActivity.class));
+    fun openTestCustomization(v: View?) {
+        startActivity(Intent(this, TestSetupActivity::class.java))
     }
 
-    public void userInit() {
-        User currentUser = User.getFromStoredData(this);
-        if (currentUser==null) {
-            currentUser = new User();
+    fun openUserAccount(v: View?) {
+        startActivity(Intent(this, AccountActivity::class.java))
+    }
+
+    private fun userInit() {
+        var currentUser = User.getFromStoredData(this)
+        if (currentUser == null) {
+            currentUser = User()
         }
-        currentUser.initAchievements(this);
-        currentUser.storeData(this);
+        currentUser.initAchievements(this)
+        currentUser.storeData(this)
     }
 
-    public void setupLanguageSpinner() {
-        LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(
-                this,
-                new LanguageList().getTranslatableList(this));
-        binding.spinnerBasicTestLanguageSelection.setAdapter(spinnerAdapter);
-        if (userPreferences.getLanguage() != null) {
-            binding.spinnerBasicTestLanguageSelection.setSelection(
-                    spinnerAdapter.getItemIndexByLanguage(userPreferences.getLanguage())
-            );
+    private fun setupLanguageSpinner() {
+        val spinnerAdapter = LanguageSpinnerAdapter(
+            this,
+            LanguageList().getTranslatableList(this)
+        )
+        binding!!.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
+        if (userPreferences!!.language != null) {
+            binding!!.spinnerBasicTestLanguageSelection.setSelection(
+                spinnerAdapter.getItemIndexByLanguage(userPreferences!!.language)
+            )
         } else {
-            binding.spinnerBasicTestLanguageSelection.setSelection(
-                    spinnerAdapter.getItemIndexBySystemLanguage()
-            );
+            binding!!.spinnerBasicTestLanguageSelection.setSelection(
+                spinnerAdapter.getItemIndexBySystemLanguage()
+            )
         }
+    }
+
+    companion object {
+        val DEFAULT_TIME_MODE = TimeMode(60)
+        val DEFAULT_DICTIONARY_TYPE = DictionaryType.BASIC
+        const val DEFAULT_SUGGESTIONS_IS_ON = true
+        val DEFAULT_SCREEN_ORIENTATION = ScreenOrientation.PORTRAIT
     }
 }
