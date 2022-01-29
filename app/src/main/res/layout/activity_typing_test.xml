@@ -6,39 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.TypingTestActivity">
 
-<com.tetsoft.typego.ui.custom.SpannableEditText
-    android:id="@+id/words"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/inpWord"
-    android:gravity="top|start"
-    android:background="@color/bg_dark_gray"
-    android:padding="8dp"
-    android:paddingBottom="0dp"
-    android:layout_marginBottom="12dp"
-    android:textSize="30sp"
-    android:clickable="false"
-    android:focusable="false"
-    android:inputType="textMultiLine"
-    />
+    <com.tetsoft.typego.ui.custom.SpannableEditText
+        android:id="@+id/words"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/bg_dark_gray"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="top|start"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/inpWord"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/inpWord"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/text_input"
         android:hint="@string/input_text_above"
         android:imeOptions="flagNoExtractUi"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:paddingStart="10dp"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvTimeLeft"
@@ -47,18 +45,18 @@
         android:layout_gravity="top"
         android:text="@string/time_over"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/inpWord"
         app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
-        app:layout_constraintTop_toBottomOf="@+id/words" />
+        app:layout_constraintTop_toTopOf="@+id/inpWord" />
 
     <ImageButton
         android:id="@+id/restartButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="top"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="Restart test button"
+        android:layout_marginHorizontal="8dp"
+        android:background="@null"
+        android:contentDescription="@string/content_desc_test_restart"
         android:focusable="false"
         android:onClick="restartTest"
         android:padding="8dp"
@@ -68,31 +66,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvTimeLeft"
         app:layout_constraintTop_toTopOf="@+id/tvTimeLeft" />
-
-    <Button
-        android:id="@+id/bCancelTest"
-        style="@style/accent_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/mainbutton"
-        android:backgroundTint="@color/bg_dark_gray"
-        android:onClick="cancelTest"
-        android:text="@string/cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
-
-    <ProgressBar
-        android:id="@+id/testLoading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/words"
-        android:visibility="gone"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

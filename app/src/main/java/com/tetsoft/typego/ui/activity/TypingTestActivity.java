@@ -251,10 +251,6 @@ public class TypingTestActivity extends AppCompatActivity {
         return (char1 == char2);
     }
 
-    public void cancelTest(View view) {
-        showExitDialog();
-    }
-
     private void showExitDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(getString(R.string.dialog_exit_test)).setTitle(R.string.exit);
@@ -361,6 +357,8 @@ public class TypingTestActivity extends AppCompatActivity {
     }
 
     private void updateCurrentWord() {
+        int length = etWords.getText().length();
+        if (currentWordStartCursor > length || currentWordEndCursor > length) return;
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
     }
 

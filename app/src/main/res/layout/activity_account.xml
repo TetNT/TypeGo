@@ -8,20 +8,19 @@
 
     <TextView
         android:id="@+id/tv_account_activity_title"
+        style="@style/activity_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/button_Profile"
         android:textColor="@color/text_accent"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:drawableStartCompat="@drawable/ic_arrow_back"
-        android:clickable="true"
-        android:focusable="true"
-        style="@style/activity_title"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/account_activity_title_divider"
@@ -37,17 +36,12 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_dark_gray"
+        app:itemBackground="@drawable/bottom_nav_item"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        app:itemBackground="@drawable/bottom_nav_item"
-        android:background="@color/bg_dark_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_menu"
-        />
-
-
-
-
+        app:menu="@menu/bottom_menu" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adBanner"
@@ -64,12 +58,11 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/account_activity_title_divider"
-        app:layout_constraintBottom_toTopOf="@id/adBanner"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/account_navigation"
-         />
+        app:layout_constraintBottom_toTopOf="@id/adBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_activity_title_divider"
+        app:navGraph="@navigation/account_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

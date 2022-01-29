@@ -9,5 +9,5 @@
     android:padding="18dp"
     android:textSize="18sp"
     tools:text="@tools:sample/lorem"
-    android:fontFamily="@font/redring_regular"/>
+    android:textColor="@color/white"/>
 

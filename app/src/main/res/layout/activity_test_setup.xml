@@ -16,6 +16,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:focusable="true"
+        android:minHeight="48dp"
         android:onClick="closeActivity"
         android:text="@string/custom_test"
         android:textColor="@color/text_accent"
@@ -48,9 +49,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="48dp"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
+            android:paddingHorizontal="16dp">
 
             <androidx.cardview.widget.CardView
                 style="@style/basic_cardview"
@@ -70,8 +69,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/language"
                         android:drawablePadding="4dp"
+                        android:text="@string/language"
                         app:drawableStartCompat="@drawable/ic_language" />
 
                     <RelativeLayout
@@ -84,10 +83,11 @@
                             android:id="@+id/spinLanguageSelection"
                             android:layout_width="200dp"
                             android:layout_height="24dp"
+                            android:contentDescription="@string/content_desc_language_select"
                             android:paddingHorizontal="4dp"
-                            android:paddingVertical="1dp" />
+                            android:paddingVertical="1dp"
+                            tools:ignore="TouchTargetSizeCheck" />
                     </RelativeLayout>
-
 
                 </LinearLayout>
 
@@ -108,15 +108,12 @@
 
                     <TextView
                         android:id="@+id/tvAmountOfTime"
+                        style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/amount_of_time"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
                         android:drawablePadding="4dp"
-                        app:drawableStartCompat="@drawable/ic_timer"
-                        />
+                        android:text="@string/amount_of_time"
+                        app:drawableStartCompat="@drawable/ic_timer" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout"
@@ -132,7 +129,7 @@
                             android:layout_height="28dp"
                             android:max="5"
                             android:progress="1"
-                            android:thumbTint="@color/button_main_green_unpressed" />
+                            android:thumbTint="@color/main_green" />
 
                         <TextView
                             android:id="@+id/tvSeekBarDisplay"
@@ -143,7 +140,6 @@
                             android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
-
 
                 </LinearLayout>
 
@@ -164,12 +160,12 @@
 
                     <TextView
                         android:id="@+id/tvDictionaryType"
+                        style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:drawablePadding="4dp"
                         android:text="@string/dictionary_type"
-                        android:textAppearance="@style/submenu_header"
                         app:drawableStartCompat="@drawable/ic_dictionary" />
 
                     <RadioGroup
@@ -183,8 +179,9 @@
                             android:id="@+id/rbBasic"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:buttonTint="@color/main_green"
                             android:fontFamily="@font/redring_regular"
+                            android:minHeight="48dp"
                             android:text="@string/basic"
                             android:textSize="18sp" />
 
@@ -193,8 +190,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:buttonTint="@color/main_green"
                             android:fontFamily="@font/redring_regular"
+                            android:minHeight="48dp"
                             android:text="@string/enhanced"
                             android:textSize="18sp" />
                     </RadioGroup>
@@ -225,19 +223,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/text_suggestions"
                         android:drawablePadding="4dp"
-                        app:drawableStartCompat="@drawable/ic_info"
-                        />
+                        android:text="@string/text_suggestions"
+                        app:drawableStartCompat="@drawable/ic_info" />
 
                     <CheckBox
                         android:id="@+id/cbPredictiveText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:buttonTint="@color/button_main_green_unpressed"
+                        android:buttonTint="@color/main_green"
                         android:checked="true"
                         android:fontFamily="@font/redring_regular"
+                        android:minHeight="48dp"
                         android:text="@string/activate"
                         android:textSize="18sp" />
 
@@ -247,10 +245,7 @@
                         android:text="@string/text_suggestions_note" />
 
                 </LinearLayout>
-
-
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 style="@style/basic_cardview"
@@ -270,10 +265,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/screen_orientation"
                         android:drawablePadding="4dp"
-                        app:drawableStartCompat="@drawable/ic_portrait"
-                        />
+                        android:text="@string/screen_orientation"
+                        app:drawableStartCompat="@drawable/ic_portrait" />
 
                     <RadioGroup
                         android:id="@+id/rbScreenOrientation"
@@ -284,9 +278,10 @@
                             android:id="@+id/rbVertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:buttonTint="@color/main_green"
                             android:checked="true"
                             android:fontFamily="@font/redring_regular"
+                            android:minHeight="48dp"
                             android:text="@string/vertical"
                             android:textSize="18sp" />
 
@@ -294,14 +289,13 @@
                             android:id="@+id/rbHorizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/button_main_green_unpressed"
+                            android:buttonTint="@color/main_green"
                             android:fontFamily="@font/redring_regular"
                             android:text="@string/horizontal"
                             android:textSize="18sp" />
                     </RadioGroup>
 
                 </LinearLayout>
-
 
             </androidx.cardview.widget.CardView>
 
@@ -315,8 +309,7 @@
                 android:background="@drawable/mainbutton"
                 android:fontFamily="@font/redring_bold"
                 android:onClick="startTesting"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
+                android:paddingHorizontal="32dp"
                 android:text="@string/button_StartTest"
                 android:textStyle="italic"
                 android:visibility="gone"
@@ -329,7 +322,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/button_main_green_unpressed"
+        android:backgroundTint="@color/main_green"
         android:contentDescription="@string/button_StartTest"
         android:onClick="startTesting"
         android:tint="@color/white"
