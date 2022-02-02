@@ -16,6 +16,7 @@ import com.tetsoft.typego.data.account.Statistics
 import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
 import com.tetsoft.typego.testing.ResultListUtils
+import com.tetsoft.typego.utils.Localization
 import com.tetsoft.typego.utils.TimeConvert
 
 
@@ -209,10 +210,6 @@ class StatisticsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val ANIMATION_DURATION : Long = 500
     }
 
 }
