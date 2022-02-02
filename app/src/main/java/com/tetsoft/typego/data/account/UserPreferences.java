@@ -16,6 +16,7 @@ import com.tetsoft.typego.data.TimeMode;
 public class UserPreferences extends TestMetadata {
 
     private final UserPreferencesStorage storage;
+    private Gson gson = new Gson();
 
     public UserPreferences(UserPreferencesStorage storage) {
         this.storage = storage;
@@ -27,49 +28,49 @@ public class UserPreferences extends TestMetadata {
     }
 
     public Language getLanguage() {
-        return new Gson().fromJson(
+        return gson.fromJson(
                 storage.getString(StringKeys.PREFERENCE_LANGUAGE), Language.class);
     }
 
     public TimeMode getTimeMode() {
-        return new Gson().fromJson(
+        return gson.fromJson(
                 storage.getString(StringKeys.PREFERENCE_TIMEMODE), TimeMode.class);
     }
 
     public DictionaryType getDictionaryType() {
-        return new Gson().fromJson(
+        return gson.fromJson(
                 storage.getString(StringKeys.PREFERENCE_DICTIONARY_TYPE), DictionaryType.class);
     }
 
     public boolean isSuggestionsActivated() {
         String suggestionsJson = storage.getString(StringKeys.PREFERENCE_SUGGESTIONS);
         if (suggestionsJson.isEmpty()) return true;
-        return new Gson().fromJson(suggestionsJson, boolean.class);
+        return gson.fromJson(suggestionsJson, boolean.class);
     }
 
     public ScreenOrientation getScreenOrientation() {
-        return new Gson().fromJson(
+        return gson.fromJson(
                 storage.getString(StringKeys.PREFERENCE_SCREEN_ORIENTATION), ScreenOrientation.class);
     }
 
     private void setLanguage(Language language) {
-        storage.store(StringKeys.PREFERENCE_LANGUAGE, new Gson().toJson(language));
+        storage.store(StringKeys.PREFERENCE_LANGUAGE, gson.toJson(language));
     }
 
     private void setTimeMode(TimeMode timeMode) {
-        storage.store(StringKeys.PREFERENCE_TIMEMODE, new Gson().toJson(timeMode));
+        storage.store(StringKeys.PREFERENCE_TIMEMODE, gson.toJson(timeMode));
     }
 
     private void setDictionaryType(DictionaryType dictionaryType) {
-        storage.store(StringKeys.PREFERENCE_DICTIONARY_TYPE, new Gson().toJson(dictionaryType));
+        storage.store(StringKeys.PREFERENCE_DICTIONARY_TYPE, gson.toJson(dictionaryType));
     }
 
     private void setSuggestionsActivated(boolean suggestionsActivated) {
-        storage.store(StringKeys.PREFERENCE_SUGGESTIONS, new Gson().toJson(suggestionsActivated));
+        storage.store(StringKeys.PREFERENCE_SUGGESTIONS, gson.toJson(suggestionsActivated));
     }
 
     private void setScreenOrientation(ScreenOrientation screenOrientation) {
-        storage.store(StringKeys.PREFERENCE_SCREEN_ORIENTATION, new Gson().toJson(screenOrientation));
+        storage.store(StringKeys.PREFERENCE_SCREEN_ORIENTATION, gson.toJson(screenOrientation));
     }
 
     public void update(TestMetadata testMetadata) {
