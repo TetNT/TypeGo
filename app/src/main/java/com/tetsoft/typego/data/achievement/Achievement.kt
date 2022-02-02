@@ -1,81 +1,29 @@
-package com.tetsoft.typego.data.achievement;
+package com.tetsoft.typego.data.achievement
 
-import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.data.account.User;
-import java.util.ArrayList;
-import java.util.Date;
+import com.tetsoft.typego.data.account.User
+import com.tetsoft.typego.testing.TypingResult
+import java.util.*
 
-public class Achievement {
-    private int id;
-    private final int assignedImageId;
-    private final String name;
-    private final String description;
-    private Date completionDate;
-    private final boolean progressAttached;
-    private final ArrayList<Requirement> requirements; // Progress will be shown based of it's very first value.
+class Achievement(
+    var id: Int,
+    val name: String,
+    val description: String,
+    val assignedImageId: Int,
+    val isProgressAttached: Boolean,
+    val requirements: ArrayList<Requirement>  // Progress will be shown based of it's very first value.
+) {
 
-   public Achievement(int id,
-                      String name,
-                      String description,
-                      int assignedImageId,
-                      boolean progressAttached,
-                      ArrayList<Requirement> requirements
-   ) {
-       this.id = id;
-       this.name = name;
-       this.description = description;
-       this.assignedImageId = assignedImageId;
-       this.progressAttached = progressAttached;
-       this.requirements = requirements;
-   }
+    var completionDate: Date? = null
 
-    public String getName() {
-        return name;
+    val isCompleted: Boolean
+        get() = completionDate != null
+
+    /**
+     * Returns true if user completed the achievement.
+     */
+    fun requirementsAreSatisfied(user: User?, result: TypingResult?): Boolean {
+        for (requirement in requirements)  // if any of the requirements isn't complete then return false
+            if (!requirement.isMatching(user!!, result!!)) return false
+        return true
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Date getCompletionDate() {
-       return completionDate;
-    }
-
-    public int getId() {
-       return id;
-    }
-
-    public void setId(int id) {
-       this.id = id;
-    }
-
-    public int getAssignedImageId() {
-        return assignedImageId;
-    }
-
-    public void setCompletionDate(Date completionDate) {
-        this.completionDate = completionDate;
-    }
-
-    public boolean isProgressAttached() {
-        return progressAttached;
-    }
-
-    public ArrayList<Requirement> getRequirements() {
-        return requirements;
-    }
-
-    public boolean isCompleted() {
-       return completionDate != null;
-    }
-
-    // Returns true if user completed the achievement.
-    public boolean requirementsAreComplete(User user, TypingResult result) {
-       for (Requirement requirement: requirements)
-           // if any of the requirements isn't complete then return false
-           if (!requirement.isMatching(user, result))
-               return false;
-           return true;
-    }
-
 }
