@@ -5,7 +5,6 @@ import com.tetsoft.typego.data.account.UserPreferences
 import android.os.Bundle
 import com.tetsoft.typego.TypeGoApp
 import android.content.Intent
-import android.view.View
 import com.tetsoft.typego.testing.TestSettings
 import com.tetsoft.typego.utils.StringKeys
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
@@ -17,27 +16,38 @@ import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    var binding: ActivityMainBinding? = null
+
+    lateinit var binding: ActivityMainBinding
+
     var userPreferences: UserPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         userPreferences = (application as TypeGoApp).preferences
-        setContentView(binding!!.root)
         userInit()
+        setupViews()
         setupLanguageSpinner()
 
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun setupViews() {
+        binding.cardUsualTest.setOnClickListener { startBasicTest() }
 
+        binding.cardCustomizableTest.setOnClickListener {
+            startActivity(Intent(this, TestSetupActivity::class.java))
+        }
+
+        binding.cardUserAccount.setOnClickListener {
+            startActivity(Intent(this, AccountActivity::class.java))
+        }
     }
 
-    fun startBasicTest(v: View?) {
+    fun startBasicTest() {
         val intent = Intent(this, TypingTestActivity::class.java)
         val DEFAULT_TEST_SETTINGS = TestSettings(
-            binding!!.spinnerBasicTestLanguageSelection.getSelectedLanguage(),
+            binding.spinnerBasicTestLanguageSelection.getSelectedLanguage(),
             DEFAULT_TIME_MODE,
             DEFAULT_DICTIONARY_TYPE,
             DEFAULT_SUGGESTIONS_IS_ON,
@@ -47,14 +57,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(StringKeys.FROM_MAIN_MENU, true)
         startActivity(intent)
         finish()
-    }
-
-    fun openTestCustomization(v: View?) {
-        startActivity(Intent(this, TestSetupActivity::class.java))
-    }
-
-    fun openUserAccount(v: View?) {
-        startActivity(Intent(this, AccountActivity::class.java))
     }
 
     private fun userInit() {
@@ -69,15 +71,15 @@ class MainActivity : AppCompatActivity() {
     private fun setupLanguageSpinner() {
         val spinnerAdapter = LanguageSpinnerAdapter(
             this,
-            LanguageList().getTranslatableList(this)
+            LanguageList().getLocalizedList(this)
         )
-        binding!!.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
+        binding.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
         if (userPreferences!!.language != null) {
-            binding!!.spinnerBasicTestLanguageSelection.setSelection(
+            binding.spinnerBasicTestLanguageSelection.setSelection(
                 spinnerAdapter.getItemIndexByLanguage(userPreferences!!.language)
             )
         } else {
-            binding!!.spinnerBasicTestLanguageSelection.setSelection(
+            binding.spinnerBasicTestLanguageSelection.setSelection(
                 spinnerAdapter.getItemIndexBySystemLanguage()
             )
         }
