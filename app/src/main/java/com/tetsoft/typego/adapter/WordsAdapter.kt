@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.Word
 
-class WordsAdapter(val wordsList:List<Word>) : RecyclerView.Adapter<WordsAdapter.WordsViewHolder>() {
+class WordsAdapter(private val wordsList:List<Word>) : RecyclerView.Adapter<WordsAdapter.WordsViewHolder>() {
     private val words = wordsList
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsViewHolder {
         return WordsViewHolder(
@@ -29,7 +29,7 @@ class WordsAdapter(val wordsList:List<Word>) : RecyclerView.Adapter<WordsAdapter
         holder.tvOriginal.text = wordsList[position].originalText
         holder.tvIndex.text = "" + (position+1) + "."
         var hasMistakes = false
-        var spannableOrig = SpannableString(holder.tvOriginal.text)  // span of the original word
+        val spannableOrig = SpannableString(holder.tvOriginal.text)  // span of the original word
         spannableOrig.setSpan(getGreenSpan(), 0, holder.tvOriginal.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         var spannableInp = SpannableString(holder.tvInputted.text)  // span of the inputted word
         spannableInp.setSpan(getGreenSpan(), 0, holder.tvInputted.text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

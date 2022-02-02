@@ -8,7 +8,6 @@ import com.tetsoft.typego.adapter.AchievementsAdapter.AchievementViewHolder
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.AchievementRequirement
 import android.graphics.PorterDuff
 import android.view.View
 import android.widget.ImageView

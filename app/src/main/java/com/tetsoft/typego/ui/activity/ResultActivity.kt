@@ -42,11 +42,13 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         currentUser = User.getFromStoredData(this)
         testSettings = intent.extras?.getSerializable(StringKeys.TEST_SETTINGS) as TestSettings
         initIntentData()
         initPreviousResult()
-        if (!calledFromResultsTab) temporarilyDisableButtons()
+        if (!calledFromResultsTab)
+            temporarilyDisableButtons()
         initBestResult()
         initTypedWords()
         if (calledFromResultsTab) changeVisibilityFromResultsTab()
@@ -97,7 +99,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun initBestResult() {
         bestResultByLanguage = currentUser!!.getBestResultByLanguage(testSettings.language)
-        binding.tvBestResult.text = (getString(R.string.best_result_pl, bestResultByLanguage))
+        binding.tvBestResult.text = getString(R.string.best_result_pl, bestResultByLanguage)
         if (bestResultByLanguage == 0) binding.tvBestResult.visibility = View.GONE
         else binding.tvBestResult.visibility = View.VISIBLE
     }

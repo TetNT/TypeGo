@@ -13,19 +13,11 @@ object StringKeys {
     const val PREFERENCE_DICTIONARY_TYPE = "dictionary_type"
     const val PREFERENCE_SUGGESTIONS = "suggestions"
     const val PREFERENCE_SCREEN_ORIENTATION = "screen_orientation"
-    const val USER_ACHIEVEMENTS = "userAchievements"
-    const val USER_RESULTS = "userResults"
     const val PREFERENCES_CURRENT_USER = "prefCurrentUser"
-    const val PREFERENCES_TEST_USER = "prefTestUser"
 
     // test metadata
-    const val TEST_AMOUNT_OF_SECONDS = "AmountOfSeconds"
-    const val TEST_DICTIONARY_TYPE = "DictionaryType"
-    const val TEST_SUGGESTIONS_ON = "TextSuggestionsIsOn"
-    const val TEST_DICTIONARY_LANG = "DictionaryLanguageId"
     const val TEST_CORRECT_WORDS = "correctWords"
     const val TEST_CORRECT_WORDS_WEIGHT = "correctWordsWeight"
-    const val TEST_SCREEN_ORIENTATION = "screenOrientation"
     const val TOTAL_WORDS = "totalWords"
 
     // intent navigation extras

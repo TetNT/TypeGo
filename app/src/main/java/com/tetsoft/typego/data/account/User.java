@@ -27,7 +27,7 @@ public class User implements Serializable {
      * It will be used in the future to handle achievements progress independently,
      * instead of list comparison.
      */
-    private HashMap<Integer, Date> achievementsCompletionDateMap;
+    private HashMap<Integer, Date> achievementsCompletionMap;
 
     public User() {
         resultList = new ArrayList<>();

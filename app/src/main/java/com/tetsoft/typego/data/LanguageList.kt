@@ -8,8 +8,8 @@ import kotlin.collections.ArrayList
 
 class LanguageList : ArrayList<LanguageSpinnerItem>() {
 
-    /*
-    Returns a list of languages that holds translations to represent in a different locales.
+    /**
+     * Returns a list of languages that holds translations to represent in a different locales.
      */
     fun getTranslatableList(context: Context): ArrayList<LanguageSpinnerItem> {
         val languageItems = ArrayList<LanguageSpinnerItem>()
@@ -22,9 +22,9 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
         return languageItems
     }
 
-    /*
-    Returns a list of languages available for testing.
-    New languages are adding here.
+    /**
+     * Returns a list of languages available for testing.
+     * New languages are adding here.
      */
     fun getList() : ArrayList<Language> {
         return arrayListOf(
