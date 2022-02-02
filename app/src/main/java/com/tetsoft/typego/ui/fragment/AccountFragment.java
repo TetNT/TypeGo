@@ -84,7 +84,7 @@ public class AccountFragment extends Fragment {
     }
 
     public void initLanguageSpinner() {
-        ArrayList<LanguageSpinnerItem> languages = new LanguageList().getTranslatableList(getContext());
+        ArrayList<LanguageSpinnerItem> languages = new LanguageList().getLocalizedList(getContext());
         // an option to show the whole stats
         LanguageSpinnerItem spinnerItem = new LanguageSpinnerItem(
                 new Language(StringKeys.LANGUAGE_ALL),

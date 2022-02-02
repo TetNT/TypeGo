@@ -166,7 +166,7 @@ class StatisticsFragment : Fragment() {
             return
         }
         binding.statsFavoriteLanguage.text = getString(R.string.stats_language_pl,
-            context?.let { favLang.getName(it) })
+            context?.let { Localization.getLanguageNameOrId(favLang, requireContext()) })
         binding.statsFavoriteTimeMode.text =
             getString(R.string.stats_time_mode_pl,
                 context?.let { TimeConvert.convertSeconds(it, favTimeMode.timeInSeconds) })
