@@ -104,7 +104,7 @@ public class Statistics {
     public int getProgression() {
         int pastWPM = getAveragePastWPM();
         int currWPM = getAverageCurrentWPM();
-        if (pastWPM == 0 || currWPM == 0) return 0;
+        if (pastWPM == 0 || currWPM == 0) return -1;
         return 100 - (100*pastWPM) / currWPM;
     }
 

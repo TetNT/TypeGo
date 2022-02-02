@@ -105,7 +105,7 @@ class StatisticsFragment : Fragment() {
     @SuppressLint("StringFormatInvalid")
     private fun displayOrHideProgressionCard(stats : Statistics) {
         val progress : Int = stats.progression
-        if (progress == 0) {
+        if (progress == -1) {
             binding.statsCardProgression.visibility = View.GONE
             cardsHidden++
             return
