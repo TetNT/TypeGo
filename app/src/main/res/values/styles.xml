@@ -47,7 +47,6 @@
         <item name="android:drawableTint">@color/button_main_green_unpressed</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">@font/redring_regular</item>
     </style>
     <style name="spinner_item">
         <item name="android:textColor">@color/white</item>
@@ -57,5 +56,8 @@
         <item name="cardBackgroundColor">@color/cardview_main_dark_gray</item>
         <item name="cardCornerRadius">24dp</item>
         <item name="cardElevation">8dp</item>
+    </style>
+    <style name="textview_default" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/redring_regular</item>
     </style>
 </resources>
