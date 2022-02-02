@@ -143,7 +143,7 @@ public class TestSetupActivity extends AppCompatActivity {
     public void selectCurrentLanguageOption() {
         LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(
                 this,
-                new LanguageList().getTranslatableList(this));
+                new LanguageList().getLocalizedList(this));
         binding.spinLanguageSelection.setAdapter(spinnerAdapter);
         if (userPreferences.getLanguage() != null) {
             binding.spinLanguageSelection.setSelection(
