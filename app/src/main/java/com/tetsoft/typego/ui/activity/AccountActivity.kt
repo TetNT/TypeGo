@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -14,8 +15,8 @@ import com.tetsoft.typego.databinding.ActivityAccountBinding
 import com.tetsoft.typego.utils.StringKeys
 
 class AccountActivity : AppCompatActivity() {
-    lateinit var binding : ActivityAccountBinding
-    var mAdView: AdView? = null
+    private lateinit var binding : ActivityAccountBinding
+    private var mAdView: AdView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +34,15 @@ class AccountActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val toAchievementSection : Boolean? = intent.extras?.getBoolean(StringKeys.TO_ACHIEVEMENT_SECTION)
+        val toAchievementSection: Boolean? =
+            intent.extras?.getBoolean(StringKeys.TO_ACHIEVEMENT_SECTION)
         if (toAchievementSection != null && toAchievementSection) {
-            findNavController(R.id.fragmentContainerView).navigate(R.id.action_navigation_account_to_achievements)
+            try {
+                findNavController(R.id.fragmentContainerView)
+                    .navigate(R.id.action_navigation_account_to_achievements)
+            } catch (illegalArg: IllegalArgumentException) {
+                Toast.makeText(this, "Не удалось перейти в достижения.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
