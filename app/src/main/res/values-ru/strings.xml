@@ -8,7 +8,7 @@
     <string name="incorrect_words">Неправильных слов</string>
     <string name="_continue">Продолжить</string>
     <string name="correct_words">Правильных слов</string>
-    <string name="input_text_above">Вводите текст выше</string>
+    <string name="input_text_above">Вводите текст здесь</string>
     <string name="time_left">Осталось времени</string>
     <string name="current_version">Версия %1$s</string>
     <string name="words_loading_error_occurred">Произошла ошибка при загрузке слов</string>
@@ -117,4 +117,10 @@
     <string name="favorite_timemode_description_pl">%1$d из %2$d тестов выполнены в этом режиме.</string>
     <string name="stats_best_result_description">твой текущий рекорд!</string>
     <string name="stats_best_result_set_time">Был установлен %1$d дней назад</string>
+
+    <string name="content_desc_basic_test">Начать базовый тест</string>
+    <string name="content_desc_custom_test">Настраиваемый тест</string>
+    <string name="content_desc_my_profile">Мой профиль</string>
+    <string name="content_desc_language_select">Выберите язык</string>
+    <string name="content_desc_test_restart">Начать тест заново</string>
 </resources>

@@ -127,4 +127,10 @@
     <string name="stats_best_result" translatable="false">%1$d</string>
     <string name="stats_best_result_description">is your current record!</string>
     <string name="stats_best_result_set_time">It\'s been set %1$d days ago</string>
+
+    <string name="content_desc_basic_test">Start a basic test</string>
+    <string name="content_desc_custom_test">Custom test</string>
+    <string name="content_desc_my_profile">My profile</string>
+    <string name="content_desc_language_select">Select a language</string>
+    <string name="content_desc_test_restart">Restart the test</string>
 </resources>
