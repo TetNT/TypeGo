@@ -10,7 +10,7 @@
         • Less ads\nAds appear less in short tests (15 secs, 30 secs).\n\n
         • More statistics\nStatistics became more informative.\n\n
         • Other improvements\nNow it\'s shown in a typed word list if an inputted word is shorter than the original.\n\n
-        • Bug fixes\nFixed a bug that caused text suggestions not to work.\nFixed a bug when statistics displayed the wrong time a user has spent on tests.
+        • Bug fixes\nFixed app crash on Android 12 and higher.\nFixed a bug that caused text suggestions not to work.\nFixed a bug when statistics displayed the wrong time a user has spent on tests.
     </string>
 
 </resources>
