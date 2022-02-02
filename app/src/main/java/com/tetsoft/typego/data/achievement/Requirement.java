@@ -9,13 +9,13 @@ import com.tetsoft.typego.data.account.User;
 
 import java.util.ArrayList;
 
-public class AchievementRequirement {
+public class Requirement {
 
     private final CompareType compareType;
     private final AchievementSection achievementSection;
     private final int requiredAmount;
 
-    public AchievementRequirement(AchievementSection achievementSection, CompareType compareType, int requiredAmount) {
+    public Requirement(AchievementSection achievementSection, CompareType compareType, int requiredAmount) {
         this.achievementSection = achievementSection;
         this.compareType = compareType;
         this.requiredAmount = requiredAmount;

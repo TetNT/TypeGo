@@ -12,14 +12,14 @@ public class Achievement {
     private final String description;
     private Date completionDate;
     private final boolean progressAttached;
-    private final ArrayList<AchievementRequirement> requirements; // Progress will be shown based of it's very first value.
+    private final ArrayList<Requirement> requirements; // Progress will be shown based of it's very first value.
 
    public Achievement(int id,
                       String name,
                       String description,
                       int assignedImageId,
                       boolean progressAttached,
-                      ArrayList<AchievementRequirement> requirements
+                      ArrayList<Requirement> requirements
    ) {
        this.id = id;
        this.name = name;
@@ -61,7 +61,7 @@ public class Achievement {
         return progressAttached;
     }
 
-    public ArrayList<AchievementRequirement> getRequirements() {
+    public ArrayList<Requirement> getRequirements() {
         return requirements;
     }
 
@@ -71,7 +71,7 @@ public class Achievement {
 
     // Returns true if user completed the achievement.
     public boolean requirementsAreComplete(User user, TypingResult result) {
-       for (AchievementRequirement requirement: requirements)
+       for (Requirement requirement: requirements)
            // if any of the requirements isn't complete then return false
            if (!requirement.isMatching(user, result))
                return false;
