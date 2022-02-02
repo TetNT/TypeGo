@@ -52,7 +52,7 @@ class LanguageSpinnerAdapter(
     }
 
     fun getItemIndexBySystemLanguage() : Int {
-        val systemLanguage = Locale.getDefault().displayLanguage.toLowerCase(Locale.ROOT)
+        val systemLanguage = Locale.getDefault().displayLanguage.lowercase(Locale.ROOT)
         var i = 0
         for (spinnerLanguage in languageItems) {
             if (spinnerLanguage.languageTranslation.equals(systemLanguage, ignoreCase = true))
