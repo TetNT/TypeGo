@@ -31,12 +31,23 @@ class ResultActivity : AppCompatActivity() {
     private var correctWords = 0
     private var correctWordsWeight = 0
     private var bestResultByLanguage = 0
-    private var result: TypingResult? = null
     private var totalWords = 0
     private var calledFromResultsTab = false
     private var calledFromMainMenu = false
     private var typedWordsList: ArrayList<Word>? = null
     private lateinit var testSettings: TestSettings
+
+    private val currentResult: TypingResult
+        get() = TypingResult(
+            correctWords,
+            correctWordsWeight,
+            totalWords,
+            testSettings.dictionaryType,
+            testSettings.screenOrientation,
+            testSettings.language,
+            testSettings.timeMode,
+            testSettings.isSuggestionsActivated,
+            Calendar.getInstance().time)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,30 +62,46 @@ class ResultActivity : AppCompatActivity() {
             temporarilyDisableButtons()
         initBestResult()
         initTypedWords()
+        setupViews()
         if (calledFromResultsTab) changeVisibilityFromResultsTab()
+
+        setupWPM()
+
+
+    }
+
+    private fun setupWPM() {
+        wpm = currentResult.WPM.toInt()
+        val animationManager = AnimationManager()
+        val countAnimation = animationManager.getCountAnimation(0, wpm, 1000)
+        animationManager.applyCountAnimation(countAnimation, binding.tvWPM)
+        countAnimation.start()
+        binding.tvWPM.text = getString(R.string.results_wpm_pl, wpm)
+
+        if (wpm <= 0 && !calledFromResultsTab) {
+            Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT)
+                .show()
+        } else if (wpm > 0 && !calledFromResultsTab) {
+            saveResultData()
+        }
+    }
+
+    private fun setupViews() {
         val textSuggestions = if (testSettings.isSuggestionsActivated) getString(R.string.yes) else getString(R.string.no)
         val dictionaryName = if (testSettings.dictionaryType == DictionaryType.BASIC) getString(R.string.basic) else getString(R.string.enhanced)
         val orientation = if (testSettings.screenOrientation == ScreenOrientation.PORTRAIT) getString(R.string.vertical) else getString(R.string.horizontal)
-        result = currentResult
-        wpm = result!!.WPM.toInt()
-        val animationManager = AnimationManager()
-        val countAnimation = animationManager.getCountAnimation(0, wpm, 1000)
-        animationManager.applyCountAnimation(
-                countAnimation,
-                binding.tvWPM)
-        countAnimation.start()
-        binding.tvWPM.text = getString(R.string.results_wpm_pl, wpm)
-        binding.tvIncorrectWords.text = getString(R.string.incorrect_words_pl, result!!.incorrectWords)
+        val languageLocalized = Localization.getLanguageNameOrId(testSettings.language, this)
+        binding.tvIncorrectWords.text = getString(R.string.incorrect_words_pl, currentResult.incorrectWords)
         binding.tvCorrectWords.text = getString(R.string.correct_words_pl, correctWords)
         binding.tvCorrectChars.text = getString(R.string.correct_chars_pl, correctWordsWeight)
         binding.tvDictionary.text = getString(R.string.dictionary_pl, dictionaryName)
         binding.tvAllottedTime.text = getString(R.string.selected_time_pl, TimeConvert.convertSeconds(this, testSettings.timeMode.timeInSeconds))
-        binding.tvLanguage.text = getString(R.string.selected_language_pl, testSettings.language.getName(this))
+        binding.tvLanguage.text = getString(R.string.selected_language_pl, languageLocalized)
         binding.tvTextSuggestions.text = getString(R.string.text_suggestions_pl, textSuggestions)
         binding.tvScreenOrientation.text = getString(R.string.screen_orientation_pl, orientation)
-        if (wpm <= 0 && !calledFromResultsTab)
-            Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT).show()
-        else if (wpm > 0 && !calledFromResultsTab) saveResultData()
+
+        binding.bFinish.setOnClickListener { saveAndContinue() }
+        binding.bStartOver.setOnClickListener { startOver() }
     }
 
     private fun initTypedWords() {
@@ -131,7 +158,7 @@ class ResultActivity : AppCompatActivity() {
         if (wpm > bestResultByLanguage) {
             binding.tvNewBestResult.visibility = View.VISIBLE
         }
-        currentUser!!.addResult(result!!)
+        currentUser!!.addResult(currentResult)
         checkAchievements()
         currentUser!!.storeData(this)
     }
@@ -140,7 +167,7 @@ class ResultActivity : AppCompatActivity() {
         var newAchievements = 0
         var notificationAchievement: Achievement? = null
         for (achievement in currentUser!!.achievements) {
-            if (achievement.completionDate == null && achievement.requirementsAreComplete(currentUser, result)) {
+            if (achievement.completionDate == null && achievement.requirementsAreSatisfied(currentUser, currentResult)) {
                 achievement.completionDate = Calendar.getInstance().time
                 newAchievements++
                 notificationAchievement = achievement
@@ -169,19 +196,7 @@ class ResultActivity : AppCompatActivity() {
             }.show()
     }
 
-    private val currentResult: TypingResult
-        get() = TypingResult(
-                correctWords,
-                correctWordsWeight,
-                totalWords,
-                testSettings.dictionaryType,
-                testSettings.screenOrientation,
-                testSettings.language,
-                testSettings.timeMode,
-                testSettings.isSuggestionsActivated,
-                Calendar.getInstance().time)
-
-    fun saveAndContinue(view: View?) {
+    fun saveAndContinue() {
         finish()
         var intent: Intent? = null
         if (calledFromMainMenu) intent = Intent(this, MainActivity::class.java)
@@ -201,7 +216,7 @@ class ResultActivity : AppCompatActivity() {
         handler.postDelayed(runnable, 2000)
     }
 
-    fun startOver(v: View?) {
+    fun startOver() {
         val intent = Intent(this@ResultActivity, TypingTestActivity::class.java)
         intent.putExtra(StringKeys.TEST_SETTINGS, testSettings)
         finish()
