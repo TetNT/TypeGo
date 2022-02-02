@@ -109,7 +109,6 @@
     <string name="statistics">Статистика</string>
     <string name="stats_locked_cards">Некоторые карточки всё ещё заблокированы. Проходи больше тестов, чтобы их разблокировать! Карточек осталось: %1$d</string>
 
-    <string name="splash_text">Снова здесь!</string>
     <string name="whats_new_pl">%1$s: что нового</string>
     <string name="text_suggestions_note">* это также зависит и от настроек самой клавиатуры.</string>
     <string name="dictionary_type_note">* базовый набор ограничен 200 словами.</string>
@@ -123,4 +122,5 @@
     <string name="content_desc_my_profile">Мой профиль</string>
     <string name="content_desc_language_select">Выберите язык</string>
     <string name="content_desc_test_restart">Начать тест заново</string>
+    <string name="error_navigation_to_achievements">Не удалось перейти к достижениям.</string>
 </resources>

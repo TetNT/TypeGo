@@ -115,8 +115,6 @@
     <string name="statistics">Statistics</string>
     <string name="stats_locked_cards">Some cards are still locked. Pass more tests to unlock them! Cards left: %1$d</string>
 
-
-    <string name="splash_text">We\'re back again!</string>
     <string name="whats_new_pl">%1$s: what\'s new</string>
 
     <string name="text_suggestions_note">* it also depends on your keyboard settings.</string>
@@ -133,4 +131,6 @@
     <string name="content_desc_my_profile">My profile</string>
     <string name="content_desc_language_select">Select a language</string>
     <string name="content_desc_test_restart">Restart the test</string>
+
+    <string name="error_navigation_to_achievements">Unable to navigate to the achievement section.</string>
 </resources>
