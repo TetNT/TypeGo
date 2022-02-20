@@ -13,4 +13,9 @@
         • Bug fixes\nFixed app crash on Android 12 and higher.\nFixed a bug that caused text suggestions not to work.\nFixed a bug when statistics displayed the wrong time a user has spent on tests.
     </string>
 
+    <string name="release_notes_description_147">
+        • Less ads \nAds appear less in 1-minute tests.\n\n
+        • Other improvements\nSome \"under the hood\" changes to improve app stability.
+    </string>
+
 </resources>
