@@ -1,34 +1,35 @@
-package com.tetsoft.typego.data.account;
+package com.tetsoft.typego.data.account
 
-import com.tetsoft.typego.data.Language;
-import com.tetsoft.typego.testing.TypingResult;
+import com.tetsoft.typego.data.Language
+import com.tetsoft.typego.testing.TestResult
+import java.util.*
 
-import java.util.ArrayList;
-import java.util.Collections;
+class ResultList : ArrayList<TestResult>() {
 
-public class ResultList extends ArrayList<TypingResult> {
-
-    public ResultList getResultsByLanguage(Language language) {
-        ResultList selectedResults = new ResultList();
-        for (TypingResult result: this) {
-            String rowLanguageId = result.getLanguage().getIdentifier();
-            if (rowLanguageId.equalsIgnoreCase(language.getIdentifier()))
-                selectedResults.add(result);
+    fun getResultsByLanguage(language: Language): ResultList {
+        val selectedResults = ResultList()
+        for (result in this) {
+            val rowLanguageId = result.language.identifier
+            if (rowLanguageId.equals(language.identifier, ignoreCase = true)) {
+                selectedResults.add(result)
+            }
         }
-        return selectedResults;
+        return selectedResults
     }
 
-    public int getBestResult() {
-        int currentBest = 0;
-        for (TypingResult result: this) {
-            if (result.getWPM()>currentBest) currentBest = (int)result.getWPM();
+    val bestResult: Int
+        get() {
+            var currentBest = 0
+            for (result in this) {
+                if (result.wpm > currentBest) currentBest = result.wpm.toInt()
+            }
+            return currentBest
         }
-        return currentBest;
-    }
 
-    public ResultList getInDescendingOrder() {
-        ResultList copy = (ResultList)this.clone();
-        Collections.reverse(copy);
-        return copy;
-    }
+    val inDescendingOrder: ResultList
+        get() {
+            val copy = clone() as ResultList
+            Collections.reverse(copy)
+            return copy
+        }
 }
