@@ -76,7 +76,7 @@ public class Statistics {
         return count;
     }
 
-    // Returns the percentage of done achievements out of all achievements.
+    // Returns the percentage of done achievements.
     public int getAchievementsProgressInPercents() {
         if (getDoneAchievementsCount() == 0 || user.getAchievements().size() == 0) return 0;
         return (getDoneAchievementsCount()*100)/user.getAchievements().size();
@@ -88,7 +88,7 @@ public class Statistics {
         int WPM = 0;
         int PICK_ENHANCEMENT = PICK_SIZE + (results.size()/5);
         for (int i = results.size()-1; i > results.size() - PICK_ENHANCEMENT; i--)
-            WPM += results.get(i).getWPM();
+            WPM += results.get(i).getWpm();
         return WPM/PICK_ENHANCEMENT;
     }
 
@@ -96,7 +96,7 @@ public class Statistics {
         if (results.size() < PICK_SIZE * 2) return 0;
         int WPM = 0;
         for (int i = 0; i < PICK_SIZE; i++)
-            WPM += results.get(i).getWPM();
+            WPM += results.get(i).getWpm();
         if (WPM == 0) return 0;
         return WPM/PICK_SIZE;
     }
@@ -118,8 +118,7 @@ public class Statistics {
 
     public int getTotalTimeSpentInMinutes() {
         int total = 0;
-        for (TypingResult result : results
-             ) {
+        for (TypingResult result : results) {
             total += result.getTimeInSeconds();
         }
         return total/60;
