@@ -18,7 +18,7 @@ class TypingResult(
     textSuggestions: Boolean,
     completionDateTime: Date
 ) {
-    val WPM: Double
+    val wpm: Double
     var dictionaryType = 0
     var screenOrientation = 0
     val language: Language
@@ -33,7 +33,7 @@ class TypingResult(
         const val DIVISION_POWER = 4.0
     }
 
-    private fun calculateWPM(): Double {
+    private fun calculateWpm(): Double {
 
         val wpm: Double = try {
             60.0 / timeInSeconds * (correctWordsWeight / DIVISION_POWER)
@@ -52,6 +52,6 @@ class TypingResult(
         timeInSeconds = timeMode.timeInSeconds
         isTextSuggestions = textSuggestions
         this.completionDateTime = completionDateTime
-        WPM = calculateWPM()
+        wpm = calculateWpm()
     }
 }
