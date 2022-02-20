@@ -141,7 +141,7 @@ class StatisticsFragment : Fragment() {
             return
         }
         binding.tvStatsBestResult.text = getString(R.string.stats_best_result,
-            stats.bestResult.WPM.toInt()
+            stats.bestResult.wpm.toInt()
         )
         binding.tvStatsRecordSetTime.text = getString(R.string.stats_best_result_set_time, stats.daysSinceRecordHasBeenSet)
     }
