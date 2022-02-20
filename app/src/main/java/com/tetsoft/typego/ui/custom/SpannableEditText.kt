@@ -27,7 +27,7 @@ class SpannableEditText : AppCompatEditText {
 
     fun paintForeground(charIndex: Int, endIndex: Int, foregroundColor: ForegroundColorSpan?) {
         if (this.text == null) return
-        if (charIndex + 1 > this.text!!.length) return
+        if (charIndex + 1 > this.text!!.length || endIndex + 1 > this.text!!.length) return
         this.text!!.setSpan(foregroundColor, charIndex, endIndex, EXCLUSIVE)
     }
 
