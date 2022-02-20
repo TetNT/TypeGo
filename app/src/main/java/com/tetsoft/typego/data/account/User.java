@@ -95,13 +95,13 @@ public class User implements Serializable {
     public int getLastResultByLanguage(Language language) {
         TypingResult lastResult = ResultListUtils.getLastResultByLanguage(resultList, language);
         if (lastResult == null) return 0;
-        return (int)lastResult.getWPM();
+        return (int)lastResult.getWpm();
     }
 
     public int getBestResultByLanguage(Language language) {
         TypingResult bestResult = ResultListUtils.getBestResultByLanguage(resultList, language);
         if (bestResult == null) return 0;
-        return (int)bestResult.getWPM();
+        return (int)bestResult.getWpm();
     }
 
 }
