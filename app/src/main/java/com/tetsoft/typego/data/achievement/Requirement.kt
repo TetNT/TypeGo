@@ -22,7 +22,7 @@ class Requirement(
 
     private fun getComparingResultBySection(user: User, result: TypingResult): Int {
         return when (achievementSection) {
-            AchievementSection.WPM -> result.WPM.toInt()
+            AchievementSection.WPM -> result.wpm.toInt()
             AchievementSection.MISTAKES -> result.totalWords - result.correctWords
             AchievementSection.MISTAKES_IN_A_ROW -> getMistakesAmountInARow(user)
             AchievementSection.TIME_MODE -> result.timeInSeconds

@@ -120,13 +120,13 @@ public class AccountFragment extends Fragment {
         }
         getBinding().tvPassedTestsInfo.setText(getString(R.string.msg_passed_tests_information));
         getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, selectedResults.size()));
-        int bestResult = (int)ResultListUtils.getBestResult(selectedResults).getWPM();
+        int bestResult = (int)ResultListUtils.getBestResult(selectedResults).getWpm();
         getBinding().tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
-        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWPM()));
+        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, (int)selectedResults.get(0).getWpm()));
         String wpmStr;
         if (selectedResults.size()>=5) {
             double wpmSum = 0;
-            for (TypingResult res: selectedResults) wpmSum += res.getWPM();
+            for (TypingResult res: selectedResults) wpmSum += res.getWpm();
             wpmStr = getString(R.string.average_wpm) + ": " + (int)(wpmSum/selectedResults.size());
             getBinding().tvAverageWPM.setText(wpmStr);
         } else

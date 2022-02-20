@@ -71,7 +71,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setupWPM() {
-        wpm = currentResult.WPM.toInt()
+        wpm = currentResult.wpm.toInt()
         val animationManager = AnimationManager()
         val countAnimation = animationManager.getCountAnimation(0, wpm, 1000)
         animationManager.applyCountAnimation(countAnimation, binding.tvWPM)

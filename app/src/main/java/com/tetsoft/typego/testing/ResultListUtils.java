@@ -12,7 +12,7 @@ public final class ResultListUtils {
         if (resultList.isEmpty()) return null;
         TypingResult currentBest = resultList.get(0);
         for (TypingResult result: resultList) {
-            if (result.getWPM()>currentBest.getWPM()) currentBest = result;
+            if (result.getWpm()>currentBest.getWpm()) currentBest = result;
         }
         return currentBest;
     }

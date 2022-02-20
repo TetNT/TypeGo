@@ -40,7 +40,7 @@ public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.
         Date completionTime = results.get(position).getCompletionDateTime();
         DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.DEFAULT, SimpleDateFormat.SHORT);
         holder.itemDateTime.setText(dateFormat.format(completionTime));
-        holder.itemWPM.setText(context.getString(R.string.wpm_pl, (int)results.get(position).getWPM()));
+        holder.itemWPM.setText(context.getString(R.string.wpm_pl, (int)results.get(position).getWpm()));
         holder.itemTimeInSeconds.setText(TimeConvert.convertSecondsToStamp(results.get(position).getTimeInSeconds()));
         holder.itemLanguage.setText(results.get(position).getLanguage().getIdentifier());
     }
