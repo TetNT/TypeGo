@@ -8,7 +8,7 @@ import com.tetsoft.typego.utils.StringKeys
 class AdsCounter(private val adsCounterStorage: AdsCounterStorage) {
 
     companion object {
-        const val MINIMUM_TO_SHOW_AD : Float = 1f
+        const val MINIMUM_TO_SHOW_AD : Float = 1.1f
     }
 
     fun addValue(float: Float) {
