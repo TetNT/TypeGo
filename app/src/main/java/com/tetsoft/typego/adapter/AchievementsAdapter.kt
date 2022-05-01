@@ -8,20 +8,22 @@ import com.tetsoft.typego.adapter.AchievementsAdapter.AchievementViewHolder
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.AchievementRequirement
 import android.graphics.PorterDuff
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.tetsoft.typego.data.account.User
+import com.tetsoft.typego.game.result.GameResultList
+import com.tetsoft.typego.storage.AchievementsProgressStorage
 import java.text.SimpleDateFormat
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AchievementsAdapter(
     private val context: Context,
     private val achievements: ArrayList<Achievement>,
-    private val user: User
+    private val resultList: GameResultList?,
+    private val achievementsProgressStorage: AchievementsProgressStorage
 ) : RecyclerView.Adapter<AchievementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementViewHolder {
@@ -31,7 +33,6 @@ class AchievementsAdapter(
     }
 
     override fun onBindViewHolder(holder: AchievementViewHolder, position: Int) {
-        val userAchievement = user.achievements[position]
         val currAchievement = achievements[position]
         holder.tvAchievementName.text = currAchievement.name
         holder.tvAchievementDescription.text = currAchievement.description
@@ -42,14 +43,15 @@ class AchievementsAdapter(
         } else {
             val currRequirement = currAchievement.requirements[0]
             holder.progressBarAchievement.max = currRequirement.requiredAmount
-            holder.progressBarAchievement.progress = currRequirement.getCurrentProgress(user)
+            holder.progressBarAchievement.progress = currRequirement.getCurrentProgress(resultList)
             holder.tvProgressDescription.text = context.getString(
                 R.string.achievement_progress,
-                currRequirement.getCurrentProgress(user),
+                currRequirement.getCurrentProgress(resultList),
                 currRequirement.requiredAmount
             )
         }
-        if (!userAchievement.isCompleted) {
+        val completionDateTime = achievementsProgressStorage.getCompletionDateTimeLong(currAchievement.id.toString())
+        if (completionDateTime == 0L) {
             holder.tvCompletionDate.visibility = View.INVISIBLE
             holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
         } else {
@@ -57,7 +59,8 @@ class AchievementsAdapter(
                 SimpleDateFormat.DEFAULT,
                 SimpleDateFormat.SHORT
             )
-            holder.tvCompletionDate.text = dateFormat.format(userAchievement.completionDate)
+            holder.tvCompletionDate.text =
+                dateFormat.format(Date(completionDateTime))
         }
     }
 
