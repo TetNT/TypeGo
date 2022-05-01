@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
 import com.tetsoft.typego.data.LanguageList;
@@ -143,7 +142,7 @@ public class TestSetupActivity extends AppCompatActivity {
     public void selectCurrentLanguageOption() {
         LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(
                 this,
-                new LanguageList().getTranslatableList(this));
+                new LanguageList().getTranslatableListInAlphabeticalOrder(this));
         binding.spinLanguageSelection.setAdapter(spinnerAdapter);
         if (userPreferences.getLanguage() != null) {
             binding.spinLanguageSelection.setSelection(

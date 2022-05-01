@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.tetsoft.typego.data.AdsCounter;
 import com.tetsoft.typego.Config;
+import com.tetsoft.typego.game.mode.GameMode;
+import com.tetsoft.typego.game.mode.GameOnTime;
+import com.tetsoft.typego.game.result.GameResultList;
 import com.tetsoft.typego.ui.custom.SpannableEditText;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.testing.TestSettings;
@@ -67,7 +70,7 @@ public class TypingTestActivity extends AppCompatActivity {
     boolean adShown;
     boolean ignoreCase = true;
     ArrayList<Word> typedWordsList;
-    TestSettings testSettings;
+    GameOnTime gameMode;
     AdsCounter adsCounter;
 
 
@@ -146,14 +149,14 @@ public class TypingTestActivity extends AppCompatActivity {
 
     private void initialize() {
         Bundle bundle = getIntent().getExtras();
-        testSettings = (TestSettings)bundle.getSerializable(StringKeys.TEST_SETTINGS);
-        timeTotalAmount = testSettings.getTimeMode().getTimeInSeconds();
+        gameMode = (GameOnTime)bundle.getSerializable(StringKeys.TEST_SETTINGS);
+        timeTotalAmount = gameMode.getTimeMode().getTimeInSeconds();
         secondsRemaining = timeTotalAmount;
         etWords = findViewById(R.id.words);
         inpWord = findViewById(R.id.inpWord);
         tvTimeLeft = findViewById(R.id.tvTimeLeft);
         typedWordsList = new ArrayList<>();
-        if (testSettings.isSuggestionsActivated())
+        if (gameMode.getSuggestionsActivated())
             inpWord.setInputType(InputType.TYPE_CLASS_TEXT);
         else inpWord.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
     }
@@ -385,9 +388,9 @@ public class TypingTestActivity extends AppCompatActivity {
         AssetManager assets = getAssets();
         InputStream inputStream;
         try {
-            String languageIdentifier = testSettings.getLanguage().getIdentifier();
+            String languageIdentifier = gameMode.getLanguage().getIdentifier();
             inputStream = assets.open(
-                    getDictionaryFolderPath(testSettings.getDictionaryType())
+                    getDictionaryFolderPath(gameMode.getDictionaryType())
                             + languageIdentifier +".txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             String currLine;
@@ -411,7 +414,7 @@ public class TypingTestActivity extends AppCompatActivity {
     @SuppressLint("SourceLockedOrientationActivity")
     private void setScreenOrientation() {
         // TODO: Measure what exact SCROLL_POWER should be
-        if (testSettings.getScreenOrientation() == ScreenOrientation.PORTRAIT) {
+        if (gameMode.getScreenOrientation() == ScreenOrientation.PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             SCROLL_POWER = 25;
         }
@@ -474,7 +477,7 @@ public class TypingTestActivity extends AppCompatActivity {
         intent.putExtra(StringKeys.TEST_CORRECT_WORDS, correctWordsCount);
         intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, correctWordsWeight);
         intent.putExtra(StringKeys.TOTAL_WORDS, totalWordsPassed);
-        intent.putExtra(StringKeys.TEST_SETTINGS, testSettings);
+        intent.putExtra(StringKeys.TEST_SETTINGS, gameMode);
         intent.putExtra(StringKeys.TEST_TYPED_WORDS_LIST, typedWordsList);
         intent.putExtra(StringKeys.FROM_MAIN_MENU, getIntent().getBooleanExtra(StringKeys.FROM_MAIN_MENU, false));
         finish();

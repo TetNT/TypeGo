@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.account;
 
 import com.google.gson.Gson;
+import com.tetsoft.typego.game.mode.GameOnTime;
 import com.tetsoft.typego.storage.UserPreferencesStorage;
 import com.tetsoft.typego.testing.TestMetadata;
 import com.tetsoft.typego.data.DictionaryType;
@@ -73,12 +74,12 @@ public class UserPreferences extends TestMetadata {
         storage.store(StringKeys.PREFERENCE_SCREEN_ORIENTATION, gson.toJson(screenOrientation));
     }
 
-    public void update(TestMetadata testMetadata) {
-        setLanguage(testMetadata.getLanguage());
-        setTimeMode(testMetadata.getTimeMode());
-        setDictionaryType(testMetadata.getDictionaryType());
-        setSuggestionsActivated(testMetadata.isSuggestionsActivated());
-        setScreenOrientation(testMetadata.getScreenOrientation());
+    public void update(GameOnTime gameOnTime) {
+        setLanguage(gameOnTime.getLanguage());
+        setTimeMode(gameOnTime.getTimeMode());
+        setDictionaryType(gameOnTime.getDictionaryType());
+        setSuggestionsActivated(gameOnTime.getSuggestionsActivated());
+        setScreenOrientation(gameOnTime.getScreenOrientation());
     }
 
 }

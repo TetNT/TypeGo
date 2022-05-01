@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public void setupLanguageSpinner() {
         LanguageSpinnerAdapter spinnerAdapter = new LanguageSpinnerAdapter(
                 this,
-                new LanguageList().getTranslatableList(this));
+                new LanguageList().getTranslatableListInAlphabeticalOrder(this));
         binding.spinnerBasicTestLanguageSelection.setAdapter(spinnerAdapter);
         if (userPreferences.getLanguage() != null) {
             binding.spinnerBasicTestLanguageSelection.setSelection(
