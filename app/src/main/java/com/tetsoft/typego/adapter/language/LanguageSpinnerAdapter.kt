@@ -13,7 +13,8 @@ import java.util.*
 
 
 class LanguageSpinnerAdapter(
-    context: Context, private val languageItems : ArrayList<LanguageSpinnerItem>
+    context: Context,
+    private val languageItems : List<LanguageSpinnerItem>
     ) : ArrayAdapter<LanguageSpinnerItem>(context, R.layout.spinner_item, languageItems),
     SpinnerAdapter {
 
@@ -52,7 +53,7 @@ class LanguageSpinnerAdapter(
     }
 
     fun getItemIndexBySystemLanguage() : Int {
-        val systemLanguage = Locale.getDefault().displayLanguage.toLowerCase(Locale.ROOT)
+        val systemLanguage = Locale.getDefault().displayLanguage.lowercase(Locale.ROOT)
         var i = 0
         for (spinnerLanguage in languageItems) {
             if (spinnerLanguage.languageTranslation.equals(systemLanguage, ignoreCase = true))
