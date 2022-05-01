@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  * Base class that describes all test data available.
  */
+@Deprecated
 public abstract class TestMetadata implements Serializable {
     protected Language language;
     protected TimeMode timeMode;

@@ -6,6 +6,7 @@ import com.tetsoft.typego.data.TimeMode;
 
 import java.util.ArrayList;
 
+@Deprecated
 public final class ResultListUtils {
 
     public static TypingResult getBestResult(@NonNull ArrayList<TypingResult> resultList) {

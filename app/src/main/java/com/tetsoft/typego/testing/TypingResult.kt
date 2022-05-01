@@ -7,9 +7,10 @@ import com.tetsoft.typego.data.TimeMode
 import java.lang.ArithmeticException
 import java.util.*
 
+@Deprecated("Deprecated in favor of GameResult")
 class TypingResult(
     val correctWords: Int,
-    val correctWordsWeight: Int,
+    val correctChars: Int,
     val totalWords: Int,
     dictionaryType: DictionaryType,
     screenOrientation: ScreenOrientation,
@@ -36,7 +37,7 @@ class TypingResult(
     private fun calculateWPM(): Double {
 
         val wpm: Double = try {
-            60.0 / timeInSeconds * (correctWordsWeight / DIVISION_POWER)
+            60.0 / timeInSeconds * (correctChars / DIVISION_POWER)
         } catch (ae: ArithmeticException) {
             0.0
         }

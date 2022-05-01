@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+@Deprecated
 public class PassedTestsAdapter extends RecyclerView.Adapter<PassedTestsAdapter.TestViewHolder> {
     ArrayList<TypingResult> results;
     Context context;

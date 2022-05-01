@@ -6,9 +6,11 @@ import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.data.TimeMode;
 
 /**
- *  Handles all test presets and can be passed as an intent extra,
- *  because its base class implements the Serializable interface.
+ *  Handles all test presets and can be passed as an intent extra.
+ *  Deprecated due to the lack of flexibility. Use GameOnTime and GameMode instead.
+ *  @see com.tetsoft.typego.game.mode.GameOnTime
  */
+@Deprecated
 public class TestSettings extends TestMetadata {
      public TestSettings(Language language,
                          TimeMode timeMode,

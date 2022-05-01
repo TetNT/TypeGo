@@ -5,21 +5,18 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.tetsoft.typego.data.achievement.Achievement;
-import com.tetsoft.typego.data.achievement.AchievementList;
-import com.tetsoft.typego.data.achievement.AchievementMigration;
-import com.tetsoft.typego.testing.ResultListUtils;
 import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.data.Language;
 import com.tetsoft.typego.utils.StringKeys;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-
+@Deprecated
 public class User implements Serializable {
     private int bestResult;
     private final ArrayList<TypingResult> resultList;
+    @Deprecated
     private ArrayList<Achievement> achievements;
 
     /**
@@ -34,33 +31,12 @@ public class User implements Serializable {
         achievements = new ArrayList<>();
     }
 
-    public void initAchievements(Context context) {
-        ArrayList<Achievement> actualAchievementList = new AchievementList(context).get();
-        if (achievements.isEmpty()) {
-            achievements = actualAchievementList;
-            return;
-        }
-        AchievementMigration migration = new AchievementMigration(achievements, actualAchievementList);
-        achievements = migration.getMergedAchievementList();
-    }
-
-    public void addResult(@NonNull TypingResult result) {
-        resultList.add(0,result);
-    }
-
     @NonNull
     public ArrayList<TypingResult> getResultList() {
         return resultList;
     }
 
-    public int getBestResult() {
-        return bestResult;
-    }
-
-    public void setBestResult(int bestResult) {
-        this.bestResult = bestResult;
-    }
-
+    @Deprecated
     public ArrayList<Achievement> getAchievements() {
         return achievements;
     }
@@ -90,18 +66,6 @@ public class User implements Serializable {
 
     private static SharedPreferences getUserSharedPreferences(Context context) {
         return context.getSharedPreferences(StringKeys.USER_STORAGE, Context.MODE_PRIVATE);
-    }
-
-    public int getLastResultByLanguage(Language language) {
-        TypingResult lastResult = ResultListUtils.getLastResultByLanguage(resultList, language);
-        if (lastResult == null) return 0;
-        return (int)lastResult.getWPM();
-    }
-
-    public int getBestResultByLanguage(Language language) {
-        TypingResult bestResult = ResultListUtils.getBestResultByLanguage(resultList, language);
-        if (bestResult == null) return 0;
-        return (int)bestResult.getWPM();
     }
 
 }
