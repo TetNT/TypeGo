@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import com.tetsoft.typego.data.achievement.AchievementList
 import com.tetsoft.typego.adapter.AchievementsAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.FragmentAchievementsBinding
+import com.tetsoft.typego.storage.AchievementsProgressStorage
+import com.tetsoft.typego.storage.GameResultListStorage
 
 class AchievementsFragment : Fragment() {
     private var _binding: FragmentAchievementsBinding? = null
@@ -32,12 +33,14 @@ class AchievementsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (context == null) return
-        val currentUser = User.getFromStoredData(context)
-        val staticAchievements = AchievementList(requireContext()).get()
+        val gameResultListStorage = GameResultListStorage(requireContext())
+        val achievementsProgressStorage = AchievementsProgressStorage(requireContext())
+        val staticAchievements = AchievementList(requireContext())
         binding.rvAchievements.adapter = AchievementsAdapter(
             requireContext(),
-            staticAchievements,
-            currentUser
+            staticAchievements.get(),
+            gameResultListStorage.get(),
+            achievementsProgressStorage
         )
         val linearLayoutManager = LinearLayoutManager(context)
         binding.rvAchievements.layoutManager = linearLayoutManager
