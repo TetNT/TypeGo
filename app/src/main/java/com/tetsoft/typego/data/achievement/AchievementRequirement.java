@@ -3,11 +3,9 @@ package com.tetsoft.typego.data.achievement;
 
 import com.tetsoft.typego.data.Language;
 import com.tetsoft.typego.data.LanguageList;
-import com.tetsoft.typego.testing.ResultListUtils;
-import com.tetsoft.typego.testing.TypingResult;
-import com.tetsoft.typego.data.account.User;
-
-import java.util.ArrayList;
+import com.tetsoft.typego.game.mode.GameOnTime;
+import com.tetsoft.typego.game.result.GameResult;
+import com.tetsoft.typego.game.result.GameResultList;
 
 public class AchievementRequirement {
 
@@ -25,7 +23,6 @@ public class AchievementRequirement {
         return requiredAmount;
     }
 
-
     public enum CompareType {
         MORE_OR_EQUALS,
         LESS_OR_EQUALS,
@@ -41,61 +38,65 @@ public class AchievementRequirement {
         DIFFERENT_LANGUAGES_COUNT,
     }
 
-    private int getComparingResultBySection(User user, TypingResult result) {
+    private int getComparingResultBySection(GameResultList resultList) {
+        if (resultList.isEmpty()) throw new IllegalArgumentException("The result list should not be empty!");
+        GameResult result = resultList.get(resultList.size()-1);
         switch (achievementSection){
             case WPM:
-                return (int)result.getWPM();
+                return (int)resultList.getLastWpm();
             case MISTAKES:
-                return result.getTotalWords()-result.getCorrectWords();
+                return result.getWordsWritten() - result.getCorrectWords();
             case MISTAKES_IN_A_ROW:
-                return getMistakesAmountInARow(user);
+                return getMistakesAmountInARow(resultList);
             case TIME_MODE:
-                return result.getTimeInSeconds();
+                if (result.getGameMode() instanceof GameOnTime)
+                return ((GameOnTime)result.getGameMode()).getTimeMode().getTimeInSeconds();
+                return 0;
             case PASSED_TESTS_AMOUNT:
-                return user.getResultList().size();
+                return resultList.size();
             case DIFFERENT_LANGUAGES_COUNT:
-                return countUniqueLanguageEntries(user.getResultList());
+                return countUniqueLanguageEntries(resultList);
             default:
                 throw new IllegalArgumentException("Wrong achievement section type: "+ achievementSection);
         }
     }
 
-    private int getMistakesAmountInARow(User user) {
+    private int getMistakesAmountInARow(GameResultList resultList) {
         final int IN_A_ROW = 5;
-        if (user == null) return -1;
-        ArrayList<TypingResult> results = user.getResultList();
+
         int mistakesAmount = 0;
-        if (results.size() < IN_A_ROW) return -1;
+        if (resultList.size() < IN_A_ROW) return -1;
         for (int i = 0; i < IN_A_ROW; i++) {
-            mistakesAmount += results.get(i).getIncorrectWords();
+            GameResult result = resultList.get(i);
+            mistakesAmount += result.getWordsWritten() - result.getCorrectWords();
         }
         return mistakesAmount;
     }
 
-    public int getCurrentProgress(User user) {
+    public int getCurrentProgress(GameResultList resultList) {
         switch (achievementSection) {
             case WPM:
-                return user.getBestResult();
+                return resultList.getBestResultWpm();
             case PASSED_TESTS_AMOUNT:
-                return user.getResultList().size();
+                return resultList.size();
             default:
                 return 0;
         }
     }
 
     // returns the amount of different languages in a results list
-    public int countUniqueLanguageEntries(ArrayList<TypingResult> results) {
+    public int countUniqueLanguageEntries(GameResultList resultList) {
         int entries = 0;
         for (Language language : new LanguageList().getList()) {
-            if (!ResultListUtils.getResultsByLanguage(results, language).isEmpty())
+            if (!resultList.getResultsByLanguage(language).isEmpty())
                 entries++;
         }
         return entries;
     }
 
-    public boolean isMatching(User user, TypingResult result) {
+    public boolean isMatching(GameResultList resultList) {
         boolean matching = false;
-        int comparingResult = getComparingResultBySection(user, result);
+        int comparingResult = getComparingResultBySection(resultList);
         switch (compareType) {
             case EQUALS:
                 matching = (comparingResult == requiredAmount);
