@@ -30,7 +30,7 @@
             android:fontFamily="@font/redring_regular"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:text="@string/release_notes_description_143"/>
+            android:text="@string/release_notes_description_current_version"/>
 
 
     </LinearLayout>
