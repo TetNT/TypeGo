@@ -1,4 +1,4 @@
-package com.tetsoft.typego.data.achievement
+package com.tetsoft.typego.data.achievement.requirement
 
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.game.mode.GameOnTime
