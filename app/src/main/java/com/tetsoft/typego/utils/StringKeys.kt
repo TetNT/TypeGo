@@ -24,15 +24,5 @@ object StringKeys {
     const val TEST_TYPED_WORDS_LIST = "typedWordsList"
     const val TEST_SETTINGS = "testSettings"
 
-    // language identifiers
     const val LANGUAGE_ALL = "ALL"
-    const val LANGUAGE_RU = "RU"
-    const val LANGUAGE_EN = "EN"
-    const val LANGUAGE_FR = "FR"
-    const val LANGUAGE_DE = "DE"
-    const val LANGUAGE_ES = "ES"
-    const val LANGUAGE_IT = "IT"
-    const val LANGUAGE_KR = "KR"
-    const val LANGUAGE_UA = "UA"
-    const val LANGUAGE_BG = "BG"
 }
