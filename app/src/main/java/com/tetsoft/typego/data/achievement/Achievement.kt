@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.achievement
 
+import com.tetsoft.typego.data.achievement.requirement.Requirement
 import com.tetsoft.typego.game.result.GameResultList
 import java.util.*
 
