@@ -1,4 +1,4 @@
-package com.tetsoft.typego.data
+package com.tetsoft.typego.data.language
 
 import android.content.Context
 import android.content.res.Resources
