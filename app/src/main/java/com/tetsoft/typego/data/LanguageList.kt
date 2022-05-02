@@ -8,10 +8,10 @@ import kotlin.collections.ArrayList
 
 class LanguageList : ArrayList<LanguageSpinnerItem>() {
 
-    /*
-    Returns a list of languages that holds translations to represent in a different locales.
+    /**
+     * Returns a list of languages that holds translations to represent in a different locales.
      */
-    fun getTranslatableList(context: Context): ArrayList<LanguageSpinnerItem> {
+    fun getTranslatableListInAlphabeticalOrder(context: Context): ArrayList<LanguageSpinnerItem> {
         val languageItems = ArrayList<LanguageSpinnerItem>()
         for(language in getList()) {
             languageItems.add(LanguageSpinnerItem(
@@ -19,12 +19,13 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
                 getLanguageNameOrId(language, context),
                 R.drawable.ic_language))
         }
-        return languageItems
+        val sorted : List<LanguageSpinnerItem> = languageItems.sortedBy { it.languageTranslation }
+        return ArrayList(sorted)
     }
 
-    /*
-    Returns a list of languages available for testing.
-    New languages are adding here.
+    /**
+     * Returns a list of languages available for testing.
+     * New languages are adding here.
      */
     fun getList() : ArrayList<Language> {
         return arrayListOf(
