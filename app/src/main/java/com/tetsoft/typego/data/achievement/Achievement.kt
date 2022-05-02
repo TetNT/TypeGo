@@ -10,7 +10,7 @@ class Achievement(
     val assignedImageId: Int,
     val isProgressAttached: Boolean,
     // Progress will be shown based on it's very first value.
-    val requirements: ArrayList<AchievementRequirement>
+    val requirements: ArrayList<Requirement>
 ) {
     @Deprecated("Achievement completion is no longer a part of the Achievement class.")
     var completionDate: Date? = null
