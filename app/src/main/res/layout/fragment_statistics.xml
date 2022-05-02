@@ -50,7 +50,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/msg_stats_not_enough_information"
-                        android:fontFamily="@font/redring_regular"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textAlignment="center"
@@ -214,10 +213,9 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_stats_words_description"
                         app:layout_constraintStart_toStartOf="@id/tv_stats_words_description"
                         android:text="@string/stats_accuracy_pl"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textColor="@color/correct_green"
                         android:textAlignment="viewEnd"
-                        android:fontFamily="@font/redring_regular"
                         android:layout_marginStart="12dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -362,8 +360,9 @@
                         android:padding="4dp"
                         android:text="@string/stats_language_pl"
                         android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:drawablePadding="4dp"
+                        android:gravity="center_vertical"
                         app:drawableStartCompat="@drawable/ic_language"
                         app:drawableTint="@color/white" />
 
@@ -383,7 +382,7 @@
                         android:padding="4dp"
                         android:text="@string/stats_time_mode_pl"
                         android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:visibility="gone"
                         app:drawableStartCompat="@drawable/ic_timer"
                         app:drawableTint="@color/white" />
@@ -434,7 +433,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/stats_achievements_done_pl"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:layout_marginVertical="4dp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/redring_regular"/>
@@ -444,7 +443,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/stats_last_earned_achievement_pl"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:textColor="@color/white"
                         android:fontFamily="@font/redring_regular"/>
                 </LinearLayout>
