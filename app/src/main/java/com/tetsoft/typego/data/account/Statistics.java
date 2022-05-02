@@ -2,31 +2,28 @@ package com.tetsoft.typego.data.account;
 
 import com.tetsoft.typego.data.LanguageList;
 import com.tetsoft.typego.data.achievement.Achievement;
-import com.tetsoft.typego.testing.ResultListUtils;
-import com.tetsoft.typego.testing.TypingResult;
+import com.tetsoft.typego.data.achievement.AchievementList;
+import com.tetsoft.typego.game.result.GameResult;
+import com.tetsoft.typego.game.result.GameResultList;
+import com.tetsoft.typego.storage.AchievementsProgressStorage;
+import com.tetsoft.typego.storage.GameResultListStorage;
 import com.tetsoft.typego.data.Language;
-import com.tetsoft.typego.data.TimeMode;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class Statistics {
-    private final User user;
-    private final ArrayList<TypingResult> results;
+    private final GameResultList results;
 
-    public Statistics(User user) {
-        this.user = user;
-        results = user.getResultList();
+    public Statistics(GameResultListStorage resultListStorage) {
+        results = resultListStorage.get();
     }
 
     public int getResultsCount() {
         return results.size();
     }
 
-    public ArrayList<TypingResult> getResults() {
+    public GameResultList getResults() {
         return results;
     }
 
@@ -35,7 +32,7 @@ public class Statistics {
         Language mostFrequentLanguage = null;
         int mostFrequency = 0;
         for (Language language : new LanguageList().getList()) {
-            int langFrequency = ResultListUtils.getResultsByLanguage(results, language).size();
+            int langFrequency = results.getResultsByLanguage(language).size();
             if (langFrequency > mostFrequency) {
                 mostFrequency = langFrequency;
                 mostFrequentLanguage = language;
@@ -44,92 +41,68 @@ public class Statistics {
         return mostFrequentLanguage;
     }
 
-    public TimeMode getFavoriteTimeMode() {
-        if (results.isEmpty()) return null;
-        Hashtable<Integer, Integer> usedTimeModes = new Hashtable<>();
-        for (TypingResult result : results) {
-            Integer pickedTimeMode = result.getTimeInSeconds();
-            Integer timeModeFrequency = 0;
-            if (usedTimeModes.containsKey(pickedTimeMode)) {
-                timeModeFrequency = usedTimeModes.get(pickedTimeMode);
-            }
-            usedTimeModes.put(pickedTimeMode, timeModeFrequency + 1);
-        }
-        Iterator<Integer> iterator = usedTimeModes.keySet().iterator();
-        int biggestAmount = 0;
-        Integer mostFrequentTimeMode = 0;
-        while (iterator.hasNext()){
-            Integer currentTimeMode = iterator.next();
-            int currentAmount = usedTimeModes.get(currentTimeMode);
-            if (currentAmount > biggestAmount) {
-                biggestAmount = currentAmount;
-                mostFrequentTimeMode = currentTimeMode;
-            }
-        }
-        return new TimeMode(mostFrequentTimeMode);
-    }
-
-    public int getDoneAchievementsCount() {
+    public int getDoneAchievementsCount(AchievementsProgressStorage progressStorage, AchievementList achievementList) {
         int count = 0;
-        for (Achievement achievement: user.getAchievements())
-            if (achievement.isCompleted()) count++;
+        for (Achievement achievement : achievementList.get())
+            if (progressStorage.achievementCompleted(String.valueOf(achievement.getId()))) count++;
         return count;
     }
 
     // Returns the percentage of done achievements out of all achievements.
-    public int getAchievementsProgressInPercents() {
-        if (getDoneAchievementsCount() == 0 || user.getAchievements().size() == 0) return 0;
-        return (getDoneAchievementsCount()*100)/user.getAchievements().size();
+    public int getAchievementsProgressInPercents(AchievementsProgressStorage progressStorage, AchievementList achievementList) {
+        int achievementsSize = achievementList.get().size();
+        int doneAchievements = getDoneAchievementsCount(progressStorage, achievementList);
+        if (doneAchievements == 0 || achievementsSize == 0) return 0;
+        return (doneAchievements * 100) / achievementsSize;
     }
 
     final int PICK_SIZE = 10;
     public int getAveragePastWPM() {
         if (results.size() < PICK_SIZE * 2) return 0;
         int WPM = 0;
-        int PICK_ENHANCEMENT = PICK_SIZE + (results.size()/5);
-        for (int i = results.size()-1; i > results.size() - PICK_ENHANCEMENT; i--)
-            WPM += results.get(i).getWPM();
-        return WPM/PICK_ENHANCEMENT;
+        int PICK_ENHANCEMENT = PICK_SIZE + (results.size() / 5);
+        for (int i = results.size() - 1; i > results.size() - PICK_ENHANCEMENT; i--)
+            WPM += results.get(i).getWpm();
+        return WPM / PICK_ENHANCEMENT;
     }
 
     public int getAverageCurrentWPM() {
         if (results.size() < PICK_SIZE * 2) return 0;
         int WPM = 0;
         for (int i = 0; i < PICK_SIZE; i++)
-            WPM += results.get(i).getWPM();
+            WPM += results.get(i).getWpm();
         if (WPM == 0) return 0;
-        return WPM/PICK_SIZE;
+        return WPM / PICK_SIZE;
     }
 
     public int getProgression() {
         int pastWPM = getAveragePastWPM();
         int currWPM = getAverageCurrentWPM();
         if (pastWPM == 0 || currWPM == 0) return 0;
-        return 100 - (100*pastWPM) / currWPM;
+        return 100 - (100 * pastWPM) / currWPM;
     }
 
     public int getDaysSinceFirstTest() {
         if (results.size() == 0) return 0;
-        Date firstResultCompletionDate = results.get(results.size()-1).getCompletionDateTime();
-        Date lastResultCompletionDate = results.get(0).getCompletionDateTime();
+        Date firstResultCompletionDate = new Date(results.get(results.size() - 1).getCompletionDateTime());
+        Date lastResultCompletionDate = new Date(results.get(0).getCompletionDateTime());
         long dateDiff = lastResultCompletionDate.getTime() - firstResultCompletionDate.getTime();
-        return (int)TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
+        return (int) TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
     }
 
     public int getTotalTimeSpentInMinutes() {
         int total = 0;
-        for (TypingResult result : results
-             ) {
-            total += result.getTimeInSeconds();
+        for (GameResult result : results
+        ) {
+            total += result.getTimeSpentInSeconds();
         }
-        return total/60;
+        return total / 60;
     }
 
     public int getTotalWordsWritten() {
         int total = 0;
-        for (TypingResult result: results) {
-            total += result.getCorrectWords();
-            total += result.getIncorrectWords();
+        for (GameResult result : results) {
+            total += result.getWordsWritten();
         }
         return total;
     }
@@ -137,23 +110,24 @@ public class Statistics {
     public int getAccuracy() {
         int correctWordsCount = 0;
         int incorrectWordsCount = 0;
-        for (TypingResult result: results) {
+        for (GameResult result : results) {
             correctWordsCount += result.getCorrectWords();
-            incorrectWordsCount += result.getIncorrectWords();
+            incorrectWordsCount += result.getWordsWritten() - result.getCorrectWords();
         }
         if (correctWordsCount == 0 & incorrectWordsCount > 0) return 0;
         if (incorrectWordsCount == 0 & correctWordsCount > 0) return 100;
         return 100 - ((100 * incorrectWordsCount) / correctWordsCount);
     }
 
-    public String getLastCompletedAchievementName() {
-        Date lastCompletionDate = new Date(0);
+    public String getLastCompletedAchievementName(AchievementsProgressStorage progressStorage, AchievementList achievementList) {
+        long lastCompletionDate = 0L;
         Achievement lastCompletedAchievement = null;
-        for (Achievement achievement: user.getAchievements()) {
-            if (achievement.isCompleted()) {
-                if (achievement.getCompletionDate().getTime() > lastCompletionDate.getTime()) {
+        for (Achievement achievement : achievementList.get()) {
+            long completionTimeMillis = progressStorage.getCompletionDateTimeLong(String.valueOf(achievement.getId()));
+            if (completionTimeMillis != 0L) {
+                if (completionTimeMillis > lastCompletionDate) {
                     lastCompletedAchievement = achievement;
-                    lastCompletionDate = achievement.getCompletionDate();
+                    lastCompletionDate = completionTimeMillis;
                 }
             }
         }
@@ -161,24 +135,14 @@ public class Statistics {
         return lastCompletedAchievement.getName();
     }
 
-    public int getCorrectCharactersTotal() {
-        int total = 0;
-        for (TypingResult result: results) {
-            total += result.getCorrectWordsWeight();
-        }
-        return total;
-    }
-
-
-
     private Date getBestResultCompletionDate() {
-        TypingResult best = ResultListUtils.getBestResult(results);
+        GameResult best = results.getBestResult();
         if (best == null) return null;
-        return best.getCompletionDateTime();
+        return new Date(best.getCompletionDateTime());
     }
 
-    public TypingResult getBestResult() {
-        return ResultListUtils.getBestResult(results);
+    public GameResult getBestResult() {
+        return results.getBestResult();
     }
 
 
@@ -187,7 +151,7 @@ public class Statistics {
         if (firstResultCompletionDate == null) return 0;
         Date lastResultCompletionDate = Calendar.getInstance().getTime();
         long dateDiff = lastResultCompletionDate.getTime() - firstResultCompletionDate.getTime();
-        return (int)TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
+        return (int) TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
     }
 
 
