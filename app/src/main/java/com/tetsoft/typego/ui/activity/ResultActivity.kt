@@ -121,7 +121,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun initPreviousResult() {
         val resultsList = resultsStorage.get()
-        val previousResult = resultsList?.getPreviousResultByLanguage(gameMode.getLanguage())
+        val previousResult = resultsList.getPreviousResultByLanguage(gameMode.getLanguage())
         binding.tvPreviousResult.text = (getString(R.string.previous_result_pl, previousResult))
         if (previousResult == 0)
             binding.tvPreviousResult.visibility = View.GONE
@@ -130,7 +130,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun initBestResult() {
         val resultList = resultsStorage.get()
-        bestResultByLanguage = resultList!!.getBestResultByLanguage(gameMode.getLanguage())
+        bestResultByLanguage = resultList.getBestResultByLanguage(gameMode.getLanguage())
         binding.tvBestResult.text = (getString(R.string.best_result_pl, bestResultByLanguage))
         if (bestResultByLanguage == 0) binding.tvBestResult.visibility = View.GONE
         else binding.tvBestResult.visibility = View.VISIBLE
@@ -167,7 +167,7 @@ class ResultActivity : AppCompatActivity() {
         var notificationAchievement: Achievement? = null
         for (achievement in AchievementList(this).get()) {
             val completionTime = achievementsStorage.getCompletionDateTimeLong(achievement.id.toString())
-            if (completionTime == 0L && achievement.requirementsAreComplete(resultsStorage.get()!!)) {
+            if (completionTime == 0L && achievement.requirementsAreComplete(resultsStorage.get())) {
                 achievementsStorage.store(achievement.id.toString(), Calendar.getInstance().time.time)
                 newAchievements++
                 notificationAchievement = achievement

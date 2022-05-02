@@ -38,18 +38,16 @@ class GameResultListStorage(context: Context) {
 
     }
 
-    fun get(): GameResultList? {
+    fun get(): GameResultList {
         val json = sharedPreferences.getString(KEY_RESULTS, "")!!
-        if (json.isEmpty()) return null
-        return jsonAdapter.fromJson(json)
+        if (json.isEmpty()) return GameResultList()
+        return jsonAdapter.fromJson(json) ?: return GameResultList()
     }
 
     fun addResult(gameResult : GameResult) {
         val resultList = get()
-        if (resultList != null) {
-            resultList.add(gameResult)
-            store(resultList)
-        }
+        resultList.add(gameResult)
+        store(resultList)
     }
 
     private fun getVersion(): Int {

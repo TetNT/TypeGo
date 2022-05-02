@@ -22,7 +22,7 @@ import kotlin.collections.ArrayList
 class AchievementsAdapter(
     private val context: Context,
     private val achievements: ArrayList<Achievement>,
-    private val resultList: GameResultList?,
+    private val resultList: GameResultList,
     private val achievementsProgressStorage: AchievementsProgressStorage
 ) : RecyclerView.Adapter<AchievementViewHolder>() {
 
