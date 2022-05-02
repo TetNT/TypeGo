@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardUsualTest"
+            android:id="@+id/cardBasicTest"
             style="@style/basic_cardview"
             android:layout_width="match_parent"
             android:layout_height="220dp"
@@ -45,7 +45,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/cardUsualTestHeader"
+                    android:id="@+id/cardBasicTestHeader"
                     style="@style/submenu_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/cardUsualTestDescription"
+                    android:id="@+id/cardBasicTestDescription"
                     android:layout_width="200dp"
                     android:layout_height="0dp"
                     android:layout_margin="16dp"
@@ -66,7 +66,7 @@
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@id/languageSelection"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardUsualTestHeader" />
+                    app:layout_constraintTop_toBottomOf="@id/cardBasicTestHeader" />
 
                 <RelativeLayout
                     android:id="@+id/languageSelection"
