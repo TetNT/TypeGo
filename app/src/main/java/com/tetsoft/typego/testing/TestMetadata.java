@@ -1,7 +1,7 @@
 package com.tetsoft.typego.testing;
 
 import com.tetsoft.typego.data.DictionaryType;
-import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.language.Language;
 import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.data.TimeMode;
 

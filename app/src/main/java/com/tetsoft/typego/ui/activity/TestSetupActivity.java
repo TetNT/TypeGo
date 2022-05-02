@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
-import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.data.language.LanguageList;
 import com.tetsoft.typego.data.account.UserPreferences;
 import com.tetsoft.typego.databinding.ActivityTestSetupBinding;
 import com.tetsoft.typego.game.mode.GameOnTime;

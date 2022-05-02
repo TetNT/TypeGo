@@ -2,7 +2,7 @@ package com.tetsoft.typego.data.achievement
 
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.game.mode.GameOnTime
-import com.tetsoft.typego.data.LanguageList
+import com.tetsoft.typego.data.language.LanguageList
 
 class Requirement(
     private val achievementSection: AchievementSection,
