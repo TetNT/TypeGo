@@ -4,52 +4,52 @@ import java.util.ArrayList;
 
 public class RequirementFactory {
 
-    public static ArrayList<Requirement> WPMisMoreThan(int moreOrEquals) {
-        Requirement requirement = new Requirement(
-                Requirement.AchievementSection.WPM,
-                Requirement.CompareType.MORE_OR_EQUALS,
+    public static ArrayList<AchievementRequirement> WPMisMoreThan(int moreOrEquals) {
+        AchievementRequirement requirement = new AchievementRequirement(
+                AchievementRequirement.AchievementSection.WPM,
+                AchievementRequirement.CompareType.MORE_OR_EQUALS,
                 moreOrEquals);
-        ArrayList<Requirement> requirements = new ArrayList<>();
+        ArrayList<AchievementRequirement> requirements = new ArrayList<>();
         requirements.add(requirement);
         return requirements;
 
     }
 
-    public static ArrayList<Requirement> timeModeNoMistakes(int timeInSeconds) {
+    public static ArrayList<AchievementRequirement> timeModeNoMistakes(int timeInSeconds) {
         final int MINIMAL_WPM = 30;
-        ArrayList<Requirement> requirements = new ArrayList<>();
-        requirements.add(new Requirement(
-                Requirement.AchievementSection.TIME_MODE,
-                Requirement.CompareType.EQUALS,
+        ArrayList<AchievementRequirement> requirements = new ArrayList<>();
+        requirements.add(new AchievementRequirement(
+                AchievementRequirement.AchievementSection.TIME_MODE,
+                AchievementRequirement.CompareType.EQUALS,
                 timeInSeconds));
-        requirements.add(new Requirement(
-                Requirement.AchievementSection.MISTAKES,
-                Requirement.CompareType.EQUALS,
+        requirements.add(new AchievementRequirement(
+                AchievementRequirement.AchievementSection.MISTAKES,
+                AchievementRequirement.CompareType.EQUALS,
                 0));
-        requirements.add(new Requirement(
-                Requirement.AchievementSection.WPM,
-                Requirement.CompareType.MORE_OR_EQUALS,
+        requirements.add(new AchievementRequirement(
+                AchievementRequirement.AchievementSection.WPM,
+                AchievementRequirement.CompareType.MORE_OR_EQUALS,
                 MINIMAL_WPM
         ));
         return requirements;
     }
 
 
-    public static ArrayList<Requirement> passedTestsAmount(int amount) {
-        Requirement requirement = new Requirement(
-                Requirement.AchievementSection.PASSED_TESTS_AMOUNT,
-                Requirement.CompareType.MORE_OR_EQUALS,
+    public static ArrayList<AchievementRequirement> passedTestsAmount(int amount) {
+        AchievementRequirement requirement = new AchievementRequirement(
+                AchievementRequirement.AchievementSection.PASSED_TESTS_AMOUNT,
+                AchievementRequirement.CompareType.MORE_OR_EQUALS,
                 amount);
-        ArrayList<Requirement> requirements = new ArrayList<>();
+        ArrayList<AchievementRequirement> requirements = new ArrayList<>();
         requirements.add(requirement);
         return requirements;
     }
 
-    public static ArrayList<Requirement> differentLanguagesAmount(int amount) {
-        ArrayList<Requirement> requirements = new ArrayList<>();
-        requirements.add(new Requirement(
-                Requirement.AchievementSection.DIFFERENT_LANGUAGES_COUNT,
-                Requirement.CompareType.MORE_OR_EQUALS,
+    public static ArrayList<AchievementRequirement> differentLanguagesAmount(int amount) {
+        ArrayList<AchievementRequirement> requirements = new ArrayList<>();
+        requirements.add(new AchievementRequirement(
+                AchievementRequirement.AchievementSection.DIFFERENT_LANGUAGES_COUNT,
+                AchievementRequirement.CompareType.MORE_OR_EQUALS,
                 amount));
         return requirements;
     }
