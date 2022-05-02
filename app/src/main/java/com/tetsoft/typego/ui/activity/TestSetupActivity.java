@@ -17,7 +17,7 @@ import com.tetsoft.typego.data.DictionaryType;
 import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.TimeConvert;
-import com.tetsoft.typego.data.TimeMode;
+import com.tetsoft.typego.data.timemode.TimeMode;
 import java.util.HashMap;
 import java.util.Map;
 

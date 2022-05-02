@@ -8,7 +8,7 @@ import com.tetsoft.typego.data.DictionaryType;
 import com.tetsoft.typego.data.language.Language;
 import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.data.TimeMode;
+import com.tetsoft.typego.data.timemode.TimeMode;
 
 /**
  *  UserPreferences is used to store and obtain last selected test metadata by user.

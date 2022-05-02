@@ -3,7 +3,7 @@ package com.tetsoft.typego.game.mode
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.ScreenOrientation
-import com.tetsoft.typego.data.TimeMode
+import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.data.language.LanguageSelectable
 import java.io.Serializable
 

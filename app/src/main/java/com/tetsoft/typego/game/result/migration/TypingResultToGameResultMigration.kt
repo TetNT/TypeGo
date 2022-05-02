@@ -2,7 +2,7 @@ package com.tetsoft.typego.game.result.migration
 
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
-import com.tetsoft.typego.data.TimeMode
+import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnTime
