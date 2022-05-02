@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             style="@style/submenu_header"
             android:text="@string/whats_new_pl"
-            app:drawableTint="@color/button_main_green_unpressed"
+            app:drawableTint="@color/main_green"
             app:drawableStartCompat="@drawable/ic_release_notes"
             android:drawablePadding="4dp"
             android:layout_marginBottom="16dp"/>
