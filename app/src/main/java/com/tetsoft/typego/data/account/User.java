@@ -18,12 +18,6 @@ public class User implements Serializable {
     private final ArrayList<TypingResult> resultList;
     @Deprecated
     private ArrayList<Achievement> achievements;
-
-    /**
-     * This HashMap key is achievement ID and value is completion date.
-     * It will be used in the future to handle achievements progress independently,
-     * instead of list comparison.
-     */
     private HashMap<Integer, Date> achievementsCompletionDateMap;
 
     public User() {
