@@ -18,7 +18,6 @@ import com.tetsoft.typego.databinding.FragmentStatisticsBinding
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
 
-
 class StatisticsFragment : Fragment() {
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding!!
@@ -174,7 +173,7 @@ class StatisticsFragment : Fragment() {
         binding.statsFavoriteLanguageDescription.text =
             getString(
                 R.string.favorite_language_description_pl,
-                results?.getResultsByLanguage(favLang)?.size,
+                results.getResultsByLanguage(favLang).size,
                 stats.resultsCount
             )
     }
