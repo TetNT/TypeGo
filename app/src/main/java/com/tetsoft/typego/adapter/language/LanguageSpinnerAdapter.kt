@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.TextView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.Language
+import com.tetsoft.typego.data.language.Language
 import java.util.*
 
 

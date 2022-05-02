@@ -17,7 +17,7 @@ import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.adapter.GamesHistoryAdapter;
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem;
-import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.data.language.LanguageList;
 import com.tetsoft.typego.game.mode.GameOnTime;
 import com.tetsoft.typego.game.result.GameResult;
 import com.tetsoft.typego.game.result.GameResultList;
@@ -27,7 +27,7 @@ import com.tetsoft.typego.ui.activity.ResultActivity;
 import com.tetsoft.typego.utils.AnimationManager;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.language.Language;
 import java.util.ArrayList;
 
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatSpinner
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
-import com.tetsoft.typego.data.Language
+import com.tetsoft.typego.data.language.Language
 
 class LanguageSpinner(context: Context, attrs: AttributeSet) : AppCompatSpinner(context, attrs) {
 

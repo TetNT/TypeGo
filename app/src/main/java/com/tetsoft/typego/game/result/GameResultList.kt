@@ -1,6 +1,6 @@
 package com.tetsoft.typego.game.result
 
-import com.tetsoft.typego.data.Language
+import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageSelectable
 import com.tetsoft.typego.utils.StringKeys
 import java.util.*

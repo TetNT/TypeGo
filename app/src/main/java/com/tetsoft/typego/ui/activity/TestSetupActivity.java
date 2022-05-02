@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
-import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.data.language.LanguageList;
 import com.tetsoft.typego.data.account.UserPreferences;
 import com.tetsoft.typego.databinding.ActivityTestSetupBinding;
 import com.tetsoft.typego.game.mode.GameOnTime;
@@ -17,7 +17,7 @@ import com.tetsoft.typego.data.DictionaryType;
 import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.TimeConvert;
-import com.tetsoft.typego.data.TimeMode;
+import com.tetsoft.typego.data.timemode.TimeMode;
 import java.util.HashMap;
 import java.util.Map;
 

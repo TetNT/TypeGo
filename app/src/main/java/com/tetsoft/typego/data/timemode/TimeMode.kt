@@ -1,4 +1,4 @@
-package com.tetsoft.typego.data
+package com.tetsoft.typego.data.timemode
 
 import java.io.Serializable
 

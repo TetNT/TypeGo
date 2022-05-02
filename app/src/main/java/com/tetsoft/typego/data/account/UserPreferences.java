@@ -5,10 +5,10 @@ import com.tetsoft.typego.game.mode.GameOnTime;
 import com.tetsoft.typego.storage.UserPreferencesStorage;
 import com.tetsoft.typego.testing.TestMetadata;
 import com.tetsoft.typego.data.DictionaryType;
-import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.language.Language;
 import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
-import com.tetsoft.typego.data.TimeMode;
+import com.tetsoft.typego.data.timemode.TimeMode;
 
 /**
  *  UserPreferences is used to store and obtain last selected test metadata by user.

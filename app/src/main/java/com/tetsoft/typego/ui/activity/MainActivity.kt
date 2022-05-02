@@ -13,8 +13,8 @@ import android.util.Log
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.utils.StringKeys
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
-import com.tetsoft.typego.data.LanguageList
-import com.tetsoft.typego.data.TimeMode
+import com.tetsoft.typego.data.language.LanguageList
+import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.account.User

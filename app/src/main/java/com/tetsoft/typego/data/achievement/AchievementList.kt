@@ -2,6 +2,7 @@ package com.tetsoft.typego.data.achievement
 
 import android.content.Context
 import com.tetsoft.typego.R
+import com.tetsoft.typego.data.achievement.requirement.RequirementFactory
 
 class AchievementList(val context: Context) {
     fun get(): ArrayList<Achievement> {

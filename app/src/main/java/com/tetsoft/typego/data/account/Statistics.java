@@ -1,13 +1,13 @@
 package com.tetsoft.typego.data.account;
 
-import com.tetsoft.typego.data.LanguageList;
+import com.tetsoft.typego.data.language.LanguageList;
 import com.tetsoft.typego.data.achievement.Achievement;
 import com.tetsoft.typego.data.achievement.AchievementList;
 import com.tetsoft.typego.game.result.GameResult;
 import com.tetsoft.typego.game.result.GameResultList;
 import com.tetsoft.typego.storage.AchievementsProgressStorage;
 import com.tetsoft.typego.storage.GameResultListStorage;
-import com.tetsoft.typego.data.Language;
+import com.tetsoft.typego.data.language.Language;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
