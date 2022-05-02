@@ -35,14 +35,20 @@ public class AccountFragment extends Fragment {
 
     FragmentAccountBinding _binding;
 
+    Language selectedLanguage;
+
+    GameResultList resultList;
+
+    GameResultListStorage resultListStorage;
+
+    boolean inDescendingOrder = true;
+
     @NonNull
     private FragmentAccountBinding getBinding() {
         return _binding;
     }
 
-    public AccountFragment() {
-
-    }
+    public AccountFragment() {  }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,25 +62,18 @@ public class AccountFragment extends Fragment {
         return getBinding().getRoot();
     }
 
-    GameResultList resultList;
-    GameResultListStorage resultListStorage;
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() != null) {
             resultListStorage = ((TypeGoApp) (getActivity().getApplication())).getResultListStorage();
-            resultList = getResultListDescending();
+            resultList = resultListStorage.get();
         }
         initLanguageSpinner();
-        loadAccountData();
         leaveFeedbackClick();
     }
 
-
     private void loadAccountData() {
-        View view = getView();
-        if (view == null) return;
         setupStatFields();
         updateResults();
         loadLastResultsData();
@@ -85,6 +84,14 @@ public class AccountFragment extends Fragment {
         getBinding().tvBestResult.setText(getString(R.string.best_result_pl, 0));
         getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, 0));
         getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
+    }
+
+    private GameResultList getResults(Language language, boolean inDescendingOrder) {
+        GameResultList byLang = resultList.getResultsByLanguage(language);
+        if (inDescendingOrder) {
+            return byLang.getInDescendingOrder();
+        }
+        else return byLang;
     }
 
     public void initLanguageSpinner() {
@@ -101,35 +108,32 @@ public class AccountFragment extends Fragment {
         getBinding().spinnerResultsLanguageSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedLanguage = getBinding().spinnerResultsLanguageSelection.getSelectedLanguage();
                 loadAccountData();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
-    private GameResultList getResultListDescending() {
-        GameResultList results = resultListStorage.get();
-        if (results == null) return null;
-        return results.getInDescendingOrder();
-    }
-
     private void updateResults() {
-        if (resultList == null || getPickedResults().isEmpty()) {
+        GameResultList resultsByLanguage = getResults(selectedLanguage, inDescendingOrder);
+        if (resultsByLanguage.isEmpty()) {
             getBinding().tvPassedTestsInfo.setText(getString(R.string.msg_nothing_to_show));
             return;
         }
         getBinding().tvPassedTestsInfo.setText(getString(R.string.msg_passed_tests_information));
-        getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, resultList.size()));
-        int bestResult = resultList.getBestResultWpm();
+        getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, resultsByLanguage.size()));
+        int bestResult = resultsByLanguage.getBestResultWpm();
         getBinding().tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
-        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, (int) resultList.get(0).getWpm()));
+        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, (int) getResults(selectedLanguage, true).get(0).getWpm()));
         String wpmStr;
-        if (resultList.size() >= 5) {
+        if (resultsByLanguage.size() >= 5) {
             double wpmSum = 0;
-            for (GameResult res : resultList) wpmSum += res.getWpm();
-            wpmStr = getString(R.string.average_wpm) + ": " + (int) (wpmSum / resultList.size());
+            for (GameResult res : resultsByLanguage) wpmSum += res.getWpm();
+            wpmStr = getString(R.string.average_wpm) + ": " + (int) (wpmSum / resultsByLanguage.size());
             getBinding().tvAverageWPM.setText(wpmStr);
         } else
             getBinding().tvAverageWPM.setText(getString(R.string.msg_average_wpm_unavailable));
@@ -149,14 +153,10 @@ public class AccountFragment extends Fragment {
         });
     }
 
-    private GameResultList getPickedResults() {
-        Language selectedLanguage = getBinding().spinnerResultsLanguageSelection.getSelectedLanguage();
-        return resultList.getResultsByLanguage(selectedLanguage);
-    }
-
     public void loadLastResultsData() {
+        GameResultList resultsByLanguage = getResults(selectedLanguage, inDescendingOrder);
         GamesHistoryAdapter.RecyclerViewOnClickListener listener = (v, position) -> {
-            GameResult resultInfo = resultList.get(position);
+            GameResult resultInfo = resultsByLanguage.get(position);
             Intent intent = new Intent(getContext(), ResultActivity.class);
             intent.putExtra(StringKeys.TEST_CORRECT_WORDS, resultInfo.getCorrectWords());
             intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, resultInfo.getScore());
@@ -165,10 +165,9 @@ public class AccountFragment extends Fragment {
             intent.putExtra(StringKeys.CALLED_FROM_PASSED_RESULTS, true);
             startActivity(intent);
         };
-        getBinding().rvPassedTests.setAdapter(new GamesHistoryAdapter(getContext(), getPickedResults(), listener));
+        getBinding().rvPassedTests.setAdapter(new GamesHistoryAdapter(getContext(), resultsByLanguage, listener));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         getBinding().rvPassedTests.setLayoutManager(linearLayoutManager);
-
         AnimationManager animationManager = new AnimationManager();
         Animation slideIn = animationManager.getSlideInAnimation(0, 50f, 500);
         Animation fadeIn = animationManager.getFadeInAnimation(500);
