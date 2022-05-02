@@ -3,15 +3,9 @@ package com.tetsoft.typego
 import android.app.Application
 import com.tetsoft.typego.data.AdsCounter
 import com.tetsoft.typego.data.account.UserPreferences
-import com.tetsoft.typego.storage.AdsCounterStorage
-import com.tetsoft.typego.storage.UserPreferencesStorage
-import com.tetsoft.typego.storage.UserStorage
+import com.tetsoft.typego.storage.*
 
 open class TypeGoApp : Application() {
-
-    open val userStorage by lazy {
-        UserStorage(this)
-    }
 
     open val preferences by lazy {
         UserPreferences(UserPreferencesStorage(this))
@@ -19,5 +13,13 @@ open class TypeGoApp : Application() {
 
     open val adsCounter by lazy {
         AdsCounter(AdsCounterStorage(this))
+    }
+
+    open val achievementsProgress by lazy {
+        AchievementsProgressStorage(this)
+    }
+
+    open val resultListStorage by lazy {
+        GameResultListStorage(this)
     }
 }

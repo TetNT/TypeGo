@@ -18,4 +18,19 @@
         • Other improvements\nSome \"under the hood\" changes to improve app stability.
     </string>
 
+    <string name="release_notes_description_148">
+        This is more of an "under the hood" update. It will make future updates much easier.
+        • Less ads\nAds appear less in the 1-minute test.\n\n
+        • Other improvements\nLanguages are now sorted in alphabetical order.\n\n
+        What to expect next? More achievements, new game mode and some other features. Stay tuned!
+    </string>
+
+    <string name="release_notes_description_current_version">
+         This is more of an \"under the hood\" update. It will make future updates much easier.\n
+        • Less ads\nAds appear less in most games.\n\n
+        • Bug fixes\nFixed a bug when the last completed achievement in statistics could be displayed in wrong language.\n\n
+        • Other improvements\nLanguages are now sorted in alphabetical order.\n\n
+        • What to expect next?\nMore achievements, new game mode and some other features. Stay tuned!
+    </string>
+
 </resources>

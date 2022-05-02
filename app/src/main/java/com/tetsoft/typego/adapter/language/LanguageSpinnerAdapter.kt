@@ -13,7 +13,8 @@ import java.util.*
 
 
 class LanguageSpinnerAdapter(
-    context: Context, private val languageItems : ArrayList<LanguageSpinnerItem>
+    context: Context,
+    private val languageItems : List<LanguageSpinnerItem>
     ) : ArrayAdapter<LanguageSpinnerItem>(context, R.layout.spinner_item, languageItems),
     SpinnerAdapter {
 

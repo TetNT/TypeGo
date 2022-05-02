@@ -1,42 +1,36 @@
 package com.tetsoft.typego.data.achievement;
 
+import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair;
+import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList;
+import com.tetsoft.typego.storage.AchievementsProgressStorage;
+
 import java.util.ArrayList;
 
 public class AchievementMigration {
     ArrayList<Achievement> oldVersion;
-    ArrayList<Achievement> newVersion;
 
+    public AchievementMigration(ArrayList<Achievement> currentAchievementsProgress) {
+        oldVersion = currentAchievementsProgress;
+    }
 
-    public AchievementMigration(ArrayList<Achievement> oldVersion, ArrayList<Achievement> newVersion) {
-        this.oldVersion = oldVersion;
-        this.newVersion = newVersion;
+    public void storeProgress(AchievementsProgressStorage achievementsProgressStorage) {
         if (notNumerated()) numerateAchievements();
-    }
-
-    // Returns the new version of achievements with saved progress from the old version
-    public ArrayList<Achievement> getMergedAchievementList() {
-        for (int i = 0; i < newVersion.size(); i++) {
-            Achievement newAchievement = newVersion.get(i);
-            int foundIndex = findIndexOfOldAchievementId(newAchievement.getId());
-            if (foundIndex != -1) {
-                newVersion.set(i, oldVersion.get(foundIndex));
+        AchievementsProgressList achievementsProgressList = new AchievementsProgressList();
+        long timeLong;
+        for (Achievement achievement : oldVersion) {
+            timeLong = 0L;
+            if (achievement.getCompletionDate() != null) {
+                timeLong = achievement.getCompletionDate().getTime();
             }
+            achievementsProgressList.add(new AchievementsCompletionPair(achievement.getId(), timeLong));
         }
-        return newVersion;
+        achievementsProgressStorage.store(achievementsProgressList);
     }
 
 
-    private int findIndexOfOldAchievementId(int id) {
-        for (int i = 0; i < oldVersion.size(); i++) {
-            Achievement achievement = oldVersion.get(i);
-            if (achievement.getId() == id) return i;
-        }
-        return -1;
-    }
-
-    // Returns true if any of id is containing 0
+    // Returns true if any of id is 0
     private boolean notNumerated() {
-        for (Achievement achievement: oldVersion) {
+        for (Achievement achievement : oldVersion) {
             if (achievement.getId() == 0) return true;
         }
         return false;
@@ -46,7 +40,7 @@ public class AchievementMigration {
     // It's done to migrate from previous versions of achievement list when there was no id field.
     private void numerateAchievements() {
         for (int i = 0; i < oldVersion.size(); i++) {
-            oldVersion.get(i).setId(i+1);
+            oldVersion.get(i).setId(i + 1);
         }
     }
 }
