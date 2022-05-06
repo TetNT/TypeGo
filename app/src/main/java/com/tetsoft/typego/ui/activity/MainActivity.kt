@@ -10,6 +10,8 @@ import com.tetsoft.typego.data.achievement.AchievementMigration
 import com.tetsoft.typego.data.achievement.AchievementList
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import com.tetsoft.typego.R
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.utils.StringKeys
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
@@ -19,6 +21,7 @@ import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.ActivityMainBinding
+import com.tetsoft.typego.storage.GameResultListStorage
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
@@ -36,8 +39,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupButtonsOnClickListeners() {
         binding!!.cardBasicTest.setOnClickListener { startBasicTest() }
-        binding!!.cardCustomizableTest.setOnClickListener { openTestCustomization() }
-        binding!!.cardUserAccount.setOnClickListener { openUserAccount() }
+        binding!!.buttonCustomTestStart.setOnClickListener {
+            startActivity(Intent(this, TestSetupActivity::class.java))
+        }
+        binding!!.buttonProfileOpen.setOnClickListener {
+            startActivity(Intent(this, AccountActivity::class.java))
+        }
+        binding!!.buttonPreviousTestStart.setOnClickListener {
+            startPreviousTest()
+        }
+        binding!!.buttonReleaseNotesOpen.setOnClickListener {
+            startActivity(Intent(this, ReleaseNotesActivity::class.java))
+        }
     }
 
     private fun checkMigrations() {
@@ -54,6 +67,13 @@ class MainActivity : AppCompatActivity() {
                 resultListStorage.store(results)
             }
         } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                getString(R.string.error_results_migration_failed),
+                Toast.LENGTH_SHORT
+            ).show()
+            val sharedPreferences = getSharedPreferences(StringKeys.USER_STORAGE, MODE_PRIVATE)
+            sharedPreferences.edit().clear().apply()
             Log.e(
                 "MIGR",
                 "checkMigrations failed to migrate to the new GameResultList: " + e.message
@@ -69,6 +89,11 @@ class MainActivity : AppCompatActivity() {
                 achievementMigration.storeProgress(achievementStorage)
             }
         } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                getString(R.string.error_achievement_migration_failed),
+                Toast.LENGTH_SHORT
+            ).show()
             Log.e(
                 "MIGR",
                 "checkMigrations failed to migrate to the new achievements progress:" + e.message
@@ -91,12 +116,16 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun openTestCustomization() {
-        startActivity(Intent(this, TestSetupActivity::class.java))
-    }
-
-    private fun openUserAccount() {
-        startActivity(Intent(this, AccountActivity::class.java))
+    private fun startPreviousTest() {
+        val gameResultList = GameResultListStorage(this).get()
+        if (gameResultList.isNotEmpty()) {
+            val intent = Intent(this, TypingTestActivity::class.java)
+            val previousSettings = gameResultList[gameResultList.size - 1]?.gameMode
+            intent.putExtra(StringKeys.TEST_SETTINGS, previousSettings)
+            intent.putExtra(StringKeys.FROM_MAIN_MENU, true)
+            startActivity(intent)
+        }
+        else Toast.makeText(this, "No previous games at the moment.", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupLanguageSpinner() {

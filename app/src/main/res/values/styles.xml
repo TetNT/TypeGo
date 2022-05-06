@@ -25,8 +25,11 @@
 
     <style name="activity_title">
         <item name="android:textColor">@color/text_accent</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="drawableTint">@color/main_green</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
@@ -46,7 +49,8 @@
     <style name="list_fields">
         <item name="android:drawableTint">@color/main_green</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/redring_regular</item>
     </style>
     <style name="spinner_item">

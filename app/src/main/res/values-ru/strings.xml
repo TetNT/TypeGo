@@ -63,7 +63,7 @@
     <string name="basic_test">Базовый тест</string>
     <string name="profile">Профиль</string>
     <string name="basic_test_desc">Начни минутный тест по базовым словам и посмотри сколько СВМ ты наберёшь!</string>
-    <string name="custom_test_desc">Настраиваемый тест под любой запрос. Настрой тип словаря, язык и прочее!</string>
+    <string name="custom_test_desc">Сделай игру для себя с расширенными настройками!</string>
     <string name="profile_desc">Статистика, пройденные тесты и достижения находятся здесь!</string>
 
     <string name="screen_orientation">Положение</string>
@@ -123,4 +123,15 @@
     <string name="content_desc_language_select">Выберите язык</string>
     <string name="content_desc_test_restart">Начать тест заново</string>
     <string name="error_navigation_to_achievements">Не удалось перейти к достижениям.</string>
+    <string name="error_achievement_migration_failed">Не удалось перенести достижения из предыдущей версии.</string>
+    <string name="error_results_migration_failed">Не удалось перенести результаты из предыдущей версии.</string>
+    <string name="message_no_previous_games">Нет предыдущих игр.</string>
+    <string name="replay">Реплэй</string>
+    <string name="replay_description">Игра с прошлыми настройками.</string>
+    <string name="check">Проверить</string>
+    <string name="play">Играть</string>
+    <string name="customize">Настроить</string>
+    <string name="whats_new">Что нового</string>
+    <string name="whats_new_description">Посмотри, что нового в этой версии игры.</string>
+    <string name="previous_versions">Предыдущие версии</string>
 </resources>

@@ -65,7 +65,7 @@
     <string name="basic_test">Basic test</string>
     <string name="profile">Profile</string>
     <string name="basic_test_desc">Start a 1 minute test with basic dictionary and see how much WPM you will get!</string>
-    <string name="custom_test_desc">Customizable test for every need. Set up dictionary type, language and so on!</string>
+    <string name="custom_test_desc">Set up your own game with enhanced settings!</string>
     <string name="profile_desc">Statistics, passed tests, and achievements are here!</string>
 
     <string name="screen_orientation">Orientation</string>
@@ -116,6 +116,10 @@
     <string name="stats_locked_cards">Some cards are still locked. Pass more tests to unlock them! Cards left: %1$d</string>
 
     <string name="whats_new_pl">%1$s: what\'s new</string>
+    <string name="whats_new">What\'s new</string>
+    <string name="whats_new_description">See what\'s new in this version of the app.</string>
+
+    <string name="previous_versions">Previous versions</string>
 
     <string name="text_suggestions_note">* it also depends on your keyboard settings.</string>
     <string name="dictionary_type_note">* the basic dictionary is limited to 200 words.</string>
@@ -133,4 +137,13 @@
     <string name="content_desc_test_restart">Restart the test</string>
 
     <string name="error_navigation_to_achievements">Unable to navigate to the achievement section.</string>
+
+    <string name="error_achievement_migration_failed">Failed to transfer achievements from the previous version.</string>
+    <string name="error_results_migration_failed">Failed to transfer results from the previous version.</string>
+    <string name="message_no_previous_games">No previous games at the moment.</string>
+    <string name="replay">Replay</string>
+    <string name="replay_description">Replay with the previous game settings.</string>
+    <string name="check">Check</string>
+    <string name="play">Play</string>
+    <string name="customize">Customize</string>
 </resources>

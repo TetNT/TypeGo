@@ -13,6 +13,10 @@ public class AchievementMigration {
         oldVersion = currentAchievementsProgress;
     }
 
+    /**
+     * Moves the existing progress into dedicated storage.
+     * @param achievementsProgressStorage storage in which the progress will be stored
+     */
     public void storeProgress(AchievementsProgressStorage achievementsProgressStorage) {
         if (notNumerated()) numerateAchievements();
         AchievementsProgressList achievementsProgressList = new AchievementsProgressList();

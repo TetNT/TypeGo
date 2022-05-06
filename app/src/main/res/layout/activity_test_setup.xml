@@ -20,6 +20,7 @@
         android:onClick="closeActivity"
         android:text="@string/custom_test"
         android:textColor="@color/text_accent"
+        android:gravity="center_vertical"
         app:drawableStartCompat="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
