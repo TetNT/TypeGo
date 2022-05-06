@@ -146,4 +146,5 @@
     <string name="check">Check</string>
     <string name="play">Play</string>
     <string name="customize">Customize</string>
+    <string name="label_new" translatable="false">New</string>
 </resources>
