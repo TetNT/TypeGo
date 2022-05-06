@@ -66,4 +66,15 @@
     <style name="textview_default" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/redring_regular</item>
     </style>
+
+    <style name="label_new">
+        <item name="android:background">@drawable/label_new</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:text">@string/label_new</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/redring_bold</item>
+        <item name="android:padding">2dp</item>
+    </style>
 </resources>
