@@ -54,7 +54,7 @@
     <string name="time_over" translatable="false">00:00</string>
     <string name="cancel">Cancel</string>
     <string name="details">Details</string>
-    <string name="passed_tests">Passed tests</string>
+    <string name="history">History</string>
     <string name="WPM">WPM</string>
     <string name="msg_nothing_to_show">Nothing to show yet.\nGo pass some tests!</string>
     <string name="msg_average_wpm_unavailable">Average WPM will be available after you pass 5 tests</string>
@@ -94,7 +94,7 @@
     <string name="typed_words_log">Typed words list</string>
     <string name="typed_words_log_description">Words that you\'ve typed are on the left and actual ones are on the right.</string>
     <string name="leave_a_feedback">Leave a feedback</string>
-    <string name="typed_words_log_disabled">List only available in a test that you just passed.</string>
+    <string name="typed_words_log_disabled">The list is only available in a test that you just passed.</string>
     <string name="activate">Activate</string>
     <string name="stats_wpm_pl">%1$d WPM</string>
     <string name="progression">progression</string>
@@ -147,4 +147,5 @@
     <string name="play">Play</string>
     <string name="customize">Customize</string>
     <string name="label_new" translatable="false">New</string>
+    <string name="items">Items</string>
 </resources>
