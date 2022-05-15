@@ -52,7 +52,7 @@
     <string name="my_account">Мой аккаунт</string>
     <string name="cancel">Прервать</string>
     <string name="details">Детали</string>
-    <string name="passed_tests">Пройденные тесты</string>
+    <string name="history">История</string>
     <string name="WPM">СВМ</string>
     <string name="msg_nothing_to_show">Пока что нечего отображать.\nПройди пару тестов!</string>
     <string name="msg_average_wpm_unavailable">Средний СВМ будет доступен с прохождением 5 тестов</string>
@@ -134,4 +134,5 @@
     <string name="whats_new">Что нового</string>
     <string name="whats_new_description">Посмотри, что нового в этой версии игры.</string>
     <string name="previous_versions">Предыдущие версии</string>
+    <string name="items">Кол-во</string>
 </resources>

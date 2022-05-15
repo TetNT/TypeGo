@@ -1,18 +1,20 @@
 package com.tetsoft.typego.ui.activity
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.adapter.WordsAdapter
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
@@ -25,7 +27,7 @@ import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.utils.*
 import java.util.*
-import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -50,12 +52,9 @@ class ResultActivity : AppCompatActivity() {
         resultsStorage = GameResultListStorage(this)
         gameMode = intent.extras?.getSerializable(StringKeys.TEST_SETTINGS) as GameOnTime
         initIntentData()
-        initPreviousResult()
-        if (!calledFromResultsTab) temporarilyDisableButtons()
-        initBestResult()
-        initTypedWords()
-        if (calledFromResultsTab) changeVisibilityFromResultsTab()
-
+        binding.bFinish.setOnClickListener { saveAndContinue() }
+        binding.bStartOver.setOnClickListener { startOver() }
+        binding.tvLeaveFeedback.setOnClickListener { leaveFeedbackClick() }
         result = GameResult(
             gameMode,
             correctWordsWeight,
@@ -64,7 +63,12 @@ class ResultActivity : AppCompatActivity() {
             correctWords,
             Calendar.getInstance().time.time
         )
-
+        wpm = result.wpm.toInt()
+        initPreviousResultSection()
+        if (!calledFromResultsTab) temporarilyDisableButtons()
+        initBestResultSection()
+        initTypedWords()
+        if (calledFromResultsTab) binding.bFinish.text = getString(R.string.close)
         val textSuggestions =
             if (gameMode.suggestionsActivated) getString(R.string.yes) else getString(R.string.no)
         val dictionaryName =
@@ -75,10 +79,9 @@ class ResultActivity : AppCompatActivity() {
             if (gameMode.screenOrientation == ScreenOrientation.PORTRAIT) getString(R.string.vertical) else getString(
                 R.string.horizontal
             )
-        wpm = result.wpm.toInt()
 
         val animationManager = AnimationManager()
-        val countAnimation = animationManager.getCountAnimation(0, wpm, 1000)
+        val countAnimation = animationManager.getCountAnimation(0, wpm, COUNT_UP_ANIMATION_DURATION)
         animationManager.applyCountAnimation(
             countAnimation,
             binding.tvWPM
@@ -88,7 +91,6 @@ class ResultActivity : AppCompatActivity() {
         binding.tvIncorrectWords.text =
             getString(R.string.incorrect_words_pl, result.wordsWritten - result.correctWords)
         binding.tvCorrectWords.text = getString(R.string.correct_words_pl, correctWords)
-        binding.tvCorrectChars.text = getString(R.string.correct_chars_pl, correctWordsWeight)
         binding.tvDictionary.text = getString(R.string.dictionary_pl, dictionaryName)
         binding.tvAllottedTime.text = getString(
             R.string.selected_time_pl,
@@ -102,7 +104,7 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT)
                 .show()
         else if (wpm > 0 && !calledFromResultsTab) {
-            saveResultData()
+            resultsStorage.addResult(result)
             checkAchievements()
         }
     }
@@ -119,27 +121,63 @@ class ResultActivity : AppCompatActivity() {
         binding.rvTypedWords.layoutManager = layoutManager
     }
 
-    private fun initPreviousResult() {
+    private fun initPreviousResultSection() {
+        if (calledFromResultsTab) {
+            binding.previousResultSection.visibility = View.GONE
+            return
+        }
         val resultsList = resultsStorage.get()
         val previousResult = resultsList.getPreviousResultByLanguage(gameMode.getLanguage())
-        binding.tvPreviousResult.text = (getString(R.string.previous_result_pl, previousResult))
-        if (previousResult == 0)
-            binding.tvPreviousResult.visibility = View.GONE
-        else binding.tvPreviousResult.visibility = View.VISIBLE
+        if (previousResult == 0) {
+            binding.previousResultSection.visibility = View.GONE
+        }
+        else {
+            binding.tvPreviousResult.text = (getString(R.string.previous_result_pl, previousResult))
+            binding.tvPreviousResult.visibility = View.VISIBLE
+            val resultDifference = (result.wpm - previousResult).toInt()
+            if (resultDifference == 0) {
+                binding.tvDifferenceWithPreviousResult.visibility = View.GONE
+                return
+            }
+            if (resultDifference > 0) {
+                binding.tvDifferenceWithPreviousResult.text = "(+${abs(resultDifference)})"
+                binding.tvDifferenceWithPreviousResult.setTextColor(Color.GREEN)
+            } else if (resultDifference < 0) {
+                binding.tvDifferenceWithPreviousResult.text = "(-${abs(resultDifference)})"
+                binding.tvDifferenceWithPreviousResult.setTextColor(Color.GRAY)
+            }
+
+            binding.tvDifferenceWithPreviousResult.animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+            binding.tvDifferenceWithPreviousResult.animation.startOffset = PREVIOUS_RESULT_FADE_IN_ANIMATION_OFFSET
+            binding.tvDifferenceWithPreviousResult.animation.start()
+        }
     }
 
-    private fun initBestResult() {
-        val resultList = resultsStorage.get()
-        bestResultByLanguage = resultList.getBestResultByLanguage(gameMode.getLanguage())
+    private fun initBestResultSection() {
+        val resultsList = resultsStorage.get()
+        bestResultByLanguage = resultsList.getBestResultByLanguage(gameMode.getLanguage())
+        if (bestResultByLanguage == 0) {
+            binding.bestResultSection.visibility = View.GONE
+            return
+        }
         binding.tvBestResult.text = (getString(R.string.best_result_pl, bestResultByLanguage))
-        if (bestResultByLanguage == 0) binding.tvBestResult.visibility = View.GONE
-        else binding.tvBestResult.visibility = View.VISIBLE
-    }
+        binding.tvBestResult.visibility = View.VISIBLE
+        if (calledFromResultsTab) return
+        val resultDifference = (result.wpm - bestResultByLanguage).toInt()
+        if (resultDifference == 0) {
+            binding.tvDifferenceWithBestResult.visibility = View.GONE
+        } else if (resultDifference > 0) {
+            binding.tvDifferenceWithBestResult.text = "(+${abs(resultDifference)})"
+            binding.tvDifferenceWithBestResult.setTextColor(Color.GREEN)
+            binding.tvNewBestResult.visibility = View.VISIBLE
+        } else if (resultDifference < 0) {
 
-    private fun changeVisibilityFromResultsTab() {
-        //binding.bStartOver.visibility = View.GONE
-        binding.tvPreviousResult.visibility = View.GONE
-        binding.bFinish.text = getString(R.string.close)
+            binding.tvDifferenceWithBestResult.text = "(-${abs(resultDifference)})"
+            binding.tvDifferenceWithBestResult.setTextColor(Color.GRAY)
+        }
+        binding.tvDifferenceWithBestResult.animation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        binding.tvDifferenceWithBestResult.animation.startOffset = BEST_RESULT_FADE_IN_ANIMATION_OFFSET
+        binding.tvDifferenceWithBestResult.animation.start()
     }
 
     private fun initIntentData() {
@@ -153,58 +191,38 @@ class ResultActivity : AppCompatActivity() {
             arguments.getSerializable(StringKeys.TEST_TYPED_WORDS_LIST) as ArrayList<Word>?
     }
 
-    private fun saveResultData() {
-        // TODO: move this logic to a separate method
-        if (wpm > bestResultByLanguage) {
-            binding.tvNewBestResult.visibility = View.VISIBLE
-        }
-
-        resultsStorage.addResult(result)
-    }
-
     private fun checkAchievements() {
         var newAchievements = 0
-        var notificationAchievement: Achievement? = null
         for (achievement in AchievementList(this).get()) {
             val completionTime = achievementsStorage.getCompletionDateTimeLong(achievement.id.toString())
             if (completionTime == 0L && achievement.requirementsAreComplete(resultsStorage.get())) {
                 achievementsStorage.store(achievement.id.toString(), Calendar.getInstance().time.time)
                 newAchievements++
-                notificationAchievement = achievement
             }
         }
         val intent = Intent(
             this, AccountActivity::class.java
         )
             .putExtra(StringKeys.TO_ACHIEVEMENT_SECTION, true)
-        if (newAchievements == 1) {
+        if (newAchievements > 0) {
             Snackbar.make(
                 findViewById(R.id.result_constraint_layout),
-                getString(R.string.achievement_unlocked, notificationAchievement!!.name),
+                getString(R.string.new_achievements_notification),
                 Snackbar.LENGTH_LONG
             )
                 .setAction(R.string.check_profile) {
                     startActivity(intent)
                     finish()
                 }.show()
-        } else if (newAchievements > 1)
-            Snackbar.make(
-                findViewById(R.id.result_constraint_layout),
-                getString(R.string.new_achievements_notification, newAchievements),
-                Snackbar.LENGTH_LONG
-            )
-                .setAction(R.string.check_profile) {
-                    startActivity(intent)
-                    finish()
-                }.show()
+        }
     }
 
-    fun saveAndContinue(view: View?) {
+    private fun saveAndContinue() {
         finish()
-        var intent: Intent? = null
+        var intent = Intent(this, TestSetupActivity::class.java)
         if (calledFromMainMenu) intent = Intent(this, MainActivity::class.java)
-        else if (!calledFromResultsTab) intent = Intent(this, TestSetupActivity::class.java)
-        intent?.let { startActivity(it) }
+        else if (calledFromResultsTab) return
+        startActivity(intent)
     }
 
     private fun temporarilyDisableButtons() {
@@ -218,10 +236,37 @@ class ResultActivity : AppCompatActivity() {
         handler.postDelayed(runnable, 2000)
     }
 
-    fun startOver(v: View?) {
+    fun startOver() {
         val intent = Intent(this@ResultActivity, TypingTestActivity::class.java)
         intent.putExtra(StringKeys.TEST_SETTINGS, gameMode)
         finish()
         startActivity(intent)
+    }
+
+    private fun leaveFeedbackClick() {
+        binding.tvLeaveFeedback.setOnClickListener(View.OnClickListener {
+            val appPackageName: String = this.packageName
+            try {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$appPackageName")
+                    )
+                )
+            } catch (anfe: ActivityNotFoundException) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                    )
+                )
+            }
+        })
+    }
+
+    companion object {
+        const val COUNT_UP_ANIMATION_DURATION = 1000L
+        const val PREVIOUS_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION - 200L
+        const val BEST_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION
     }
 }

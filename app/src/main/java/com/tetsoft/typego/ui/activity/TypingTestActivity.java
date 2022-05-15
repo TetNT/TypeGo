@@ -23,12 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.tetsoft.typego.data.AdsCounter;
 import com.tetsoft.typego.Config;
-import com.tetsoft.typego.game.mode.GameMode;
 import com.tetsoft.typego.game.mode.GameOnTime;
-import com.tetsoft.typego.game.result.GameResultList;
 import com.tetsoft.typego.ui.custom.SpannableEditText;
 import com.tetsoft.typego.TypeGoApp;
-import com.tetsoft.typego.testing.TestSettings;
 import com.tetsoft.typego.data.Word;
 import com.tetsoft.typego.R;
 import com.tetsoft.typego.data.DictionaryType;
@@ -36,7 +33,6 @@ import com.tetsoft.typego.data.ScreenOrientation;
 import com.tetsoft.typego.utils.StringKeys;
 import com.tetsoft.typego.utils.TimeConvert;
 import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
@@ -425,8 +421,7 @@ public class TypingTestActivity extends AppCompatActivity {
     private void loadAd() {
         Log.i("LoadAD", "Start loading");
         MobileAds.initialize(this, initializationStatus -> {});
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(this, Config.INTERSTITIAL_ID, adRequest,
+        InterstitialAd.load(this, Config.INTERSTITIAL_ID, ((TypeGoApp)getApplication()).getAdRequest(),
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -437,7 +432,7 @@ public class TypingTestActivity extends AppCompatActivity {
 
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        Log.i("LoadAD", "Failed to load ad:" + loadAdError.getMessage());
+                        Log.e("LoadAD", "Failed to load ad:" + loadAdError.getMessage());
                         mInterstitialAd = null;
                     }
                 });

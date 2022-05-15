@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupButtonsOnClickListeners() {
-        binding!!.cardBasicTest.setOnClickListener { startBasicTest() }
+        binding!!.buttonBasicTestStart.setOnClickListener { startBasicTest() }
         binding!!.buttonCustomTestStart.setOnClickListener {
             startActivity(Intent(this, TestSetupActivity::class.java))
         }
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding!!.buttonPreviousTestStart.setOnClickListener {
             startPreviousTest()
+            finish()
         }
         binding!!.buttonReleaseNotesOpen.setOnClickListener {
             startActivity(Intent(this, ReleaseNotesActivity::class.java))

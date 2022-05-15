@@ -23,9 +23,8 @@
 
     <!--  Additional strings  -->
     <string name="achievement_progress" translatable="false">%1$d / %2$d</string>
-    <string name="new_achievements_notification">You got %1$d new achievements.</string>
+    <string name="new_achievements_notification">You got new achievements!</string>
     <string name="check_profile">Check profile</string>
-    <string name="achievement_unlocked">Achievement unlocked: %1$s</string>
     <string name="achievement_image_content_description">Achievement image</string>
 
     <string name="achievement_test" translatable="false">Achievement test</string>
