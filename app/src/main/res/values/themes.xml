@@ -9,8 +9,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background_main</item>
         <item name="android:textViewStyle">@style/textview_default</item>
+        <item name="android:buttonStyle">@style/action_button</item>
     </style>
-
 
     <style name="Theme.TypeGo.NoActionBar">
         <item name="windowActionBar">false</item>
