@@ -15,6 +15,7 @@ import java.util.HashMap;
 @Deprecated
 public class User implements Serializable {
     private int bestResult;
+    @Deprecated
     private final ArrayList<TypingResult> resultList;
     @Deprecated
     private ArrayList<Achievement> achievements;
