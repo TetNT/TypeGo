@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+import com.tetsoft.typego.R;
 import com.tetsoft.typego.TypeGoApp;
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter;
 import com.tetsoft.typego.data.language.LanguageList;
@@ -42,14 +44,14 @@ public class TestSetupActivity extends AppCompatActivity {
             screenChildIndex = 1;
 
         if (userPreferences.getTimeMode() != null)
-            binding.seekBar.setProgress(timeModeToProgress(userPreferences.getTimeMode()));
+            binding.seekBarTimeMode.setProgress(timeModeToProgress(userPreferences.getTimeMode()));
 
         ((RadioButton) binding.rbDictionaryType.getChildAt(dictionaryChildIndex)).setChecked(true);
         ((RadioButton) binding.rbScreenOrientation.getChildAt(screenChildIndex)).setChecked(true);
 
         setupSeekBar();
-        int progressInSeconds = selectedProgressToSeconds(binding.seekBar.getProgress());
-        binding.tvSeekBarDisplay.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
+        int progressInSeconds = selectedProgressToSeconds(binding.seekBarTimeMode.getProgress());
+        binding.tvTimeStamp.setText(TimeConvert.convertSeconds(TestSetupActivity.this, progressInSeconds));
 
         selectCurrentLanguageOption();
         binding.cbPredictiveText.setChecked(userPreferences.isSuggestionsActivated());
@@ -59,7 +61,7 @@ public class TestSetupActivity extends AppCompatActivity {
     public void startTesting(View view) {
         Intent intent = new Intent(this, TypingTestActivity.class);
         GameOnTime gameOnTime = new GameOnTime(binding.spinLanguageSelection.getSelectedLanguage(),
-                new TimeMode(selectedProgressToSeconds(binding.seekBar.getProgress())),
+                new TimeMode(selectedProgressToSeconds(binding.seekBarTimeMode.getProgress())),
                 getSelectedDictionaryType(),
                 binding.cbPredictiveText.isChecked(),
                 getSelectedScreenOrientation());
@@ -112,13 +114,14 @@ public class TestSetupActivity extends AppCompatActivity {
     }
 
     private void setupSeekBar() {
-        binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        binding.seekBarTimeMode.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                binding.tvSeekBarDisplay.setText(
+                binding.tvTimeStamp.setText(
                         TimeConvert.convertSeconds(
                         TestSetupActivity.this,
                         selectedProgressToSeconds(progress)));
+                binding.tvTimeStamp.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.pop_animation));
             }
 
             @Override
