@@ -18,15 +18,6 @@ abstract class GameMode(
         }
     }
 
-    fun isGameOnTime() : Boolean {
-        return (this is GameOnTime)
-    }
-
-
-    fun isLanguageSelectable() : Boolean {
-        return (this is LanguageSelectable)
-    }
-
     companion object {
         /**
          * The divider to not rely on words length when calculating WPM.

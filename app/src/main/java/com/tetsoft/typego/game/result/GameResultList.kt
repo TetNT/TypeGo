@@ -50,7 +50,6 @@ class GameResultList : ArrayList<GameResult?> {
             if (result!!.wpm > best) best = result.wpm
         }
         return best.toInt()
-
     }
 
     val bestResultWpm: Int
