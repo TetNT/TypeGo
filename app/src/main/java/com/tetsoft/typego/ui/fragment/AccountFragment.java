@@ -1,7 +1,6 @@
 package com.tetsoft.typego.ui.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,7 +69,6 @@ public class AccountFragment extends Fragment {
             resultList = resultListStorage.get();
         }
         initLanguageSpinner();
-        leaveFeedbackClick();
     }
 
     private void loadAccountData() {
@@ -82,7 +80,6 @@ public class AccountFragment extends Fragment {
     private void setupStatFields() {
         getBinding().tvAverageWPM.setText(getString(R.string.average_wpm_pl, 0));
         getBinding().tvBestResult.setText(getString(R.string.best_result_pl, 0));
-        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, 0));
         getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, 0));
     }
 
@@ -128,7 +125,6 @@ public class AccountFragment extends Fragment {
         getBinding().tvTestsPassed.setText(getString(R.string.tests_passed_pl, resultsByLanguage.size()));
         int bestResult = resultsByLanguage.getBestResultWpm();
         getBinding().tvBestResult.setText(getString(R.string.best_result_pl, bestResult));
-        getBinding().tvAccountLastResult.setText(getString(R.string.previous_result_pl, (int) getResults(selectedLanguage, true).get(0).getWpm()));
         String wpmStr;
         if (resultsByLanguage.size() >= 5) {
             double wpmSum = 0;
@@ -137,20 +133,6 @@ public class AccountFragment extends Fragment {
             getBinding().tvAverageWPM.setText(wpmStr);
         } else
             getBinding().tvAverageWPM.setText(getString(R.string.msg_average_wpm_unavailable));
-    }
-
-    public void leaveFeedbackClick() {
-        getBinding().tvLeaveFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String appPackageName = requireContext().getPackageName();
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
-            }
-        });
     }
 
     public void loadLastResultsData() {

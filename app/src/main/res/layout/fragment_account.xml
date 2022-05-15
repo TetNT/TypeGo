@@ -71,6 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="8dp"
+                            android:contentDescription="@string/content_desc_language_select"
                             android:src="@drawable/ic_language" />
 
                         <com.tetsoft.typego.ui.custom.LanguageSpinner
@@ -79,6 +80,9 @@
                             android:layout_height="30dp"
                             android:paddingHorizontal="4dp"
                             android:paddingVertical="1dp"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            tools:listitem="@layout/spinner_item"
                             tools:ignore="TouchTargetSizeCheck" />
                     </LinearLayout>
 
@@ -100,7 +104,7 @@
 
                         <TextView
                             android:id="@+id/tvAverageWPM"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -110,7 +114,7 @@
 
                         <TextView
                             android:id="@+id/tvBestResult"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -119,18 +123,8 @@
                             app:drawableStartCompat="@drawable/ic_star" />
 
                         <TextView
-                            android:id="@+id/tvAccountLastResult"
-                            style="@style/list_fields"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:drawablePadding="8dp"
-                            android:text="@string/last_result"
-                            app:drawableStartCompat="@drawable/ic_prev_res" />
-
-                        <TextView
                             android:id="@+id/tvTestsPassed"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -154,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/passed_tests" />
+                    android:text="@string/history" />
 
                 <TextView
                     android:id="@+id/tvPassedTestsInfo"
@@ -162,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="@string/msg_nothing_to_show"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -171,17 +165,6 @@
                     android:layout_height="match_parent"
                     tools:listitem="@layout/passed_tests_item" />
 
-                <TextView
-                    android:id="@+id/tvLeaveFeedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/leave_a_feedback"
-                    android:textColor="@color/main_green"
-                    android:textSize="18sp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

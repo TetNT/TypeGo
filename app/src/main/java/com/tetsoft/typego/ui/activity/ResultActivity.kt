@@ -1,6 +1,8 @@
 package com.tetsoft.typego.ui.activity
 
 import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -223,5 +225,32 @@ class ResultActivity : AppCompatActivity() {
         intent.putExtra(StringKeys.TEST_SETTINGS, gameMode)
         finish()
         startActivity(intent)
+    }
+
+    private fun leaveFeedbackClick() {
+        binding.tvLeaveFeedback.setOnClickListener(View.OnClickListener {
+            val appPackageName: String = this.packageName
+            try {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$appPackageName")
+                    )
+                )
+            } catch (anfe: ActivityNotFoundException) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                    )
+                )
+            }
+        })
+    }
+
+    companion object {
+        const val COUNT_UP_ANIMATION_DURATION = 1000L
+        const val PREVIOUS_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION - 200L
+        const val BEST_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION
     }
 }

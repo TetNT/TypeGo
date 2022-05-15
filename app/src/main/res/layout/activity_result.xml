@@ -272,6 +272,19 @@
                             tools:listitem="@layout/word_item" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tv_leave_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/leave_a_feedback"
+                    android:textColor="@color/main_green"
+                    android:textSize="18sp" />
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
