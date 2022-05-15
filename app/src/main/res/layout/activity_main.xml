@@ -63,7 +63,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginVertical="8dp"
-
                     android:text="@string/basic_test_desc"
                     app:layout_constraintBottom_toTopOf="@id/card_basic_test_language_header"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -100,26 +99,24 @@
                 </RelativeLayout>
 
                 <Button
+                    android:id="@+id/button_basic_test_start"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:background="@drawable/action_button"
                     android:contentDescription="@string/content_desc_basic_test"
                     android:text="@string/play"
-                    android:textAllCaps="false"
                     app:layout_constraintBottom_toBottomOf="@id/language_selection"
                     app:layout_constraintStart_toEndOf="@id/language_selection"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:fontFamily="@font/redring_bold"
-                    android:textSize="16sp"
-                    app:tint="@color/white" />
+                    android:textSize="16sp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:clipChildren="false">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_previous_test"
@@ -174,11 +171,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:background="@drawable/action_button"
-                        android:fontFamily="@font/redring_bold"
-                        android:src="@drawable/ic_arrow_forward_24"
                         android:text="@string/play"
-                        android:textAllCaps="false"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -233,10 +226,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:background="@drawable/action_button"
-                        android:fontFamily="@font/redring_bold"
                         android:text="@string/customize"
-                        android:textAllCaps="false"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -252,6 +242,7 @@
             app:layout_constraintEnd_toEndOf="@id/card_previous_test"
             app:layout_constraintStart_toStartOf="parent"
             style="@style/basic_cardview"
+            android:clipChildren="false"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
@@ -291,10 +282,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:background="@drawable/action_button"
-                    android:fontFamily="@font/redring_bold"
                     android:text="@string/check"
-                    android:textAllCaps="false"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -347,10 +335,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:background="@drawable/action_button"
-                        android:fontFamily="@font/redring_bold"
                         android:text="@string/check"
-                        android:textAllCaps="false"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -93,71 +93,80 @@
                         android:orientation="vertical"
                         android:padding="8dp">
 
-                        <TextView
-                            android:id="@+id/tvPreviousResult"
-                            style="@style/list_fields"
+                        <LinearLayout
+                            android:id="@+id/previous_result_section"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="4dp"
-                            android:text="@string/previous_result"
-                            android:textColor="@color/white"
-                            android:textSize="22sp"
-                            app:drawableStartCompat="@drawable/ic_prev_res"
-                            app:drawableTint="@color/white" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tvBestResult"
-                            style="@style/list_fields"
+                            <TextView
+                                android:id="@+id/tvPreviousResult"
+                                style="@style/text_with_drawable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/previous_result"
+                                app:drawableStartCompat="@drawable/ic_prev_res"
+                                app:drawableTint="@color/white" />
+
+                            <TextView
+                                android:id="@+id/tv_difference_with_previous_result"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/text_with_drawable"
+                                android:layout_marginStart="8dp"
+                                android:textColor="#888888"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/best_result_section"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
-                            android:text="@string/best_result"
-                            android:textColor="@color/white"
-                            android:textSize="22sp"
-                            app:drawableStartCompat="@drawable/ic_star"
-                            app:drawableTint="@color/golden" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvBestResult"
+                                style="@style/text_with_drawable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/best_result"
+                                app:drawableStartCompat="@drawable/ic_star"
+                                app:drawableTint="@color/golden" />
+
+                            <TextView
+                                android:id="@+id/tv_difference_with_best_result"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/text_with_drawable"
+                                android:layout_marginStart="8dp"
+                                android:textColor="#888888"/>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvCorrectWords"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
                             android:text="@string/correct_words"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_check"
                             app:drawableTint="@color/correct_green" />
 
                         <TextView
                             android:id="@+id/tvIncorrectWords"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
                             android:text="@string/incorrect_words"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_incorrect"
                             app:drawableTint="@color/incorrect_red" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/tvCorrectChars"
-                    style="@style/list_fields"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="4dp"
-                    android:text="@string/correct_characters"
-                    android:textSize="20sp"
-                    android:visibility="gone"
-                    app:drawableStartCompat="@drawable/ic_chars"
-                    app:drawableTint="@color/white" />
 
                 <TextView
                     style="@style/submenu_header"
@@ -180,56 +189,46 @@
 
                         <TextView
                             android:id="@+id/tvLanguage"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="4dp"
                             android:text="@string/selected_language"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_language" />
 
                         <TextView
                             android:id="@+id/tvAllottedTime"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
                             android:text="@string/allotted_time"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_timer" />
 
                         <TextView
                             android:id="@+id/tvDictionary"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
                             android:text="@string/dictionary"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_dictionary" />
 
                         <TextView
                             android:id="@+id/tvTextSuggestions"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
                             android:text="@string/text_suggestions"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_info" />
 
                         <TextView
                             android:id="@+id/tvScreenOrientation"
-                            style="@style/list_fields"
+                            style="@style/text_with_drawable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:drawablePadding="4dp"
                             android:text="@string/screen_orientation"
-                            android:textSize="20sp"
                             app:drawableStartCompat="@drawable/ic_portrait" />
 
                     </LinearLayout>
@@ -294,42 +293,39 @@
         android:id="@+id/result_activity_divider"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:layout_marginBottom="12dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/bFinish" />
+        app:layout_constraintBottom_toTopOf="@id/action_buttons_section" />
 
-    <Button
-        android:id="@+id/bFinish"
-        style="@style/accent_button"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/action_buttons_section"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/mainbutton"
-        android:focusable="false"
-        android:fontFamily="@font/redring_regular"
-        android:onClick="saveAndContinue"
-        android:paddingHorizontal="24dp"
-        android:text="@string/finish"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bStartOver"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@color/bg_dark_gray"
+        android:paddingVertical="12dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <Button
-        android:id="@+id/bStartOver"
-        style="@style/accent_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/mainbutton"
-        android:focusable="false"
-        android:fontFamily="@font/redring_regular"
-        android:onClick="startOver"
-        android:paddingHorizontal="24dp"
-        android:text="@string/start_over"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bFinish" />
+        <Button
+            android:id="@+id/bFinish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingHorizontal="24dp"
+            android:text="@string/finish"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bStartOver"
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/bStartOver"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24dp"
+            android:layout_marginHorizontal="8dp"
+            android:text="@string/start_over"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bFinish" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
