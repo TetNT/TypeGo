@@ -7,32 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.TestSetupActivity">
 
-    <TextView
-        android:id="@+id/tvTestSetup"
-        style="@style/activity_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:minHeight="48dp"
-        android:onClick="closeActivity"
-        android:text="@string/custom_test"
-        android:textColor="@color/text_accent"
-        android:gravity="center_vertical"
-        app:drawableStartCompat="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/test_setup_title_divider"
+    <LinearLayout
+        android:id="@+id/custom_test_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/tvTestSetup" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:background="@color/bg_dark_gray">
+
+        <TextView
+            android:id="@+id/tvTestSetup"
+            style="@style/activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="closeActivity"
+            android:text="@string/custom_test"
+            android:textColor="@color/text_accent"
+            app:drawableStartCompat="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/test_setup_title_divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/tvTestSetup" />
+
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/TestSetupNestedScroll"
@@ -42,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_setup_title_divider">
+        app:layout_constraintTop_toBottomOf="@id/custom_test_action_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
