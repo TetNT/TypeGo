@@ -28,7 +28,7 @@
 
     <string name="release_notes_description_current_version">
         Main page has been significantly redesigned!\n
-        • Bug fixes\nFixed a major bug that caused the app to crash unexpectedly while playing.\n\n
+        • Bug fixes\nFixed a major bug that caused the app to crash unexpectedly while playing.\nFixed a bug when some statistics cards could be invisible.\n\n
         • Other improvements\nAdded "Replay" at the main page.\nNow it shows the difference between current and previous result.
     </string>
 
