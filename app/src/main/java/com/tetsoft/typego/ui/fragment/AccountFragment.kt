@@ -83,15 +83,6 @@ class AccountFragment : Fragment() {
         val spinnerAdapter = LanguageSpinnerAdapter(requireContext(), languages)
         binding.spinnerResultsLanguageSelection.adapter = spinnerAdapter
         binding.spinnerResultsLanguageSelection.setSelection(0)
-//        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//     }
         binding.spinnerResultsLanguageSelection.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
