@@ -27,7 +27,7 @@ class AccountActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHost.navController)
 
-        initAdBanner()
+        //initAdBanner()
 
         binding.tvAccountActivityTitle.setOnClickListener { finish() }
     }
@@ -45,7 +45,7 @@ class AccountActivity : AppCompatActivity() {
             }
         }
     }
-
+/*
     @SuppressLint("MissingPermission")
     private fun initAdBanner() {
         MobileAds.initialize(this) { initializationStatus: InitializationStatus ->
@@ -81,5 +81,5 @@ class AccountActivity : AppCompatActivity() {
         super.onPause()
         if (mAdView != null) mAdView!!.pause()
     }
-
+*/
 }
