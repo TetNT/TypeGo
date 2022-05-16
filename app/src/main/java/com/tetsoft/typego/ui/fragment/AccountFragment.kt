@@ -2,12 +2,14 @@ package com.tetsoft.typego.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tetsoft.typego.R
@@ -45,11 +47,16 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity != null) {
-            resultListStorage = (requireActivity().application as TypeGoApp).resultListStorage
-            resultList = resultListStorage!!.get()
+        resultListStorage = (requireActivity().application as TypeGoApp).resultListStorage
+        resultList = resultListStorage!!.get()
+        // TODO: find out why it can cause an exception
+        try {
+            initLanguageSpinner()
+        } catch (exception: Exception) {
+            Log.e("SPINNER", "onViewCreated: " + exception.message)
+            Toast.makeText(requireContext(), "Failed to initialize languages. Please, re-enter the page.", Toast.LENGTH_SHORT).show()
         }
-        initLanguageSpinner()
+
     }
 
     private fun loadAccountData() {
