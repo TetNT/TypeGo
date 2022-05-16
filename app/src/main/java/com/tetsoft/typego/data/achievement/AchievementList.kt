@@ -24,7 +24,7 @@ class AchievementList(val context: Context) {
                 context.getString(R.string.typewriter_wpm, 20),
                 R.drawable.ic_child,
                 true,
-                RequirementFactory.WPMisMoreThan(20)
+                RequirementFactory.wpmIsMoreThan(20)
             )
         )
         achievements.add(
@@ -34,7 +34,7 @@ class AchievementList(val context: Context) {
                 context.getString(R.string.typewriter_wpm, 40),
                 R.drawable.ic_star,
                 true,
-                RequirementFactory.WPMisMoreThan(40)
+                RequirementFactory.wpmIsMoreThan(40)
             )
         )
         achievements.add(
@@ -44,7 +44,7 @@ class AchievementList(val context: Context) {
                 context.getString(R.string.typewriter_wpm, 50),
                 R.drawable.ic_keyboard,
                 true,
-                RequirementFactory.WPMisMoreThan(50)
+                RequirementFactory.wpmIsMoreThan(50)
             )
         )
         achievements.add(
@@ -54,7 +54,7 @@ class AchievementList(val context: Context) {
                 context.getString(R.string.typewriter_wpm, 60),
                 R.drawable.ic_bachelor,
                 true,
-                RequirementFactory.WPMisMoreThan(60)
+                RequirementFactory.wpmIsMoreThan(60)
             )
         )
         achievements.add(
@@ -64,7 +64,7 @@ class AchievementList(val context: Context) {
                 context.getString(R.string.typewriter_wpm, 70),
                 R.drawable.ic_brain,
                 true,
-                RequirementFactory.WPMisMoreThan(70)
+                RequirementFactory.wpmIsMoreThan(70)
             )
         )
         achievements.add(
@@ -74,7 +74,7 @@ class AchievementList(val context: Context) {
                 context.getString(R.string.typewriter_wpm, 80),
                 R.drawable.ic_alien,
                 true,
-                RequirementFactory.WPMisMoreThan(80)
+                RequirementFactory.wpmIsMoreThan(80)
             )
         )
         achievements.add(
