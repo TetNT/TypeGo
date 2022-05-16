@@ -84,8 +84,8 @@ public class Statistics {
 
     public int getDaysSinceFirstTest() {
         if (results.size() == 0) return 0;
-        Date firstResultCompletionDate = new Date(results.get(results.size() - 1).getCompletionDateTime());
-        Date lastResultCompletionDate = new Date(results.get(0).getCompletionDateTime());
+        Date firstResultCompletionDate = new Date(results.get(0).getCompletionDateTime());
+        Date lastResultCompletionDate = new Date(results.get(results.size() - 1).getCompletionDateTime());
         long dateDiff = lastResultCompletionDate.getTime() - firstResultCompletionDate.getTime();
         return (int) TimeUnit.DAYS.convert(dateDiff, TimeUnit.MILLISECONDS);
     }
