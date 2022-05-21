@@ -20,29 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/account_guideline_left"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="16dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/account_guideline_right"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="16dp" />
-
-
             <LinearLayout
-                android:id="@+id/infoBodyLayout"
+                android:id="@+id/info_body_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@id/account_guideline_right"
-                app:layout_constraintStart_toStartOf="@id/account_guideline_left"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -159,13 +145,16 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_passed_tests"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/passed_tests_item" />
-
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_passed_tests"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/info_body_section"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                tools:listitem="@layout/passed_tests_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

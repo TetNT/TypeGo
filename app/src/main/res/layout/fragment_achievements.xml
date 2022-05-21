@@ -12,14 +12,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginHorizontal="8dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_achievements"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/achievements_item" />
+            tools:listitem="@layout/achievements_item"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp"/>
 
     </androidx.core.widget.NestedScrollView>
 
