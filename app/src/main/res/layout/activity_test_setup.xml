@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:onClick="closeActivity"
             android:text="@string/custom_test"
             android:textColor="@color/text_accent"
             app:drawableStartCompat="@drawable/ic_arrow_back"
@@ -105,14 +104,14 @@
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
-                    android:id="@+id/SectionAmountOfTime"
+                    android:id="@+id/section_amount_of_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="12dp">
 
                     <TextView
-                        android:id="@+id/tvAmountOfTime"
+                        android:id="@+id/tv_amount_of_time"
                         style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -121,7 +120,6 @@
                         app:drawableStartCompat="@drawable/ic_timer" />
 
                     <LinearLayout
-                        android:id="@+id/linearLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -129,14 +127,16 @@
                         android:gravity="center_vertical"
                         android:clipChildren="false">
 
-                        <SeekBar
-                            android:id="@+id/seekBarTimeMode"
-                            style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        <com.tetsoft.typego.ui.custom.TimeModeSlider
+                            android:id="@+id/timemode_slider"
+                            app:labelBehavior="gone"
                             android:layout_width="200dp"
-                            android:layout_height="28dp"
-                            android:max="5"
-                            android:progress="1"
-                            android:thumbTint="@color/main_green" />
+                            android:layout_height="36dp"
+                            android:stepSize="1"
+                            app:tickColor="@color/white"
+                            app:thumbRadius="6dp"
+                            app:haloRadius="12dp"
+                            />
 
                         <TextView
                             android:id="@+id/tvTimeStamp"
@@ -309,32 +309,16 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/bStartTesting"
-                style="@style/accent_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/mainbutton"
-                android:fontFamily="@font/redring_bold"
-                android:onClick="startTesting"
-                android:paddingHorizontal="32dp"
-                android:text="@string/button_StartTest"
-                android:textStyle="italic"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_start_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:backgroundTint="@color/main_green"
         android:contentDescription="@string/button_StartTest"
-        android:onClick="startTesting"
         android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
