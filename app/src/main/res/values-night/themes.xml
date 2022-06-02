@@ -4,10 +4,14 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/main_green</item>
         <item name="colorOnPrimary">@color/bg_lighter_gray</item>
+
+        <item name="colorOnBackground">@color/bg_dark_gray</item>
+        <item name="colorSurface">@color/main_green</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/bg_dark_gray</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background_main</item>
         <item name="android:textViewStyle">@style/textview_default</item>
+        <item name="android:buttonStyle">@style/action_button</item>
     </style>
 </resources>

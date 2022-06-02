@@ -1,7 +1,6 @@
 package com.tetsoft.typego.game.mode
 
 import com.tetsoft.typego.data.ScreenOrientation
-import com.tetsoft.typego.data.language.LanguageSelectable
 import java.io.Serializable
 import java.lang.ArithmeticException
 
@@ -12,7 +11,7 @@ abstract class GameMode(
 
     open fun calculateWpm(score: Int, timeSpentInSeconds: Int) : Double {
         return try {
-            60 / timeSpentInSeconds * (score / WPM_GENERAL_DIVIDER)
+            60.0 / timeSpentInSeconds * (score / WPM_GENERAL_DIVIDER)
         } catch (ae: ArithmeticException) {
             0.0
         }
