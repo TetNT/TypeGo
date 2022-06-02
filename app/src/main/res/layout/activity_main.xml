@@ -133,14 +133,6 @@
                     android:layout_height="match_parent"
                     android:layout_margin="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:translationY="-8dp"
-                        android:translationX="8dp"
-                        style="@style/label_new" />
 
                     <TextView
                         android:id="@+id/card_previous_test_header"
