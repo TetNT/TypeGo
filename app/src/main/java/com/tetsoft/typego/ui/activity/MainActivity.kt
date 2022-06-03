@@ -9,8 +9,8 @@ import com.tetsoft.typego.game.result.migration.TypingResultToGameResultMigratio
 import com.tetsoft.typego.data.achievement.AchievementMigration
 import com.tetsoft.typego.data.achievement.AchievementList
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.utils.StringKeys
@@ -22,11 +22,15 @@ import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.account.User
 import com.tetsoft.typego.databinding.ActivityMainBinding
 import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.ui.custom.withColor
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+
     var binding: ActivityMainBinding? = null
+
     var userPreferences: UserPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding!!.buttonPreviousTestStart.setOnClickListener {
             startPreviousTest()
-            finish()
         }
         binding!!.buttonReleaseNotesOpen.setOnClickListener {
             startActivity(Intent(this, ReleaseNotesActivity::class.java))
@@ -59,10 +62,8 @@ class MainActivity : AppCompatActivity() {
         val resultListStorage = (application as TypeGoApp).resultListStorage
         try {
             if (resultListStorage.isEmpty() && currentUser == null) {
-                Log.i("MIGR", "checkMigrations: first if statement")
                 resultListStorage.store(GameResultList())
             } else if (resultListStorage.isEmpty() && currentUser != null) {
-                Log.i("MIGR", "checkMigrations: second if statement")
                 val migration = TypingResultToGameResultMigration(currentUser.resultList)
                 val results = migration.migrate()
                 resultListStorage.store(results)
@@ -75,10 +76,6 @@ class MainActivity : AppCompatActivity() {
             ).show()
             val sharedPreferences = getSharedPreferences(StringKeys.USER_STORAGE, MODE_PRIVATE)
             sharedPreferences.edit().clear().apply()
-            Log.e(
-                "MIGR",
-                "checkMigrations failed to migrate to the new GameResultList: " + e.message
-            )
         }
         try {
             val achievementStorage = (application as TypeGoApp).achievementsProgress
@@ -95,10 +92,6 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.error_achievement_migration_failed),
                 Toast.LENGTH_SHORT
             ).show()
-            Log.e(
-                "MIGR",
-                "checkMigrations failed to migrate to the new achievements progress:" + e.message
-            )
         }
     }
 
@@ -125,8 +118,11 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(StringKeys.TEST_SETTINGS, previousSettings)
             intent.putExtra(StringKeys.FROM_MAIN_MENU, true)
             startActivity(intent)
+            finish()
         }
-        else Toast.makeText(this, "No previous games at the moment.", Toast.LENGTH_SHORT).show()
+        else Snackbar.make(binding!!.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
+            .withColor(R.color.main_green, R.color.bg_dark_gray)
+            .show()
     }
 
     private fun setupLanguageSpinner() {

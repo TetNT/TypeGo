@@ -135,4 +135,5 @@
     <string name="whats_new_description">Посмотри, что нового в этой версии игры.</string>
     <string name="previous_versions">Предыдущие версии</string>
     <string name="items">Кол-во</string>
+    <string name="msg_no_previous_games">Предыдущих игр нет.</string>
 </resources>
