@@ -2,8 +2,10 @@ package com.tetsoft.typego.data
 
 import com.tetsoft.typego.storage.AdsCounterStorage
 
-// This class manages the logic behind showing ads.
-// If a user passes shorter tests, then ads will be shown to him less often.
+/**
+ * This class manages the logic behind showing ads.
+ * If a user passes shorter tests, then ads will be shown to him less often.
+  */
 class AdsCounter(private val adsCounterStorage: AdsCounterStorage) {
 
     companion object {

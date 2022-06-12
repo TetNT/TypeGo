@@ -2,16 +2,15 @@ package com.tetsoft.typego.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.adapter.GamesHistoryAdapter
@@ -22,18 +21,27 @@ import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.databinding.FragmentAccountBinding
 import com.tetsoft.typego.game.mode.GameOnTime
+import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.ui.activity.ResultActivity
+import com.tetsoft.typego.ui.custom.withColor
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.StringKeys
 
 class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
+
     var selectedLanguage: Language? = null
+
     private var resultList: GameResultList? = null
+
     private var resultListStorage: GameResultListStorage? = null
+
     private var inDescendingOrder = true
+
+    private var bestResult : GameResult? = null
+
     private val binding: FragmentAccountBinding
         get() = _binding!!
 
@@ -49,26 +57,19 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         resultListStorage = (requireActivity().application as TypeGoApp).resultListStorage
         resultList = resultListStorage!!.get()
-        // TODO: find out why it can cause an exception
-        try {
-            initLanguageSpinner()
-        } catch (exception: Exception) {
-            Log.e("SPINNER", "onViewCreated: " + exception.message)
-            Toast.makeText(requireContext(), "Failed to initialize languages. Please, re-enter the page.", Toast.LENGTH_SHORT).show()
+        initLanguageSpinner()
+        binding.buttonCheckBestResult.setOnClickListener {
+            if (bestResult == null) {
+                Snackbar.make(view, "Best result not found.", Snackbar.LENGTH_LONG).withColor(R.color.main_green, R.color.white).show()
+            } else {
+                bestResult?.let { openResult(it) }
+            }
         }
-
     }
 
     private fun loadAccountData() {
-        setupStatFields()
         updateResults()
         loadLastResultsData()
-    }
-
-    private fun setupStatFields() {
-        binding.tvAverageWPM.text = getString(R.string.average_wpm_pl, 0)
-        binding.tvBestResult.text = getString(R.string.best_result_pl, 0)
-        binding.tvTestsPassed.text = getString(R.string.tests_passed_pl, 0)
     }
 
     private fun getResults(language: Language?, inDescendingOrder: Boolean): GameResultList {
@@ -108,35 +109,25 @@ class AccountFragment : Fragment() {
 
     private fun updateResults() {
         val resultsByLanguage = getResults(selectedLanguage, inDescendingOrder)
+        bestResult = resultsByLanguage.bestResult
+        binding.averageWpmCounter.text = resultsByLanguage.getAverageWpm().toInt().toString()
+        binding.bestResultCounter.text = bestResult?.wpm?.toInt()?.toString() ?: "0"
+        binding.testsPassedCounter.text = resultsByLanguage.size.toString()
         if (resultsByLanguage.isEmpty()) {
             binding.tvPassedTestsInfo.text = getString(R.string.msg_nothing_to_show)
+            binding.buttonCheckBestResult.visibility = View.GONE
             return
+        } else {
+            binding.buttonCheckBestResult.visibility = View.VISIBLE
         }
         binding.tvPassedTestsInfo.text = getString(R.string.msg_passed_tests_information)
-        binding.tvTestsPassed.text = getString(R.string.tests_passed_pl, resultsByLanguage.size)
-        val bestResult = resultsByLanguage.bestResultWpm
-        binding.tvBestResult.text = getString(R.string.best_result_pl, bestResult)
-        val wpmStr: String
-        if (resultsByLanguage.size >= 5) {
-            var wpmSum = 0.0
-            for (res in resultsByLanguage) wpmSum += res!!.wpm
-            wpmStr =
-                getString(R.string.average_wpm) + ": " + (wpmSum / resultsByLanguage.size).toInt()
-            binding.tvAverageWPM.text = wpmStr
-        } else binding.tvAverageWPM.text = getString(R.string.msg_average_wpm_unavailable)
     }
 
     private fun loadLastResultsData() {
         val resultsByLanguage = getResults(selectedLanguage, inDescendingOrder)
         val listener = RecyclerViewOnClickListener { _: View?, position: Int ->
             val resultInfo = resultsByLanguage[position]
-            val intent = Intent(context, ResultActivity::class.java)
-            intent.putExtra(StringKeys.TEST_CORRECT_WORDS, resultInfo!!.correctWords)
-            intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, resultInfo.score)
-            intent.putExtra(StringKeys.TOTAL_WORDS, resultInfo.wordsWritten)
-            intent.putExtra(StringKeys.TEST_SETTINGS, resultInfo.gameMode as GameOnTime)
-            intent.putExtra(StringKeys.CALLED_FROM_PASSED_RESULTS, true)
-            startActivity(intent)
+            if (resultInfo != null) openResult(resultInfo)
         }
         binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -148,6 +139,17 @@ class AccountFragment : Fragment() {
         animationSet.addAnimation(slideIn)
         animationSet.addAnimation(fadeIn)
         binding.rvPassedTests.animation = animationSet
+    }
+
+    private fun openResult(gameResult: GameResult) {
+        val intent = Intent(context, ResultActivity::class.java)
+        intent.putExtra(StringKeys.TEST_CORRECT_WORDS, gameResult.correctWords)
+        intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, gameResult.score)
+        intent.putExtra(StringKeys.TOTAL_WORDS, gameResult.wordsWritten)
+        intent.putExtra(StringKeys.TEST_SETTINGS, gameResult.gameMode as GameOnTime)
+        intent.putExtra(StringKeys.TEST_COMPLETION_DATE, gameResult.completionDateTime)
+        intent.putExtra(StringKeys.CALLED_FROM_PASSED_RESULTS, true)
+        startActivity(intent)
     }
 
     override fun onDestroy() {

@@ -136,4 +136,7 @@
     <string name="previous_versions">Предыдущие версии</string>
     <string name="items">Кол-во</string>
     <string name="msg_no_previous_games">Предыдущих игр нет.</string>
+    <string name="avg_result">Ср. СВМ</string>
+    <string name="date_pl">Дата: %1$s</string>
+    <string name="error_best_result_not_found">Лучший результат не найден.</string>
 </resources>
