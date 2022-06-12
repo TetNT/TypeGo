@@ -26,6 +26,7 @@ import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.utils.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
@@ -43,6 +44,7 @@ class ResultActivity : AppCompatActivity() {
     private var calledFromMainMenu = false
     private var typedWordsList: ArrayList<Word>? = null
     private lateinit var gameMode: GameOnTime
+    private var completionDateLong : Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +57,16 @@ class ResultActivity : AppCompatActivity() {
         binding.bFinish.setOnClickListener { saveAndContinue() }
         binding.bStartOver.setOnClickListener { startOver() }
         binding.tvLeaveFeedback.setOnClickListener { leaveFeedbackClick() }
+        if (completionDateLong == 0L) {
+            completionDateLong = Calendar.getInstance().time.time
+        }
         result = GameResult(
             gameMode,
             correctWordsWeight,
             gameMode.timeMode.timeInSeconds,
             totalWords,
             correctWords,
-            Calendar.getInstance().time.time
+            completionDateLong
         )
         wpm = result.wpm.toInt()
         initPreviousResultSection()
@@ -82,10 +87,7 @@ class ResultActivity : AppCompatActivity() {
 
         val animationManager = AnimationManager()
         val countAnimation = animationManager.getCountAnimation(0, wpm, COUNT_UP_ANIMATION_DURATION)
-        animationManager.applyCountAnimation(
-            countAnimation,
-            binding.tvWPM
-        )
+        animationManager.applyCountAnimation(countAnimation, binding.tvWPM)
         countAnimation.start()
         binding.tvWPM.text = getString(R.string.results_wpm_pl, wpm)
         binding.tvIncorrectWords.text =
@@ -100,6 +102,19 @@ class ResultActivity : AppCompatActivity() {
             getString(R.string.selected_language_pl, gameMode.getLanguage().getName(this))
         binding.tvTextSuggestions.text = getString(R.string.text_suggestions_pl, textSuggestions)
         binding.tvScreenOrientation.text = getString(R.string.screen_orientation_pl, orientation)
+        try {
+            val dateFormat = SimpleDateFormat.getDateTimeInstance(
+                SimpleDateFormat.DEFAULT,
+                SimpleDateFormat.SHORT
+            )
+            binding.tvCompletionDate.text = getString(
+                R.string.date_pl,
+                dateFormat.format(Date(result.completionDateTime))
+            )
+        } catch (e: Exception) {
+            binding.tvCompletionDate.visibility = View.GONE
+        }
+
         if (wpm <= 0 && !calledFromResultsTab)
             Toast.makeText(this, getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT)
                 .show()
@@ -189,6 +204,7 @@ class ResultActivity : AppCompatActivity() {
         calledFromMainMenu = arguments.getBoolean(StringKeys.FROM_MAIN_MENU)
         typedWordsList =
             arguments.getSerializable(StringKeys.TEST_TYPED_WORDS_LIST) as ArrayList<Word>?
+        completionDateLong = arguments.getLong(StringKeys.TEST_COMPLETION_DATE, 0L)
     }
 
     private fun checkAchievements() {
@@ -236,7 +252,7 @@ class ResultActivity : AppCompatActivity() {
         handler.postDelayed(runnable, 2000)
     }
 
-    fun startOver() {
+    private fun startOver() {
         val intent = Intent(this@ResultActivity, TypingTestActivity::class.java)
         intent.putExtra(StringKeys.TEST_SETTINGS, gameMode)
         finish()
@@ -244,7 +260,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun leaveFeedbackClick() {
-        binding.tvLeaveFeedback.setOnClickListener(View.OnClickListener {
+        binding.tvLeaveFeedback.setOnClickListener {
             val appPackageName: String = this.packageName
             try {
                 startActivity(
@@ -261,7 +277,7 @@ class ResultActivity : AppCompatActivity() {
                     )
                 )
             }
-        })
+        }
     }
 
     companion object {
