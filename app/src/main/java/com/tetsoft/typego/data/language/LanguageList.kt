@@ -3,12 +3,13 @@ package com.tetsoft.typego.data.language
 import android.content.Context
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
+import com.tetsoft.typego.utils.Translation
 import kotlin.collections.ArrayList
 
 class LanguageList : ArrayList<LanguageSpinnerItem>() {
 
     /**
-     * Returns a list of languages that holds translations to represent in a different locales.
+     * Returns a list of languages that holds translations to represent it in a different locales.
      */
     fun getTranslatableListInAlphabeticalOrder(context: Context): ArrayList<LanguageSpinnerItem> {
         val languageItems = ArrayList<LanguageSpinnerItem>()
@@ -41,7 +42,8 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
     }
 
     private fun getLanguageNameOrId(language : Language, context: Context) : String {
-        return language.getName(context)
+        val translation = Translation(context)
+        return translation.get(language)
     }
 
     companion object {
@@ -55,5 +57,7 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
         const val KR = "KR"
         const val UA = "UA"
         const val BG = "BG"
+        const val ID = "ID"
+        const val PT = "PT"
     }
 }

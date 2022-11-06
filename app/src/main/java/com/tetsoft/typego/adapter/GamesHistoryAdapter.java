@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tetsoft.typego.R;
-import com.tetsoft.typego.data.language.LanguageSelectable;
+import com.tetsoft.typego.data.language.PrebuiltTextGameMode;
 import com.tetsoft.typego.game.mode.GameMode;
 import com.tetsoft.typego.game.mode.GameOnTime;
 import com.tetsoft.typego.game.result.GameResultList;
@@ -47,8 +47,8 @@ public class GamesHistoryAdapter extends RecyclerView.Adapter<GamesHistoryAdapte
         if (mode instanceof GameOnTime) {
             holder.itemTimeInSeconds.setText(TimeConvert.convertSecondsToStamp(((GameOnTime) mode).getTimeMode().getTimeInSeconds()));
         }
-        if (mode instanceof LanguageSelectable) {
-            holder.itemLanguage.setText(((LanguageSelectable) mode).getLanguage().getIdentifier());
+        if (mode instanceof PrebuiltTextGameMode) {
+            holder.itemLanguage.setText(((PrebuiltTextGameMode) mode).getLanguage().getIdentifier());
         }
     }
 

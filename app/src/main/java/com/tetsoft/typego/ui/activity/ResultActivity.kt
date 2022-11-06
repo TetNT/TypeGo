@@ -34,7 +34,6 @@ class ResultActivity : AppCompatActivity() {
     private var wpm = 0
     private var correctWords = 0
     private var correctWordsWeight = 0
-    private var bestResultByLanguage = 0
     private lateinit var achievementsStorage : AchievementsProgressStorage
     private lateinit var result: GameResult
     private lateinit var resultsStorage : GameResultListStorage
@@ -76,8 +75,8 @@ class ResultActivity : AppCompatActivity() {
                 R.string.enhanced
             )
         val orientation =
-            if (gameMode.screenOrientation == ScreenOrientation.PORTRAIT) getString(R.string.vertical) else getString(
-                R.string.horizontal
+            if (gameMode.screenOrientation == ScreenOrientation.PORTRAIT) getString(R.string.portrait) else getString(
+                R.string.landscape
             )
 
         val animationManager = AnimationManager()
@@ -96,8 +95,8 @@ class ResultActivity : AppCompatActivity() {
             R.string.selected_time_pl,
             TimeConvert.convertSeconds(this, gameMode.timeMode.timeInSeconds)
         )
-        binding.tvLanguage.text =
-            getString(R.string.selected_language_pl, gameMode.getLanguage().getName(this))
+        //binding.tvLanguage.text =
+        //    getString(R.string.selected_language_pl, gameMode.getLanguage().getName(this))
         binding.tvTextSuggestions.text = getString(R.string.text_suggestions_pl, textSuggestions)
         binding.tvScreenOrientation.text = getString(R.string.screen_orientation_pl, orientation)
         if (wpm <= 0 && !calledFromResultsTab)
@@ -105,7 +104,7 @@ class ResultActivity : AppCompatActivity() {
                 .show()
         else if (wpm > 0 && !calledFromResultsTab) {
             resultsStorage.addResult(result)
-            checkAchievements()
+            updateAchievements()
         }
     }
 
@@ -155,7 +154,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun initBestResultSection() {
         val resultsList = resultsStorage.get()
-        bestResultByLanguage = resultsList.getBestResultByLanguage(gameMode.getLanguage())
+        val bestResultByLanguage = resultsList.getBestResultByLanguage(gameMode.getLanguage())
         if (bestResultByLanguage == 0) {
             binding.bestResultSection.visibility = View.GONE
             return
@@ -171,7 +170,6 @@ class ResultActivity : AppCompatActivity() {
             binding.tvDifferenceWithBestResult.setTextColor(Color.GREEN)
             binding.tvNewBestResult.visibility = View.VISIBLE
         } else if (resultDifference < 0) {
-
             binding.tvDifferenceWithBestResult.text = "(-${abs(resultDifference)})"
             binding.tvDifferenceWithBestResult.setTextColor(Color.GRAY)
         }
@@ -191,11 +189,14 @@ class ResultActivity : AppCompatActivity() {
             arguments.getSerializable(StringKeys.TEST_TYPED_WORDS_LIST) as ArrayList<Word>?
     }
 
-    private fun checkAchievements() {
+    private fun updateAchievements() {
         var newAchievements = 0
-        for (achievement in AchievementList(this).get()) {
-            val completionTime = achievementsStorage.getCompletionDateTimeLong(achievement.id.toString())
-            if (completionTime == 0L && achievement.requirementsAreComplete(resultsStorage.get())) {
+        val achievementsList = AchievementList(this).get()
+        val results = resultsStorage.get()
+        for (achievement in achievementsList) {
+            //val completionTime = achievementsStorage.getCompletionDateTimeLong(achievement.id.toString())
+            val completionTime = achievementsStorage.getAll()[achievement.id].completionDateTimeLong
+            if (completionTime == 0L && achievement.requirementsAreComplete(results)) {
                 achievementsStorage.store(achievement.id.toString(), Calendar.getInstance().time.time)
                 newAchievements++
             }
@@ -236,7 +237,7 @@ class ResultActivity : AppCompatActivity() {
         handler.postDelayed(runnable, 2000)
     }
 
-    fun startOver() {
+    private fun startOver() {
         val intent = Intent(this@ResultActivity, TypingTestActivity::class.java)
         intent.putExtra(StringKeys.TEST_SETTINGS, gameMode)
         finish()

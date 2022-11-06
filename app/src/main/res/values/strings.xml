@@ -42,7 +42,7 @@
     <string name="text_suggestions">Text suggestions</string>
     <string name="text_suggestions_enabled">Text suggestions are enabled.</string>
     <string name="text_suggestions_disabled">Text suggestions are disabled. Mention: not every keyboard supports this option.</string>
-    <string name="msg_results_with_zero_wpm">Results with 0 WPM are not recording.</string>
+    <string name="msg_results_with_zero_wpm">Not saved: The result has 0 WPM.</string>
     <string name="language">Language</string>
     <string name="start_over">Start over</string>
     <string name="finish">Finish</string>
@@ -69,8 +69,8 @@
     <string name="profile_desc">Statistics, passed tests, and achievements are here!</string>
 
     <string name="screen_orientation">Orientation</string>
-    <string name="vertical">Portrait</string>
-    <string name="horizontal">Landscape</string>
+    <string name="portrait">Portrait</string>
+    <string name="landscape">Landscape</string>
 
     <!--  Placeholders  -->
     <string name="previous_result_pl">Previous result: %1$d</string>
@@ -149,4 +149,5 @@
     <string name="label_new" translatable="false">New</string>
     <string name="items">Items</string>
     <string name="msg_no_previous_games">No previous games at the moment.</string>
+    <string name="undefined">Undefined</string>
 </resources>

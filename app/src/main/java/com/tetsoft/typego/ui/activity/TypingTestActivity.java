@@ -69,7 +69,6 @@ public class TypingTestActivity extends AppCompatActivity {
     GameOnTime gameMode;
     AdsCounter adsCounter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -339,6 +338,7 @@ public class TypingTestActivity extends AppCompatActivity {
             etWords.setSelection(scrollerCursorPosition);
     }
 
+    // TODO: Implement this logic inside of SpannableEditText.kt
     private void setNextWordCursors() {
         currentWordStartCursor = currentWordEndCursor + 1;
         currentWordEndCursor = currentWordStartCursor;
@@ -348,6 +348,7 @@ public class TypingTestActivity extends AppCompatActivity {
         updateCurrentWord();
     }
 
+    // TODO: Implement this logic inside of SpannableEditText.kt
     private void initializeWordCursor() {
         while (currentWordEndCursor<etWords.length() && etWords.getText().charAt(currentWordEndCursor)!=' ') {
             currentWordEndCursor++;
@@ -355,12 +356,14 @@ public class TypingTestActivity extends AppCompatActivity {
         updateCurrentWord();
     }
 
+    // TODO: Implement this logic inside of SpannableEditText.kt
     private void updateCurrentWord() {
         int length = etWords.getText().length();
         if (currentWordStartCursor > length || currentWordEndCursor > length) return;
         currentWord = etWords.getText().toString().substring(currentWordStartCursor, currentWordEndCursor);
     }
 
+    // TODO: Do this not on the main thread. Use coroutines.
     private ArrayList<Integer> getMistakeIndexes(String inputted, String original) {
         ArrayList<Integer> mistakeIndexes = new ArrayList<>();
         for (int i = 0; i<inputted.length(); i++) {
@@ -438,6 +441,7 @@ public class TypingTestActivity extends AppCompatActivity {
                 });
     }
 
+    // TODO: Move this method to the results page
     private void setAdCallback() {
         mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
             @Override

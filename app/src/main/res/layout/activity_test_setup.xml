@@ -291,7 +291,7 @@
                             android:checked="true"
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
-                            android:text="@string/vertical"
+                            android:text="@string/portrait"
                             android:textSize="16sp" />
 
                         <RadioButton
@@ -301,7 +301,7 @@
                             android:buttonTint="@color/main_green"
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
-                            android:text="@string/horizontal"
+                            android:text="@string/landscape"
                             android:textSize="16sp" />
                     </RadioGroup>
 

@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import java.text.SimpleDateFormat
@@ -23,7 +24,8 @@ class AchievementsAdapter(
     private val context: Context,
     private val achievements: ArrayList<Achievement>,
     private val resultList: GameResultList,
-    private val achievementsProgressStorage: AchievementsProgressStorage
+    //private val achievementsProgressStorage: AchievementsProgressStorage
+    private val achievementsProgressList: AchievementsProgressList
 ) : RecyclerView.Adapter<AchievementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementViewHolder {
@@ -50,7 +52,7 @@ class AchievementsAdapter(
                 currRequirement.requiredAmount
             )
         }
-        val completionDateTime = achievementsProgressStorage.getCompletionDateTimeLong(currAchievement.id.toString())
+        val completionDateTime = achievementsProgressList[currAchievement.id].completionDateTimeLong
         if (completionDateTime == 0L) {
             holder.tvCompletionDate.visibility = View.INVISIBLE
             holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)

@@ -1,7 +1,6 @@
 package com.tetsoft.typego.ui.fragment
 
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +16,7 @@ import com.tetsoft.typego.data.achievement.AchievementList
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.utils.Translation
 
 class StatisticsFragment : Fragment() {
     private var _binding: FragmentStatisticsBinding? = null
@@ -89,7 +89,6 @@ class StatisticsFragment : Fragment() {
         }
     }
 
-    @SuppressLint("StringFormatInvalid")
     private fun applyCountProgression(animator: ValueAnimator, view: TextView) {
         animator.addUpdateListener { animation: ValueAnimator ->
             if (context == null) return@addUpdateListener
@@ -100,7 +99,6 @@ class StatisticsFragment : Fragment() {
         }
     }
 
-    @SuppressLint("StringFormatInvalid")
     private fun displayOrHideProgressionCard(stats: Statistics) {
         val progress: Int = stats.progression
         if (progress == 0) {
@@ -167,9 +165,10 @@ class StatisticsFragment : Fragment() {
             cardsHidden++
             return
         }
+        val translation = Translation(requireContext())
         val results = GameResultListStorage(requireContext()).get()
-        binding.statsFavoriteLanguage.text = getString(R.string.stats_language_pl,
-            context?.let { favLang.getName(it) })
+        binding.statsFavoriteLanguage.text =
+            getString(R.string.stats_language_pl, translation.get(favLang))
         binding.statsFavoriteLanguageDescription.text =
             getString(
                 R.string.favorite_language_description_pl,

@@ -5,7 +5,9 @@ import com.google.android.gms.ads.AdRequest
 import com.tetsoft.typego.data.AdsCounter
 import com.tetsoft.typego.data.account.UserPreferences
 import com.tetsoft.typego.storage.*
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 open class TypeGoApp : Application() {
 
     open val preferences by lazy {

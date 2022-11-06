@@ -41,7 +41,7 @@
     <string name="text_suggestions">Подсказки ввода</string>
     <string name="text_suggestions_enabled">Подсказки ввода включены.</string>
     <string name="text_suggestions_disabled">Подсказки ввода отключены. Примечание: работает не со всеми клавиатурами.</string>
-    <string name="msg_results_with_zero_wpm">Результаты с 0 СВМ не записываются.</string>
+    <string name="msg_results_with_zero_wpm">Не сохранено: Результат имеет 0 СВМ.</string>
     <string name="language">Язык</string>
     <string name="start_over">Заново</string>
     <string name="finish">Завершить</string>
@@ -67,8 +67,8 @@
     <string name="profile_desc">Статистика, пройденные тесты и достижения находятся здесь!</string>
 
     <string name="screen_orientation">Положение</string>
-    <string name="vertical">Вертикальное</string>
-    <string name="horizontal">Горизонтальное</string>
+    <string name="portrait">Вертикальное</string>
+    <string name="landscape">Горизонтальное</string>
     <string name="previous_result_pl">Предыдущий результат: %1$d</string>
     <string name="best_result_pl">Лучший результат: %1$d</string>
     <string name="correct_words_pl">Правильных слов: %1$d</string>
@@ -136,4 +136,5 @@
     <string name="previous_versions">Предыдущие версии</string>
     <string name="items">Кол-во</string>
     <string name="msg_no_previous_games">Предыдущих игр нет.</string>
+    <string name="undefined">Неопределено</string>
 </resources>

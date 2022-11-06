@@ -58,7 +58,6 @@
         android:background="@null"
         android:contentDescription="@string/content_desc_test_restart"
         android:focusable="false"
-        android:onClick="restartTest"
         android:padding="8dp"
         android:scaleType="centerCrop"
         android:src="@android:drawable/ic_popup_sync"

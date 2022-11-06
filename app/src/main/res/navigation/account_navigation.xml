@@ -14,14 +14,28 @@
         android:id="@+id/navigation_account"
         android:name="com.tetsoft.typego.ui.fragment.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" >
-        <action
-            android:id="@+id/action_navigation_account_to_achievements"
-            app:destination="@id/navigation_achievements" />
-    </fragment>
+        tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/navigation_achievements"
         android:name="com.tetsoft.typego.ui.fragment.AchievementsFragment"
         android:label="fragment_achievements"
         tools:layout="@layout/fragment_achievements" />
+    <fragment
+        android:id="@+id/accountResultFragment"
+        android:name="com.tetsoft.typego.ui.fragment.result.ResultFragment"
+        android:label="ResultFragment" >
+        <action
+            android:id="@+id/action_accountResult_to_accountGame"
+            app:destination="@id/accountGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountGameFragment"
+        android:name="com.tetsoft.typego.ui.fragment.game.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_accountGame_to_accountResult"
+            app:destination="@id/accountResultFragment"
+            app:popUpTo="@id/accountGameFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

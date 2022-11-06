@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.account;
 
+import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList;
 import com.tetsoft.typego.data.language.LanguageList;
 import com.tetsoft.typego.data.achievement.Achievement;
 import com.tetsoft.typego.data.achievement.AchievementList;
@@ -43,8 +44,10 @@ public class Statistics {
 
     public int getDoneAchievementsCount(AchievementsProgressStorage progressStorage, AchievementList achievementList) {
         int count = 0;
+        AchievementsProgressList completedAchievements = progressStorage.getAll();
         for (Achievement achievement : achievementList.get())
-            if (progressStorage.achievementCompleted(String.valueOf(achievement.getId()))) count++;
+            //if (progressStorage.achievementCompleted(String.valueOf(achievement.getId()))) count++;
+            if (completedAchievements.get(achievement.getId()).isCompleted()) count++;
         return count;
     }
 
@@ -123,7 +126,8 @@ public class Statistics {
         long lastCompletionDate = 0L;
         Achievement lastCompletedAchievement = null;
         for (Achievement achievement : achievementList.get()) {
-            long completionTimeMillis = progressStorage.getCompletionDateTimeLong(String.valueOf(achievement.getId()));
+            //long completionTimeMillis = progressStorage.getCompletionDateTimeLong(String.valueOf(achievement.getId()));
+            long completionTimeMillis = progressStorage.getAll().get(achievement.getId()).getCompletionDateTimeLong();
             if (completionTimeMillis != 0L) {
                 if (completionTimeMillis > lastCompletionDate) {
                     lastCompletedAchievement = achievement;
