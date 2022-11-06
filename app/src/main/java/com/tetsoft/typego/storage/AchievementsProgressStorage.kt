@@ -31,6 +31,13 @@ class AchievementsProgressStorage(context: Context) {
         }
     }
 
+    // Remove a redundant version record from the preferences file.
+    fun removeVersion() {
+        with(sharedPreferences.edit()) {
+            remove(StringKeys.STORAGE_APP_VERSION)
+        }
+    }
+
     //fun getCompletionDateTimeLong(key: String): Long {
     //    return sharedPreferences.getLong(key, 0L)
     //}

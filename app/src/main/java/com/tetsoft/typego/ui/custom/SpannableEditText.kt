@@ -7,6 +7,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.BackgroundColorSpan
 import android.text.Spannable
 import android.util.AttributeSet
+import kotlin.math.min
 
 class SpannableEditText : AppCompatEditText {
     constructor(context: Context?) : super(context!!)
@@ -18,6 +19,66 @@ class SpannableEditText : AppCompatEditText {
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
         context!!, attrs, defStyle
     )
+
+    var selectedWordStartPosition : Int = 0
+
+    var selectedWordEndPosition : Int = 0
+
+    var selectedWord : String = ""
+
+    var autoScrollPosition = 0
+
+    var autoScrollPredictPosition = 0
+
+    fun selectNextWord() {
+        val backgroundSpan = BackgroundColorSpan(Color.rgb(0, 80, 100))
+        val foregroundSpan = ForegroundColorSpan(Color.WHITE)
+        paintBackground(selectedWordStartPosition, selectedWordEndPosition, backgroundSpan)
+        paintForeground(selectedWordStartPosition, selectedWordEndPosition, foregroundSpan)
+        updateAutoScrollPosition()
+    }
+
+    private fun updateAutoScrollPosition() {
+        autoScrollPosition = selectedWordEndPosition + autoScrollPredictPosition
+        setSelection(min(autoScrollPosition, text!!.length))
+    }
+
+    fun setNextWordCursors() {
+        selectedWordStartPosition = selectedWordEndPosition + 1
+        selectedWordEndPosition = selectedWordStartPosition
+        while (selectedWordEndPosition < length() && text?.get(selectedWordEndPosition) != ' ') {
+            selectedWordEndPosition++
+        }
+        updateCurrentWord()
+    }
+
+    private fun updateCurrentWord() {
+        if (selectedWordStartPosition > length() || selectedWordEndPosition > length()) return
+        selectedWord = text.toString().substring(selectedWordStartPosition, selectedWordEndPosition)
+    }
+
+    fun initializeWordCursor() {
+        while (selectedWordEndPosition < length() && text?.get(selectedWordEndPosition) != ' ') {
+            selectedWordEndPosition++
+        }
+        updateCurrentWord()
+    }
+
+    fun deselectCurrentWord() {
+        clearBackground(selectedWordStartPosition, selectedWordEndPosition)
+    }
+
+    fun selectCurrentWordAsIncorrect() {
+        paintForeground(selectedWordStartPosition, selectedWordEndPosition, redForeground)
+    }
+
+    fun selectCurrentWordAsCorrect() {
+        paintForeground(selectedWordStartPosition, selectedWordEndPosition, greenForeground)
+    }
+
+    fun reachedTheEnd() : Boolean {
+        return selectedWordStartPosition >= text!!.length
+    }
 
     fun paintForeground(charIndex: Int, foregroundColor: ForegroundColorSpan?) {
         if (this.text == null) return

@@ -27,7 +27,11 @@ import com.tetsoft.typego.utils.Translation
 class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     private val resultViewModel : ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+
     private val translation by lazy { Translation(requireContext()) }
+
+    private var resultSaved = false
+
     // TODO: Correct words and incorrect words
     // TODO: Typed words layout hasn't been tested yet
     override fun initBinding(
@@ -150,11 +154,15 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     }
 
     private fun storeResult() {
+        if (resultSaved) {
+            return
+        }
         if (resultCalledFromHistory()) {
             return
         }
         if (resultViewModel.resultIsValid()) {
             resultViewModel.saveResult()
+            resultSaved = true
             if (resultViewModel.getEarnedAchievementsCount(AchievementList(requireContext())) > 0) {
                 Snackbar.make(
                     binding.resultConstraintLayout,

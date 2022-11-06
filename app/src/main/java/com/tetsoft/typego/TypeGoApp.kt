@@ -26,7 +26,5 @@ open class TypeGoApp : Application() {
         GameResultListStorage(this)
     }
 
-    open val adRequest: AdRequest by lazy {
-        AdRequest.Builder().build()
-    }
+    val adRequest : AdRequest get() = AdRequest.Builder().build()
 }
