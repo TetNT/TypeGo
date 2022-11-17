@@ -2,7 +2,8 @@ package com.tetsoft.typego.game.result
 
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.PrebuiltTextGameMode
-import com.tetsoft.typego.utils.StringKeys
+import com.tetsoft.typego.data.timemode.TimeMode
+import com.tetsoft.typego.game.mode.GameOnTime
 import java.util.*
 
 class GameResultList : ArrayList<GameResult> {
@@ -12,7 +13,7 @@ class GameResultList : ArrayList<GameResult> {
     }
 
     fun getResultsByLanguage(language: Language): GameResultList {
-        if (language.identifier == StringKeys.LANGUAGE_ALL) return this
+        if (language.identifier == Language.ALL) return this
         val selectedResults = GameResultList()
         for (result in this) {
             val gameMode = result.gameMode
@@ -28,14 +29,29 @@ class GameResultList : ArrayList<GameResult> {
         return selectedResults
     }
 
-    fun getLastResultByGameType(gameTypeClass : Class<*>) : GameResult? {
-        if (this.isEmpty()) return null
+    fun getResultsByTimeMode(timeMode: TimeMode): GameResultList {
+        if (timeMode.timeInSeconds == 0) return this
+        val selectedResults = GameResultList()
+        for (result in this) {
+            val gameMode = result.gameMode
+            if (gameMode is GameOnTime) {
+                val rowTimeModeSeconds = gameMode.timeMode.timeInSeconds
+                if (rowTimeModeSeconds == timeMode.timeInSeconds)
+                    selectedResults.add(result)
+            }
+        }
+        return selectedResults
+    }
+
+    // TODO: Check if we even need this
+    fun getLastResultByGameType(gameTypeClass : Class<*>) : GameResult {
+        if (this.isEmpty()) return GameResult.Empty()
         this.asReversed().forEach {
             if (gameTypeClass.isInstance(it.gameMode)) {
                 return it
             }
         }
-        return null
+        return GameResult.Empty()
     }
 
     fun getLastWpm() : Double {
@@ -71,9 +87,9 @@ class GameResultList : ArrayList<GameResult> {
             return currentBest
         }
 
-    val bestResult: GameResult?
+    val bestResult: GameResult
         get() {
-            if (this.isEmpty()) return null
+            if (this.isEmpty()) return GameResult.Empty()
             var currentBest = this[0]
             for (result in this) {
                 if (result.wpm > currentBest.wpm) currentBest = result

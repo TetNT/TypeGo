@@ -15,15 +15,15 @@ class Translation(private val context: Context) {
     /**
      * @return "Yes" if true, "No" otherwise.
      */
-    fun get(value: Boolean) : String {
+    fun get(value: Boolean): String {
         return if (value == true)
             context.getString(R.string.yes)
         else
             context.getString(R.string.no)
     }
 
-    fun get(language: Language) : String {
-        return when(language.identifier) {
+    fun get(language: Language): String {
+        return when (language.identifier) {
             "ALL" -> context.getString(R.string.ALL)
             "EN" -> context.getString(R.string.EN)
             "RU" -> context.getString(R.string.RU)
@@ -38,28 +38,33 @@ class Translation(private val context: Context) {
         }
     }
 
-    fun get(dictionaryType: DictionaryType) : String {
-        return when(dictionaryType) {
+    fun get(dictionaryType: DictionaryType): String {
+        return when (dictionaryType) {
             DictionaryType.BASIC -> context.getString(R.string.basic)
             DictionaryType.ENHANCED -> context.getString(R.string.enhanced)
         }
     }
 
-    fun get(screenOrientation: ScreenOrientation) : String {
-        return when(screenOrientation) {
+    fun get(screenOrientation: ScreenOrientation): String {
+        return when (screenOrientation) {
             ScreenOrientation.PORTRAIT -> context.getString(R.string.portrait)
             ScreenOrientation.LANDSCAPE -> context.getString(R.string.landscape)
         }
     }
 
-    fun get(timeMode: TimeMode) : String {
-        val res = context.resources
+    fun get(timeMode: TimeMode): String {
         var remainingSeconds = timeMode.timeInSeconds
         val remainingMinutes = remainingSeconds / 60
         remainingSeconds -= remainingMinutes * 60
         var convertedTimeStr =
-            remainingMinutes.toString() + " " + res.getString(R.string.test_setup_minutes)
-        if (remainingSeconds > 0) convertedTimeStr += " " + remainingSeconds + " " + res.getString(R.string.test_setup_seconds)
+            remainingMinutes.toString() + " " + context.resources.getString(R.string.test_setup_minutes)
+        if (remainingSeconds > 0) convertedTimeStr += " $remainingSeconds " + context.resources.getString(
+            R.string.test_setup_seconds
+        )
         return convertedTimeStr
+    }
+
+    fun getAchievementName(id: Int) {
+        val res = context.resources
     }
 }

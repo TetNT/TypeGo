@@ -35,16 +35,9 @@ class AchievementsProgressStorage(context: Context) {
     fun removeVersion() {
         with(sharedPreferences.edit()) {
             remove(StringKeys.STORAGE_APP_VERSION)
+            apply()
         }
     }
-
-    //fun getCompletionDateTimeLong(key: String): Long {
-    //    return sharedPreferences.getLong(key, 0L)
-    //}
-
-    //fun achievementCompleted(key: String): Boolean {
-    //    return getCompletionDateTimeLong(key) != 0L
-    //}
 
     fun getAll() : AchievementsProgressList {
         val list = AchievementsProgressList()
@@ -54,18 +47,6 @@ class AchievementsProgressStorage(context: Context) {
         }
         return list
     }
-
-    //private fun getVersion() : Int {
-    //    return sharedPreferences.getInt(StringKeys.STORAGE_APP_VERSION, 0)
-    //}
-
-    //fun isUpToDate() : Boolean {
-    //    return getVersion() == BuildConfig.VERSION_CODE
-    //}
-
-    //fun isEmpty() : Boolean {
-    //    return getVersion() == 0
-    //}
 
     companion object {
         private const val ACHIEVEMENTS_PROGRESS_STORAGE = "achievements_progress_storage"

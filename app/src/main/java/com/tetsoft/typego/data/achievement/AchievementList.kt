@@ -4,10 +4,9 @@ import android.content.Context
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.achievement.requirement.RequirementFactory
 
-class AchievementList(val context: Context) {
-    fun get(): ArrayList<Achievement> {
-        val achievements = ArrayList<Achievement>()
-        achievements.add(
+class AchievementList(val context: Context) : ArrayList<Achievement>() {
+    init {
+        this.add(
             Achievement(
                 1,
                 context.getString(R.string.the_first_step),
@@ -17,7 +16,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.passedTestsAmount(1)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 2,
                 context.getString(R.string.beginner),
@@ -27,7 +26,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.wpmIsMoreThan(20)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 3,
                 context.getString(R.string.promising),
@@ -37,7 +36,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.wpmIsMoreThan(40)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 4,
                 context.getString(R.string.typewriter),
@@ -47,7 +46,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.wpmIsMoreThan(50)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 5,
                 context.getString(R.string.type_bachelor),
@@ -57,7 +56,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.wpmIsMoreThan(60)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 6,
                 context.getString(R.string.mastermind),
@@ -67,7 +66,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.wpmIsMoreThan(70)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 7,
                 context.getString(R.string.alien),
@@ -77,7 +76,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.wpmIsMoreThan(80)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 8,
                 context.getString(R.string.unmistakable, "I"),
@@ -87,7 +86,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.timeModeNoMistakes(30)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 9,
                 context.getString(R.string.unmistakable, "II"),
@@ -97,7 +96,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.timeModeNoMistakes(60)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 10,
                 context.getString(R.string.unmistakable, "III"),
@@ -107,7 +106,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.timeModeNoMistakes(120)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 11,
                 context.getString(R.string.unmistakable, "IV"),
@@ -117,7 +116,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.timeModeNoMistakes(180)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 12,
                 context.getString(R.string.unmistakable, "V"),
@@ -127,7 +126,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.timeModeNoMistakes(300)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 13,
                 context.getString(R.string.big_fan, "I"),
@@ -137,7 +136,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.passedTestsAmount(10)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 14,
                 context.getString(R.string.big_fan, "II"),
@@ -147,7 +146,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.passedTestsAmount(50)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 15,
                 context.getString(R.string.big_fan, "III"),
@@ -157,7 +156,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.passedTestsAmount(100)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 16,
                 context.getString(R.string.big_fan, "IV"),
@@ -167,7 +166,7 @@ class AchievementList(val context: Context) {
                 RequirementFactory.passedTestsAmount(200)
             )
         )
-        achievements.add(
+        this.add(
             Achievement(
                 17,
                 context.getString(R.string.big_fan, "V"),
@@ -177,6 +176,15 @@ class AchievementList(val context: Context) {
                 RequirementFactory.passedTestsAmount(500)
             )
         )
-        return achievements
+    }
+    fun get(): AchievementList {
+        return this
+    }
+
+    fun getById(id: Int) : Achievement {
+        forEach {
+            if (it.id == id) return it
+        }
+        return Achievement.Empty()
     }
 }

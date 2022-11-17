@@ -18,7 +18,6 @@ import com.tetsoft.typego.adapter.WordsAdapter
 import com.tetsoft.typego.data.achievement.AchievementList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentResultBinding
-import com.tetsoft.typego.ui.activity.ResultActivity
 import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.utils.AnimationManager
@@ -55,7 +54,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     private fun initWpm() {
         val animationManager = AnimationManager()
         val countAnimation = animationManager.getCountAnimation(0, resultViewModel.getWpm(),
-            ResultActivity.COUNT_UP_ANIMATION_DURATION)
+            COUNT_UP_ANIMATION_DURATION)
         animationManager.applyCountAnimation(countAnimation, binding.tvWPM)
         countAnimation.start()
     }

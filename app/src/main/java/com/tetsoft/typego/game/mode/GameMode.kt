@@ -8,4 +8,6 @@ abstract class GameMode(
     open val suggestionsActivated: Boolean,
     open val screenOrientation: ScreenOrientation
 ) : Serializable {
+
+    class Empty : GameMode(false, ScreenOrientation.PORTRAIT)
 }

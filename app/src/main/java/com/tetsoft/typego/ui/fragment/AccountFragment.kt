@@ -24,7 +24,6 @@ import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 import com.tetsoft.typego.utils.AnimationManager
-import com.tetsoft.typego.utils.StringKeys
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
@@ -72,7 +71,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         val languages = LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
         // an option to show the whole stats
         val spinnerItem = LanguageSpinnerItem(
-            Language(StringKeys.LANGUAGE_ALL),
+            Language(Language.ALL),
             requireContext().getString(R.string.ALL),
             R.drawable.ic_language
         )

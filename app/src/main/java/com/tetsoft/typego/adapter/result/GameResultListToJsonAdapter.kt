@@ -1,7 +1,9 @@
-package com.tetsoft.typego.game.result
+package com.tetsoft.typego.adapter.result
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
+import com.tetsoft.typego.game.result.GameResult
+import com.tetsoft.typego.game.result.GameResultList
 import kotlin.collections.toList
 
 class GameResultListToJsonAdapter {

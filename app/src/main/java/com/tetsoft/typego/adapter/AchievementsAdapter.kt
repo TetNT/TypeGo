@@ -15,7 +15,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import com.tetsoft.typego.game.result.GameResultList
-import com.tetsoft.typego.storage.AchievementsProgressStorage
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,7 +23,6 @@ class AchievementsAdapter(
     private val context: Context,
     private val achievements: ArrayList<Achievement>,
     private val resultList: GameResultList,
-    //private val achievementsProgressStorage: AchievementsProgressStorage
     private val achievementsProgressList: AchievementsProgressList
 ) : RecyclerView.Adapter<AchievementViewHolder>() {
 

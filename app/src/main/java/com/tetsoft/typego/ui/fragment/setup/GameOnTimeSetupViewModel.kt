@@ -6,6 +6,7 @@ import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
+import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.storage.GameResultListStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,28 +25,34 @@ class GameOnTimeSetupViewModel @Inject constructor(gameResultListStorage: GameRe
     }
 
     fun getLastUsedLanguageOrDefault() : Language {
-        if (lastResult != null) return (lastResult!!.gameMode as GameOnTime).getLanguage()
+        if (lastResult.gameMode is GameMode.Empty)
+            return DEFAULT_LANGUAGE
+        if (lastResult.gameMode is GameOnTime) {
+            return (lastResult.gameMode as GameOnTime).getLanguage()
+        }
         return DEFAULT_LANGUAGE
     }
 
     fun getLastUsedTimeModeOrDefault() : TimeMode {
-        if (lastResult != null) return (lastResult!!.gameMode as GameOnTime).timeMode
+        if (lastResult.gameMode is GameOnTime) {
+            return (lastResult.gameMode as GameOnTime).timeMode
+        }
         return DEFAULT_TIME_MODE
     }
 
     fun getLastUsedDictionaryTypeOrDefault() : DictionaryType {
-        if (lastResult != null) return (lastResult!!.gameMode as GameOnTime).dictionaryType
+        if (lastResult.gameMode is GameOnTime) {
+            return (lastResult.gameMode as GameOnTime).dictionaryType
+        }
         return DEFAULT_DICTIONARY
     }
 
     fun getLastUsedOrientationOrDefault() : ScreenOrientation {
-        if (lastResult != null) return (lastResult!!.gameMode as GameOnTime).screenOrientation
-        return DEFAULT_SCREEN_ORIENTATION
+        return (lastResult.gameMode).screenOrientation
     }
 
     fun areSuggestionsUsedInLastResultOrDefault() : Boolean {
-        if (lastResult != null) return (lastResult!!.gameMode as GameOnTime).suggestionsActivated
-        return DEFAULT_SUGGESTIONS_ACTIVATION
+        return lastResult.gameMode.suggestionsActivated
     }
 
     companion object {

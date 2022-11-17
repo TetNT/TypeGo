@@ -3,8 +3,9 @@ package com.tetsoft.typego.data.achievement
 import com.tetsoft.typego.data.achievement.requirement.Requirement
 import com.tetsoft.typego.game.result.GameResultList
 import java.util.*
+import kotlin.collections.ArrayList
 
-class Achievement(
+open class Achievement(
     var id: Int,
     val name: String,
     val description: String,
@@ -26,4 +27,13 @@ class Achievement(
             if (!requirement.isMatching(resultList)) return false
         return true
     }
+
+    class Empty : Achievement(
+        -1,
+        "",
+        "",
+        0,
+        false,
+        ArrayList()
+    )
 }

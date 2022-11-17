@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 // TODO: make a public constructor that receives a view, so class is no longer static-like.
+@Deprecated()
 public class AnimationManager {
 
     public TranslateAnimation getSlideInAnimation(float fromX, float fromY, long duration) {

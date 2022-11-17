@@ -36,6 +36,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
+        viewModel.removeVersioning()
     }
 
     private fun setupButtonsOnClickListeners() {
