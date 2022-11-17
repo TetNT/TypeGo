@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.StatisticsFragment">
+    tools:context=".ui.fragment.statistics.StatisticsFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     android:padding="12dp">
 
                     <TextView
-                        android:id="@+id/start_wpm"
+                        android:id="@+id/past_wpm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
@@ -93,12 +93,12 @@
                         android:text="@string/stats_wpm_pl" />
 
                     <TextView
-                        android:id="@+id/start_wpm_title"
+                        android:id="@+id/past_wpm_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/start_wpm"
-                        app:layout_constraintStart_toStartOf="@id/start_wpm"
-                        app:layout_constraintEnd_toEndOf="@id/start_wpm"
+                        app:layout_constraintTop_toBottomOf="@id/past_wpm"
+                        app:layout_constraintStart_toStartOf="@id/past_wpm"
+                        app:layout_constraintEnd_toEndOf="@id/past_wpm"
                         android:text="@string/stats_avg_result_in_the_past"
                         android:fontFamily="@font/redring_bold"
                         android:translationY="-8dp"
@@ -109,8 +109,8 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="4dp"
-                        app:layout_constraintStart_toStartOf="@id/start_wpm"
-                        app:layout_constraintEnd_toEndOf="@id/start_wpm"
+                        app:layout_constraintStart_toStartOf="@id/past_wpm"
+                        app:layout_constraintEnd_toEndOf="@id/past_wpm"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:background="@color/white" />
@@ -119,9 +119,9 @@
                         android:id="@+id/current_wpm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@id/start_wpm"
-                        app:layout_constraintEnd_toEndOf="@id/start_wpm"
-                        app:layout_constraintTop_toBottomOf="@id/start_wpm_title"
+                        app:layout_constraintStart_toStartOf="@id/past_wpm"
+                        app:layout_constraintEnd_toEndOf="@id/past_wpm"
+                        app:layout_constraintTop_toBottomOf="@id/past_wpm_title"
                         android:ems="4"
                         android:textAlignment="center"
                         android:textSize="40sp"
@@ -133,8 +133,8 @@
                         android:id="@+id/current_wpm_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@id/start_wpm"
-                        app:layout_constraintEnd_toEndOf="@id/start_wpm"
+                        app:layout_constraintStart_toStartOf="@id/past_wpm"
+                        app:layout_constraintEnd_toEndOf="@id/past_wpm"
                         app:layout_constraintTop_toBottomOf="@id/current_wpm"
                         android:text="@string/stats_avg_result_now"
                         android:fontFamily="@font/redring_bold"
@@ -192,7 +192,7 @@
                     android:padding="8dp">
 
                     <TextView
-                        android:id="@+id/tv_stats_words_description"
+                        android:id="@+id/tv_words_written"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -210,8 +210,8 @@
                         android:id="@+id/tv_accuracy"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_stats_words_description"
-                        app:layout_constraintStart_toStartOf="@id/tv_stats_words_description"
+                        app:layout_constraintTop_toBottomOf="@id/tv_words_written"
+                        app:layout_constraintStart_toStartOf="@id/tv_words_written"
                         android:text="@string/stats_accuracy_pl"
                         android:textSize="20sp"
                         android:textColor="@color/correct_green"
@@ -353,7 +353,7 @@
                         android:textSize="28sp"/>
 
                     <TextView
-                        android:id="@+id/stats_favorite_language"
+                        android:id="@+id/tv_favorite_language"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/redring_regular"
@@ -383,7 +383,6 @@
                         android:text="@string/stats_time_mode_pl"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:visibility="gone"
                         app:drawableStartCompat="@drawable/ic_timer"
                         app:drawableTint="@color/white" />
 
@@ -391,8 +390,7 @@
                         android:id="@+id/stats_favorite_timemode_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/favorite_timemode_description_pl"
-                        android:visibility="gone"/>
+                        android:text="@string/favorite_timemode_description_pl" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

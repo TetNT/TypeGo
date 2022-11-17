@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/TypeGo">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
@@ -29,16 +29,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/application_ad_id" />
-
-        <activity
-            android:name=".ui.activity.AccountActivity"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ui.activity.ResultActivity" />
-        <activity
-            android:name=".ui.activity.TypingTestActivity"
-            android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activity.TestSetupActivity" />
     </application>
 
 </manifest>

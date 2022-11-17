@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.TypingTestActivity">
+    tools:context=".ui.fragment.game.GameFragment">
 
     <com.tetsoft.typego.ui.custom.SpannableEditText
         android:id="@+id/words"
@@ -58,7 +58,6 @@
         android:background="@null"
         android:contentDescription="@string/content_desc_test_restart"
         android:focusable="false"
-        android:onClick="restartTest"
         android:padding="8dp"
         android:scaleType="centerCrop"
         android:src="@android:drawable/ic_popup_sync"
