@@ -1,21 +1,18 @@
 package com.tetsoft.typego.data.statistics
 
-import com.tetsoft.typego.game.result.GameResultList
+import com.tetsoft.typego.data.statistics.calculation.TimeSpentCalculation
 
-class TimeSpentStatistics(private val resultList: GameResultList) : StatisticsProvider {
-
-    override fun provide(): String {
-        var total = 0
-        for (result in resultList) {
-            total += result.timeSpentInSeconds
-        }
-        return (total / 60).toString()
+class TimeSpentStatistics(timeSpentCalculation: TimeSpentCalculation) : Statistics {
+    private val timeSpent = timeSpentCalculation.provide()
+    override fun provide(): Int {
+        return timeSpent
     }
 
-    override fun visibility(): VisibilityProvider {
-        return if (resultList.isEmpty())
+    override fun getVisibility(): VisibilityProvider {
+        return if (timeSpent == 0)
             VisibilityProvider.Gone()
         else
             VisibilityProvider.Visible()
     }
+
 }

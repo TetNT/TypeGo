@@ -1,22 +1,17 @@
 package com.tetsoft.typego.data.statistics
 
-import com.tetsoft.typego.game.result.GameResultList
+import com.tetsoft.typego.data.statistics.calculation.AveragePastWpmCalculation
 
-class AveragePastWpmStatistics(
-    private val resultList: GameResultList,
-    private val resultsPoolSize: Int
-) : StatisticsProvider {
+class AveragePastWpmStatistics(averagePastWpmCalculation: AveragePastWpmCalculation) : Statistics {
 
-    override fun provide(): String {
-        val poolEnhancement: Int = resultsPoolSize + resultList.size / 5
-        var wpm = 0
-        for (i in resultList.size - 1 downTo resultList.size - poolEnhancement + 1)
-            wpm += resultList[i].wpm.toInt()
-        return (wpm / poolEnhancement).toString()
+    private val averageWpm = averagePastWpmCalculation.provide()
+
+    override fun provide(): Int {
+        return averageWpm
     }
 
-    override fun visibility() : VisibilityProvider {
-        if (resultList.size < resultsPoolSize * 2) {
+    override fun getVisibility() : VisibilityProvider {
+        if (averageWpm == 0) {
             return VisibilityProvider.Gone()
         }
         return VisibilityProvider.Visible()
