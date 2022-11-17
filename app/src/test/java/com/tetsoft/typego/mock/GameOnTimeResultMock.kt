@@ -4,19 +4,19 @@ import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.result.GameResult
 import java.util.*
 
-class GameResultMock {
+class GameOnTimeResultMock {
 
-    fun getResultGameOnTime(timeInSeconds: Int, score: Int, calendar: Calendar) : GameResult {
+    fun getResultGameOnTime(language: Language, timeInSeconds: Int, score: Int, time: Long) : GameResult {
         return GameResult(
-            GameOnTimeMock().getEnglishBasicPortraitWithSuggestions(timeInSeconds),
-            score, timeInSeconds, 30, 29, calendar.timeInMillis
+            GameOnTimeMock().getBasicPortraitWithSuggestions(language, timeInSeconds),
+            score, timeInSeconds, 30, 29, time
         )
     }
 
-    fun getResultGameOnTime(language: Language, timeInSeconds: Int, score: Int, calendar: Calendar) : GameResult {
+    fun getSampleByWordsWritten(wordsWritten: Int, correctWords: Int) : GameResult {
         return GameResult(
-            GameOnTimeMock().getBasicPortraitWithSuggestions(language, timeInSeconds),
-            score, timeInSeconds, 30, 29, calendar.timeInMillis
+            GameOnTimeMock().getBasicPortraitWithSuggestions(Language("Test"), 60),
+            300, 60, wordsWritten, correctWords, 60
         )
     }
 
