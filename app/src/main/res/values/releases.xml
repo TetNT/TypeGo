@@ -26,10 +26,22 @@
         • What to expect next?\nMore achievements, new game mode and some other features. Stay tuned!
     </string>
 
-    <string name="release_notes_description_current_version">
+    <string name="release_notes_description_149">
         The main page has been redesigned!\n
         • Bug fixes\nFixed a major bug that, while playing, could cause the app to crash unexpectedly.\nFixed a bug when some statistics cards could be invisible.\n\n
         • Other improvements\nAdded the "Replay" button on the main page.\nThe results page now shows the difference between the current and the previous result.
+    </string>
+
+    <string name="release_notes_description_current_version">
+        This update aims at the app’s optimization, bug fixes and some adjustments\n\n
+        • 10-minute test! Now there is no reason to rush\n
+        • All transitions between screens has been changed, they have become quicker and more responsive\n
+        • The result screen loads much faster and the typed words list is moved to another window\n
+        • The profile tab is slightly redesigned\n
+        • The favorite Time mode statistics are back!\n
+        • Fixed a bug when if a user had 0% progression, then the respective statistics card was locked\n
+        • Fixed Ukrainian words with wrong characters\n
+        • Now the game doesn\'t crash if a user reaches the end of a text
     </string>
 
 </resources>
