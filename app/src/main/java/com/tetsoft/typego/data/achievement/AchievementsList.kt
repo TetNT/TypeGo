@@ -4,7 +4,7 @@ import android.content.Context
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.achievement.requirement.RequirementFactory
 
-class AchievementList(val context: Context) : ArrayList<Achievement>() {
+class AchievementsList(val context: Context) : ArrayList<Achievement>() {
     init {
         this.add(
             Achievement(
@@ -177,7 +177,7 @@ class AchievementList(val context: Context) : ArrayList<Achievement>() {
             )
         )
     }
-    fun get(): AchievementList {
+    fun get(): AchievementsList {
         return this
     }
 

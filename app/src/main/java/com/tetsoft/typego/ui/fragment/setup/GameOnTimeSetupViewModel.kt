@@ -13,16 +13,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GameOnTimeSetupViewModel @Inject constructor(gameResultListStorage: GameResultListStorage) :
+class GameOnTimeSetupViewModel @Inject constructor(private val gameResultListStorage: GameResultListStorage) :
     ViewModel() {
 
-    private val gameResults = gameResultListStorage.get()
+    private val gameResults get() = gameResultListStorage.get()
 
-    private var lastResult = gameResults.getLastResultByGameType(GameOnTime::class.java)
-
-    fun updateLastResult() {
-        lastResult = gameResults.getLastResultByGameType(GameOnTime::class.java)
-    }
+    private val lastResult get() = gameResults.getLastResultByGameType(GameOnTime::class.java)
 
     fun getLastUsedLanguageOrDefault() : Language {
         if (lastResult.gameMode is GameMode.Empty)
@@ -59,7 +55,5 @@ class GameOnTimeSetupViewModel @Inject constructor(gameResultListStorage: GameRe
         val DEFAULT_LANGUAGE = Language(LanguageList.EN)
         val DEFAULT_TIME_MODE = TimeMode(60)
         val DEFAULT_DICTIONARY = DictionaryType.BASIC
-        val DEFAULT_SCREEN_ORIENTATION = ScreenOrientation.PORTRAIT
-        const val DEFAULT_SUGGESTIONS_ACTIVATION = true
     }
 }

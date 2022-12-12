@@ -69,11 +69,4 @@ class GameViewModel @Inject constructor(): ViewModel() {
     fun clearScore() {
         score = 0
     }
-
-    // TODO: Retrieve result from here and pass it to the ResultViewModel later
-
-    // TODO: import correctness map
-    fun getCorrectnessMap() {
-
-    }
 }

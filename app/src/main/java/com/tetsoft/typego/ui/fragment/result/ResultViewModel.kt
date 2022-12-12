@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.Word
-import com.tetsoft.typego.data.achievement.AchievementList
+import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import com.tetsoft.typego.game.mode.GameMode
@@ -19,11 +19,8 @@ import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
-import java.lang.NullPointerException
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 @HiltViewModel
@@ -38,13 +35,27 @@ class ResultViewModel @Inject constructor(
 
     var result : GameResult? = null
 
-    var typedWordsList : ArrayList<Word> = ArrayList()
+    val selectedList = MutableLiveData<List<Word>>(ArrayList())
 
-    private val resultList = resultListStorage.get()
+    private val resultList get() = resultListStorage.get()
+
+    private val gameCompleted = MutableLiveData(false)
+
+    val isGameCompleted : Boolean get() = gameCompleted.value ?: false
+
+    fun setGameCompleted(boolean: Boolean) {
+        gameCompleted.postValue(boolean)
+    }
 
     fun selectGameMode(gameMode: GameMode) {
         _gameMode.postValue(gameMode)
     }
+
+    fun selectTypedWordsList(list: List<Word>) {
+        selectedList.value = list
+    }
+
+    fun hasWordsLog() = selectedList.value?.isNotEmpty() ?: false
 
     fun getCorrectWords() : Int {
         return result?.correctWords ?: 0
@@ -125,12 +136,12 @@ class ResultViewModel @Inject constructor(
     fun saveResult() {
         resultListStorage.addResult(result!!)
     }
-    // TODO: triggers twice
-    fun getEarnedAchievementsCount(achievementList: AchievementList) : Int {
+
+    fun getEarnedAchievementsCount(achievementsList: AchievementsList) : Int {
         var newAchievements = 0
         val completedAchievements = achievementsProgressStorage.getAll()
         viewModelScope.launch {
-            for (achievement in achievementList.get()) {
+            for (achievement in achievementsList.get()) {
                  if (!completedAchievements[achievement.id].isCompleted() &&
                     achievement.requirementsAreComplete(resultList)) {
                     achievementsProgressStorage.store(achievement.id.toString(), Calendar.getInstance().time.time)
@@ -148,6 +159,10 @@ class ResultViewModel @Inject constructor(
     private fun requireResult() : GameResult {
         if (result == null) throw NullPointerException("Result has not been set!")
         return result as GameResult
+    }
+
+    companion object {
+        const val PAGE_SIZE = 10
     }
 
 }

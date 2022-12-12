@@ -48,9 +48,9 @@
         <action
             android:id="@+id/action_gameSetup_to_game"
             app:destination="@id/gameFragment"
-            app:enterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
@@ -85,6 +85,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_result_to_typedWords"
+            app:destination="@id/typedWordsFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"/>
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -95,7 +101,6 @@
             android:id="@+id/action_account_to_result"
             app:destination="@id/resultFragment"
             app:enterAnim="@anim/slide_in_up"
-
             app:popEnterAnim="@anim/slide_in_up"
             />
         <action
@@ -124,5 +129,17 @@
         android:name="com.tetsoft.typego.ui.fragment.AchievementsFragment"
         android:label="fragment_achievements"
         tools:layout="@layout/fragment_achievements" />
+    <fragment
+        android:id="@+id/typedWordsFragment"
+        android:name="com.tetsoft.typego.TypedWordsFragment"
+        android:label="fragment_typed_words"
+        tools:layout="@layout/fragment_typed_words" >
+        <action
+            android:id="@+id/action_typedWordsFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_right"
+            />
+    </fragment>
 
 </navigation>

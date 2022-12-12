@@ -8,7 +8,7 @@ class TimeModeList : ArrayList<TimeMode>() {
         this.add(TimeMode(120))
         this.add(TimeMode(180))
         this.add(TimeMode(300))
-        //this.add(TimeMode(600))
+        this.add(TimeMode(600))
     }
 
     fun getIndexByTimeMode(timeMode: TimeMode) : Int {

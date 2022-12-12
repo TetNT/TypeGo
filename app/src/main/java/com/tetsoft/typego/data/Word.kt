@@ -7,6 +7,6 @@ data class Word(
 ) {
 
     fun isCorrect(): Boolean {
-        return incorrectCharsIndices.isEmpty()
+        return incorrectCharsIndices.isEmpty() && inputtedText.length == originalText.length
     }
 }

@@ -1,10 +1,6 @@
 package com.tetsoft.typego.data.language
 
-import java.io.Serializable
-
-data class Language(
-    val identifier: String
-) : Serializable {
+data class Language(val identifier: String)  {
 
     override fun toString(): String {
         return identifier

@@ -56,7 +56,7 @@ public class GamesHistoryAdapter extends RecyclerView.Adapter<GamesHistoryAdapte
     @Override
     public int getItemCount() {
         if (results == null) return 0;
-        int MAX_ITEM_COUNT = 30;
+        int MAX_ITEM_COUNT = 20;
         return Math.min(results.size(), MAX_ITEM_COUNT);
     }
 

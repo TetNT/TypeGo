@@ -1,9 +1,7 @@
-package com.tetsoft.typego.ui
+package com.tetsoft.typego
 
-import androidx.appcompat.app.AppCompatActivity
-//import com.tetsoft.typego.data.account.UserPreferences
 import android.os.Bundle
-import com.tetsoft.typego.TypeGoApp
+import androidx.appcompat.app.AppCompatActivity
 import com.tetsoft.typego.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

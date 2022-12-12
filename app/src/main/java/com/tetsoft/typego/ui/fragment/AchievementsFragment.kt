@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tetsoft.typego.data.achievement.AchievementList
+import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.adapter.AchievementsAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tetsoft.typego.databinding.FragmentAchievementsBinding
@@ -25,7 +25,7 @@ class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val gameResultListStorage = GameResultListStorage(requireContext())
         val achievementsProgressStorage = AchievementsProgressStorage(requireContext())
-        val staticAchievements = AchievementList(requireContext())
+        val staticAchievements = AchievementsList(requireContext())
         binding.rvAchievements.adapter = AchievementsAdapter(
             requireContext(),
             staticAchievements.get(),

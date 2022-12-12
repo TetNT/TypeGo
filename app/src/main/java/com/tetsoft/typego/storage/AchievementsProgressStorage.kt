@@ -23,7 +23,6 @@ class AchievementsProgressStorage(context: Context) {
 
     fun store(achievementsProgressList: AchievementsProgressList) {
         with(sharedPreferences.edit()) {
-            //putInt(StringKeys.STORAGE_APP_VERSION, BuildConfig.VERSION_CODE)
             for (progress in achievementsProgressList) {
                 putLong(progress.achievementId.toString(), progress.completionDateTimeLong)
             }
@@ -31,7 +30,7 @@ class AchievementsProgressStorage(context: Context) {
         }
     }
 
-    // Remove a redundant version record from the preferences file.
+    // Remove a redundant version record from the preferences file
     fun removeVersion() {
         with(sharedPreferences.edit()) {
             remove(StringKeys.STORAGE_APP_VERSION)

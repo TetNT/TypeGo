@@ -135,6 +135,7 @@
     <string name="content_desc_my_profile">My profile</string>
     <string name="content_desc_language_select">Select a language</string>
     <string name="content_desc_test_restart">Restart the test</string>
+    <string name="words_loading">The log is loading…</string>
 
     <string name="error_navigation_to_achievements">Unable to navigate to the achievement section.</string>
 

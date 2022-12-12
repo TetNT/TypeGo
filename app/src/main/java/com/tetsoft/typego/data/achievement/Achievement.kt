@@ -2,8 +2,6 @@ package com.tetsoft.typego.data.achievement
 
 import com.tetsoft.typego.data.achievement.requirement.Requirement
 import com.tetsoft.typego.game.result.GameResultList
-import java.util.*
-import kotlin.collections.ArrayList
 
 open class Achievement(
     var id: Int,
@@ -11,19 +9,14 @@ open class Achievement(
     val description: String,
     val assignedImageId: Int,
     val isProgressAttached: Boolean,
-    // Progress will be shown based on it's very first value.
-    val requirements: ArrayList<Requirement>
+    val requirements: List<Requirement> // Progress will be shown based on the very first requirement
 ) {
-    @Deprecated("Achievement completion is no longer a part of the Achievement class.")
-    var completionDate: Date? = null
 
-    @Deprecated("Achievement completion is no longer a part of the Achievement class.")
-    val isCompleted: Boolean
-        get() = completionDate != null
-
-    // Returns true if user completed the achievement.
+    /**
+     * @return true if all requirements are complete, false otherwise
+     */
     fun requirementsAreComplete(resultList : GameResultList): Boolean {
-        for (requirement in requirements)  // if any of the requirements isn't complete then return false
+        for (requirement in requirements)
             if (!requirement.isMatching(resultList)) return false
         return true
     }

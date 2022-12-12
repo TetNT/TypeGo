@@ -79,7 +79,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
                 return@addAfterTextChangedListener
             }
 
-            // if a test hasn't started yet and the user began to type
+            // if a test hasn't started yet and a user began to type
             if (testInitiallyPaused && binding.inpWord.text.isNotEmpty()) {
                 startTimer(secondsRemaining)
                 testInitiallyPaused = false
@@ -391,7 +391,8 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
             gameViewModel.calculateCorrectWords(),
             Calendar.getInstance().time.time
         )
-        resultViewModel.typedWordsList = gameViewModel.getTypedWords()
+        resultViewModel.selectTypedWordsList(gameViewModel.getTypedWords())
+        resultViewModel.setGameCompleted(true)
         binding.root.findNavController().navigate(R.id.action_gameFragment_to_resultFragment)
     }
 

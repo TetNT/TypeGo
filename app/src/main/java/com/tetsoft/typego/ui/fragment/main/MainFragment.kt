@@ -14,11 +14,9 @@ import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
-import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding
 import com.tetsoft.typego.game.mode.GameOnTime
-import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.custom.withColor
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
@@ -87,10 +85,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         )
         binding.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
         val lastLanguage = viewModel.getLastUsedLanguageOrDefault()
+        val languageIndex = spinnerAdapter.getItemIndexByLanguage(lastLanguage)
         binding.spinnerBasicTestLanguageSelection.setSelection(
-            spinnerAdapter.getItemIndexByLanguage(lastLanguage)
+            languageIndex
         )
-        // TODO: Select a language based on SIM-card
     }
 
     companion object {

@@ -85,7 +85,9 @@ class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
             LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
         )
         binding.spinLanguageSelection.adapter = spinnerAdapter
-        binding.spinLanguageSelection.setSelection(spinnerAdapter.getItemIndexByLanguage(viewModel.getLastUsedLanguageOrDefault()))
+        val lastUsedLanguage = viewModel.getLastUsedLanguageOrDefault()
+        val languageIndex = spinnerAdapter.getItemIndexByLanguage(lastUsedLanguage)
+        binding.spinLanguageSelection.setSelection(languageIndex)
     }
 
     private fun setupTimeModeSlider() {

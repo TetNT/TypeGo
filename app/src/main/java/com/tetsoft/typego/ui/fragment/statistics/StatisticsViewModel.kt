@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
+import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.statistics.*
 import com.tetsoft.typego.data.statistics.calculation.*
@@ -16,12 +17,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val gameResultListStorage: GameResultListStorage,
-    private val achievementsProgressStorage: AchievementsProgressStorage
+    gameResultListStorage: GameResultListStorage,
+    achievementsProgressStorage: AchievementsProgressStorage,
+    achievementsList: AchievementsList
 ) : ViewModel() {
 
     companion object {
-        const val RESULTS_DEFAULT_POOL_SIZE = 20
+        const val RESULTS_DEFAULT_POOL_SIZE = 5
     }
 
     fun toggleStatisticsCard(
@@ -63,7 +65,12 @@ class StatisticsViewModel @Inject constructor(
     }
 
     val averagePastWpmStatistics = AveragePastWpmStatistics(
-        AveragePastWpmCalculation(gameResultListStorage.get(), RESULTS_DEFAULT_POOL_SIZE)
+        AveragePastWpmCalculation(
+            gameResultListStorage.get(),
+            RESULTS_DEFAULT_POOL_SIZE,
+            PoolEnhancement.Base(gameResultListStorage.get().size,
+                RESULTS_DEFAULT_POOL_SIZE)
+        )
     )
 
     val averageCurrentWpmStatistics = AverageCurrentWpmStatistics(
@@ -112,15 +119,17 @@ class StatisticsViewModel @Inject constructor(
         DoneAchievementsCountCalculation(achievementsProgressStorage.getAll())
     )
 
+    val achievementsCount = achievementsList.size
+
     val doneAchievementsPercentageStatistics = DoneAchievementsPercentageStatistics(
-        DoneAchievementsPercentageCalculation(achievementsProgressStorage.getAll())
+        DoneAchievementsPercentageCalculation(achievementsProgressStorage.getAll(), achievementsCount)
     )
 
-    //val lastCompletedAchievementStatistics = LastCompletedAchievementStatistics(
-    //    LastCompletedAchievementCalculation(achievementsProgressStorage.getAll(), AchievementList())
+    val lastCompletedAchievementStatistics = LastCompletedAchievementStatistics(
+        LastCompletedAchievementCalculation(achievementsProgressStorage.getAll(), achievementsList))
 
     val gamesCount = gameResultListStorage.get().size
 
-    val achievementsCount = achievementsProgressStorage.getAll().size
+
 
 }

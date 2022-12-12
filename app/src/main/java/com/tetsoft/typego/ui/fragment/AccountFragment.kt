@@ -122,6 +122,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         val listener = RecyclerViewOnClickListener { _: View?, position: Int ->
             resultViewModel.result = resultsByLanguage[position]
             resultViewModel.selectGameMode(resultViewModel.result!!.gameMode)
+            resultViewModel.setGameCompleted(false)
             binding.root.findNavController().navigate(R.id.action_account_to_result)
         }
         binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)

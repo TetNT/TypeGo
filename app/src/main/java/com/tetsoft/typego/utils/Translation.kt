@@ -63,8 +63,4 @@ class Translation(private val context: Context) {
         )
         return convertedTimeStr
     }
-
-    fun getAchievementName(id: Int) {
-        val res = context.resources
-    }
 }
