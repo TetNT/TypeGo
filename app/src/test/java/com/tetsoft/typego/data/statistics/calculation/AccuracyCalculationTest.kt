@@ -49,16 +49,4 @@ class AccuracyCalculationTest {
         assertEquals(80, AccuracyCalculation(results).provide())
     }
 
-    @Test
-    fun visibility_resultsEmpty_equalsGone() {
-        val results = GameResultList()
-        //assertEquals(VisibilityProvider.Gone().get(), AccuracyCalculation(results).visibility().get())
-    }
-
-    @Test
-    fun visibility_resultsNotEmpty_equalsVisible() {
-        val results = GameResultList()
-        results.add(GameOnTimeResultMock().getSimpleGameResult(30))
-        //assertEquals(VisibilityProvider.Visible().get(), AccuracyCalculation(results).visibility().get())
-    }
 }

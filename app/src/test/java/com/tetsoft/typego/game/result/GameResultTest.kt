@@ -31,4 +31,16 @@ class GameResultTest {
         val gameResult = GameOnTimeResultMock().getSimpleGameResult(60, 60)
         assertEquals(gameResult.wpm, 15.0, delta)
     }
+
+    @Test
+    fun getWpm_score240time60_equals60() {
+        val gameResult = GameOnTimeResultMock().getSimpleGameResult(60, 240)
+        assertEquals(gameResult.wpm, 60.0, delta)
+    }
+
+    @Test
+    fun getWpm_score60time15_equals60() {
+        val gameResult = GameOnTimeResultMock().getSimpleGameResult(15, 60)
+        assertEquals(gameResult.wpm, 60.0, delta)
+    }
 }

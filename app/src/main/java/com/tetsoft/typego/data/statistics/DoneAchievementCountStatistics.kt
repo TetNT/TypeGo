@@ -11,6 +11,9 @@ class DoneAchievementCountStatistics(doneAchievementsCountCalculation: DoneAchie
     }
 
     override fun getVisibility(): VisibilityProvider {
-        return VisibilityProvider.Visible()
+        return if (count == 0)
+            VisibilityProvider.Gone()
+        else
+            VisibilityProvider.Visible()
     }
 }

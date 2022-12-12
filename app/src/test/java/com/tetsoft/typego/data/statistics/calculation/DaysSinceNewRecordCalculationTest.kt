@@ -21,6 +21,24 @@ class DaysSinceNewRecordCalculationTest {
     }
 
     @Test
+    fun provide_completionTimeIsEmpty_equals0() {
+        calendar.set(2021, 3, 10)
+        val currentTime = calendar.timeInMillis
+        val completionTime = 0L
+        val days = DaysSinceNewRecordCalculation(currentTime, completionTime).provide()
+        assertEquals(0, days)
+    }
+
+    @Test
+    fun provide_currentTimeIsEmpty_equals0() {
+        val currentTime = 0L
+        calendar.set(2021, 3, 7)
+        val completionTime = calendar.timeInMillis
+        val days = DaysSinceNewRecordCalculation(currentTime, completionTime).provide()
+        assertEquals(0, days)
+    }
+
+    @Test
     fun provide_3daysDifference_equals3() {
         calendar.set(2021, 3, 10)
         val currentTime = calendar.timeInMillis
@@ -50,47 +68,4 @@ class DaysSinceNewRecordCalculationTest {
         assertEquals(0, days)
     }
 
-    @Test
-    fun visibility_resultIsEmpty_equalsGone() {
-        val result = GameResult.Empty()
-        //val visibility =
-       //     DaysSinceNewRecordCalculation(
-       //         calendar.timeInMillis,
-        //        result.completionDateTime
-        //    ).visibility()
-        //assertEquals(VisibilityProvider.Gone().get(), visibility.get())
-    }
-
-    @Test
-    fun visibility_completionDateIsEmpty_equalsGone() {
-        val result = GameResult(
-            GameOnTimeMock().getEnglishBasicPortraitWithSuggestions(60),
-            30,
-            60,
-            30,
-            30,
-            0L
-        )
-        //val visibility =
-        //   DaysSinceNewRecordCalculation(calendar.timeInMillis, result.completionDateTime).visibility()
-        //assertEquals(VisibilityProvider.Gone().get(), visibility.get())
-    }
-
-    @Test
-    fun visibility_completionTimeNotEmpty_equalsVisible() {
-        val result = GameResult(
-            GameOnTimeMock().getEnglishBasicPortraitWithSuggestions(60),
-            30,
-            60,
-            30,
-            30,
-            calendar.timeInMillis
-        )
-        //val visibility =
-        //    DaysSinceNewRecordCalculation(
-        //        calendar.timeInMillis,
-        //        result.completionDateTime
-        //    ).visibility()
-        //assertEquals(VisibilityProvider.Visible().get(), visibility.get())
-    }
 }
