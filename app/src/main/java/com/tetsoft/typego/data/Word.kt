@@ -1,8 +1,12 @@
 package com.tetsoft.typego.data
 
-import java.io.Serializable
-
 data class Word(
-        val inputtedText : String,
-        val originalText : String,
-        val incorrectCharsIndices : ArrayList<Int>) : Serializable
+    val inputtedText: String,
+    val originalText: String,
+    val incorrectCharsIndices: ArrayList<Int>
+) {
+
+    fun isCorrect(): Boolean {
+        return incorrectCharsIndices.isEmpty() && inputtedText.length == originalText.length
+    }
+}

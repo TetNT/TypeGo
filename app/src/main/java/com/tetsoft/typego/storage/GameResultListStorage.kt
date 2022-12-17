@@ -12,7 +12,7 @@ import com.tetsoft.typego.game.mode.GameOnCount
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
-import com.tetsoft.typego.game.result.GameResultListToJsonAdapter
+import com.tetsoft.typego.adapter.result.GameResultListToJsonAdapter
 import com.tetsoft.typego.utils.StringKeys
 
 class GameResultListStorage(context: Context) {

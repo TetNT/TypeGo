@@ -1,23 +1,24 @@
 package com.tetsoft.typego.game.result
 
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.language.LanguageSelectable
-import com.tetsoft.typego.utils.StringKeys
+import com.tetsoft.typego.data.language.PrebuiltTextGameMode
+import com.tetsoft.typego.data.timemode.TimeMode
+import com.tetsoft.typego.game.mode.GameOnTime
 import java.util.*
 
-class GameResultList : ArrayList<GameResult?> {
+class GameResultList : ArrayList<GameResult> {
     constructor()
-    constructor(list: List<GameResult?>?) {
-        this.addAll(list!!)
+    constructor(list: List<GameResult>) {
+        this.addAll(list)
     }
 
     fun getResultsByLanguage(language: Language): GameResultList {
-        if (language.identifier == StringKeys.LANGUAGE_ALL) return this
+        if (language.identifier == Language.ALL) return this
         val selectedResults = GameResultList()
         for (result in this) {
-            val gameMode = result?.gameMode
-            if (gameMode is LanguageSelectable) {
-                val rowLanguageId = (gameMode as LanguageSelectable).getLanguage().identifier
+            val gameMode = result.gameMode
+            if (gameMode is PrebuiltTextGameMode) {
+                val rowLanguageId = (gameMode as PrebuiltTextGameMode).getLanguage().identifier
                 if (rowLanguageId.equals(
                         language.identifier,
                         ignoreCase = true
@@ -28,15 +29,40 @@ class GameResultList : ArrayList<GameResult?> {
         return selectedResults
     }
 
+    fun getResultsByTimeMode(timeMode: TimeMode): GameResultList {
+        if (timeMode.timeInSeconds == 0) return this
+        val selectedResults = GameResultList()
+        for (result in this) {
+            val gameMode = result.gameMode
+            if (gameMode is GameOnTime) {
+                val rowTimeModeSeconds = gameMode.timeMode.timeInSeconds
+                if (rowTimeModeSeconds == timeMode.timeInSeconds)
+                    selectedResults.add(result)
+            }
+        }
+        return selectedResults
+    }
+
+    // TODO: Check if we even need this
+    fun getLastResultByGameType(gameTypeClass : Class<*>) : GameResult {
+        if (this.isEmpty()) return GameResult.Empty()
+        this.asReversed().forEach {
+            if (gameTypeClass.isInstance(it.gameMode)) {
+                return it
+            }
+        }
+        return GameResult.Empty()
+    }
+
     fun getLastWpm() : Double {
-        if (this.isNotEmpty()) return this[size - 1]!!.wpm
+        if (this.isNotEmpty()) return this[size - 1].wpm
         return 0.0
     }
 
     fun getPreviousResultByLanguage(language: Language) : Int {
         val resultsByLanguage = getResultsByLanguage(language)
         if (resultsByLanguage.isNotEmpty())
-            return resultsByLanguage[resultsByLanguage.size - 1]!!.wpm.toInt()
+            return resultsByLanguage[resultsByLanguage.size - 1].wpm.toInt()
         return 0
     }
 
@@ -47,7 +73,7 @@ class GameResultList : ArrayList<GameResult?> {
         }
         var best = 0.0
         for (result in resultsByLanguage) {
-            if (result!!.wpm > best) best = result.wpm
+            if (result.wpm > best) best = result.wpm
         }
         return best.toInt()
     }
@@ -56,17 +82,17 @@ class GameResultList : ArrayList<GameResult?> {
         get() {
             var currentBest = 0
             for (result in this) {
-                if (result?.wpm!! > currentBest) currentBest = result.wpm.toInt()
+                if (result.wpm > currentBest) currentBest = result.wpm.toInt()
             }
             return currentBest
         }
 
-    val bestResult: GameResult?
+    val bestResult: GameResult
         get() {
-            if (this.isEmpty()) return null
+            if (this.isEmpty()) return GameResult.Empty()
             var currentBest = this[0]
             for (result in this) {
-                if (result?.wpm!! > currentBest!!.wpm) currentBest = result
+                if (result.wpm > currentBest.wpm) currentBest = result
             }
             return currentBest
         }

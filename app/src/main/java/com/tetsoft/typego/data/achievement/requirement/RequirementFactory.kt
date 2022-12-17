@@ -14,7 +14,6 @@ object RequirementFactory {
         return requirements
     }
 
-    // TODO: make it a parameter
     private const val MINIMAL_WPM = 30
     fun timeModeNoMistakes(timeInSeconds: Int): ArrayList<Requirement> {
         val requirements = ArrayList<Requirement>()

@@ -4,7 +4,7 @@ import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.timemode.TimeMode
-import com.tetsoft.typego.data.language.LanguageSelectable
+import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import java.io.Serializable
 
 class GameOnTime(
@@ -16,14 +16,14 @@ class GameOnTime(
 ) : GameMode(
     suggestionsActivated,
     screenOrientation
-), LanguageSelectable, Serializable {
-
-    fun calculateCpm(score: Int): Int {
-        return score
-    }
+), PrebuiltTextGameMode, Serializable {
 
     override fun getLanguage(): Language {
         return language
+    }
+
+    override fun getDictionary(): DictionaryType {
+        return dictionaryType
     }
 
 }

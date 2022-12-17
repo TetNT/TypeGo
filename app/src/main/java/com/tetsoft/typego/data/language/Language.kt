@@ -1,27 +1,20 @@
 package com.tetsoft.typego.data.language
 
-import android.content.Context
-import android.content.res.Resources
-import java.io.Serializable
-
-data class Language(
-    val identifier: String
-) : Serializable {
-
-    // returns translated name from string resources. If resource is not found, returns identifier.
-    fun getName(context: Context): String {
-        return try {
-            context.getString(getResourceIdByName(context))
-        } catch (e: Resources.NotFoundException) {
-            identifier
-        }
-    }
-
-    private fun getResourceIdByName(context: Context): Int {
-        return context.resources.getIdentifier(identifier, "string", context.packageName)
-    }
+data class Language(val identifier: String)  {
 
     override fun toString(): String {
         return identifier
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return identifier == other.toString()
+    }
+
+    override fun hashCode(): Int {
+        return identifier.hashCode()
+    }
+
+    companion object {
+        const val ALL = "ALL"
     }
 }

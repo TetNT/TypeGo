@@ -1,16 +1,14 @@
 package com.tetsoft.typego.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.widget.AdapterView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
@@ -21,42 +19,33 @@ import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.databinding.FragmentAccountBinding
-import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.storage.GameResultListStorage
-import com.tetsoft.typego.ui.activity.ResultActivity
+import com.tetsoft.typego.ui.custom.BaseFragment
+import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 import com.tetsoft.typego.utils.AnimationManager
-import com.tetsoft.typego.utils.StringKeys
 
-class AccountFragment : Fragment() {
-    private var _binding: FragmentAccountBinding? = null
+class AccountFragment : BaseFragment<FragmentAccountBinding>() {
+
     var selectedLanguage: Language? = null
-    private var resultList: GameResultList? = null
-    private var resultListStorage: GameResultListStorage? = null
-    private var inDescendingOrder = true
-    private val binding: FragmentAccountBinding
-        get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentAccountBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private var resultList: GameResultList? = null
+
+    private var resultListStorage: GameResultListStorage? = null
+
+    private var inDescendingOrder = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         resultListStorage = (requireActivity().application as TypeGoApp).resultListStorage
         resultList = resultListStorage!!.get()
-        // TODO: find out why it can cause an exception
-        try {
-            initLanguageSpinner()
-        } catch (exception: Exception) {
-            Log.e("SPINNER", "onViewCreated: " + exception.message)
-            Toast.makeText(requireContext(), "Failed to initialize languages. Please, re-enter the page.", Toast.LENGTH_SHORT).show()
+        initLanguageSpinner()
+        binding.bAchievements.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.action_account_to_achievements)
         }
-
+        binding.bStatistics.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.action_account_to_statistics)
+        }
     }
 
     private fun loadAccountData() {
@@ -82,7 +71,7 @@ class AccountFragment : Fragment() {
         val languages = LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
         // an option to show the whole stats
         val spinnerItem = LanguageSpinnerItem(
-            Language(StringKeys.LANGUAGE_ALL),
+            Language(Language.ALL),
             requireContext().getString(R.string.ALL),
             R.drawable.ic_language
         )
@@ -119,24 +108,22 @@ class AccountFragment : Fragment() {
         val wpmStr: String
         if (resultsByLanguage.size >= 5) {
             var wpmSum = 0.0
-            for (res in resultsByLanguage) wpmSum += res!!.wpm
+            for (res in resultsByLanguage) wpmSum += res.wpm
             wpmStr =
                 getString(R.string.average_wpm) + ": " + (wpmSum / resultsByLanguage.size).toInt()
             binding.tvAverageWPM.text = wpmStr
         } else binding.tvAverageWPM.text = getString(R.string.msg_average_wpm_unavailable)
     }
 
+    private val resultViewModel : ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+
     private fun loadLastResultsData() {
         val resultsByLanguage = getResults(selectedLanguage, inDescendingOrder)
         val listener = RecyclerViewOnClickListener { _: View?, position: Int ->
-            val resultInfo = resultsByLanguage[position]
-            val intent = Intent(context, ResultActivity::class.java)
-            intent.putExtra(StringKeys.TEST_CORRECT_WORDS, resultInfo!!.correctWords)
-            intent.putExtra(StringKeys.TEST_CORRECT_WORDS_WEIGHT, resultInfo.score)
-            intent.putExtra(StringKeys.TOTAL_WORDS, resultInfo.wordsWritten)
-            intent.putExtra(StringKeys.TEST_SETTINGS, resultInfo.gameMode as GameOnTime)
-            intent.putExtra(StringKeys.CALLED_FROM_PASSED_RESULTS, true)
-            startActivity(intent)
+            resultViewModel.result = resultsByLanguage[position]
+            resultViewModel.selectGameMode(resultViewModel.result!!.gameMode)
+            resultViewModel.setGameCompleted(false)
+            binding.root.findNavController().navigate(R.id.action_account_to_result)
         }
         binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -150,8 +137,7 @@ class AccountFragment : Fragment() {
         binding.rvPassedTests.animation = animationSet
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAccountBinding {
+        return FragmentAccountBinding.inflate(inflater, container, false)
     }
 }

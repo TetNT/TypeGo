@@ -16,6 +16,7 @@ object TimeConvert {
     }
 
     @JvmStatic
+    @Deprecated("Deprecated in favor of the method get(timeMode) of the Translation class")
     fun convertSeconds(context: Context, seconds: Int): String {
         val res = context.resources
         var remainingSeconds = seconds
