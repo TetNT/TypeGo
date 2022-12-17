@@ -12,6 +12,13 @@ open class Achievement(
     val requirements: List<Requirement> // Progress will be shown based on the very first requirement
 ) {
 
+    override fun equals(other: Any?): Boolean {
+        if (other is Achievement) {
+            return (other.id == id)
+        }
+        return false
+    }
+
     /**
      * @return true if all requirements are complete, false otherwise
      */
@@ -19,6 +26,12 @@ open class Achievement(
         for (requirement in requirements)
             if (!requirement.isMatching(resultList)) return false
         return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + name.hashCode()
+        return result
     }
 
     class Empty : Achievement(

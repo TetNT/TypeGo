@@ -6,7 +6,7 @@ import com.tetsoft.typego.data.statistics.VisibilityProvider
 
 class LastCompletedAchievementCalculation(
     private val achievementsProgressList: List<AchievementsCompletionPair>,
-    private val achievementsList: ArrayList<Achievement>
+    private val achievementsList: List<Achievement>
 ) :
     StatisticsCalculation {
 
@@ -17,7 +17,9 @@ class LastCompletedAchievementCalculation(
             val completionTimeMillis: Long =
                 achievement.completionDateTimeLong
             if (completionTimeMillis > lastCompletionDate) {
-                lastCompletedAchievement = achievementsList[achievement.achievementId]
+                lastCompletedAchievement = achievementsList.find {
+                    it.id == achievement.achievementId
+                } ?: Achievement.Empty()
                 lastCompletionDate = completionTimeMillis
             }
         }
