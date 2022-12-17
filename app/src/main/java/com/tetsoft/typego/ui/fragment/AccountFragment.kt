@@ -37,6 +37,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // TODO: move two lines below to AccountViewModel
         resultListStorage = (requireActivity().application as TypeGoApp).resultListStorage
         resultList = resultListStorage!!.get()
         initLanguageSpinner()
