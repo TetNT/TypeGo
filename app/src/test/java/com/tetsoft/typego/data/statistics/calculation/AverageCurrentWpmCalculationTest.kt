@@ -3,6 +3,7 @@ package com.tetsoft.typego.data.statistics.calculation
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.mock.GameOnTimeMock
+import com.tetsoft.typego.mock.GameResultGameOnTimeListMock
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -116,6 +117,13 @@ class AverageCurrentWpmCalculationTest {
             )
         ))
         assertEquals(60, AverageCurrentWpmCalculation(results, 2).provide())
+    }
+
+    @Test
+    fun provide_withPreparedDataPoolInitialSize4_equals64() {
+        val results = GameResultGameOnTimeListMock().getPreparedTestSet()
+        val calculation = AverageCurrentWpmCalculation(results, 4)
+        assertEquals(64, calculation.provide())
     }
 
 }

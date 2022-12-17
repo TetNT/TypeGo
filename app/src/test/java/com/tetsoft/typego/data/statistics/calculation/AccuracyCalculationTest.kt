@@ -1,11 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.statistics.calculation.AccuracyCalculation
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.mock.GameOnTimeResultMock
-import org.junit.Assert.*
-import org.junit.Ignore
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class AccuracyCalculationTest {

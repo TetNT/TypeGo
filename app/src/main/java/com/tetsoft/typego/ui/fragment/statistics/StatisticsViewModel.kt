@@ -17,9 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    gameResultListStorage: GameResultListStorage,
-    achievementsProgressStorage: AchievementsProgressStorage,
-    achievementsList: AchievementsList
+    private val gameResultListStorage: GameResultListStorage,
+    private val achievementsProgressStorage: AchievementsProgressStorage,
+    private val achievementsList: AchievementsList
 ) : ViewModel() {
 
     companion object {
@@ -64,7 +64,7 @@ class StatisticsViewModel @Inject constructor(
         }
     }
 
-    val averagePastWpmStatistics = AveragePastWpmStatistics(
+    val averagePastWpmStatistics get() = AveragePastWpmStatistics(
         AveragePastWpmCalculation(
             gameResultListStorage.get(),
             RESULTS_DEFAULT_POOL_SIZE,
@@ -73,63 +73,61 @@ class StatisticsViewModel @Inject constructor(
         )
     )
 
-    val averageCurrentWpmStatistics = AverageCurrentWpmStatistics(
+    val averageCurrentWpmStatistics get() = AverageCurrentWpmStatistics(
         AverageCurrentWpmCalculation(gameResultListStorage.get(), RESULTS_DEFAULT_POOL_SIZE)
     )
 
-    val progressionStatistics = ProgressionStatistics(
+    val progressionStatistics get() = ProgressionStatistics(
         ProgressionCalculation(averagePastWpmStatistics.provide(), averageCurrentWpmStatistics.provide())
     )
 
-    val totalWordsWrittenStatistics = TotalWordsWrittenStatistics(
+    val totalWordsWrittenStatistics get() = TotalWordsWrittenStatistics(
         TotalWordsWrittenCalculation(gameResultListStorage.get())
     )
 
-    val accuracyStatistics = AccuracyStatistics(AccuracyCalculation(gameResultListStorage.get()))
+    val accuracyStatistics get() = AccuracyStatistics(AccuracyCalculation(gameResultListStorage.get()))
 
-    val timeSpentStatistics = TimeSpentStatistics(TimeSpentCalculation(gameResultListStorage.get()))
+    val timeSpentStatistics get() = TimeSpentStatistics(TimeSpentCalculation(gameResultListStorage.get()))
 
-    val bestResultStatistics = BestResultStatistics(BestResultCalculation(gameResultListStorage.get()))
+    val bestResultStatistics get() = BestResultStatistics(BestResultCalculation(gameResultListStorage.get()))
 
-    val daysSinceNewRecordStatistics = DaysSinceNewRecordStatistics(
+    val daysSinceNewRecordStatistics get() = DaysSinceNewRecordStatistics(
         DaysSinceNewRecordCalculation(Calendar.getInstance().timeInMillis,
             gameResultListStorage.get().bestResult.completionDateTime
         )
     )
 
-    val daysSinceFirstTestStatistics = DaysSinceFirstTestStatistics(
+    val daysSinceFirstTestStatistics get() = DaysSinceFirstTestStatistics(
         DaysSinceFirstTestCalculation(gameResultListStorage.get(), Calendar.getInstance().timeInMillis)
     )
 
-    val favoriteLanguageStatistics = FavoriteLanguageStatistics(
+    val favoriteLanguageStatistics get() = FavoriteLanguageStatistics(
         FavoriteLanguageCalculation(gameResultListStorage.get(), LanguageList().getList())
     )
 
-    val favoriteLanguageGamesCount =
+    val favoriteLanguageGamesCount get() =
         gameResultListStorage.get().getResultsByLanguage(favoriteLanguageStatistics.provide()).size
 
-    val favoriteTimeModeStatistics = FavoriteTimeModeStatistics(
+    val favoriteTimeModeStatistics get() = FavoriteTimeModeStatistics(
         FavoriteTimeModeCalculation(gameResultListStorage.get())
     )
 
-    val favoriteTimeModeGamesCount =
+    val favoriteTimeModeGamesCount get() =
         gameResultListStorage.get().getResultsByTimeMode(favoriteTimeModeStatistics.provide()).size
 
-    val doneAchievementsCountStatistics = DoneAchievementCountStatistics(
+    val doneAchievementsCountStatistics get() = DoneAchievementCountStatistics(
         DoneAchievementsCountCalculation(achievementsProgressStorage.getAll())
     )
 
-    val achievementsCount = achievementsList.size
+    val achievementsCount get() = achievementsList.size
 
-    val doneAchievementsPercentageStatistics = DoneAchievementsPercentageStatistics(
+    val doneAchievementsPercentageStatistics get() = DoneAchievementsPercentageStatistics(
         DoneAchievementsPercentageCalculation(achievementsProgressStorage.getAll(), achievementsCount)
     )
 
-    val lastCompletedAchievementStatistics = LastCompletedAchievementStatistics(
+    val lastCompletedAchievementStatistics get() = LastCompletedAchievementStatistics(
         LastCompletedAchievementCalculation(achievementsProgressStorage.getAll(), achievementsList))
 
-    val gamesCount = gameResultListStorage.get().size
-
-
+    val gamesCount get() = gameResultListStorage.get().size
 
 }

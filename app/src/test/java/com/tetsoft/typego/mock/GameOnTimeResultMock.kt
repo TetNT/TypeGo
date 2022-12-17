@@ -6,10 +6,10 @@ import java.util.*
 
 class GameOnTimeResultMock {
 
-    fun getResultGameOnTime(language: Language, timeInSeconds: Int, score: Int, time: Long) : GameResult {
+    fun getResultGameOnTime(language: Language, timeInSeconds: Int, score: Int, completionTime: Long) : GameResult {
         return GameResult(
             GameOnTimeMock().getBasicPortraitWithSuggestions(language, timeInSeconds),
-            score, timeInSeconds, 30, 29, time
+            score, timeInSeconds, 30, 29, completionTime
         )
     }
 

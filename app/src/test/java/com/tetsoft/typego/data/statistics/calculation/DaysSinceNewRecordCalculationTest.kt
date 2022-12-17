@@ -1,8 +1,5 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.statistics.calculation.DaysSinceNewRecordCalculation
-import com.tetsoft.typego.game.result.GameResult
-import com.tetsoft.typego.mock.GameOnTimeMock
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*
