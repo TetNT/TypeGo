@@ -216,6 +216,16 @@
                             android:text="@string/screen_orientation"
                             app:drawableStartCompat="@drawable/ic_portrait" />
 
+
+                        <TextView
+                            android:id="@+id/tv_completion_date"
+                            style="@style/text_with_drawable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/date_pl"
+                            app:drawableStartCompat="@drawable/ic_calendar" />
+
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>

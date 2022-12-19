@@ -32,11 +32,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvAssessment"
                     style="@style/submenu_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginVertical="8dp"
                     android:text="@string/assessment"
                     android:textStyle="bold" />
 
@@ -51,7 +50,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UselessParent">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -74,60 +74,138 @@
 
                 </RelativeLayout>
 
-
-                <androidx.cardview.widget.CardView
-                    style="@style/basic_cardview"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:background="@color/cardview_main_dark_gray">
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="4dp"
+                    android:paddingVertical="4dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:layout_width="0dp"
+                        style="@style/basic_cardview"
+                        android:layout_weight="1.0"
+                        android:layout_marginEnd="8dp">
 
-                        <TextView
-                            android:id="@+id/tvAverageWPM"
-                            style="@style/text_with_drawable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:drawablePadding="8dp"
-                            android:text="@string/average_wpm"
-                            app:drawableLeftCompat="@drawable/ic_keyboard" />
-
-                        <TextView
-                            android:id="@+id/tvBestResult"
-                            style="@style/text_with_drawable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:drawablePadding="8dp"
-                            android:text="@string/best_result"
-                            app:drawableStartCompat="@drawable/ic_star" />
-
-                        <TextView
-                            android:id="@+id/tvTestsPassed"
-                            style="@style/text_with_drawable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:drawablePadding="8dp"
-                            android:text="@string/tests_passed"
-                            app:drawableStartCompat="@drawable/ic_times_played" />
-
-                        <View
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:layout_marginTop="8dp"
-                            android:background="@color/white"
-                            android:visibility="gone" />
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:gravity="center_horizontal">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/average_wpm_counter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/redring_bold"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                app:drawableTopCompat="@drawable/ic_keyboard_large"
+                                app:drawableTint="@color/main_green" />
 
-                </androidx.cardview.widget.CardView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/average_wpm"
+                                android:gravity="center_horizontal"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/account_card_best_result"
+                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        style="@style/basic_cardview"
+                        android:layout_weight="1.0"
+                        android:layout_marginHorizontal="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:gravity="center_horizontal"
+                            android:clipToPadding="false">
+
+                            <TextView
+                                android:id="@+id/best_result_counter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                app:drawableTopCompat="@drawable/ic_star_large"
+                                app:drawableTint="@color/golden"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/redring_bold"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"/>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/best_result"/>
+
+                            <Button
+                                android:id="@+id/button_check_best_result"
+                                android:layout_width="500dp"
+                                android:layout_height="24dp"
+                                android:text="@string/check"
+                                android:textSize="14sp"
+                                android:translationY="12dp"
+                                tools:ignore="TouchTargetSizeCheck" />
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        style="@style/basic_cardview"
+                        android:layout_weight="1.0"
+                        android:layout_marginStart="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:id="@+id/tests_passed_counter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                app:drawableTopCompat="@drawable/ic_games_played_large"
+                                app:drawableTint="@color/main_green"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/redring_bold"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"/>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/tests_passed"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -183,6 +261,7 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_passed_tests"

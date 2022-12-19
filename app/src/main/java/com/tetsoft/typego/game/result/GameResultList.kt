@@ -78,6 +78,15 @@ class GameResultList : ArrayList<GameResult> {
         return best.toInt()
     }
 
+    fun getAverageWpm() : Double {
+        if (this.isEmpty()) return 0.0
+        var sum = 0.0
+        for (result in this) {
+            sum += result?.wpm ?: 0.0
+        }
+        return (sum / size)
+    }
+
     val bestResultWpm: Int
         get() {
             var currentBest = 0
