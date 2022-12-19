@@ -2,14 +2,11 @@ package com.tetsoft.typego.data
 
 import com.tetsoft.typego.storage.AdsCounterStorage
 
-// This class controls the logic behind ads showing.
-// If a user completes shorter games, then ads will be shown less often.
-class AdsCounter(private val adsCounterStorage: AdsCounterStorage) : AdsCounterManager {
 /**
  * This class manages the logic behind showing ads.
  * If a user passes shorter tests, then ads will be shown to him less often.
   */
-class AdsCounter(private val adsCounterStorage: AdsCounterStorage) {
+class AdsCounter(private val adsCounterStorage: AdsCounterStorage) : AdsCounterManager {
 
     companion object {
         const val ADS_COUNTER_VALUE = "ads_counter_value"

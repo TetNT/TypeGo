@@ -47,7 +47,7 @@ dependencies {
     implementation "com.android.support:support-emoji-bundled:$version"
 
     implementation 'com.google.android.gms:play-services-ads:21.3.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.6.10'
 

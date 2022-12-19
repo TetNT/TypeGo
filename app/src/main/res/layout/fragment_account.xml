@@ -270,6 +270,7 @@
                 app:layout_constraintTop_toBottomOf="@id/info_body_section"
                 android:clipToPadding="false"
                 android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/passed_tests_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
