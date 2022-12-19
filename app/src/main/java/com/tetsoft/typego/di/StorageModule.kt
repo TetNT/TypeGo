@@ -1,8 +1,10 @@
 package com.tetsoft.typego.di
 
 import android.content.Context
+import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.storage.AchievementsProgressStorage
+import com.tetsoft.typego.storage.GameResultDataSource
 import com.tetsoft.typego.storage.GameResultListStorage
 import dagger.Module
 import dagger.Provides
@@ -17,7 +19,10 @@ class StorageModule {
 
     @Provides
     @Singleton
-    fun provideGameResultListStorage(@ApplicationContext context: Context) : GameResultListStorage {
+    fun provideGameResultListStorage(@ApplicationContext context: Context) : GameResultDataSource {
+        if (BuildConfig.DEBUG) {
+            return GameResultDataSource.Mock()
+        }
         return GameResultListStorage(context)
     }
 
