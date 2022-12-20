@@ -1,8 +1,6 @@
 package com.tetsoft.typego.storage
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
@@ -16,8 +14,8 @@ import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.adapter.result.GameResultListToJsonAdapter
 import com.tetsoft.typego.utils.StringKeys
 
-class GameResultListStorage(context: Context) : GameResultDataSource,
-    SharedPreference.Standard(KEY_RESULT_LIST_STORAGE) {
+class GameResultListStorage(context: Context, storageFileName: String) : GameResultsDataSource,
+    SharedPreference.Standard(storageFileName) {
 
     private val sharedPreferences = make(context)
     //private val sharedPreferences =
@@ -46,7 +44,7 @@ class GameResultListStorage(context: Context) : GameResultDataSource,
         return jsonAdapter.fromJson(json) ?: return GameResultList()
     }
 
-    fun addResult(gameResult: GameResult) {
+    override fun add(gameResult: GameResult) {
         val resultList = get()
         resultList.add(gameResult)
         store(resultList)

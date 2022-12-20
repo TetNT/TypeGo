@@ -8,12 +8,12 @@ import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnTime
-import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.storage.GameResultsDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GameOnTimeSetupViewModel @Inject constructor(private val gameResultListStorage: GameResultListStorage) :
+class GameOnTimeSetupViewModel @Inject constructor(private val gameResultListStorage: GameResultsDataSource) :
     ViewModel() {
 
     private val gameResults get() = gameResultListStorage.get()

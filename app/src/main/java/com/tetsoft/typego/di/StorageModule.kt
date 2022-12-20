@@ -4,7 +4,7 @@ import android.content.Context
 import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultDataSource
+import com.tetsoft.typego.storage.GameResultsDataSource
 import com.tetsoft.typego.storage.GameResultListStorage
 import dagger.Module
 import dagger.Provides
@@ -19,11 +19,9 @@ class StorageModule {
 
     @Provides
     @Singleton
-    fun provideGameResultListStorage(@ApplicationContext context: Context) : GameResultDataSource {
-        if (BuildConfig.DEBUG) {
-            return GameResultDataSource.Mock()
-        }
-        return GameResultListStorage(context)
+    fun provideGameResultListStorage(@ApplicationContext context: Context) : GameResultsDataSource {
+        //if (BuildConfig.DEBUG) return GameResultsDataSource.Mock()
+        return GameResultListStorage(context, KEY_RESULT_LIST_STORAGE)
     }
 
     @Provides
@@ -36,5 +34,9 @@ class StorageModule {
     @Singleton
     fun provideAchievementsList(@ApplicationContext context: Context) : AchievementsList {
         return AchievementsList(context)
+    }
+
+    companion object {
+        private const val KEY_RESULT_LIST_STORAGE = "result_list_storage"
     }
 }

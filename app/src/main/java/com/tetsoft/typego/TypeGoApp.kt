@@ -14,11 +14,6 @@ open class TypeGoApp : Application() {
         AdsCounter(AdsCounterStorage(this))
     }
 
-    // TODO: Remove, it should be handled by a Hilt module
-    open val resultListStorage by lazy {
-        GameResultListStorage(this)
-    }
-
     // TODO: Check if it's possible to put it inside of a Hilt module
     val adRequest : AdRequest get() = AdRequest.Builder().build()
 }

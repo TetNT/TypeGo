@@ -126,7 +126,7 @@
         tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/achievementsFragment"
-        android:name="com.tetsoft.typego.ui.fragment.AchievementsFragment"
+        android:name="com.tetsoft.typego.ui.fragment.achievements.AchievementsFragment"
         android:label="fragment_achievements"
         tools:layout="@layout/fragment_achievements" />
     <fragment

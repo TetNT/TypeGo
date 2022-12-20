@@ -1,18 +1,18 @@
-package com.tetsoft.typego.ui.fragment
+package com.tetsoft.typego.ui.fragment.achievements
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tetsoft.typego.data.achievement.AchievementsList
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.AchievementsAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tetsoft.typego.databinding.FragmentAchievementsBinding
-import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.ui.custom.BaseFragment
 
 class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
+
+    val viewModel : AchievementsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun initBinding(
         inflater: LayoutInflater,
@@ -23,16 +23,11 @@ class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val gameResultListStorage = GameResultListStorage(requireContext())
-        val achievementsProgressStorage = AchievementsProgressStorage(requireContext())
-        val staticAchievements = AchievementsList(requireContext())
         binding.rvAchievements.adapter = AchievementsAdapter(
             requireContext(),
-            staticAchievements.get(),
-            gameResultListStorage.get(),
-            achievementsProgressStorage.getAll()
+            viewModel.getAchievementsList(),
+            viewModel.getResultList(),
+            viewModel.getAchievementsProgress()
         )
-        val linearLayoutManager = LinearLayoutManager(context)
-        binding.rvAchievements.layoutManager = linearLayoutManager
     }
 }

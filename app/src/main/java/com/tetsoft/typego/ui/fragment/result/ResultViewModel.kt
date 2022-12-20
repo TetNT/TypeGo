@@ -16,7 +16,7 @@ import com.tetsoft.typego.game.mode.GameOnCount
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.storage.GameResultsDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -25,7 +25,7 @@ import kotlin.math.abs
 
 @HiltViewModel
 class ResultViewModel @Inject constructor(
-    private val resultListStorage: GameResultListStorage,
+    private val resultListStorage: GameResultsDataSource,
     private val achievementsProgressStorage: AchievementsProgressStorage
 ) : ViewModel() {
 
@@ -134,7 +134,7 @@ class ResultViewModel @Inject constructor(
     }
 
     fun saveResult() {
-        resultListStorage.addResult(result!!)
+        resultListStorage.add(result!!)
     }
 
     fun getEarnedAchievementsCount(achievementsList: AchievementsList) : Int {

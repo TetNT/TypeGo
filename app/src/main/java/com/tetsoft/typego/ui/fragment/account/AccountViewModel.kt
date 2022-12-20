@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
-import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.storage.GameResultsDataSource
 import com.tetsoft.typego.utils.AnimationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @HiltViewModel
-class AccountViewModel @Inject constructor(private val gameResultListStorage: GameResultListStorage) :
+class AccountViewModel @Inject constructor(private val gameResultListStorage: GameResultsDataSource) :
     ViewModel() {
 
     private val resultList get() = gameResultListStorage.get()

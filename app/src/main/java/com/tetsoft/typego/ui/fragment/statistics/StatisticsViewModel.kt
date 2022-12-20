@@ -10,14 +10,14 @@ import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.statistics.*
 import com.tetsoft.typego.data.statistics.calculation.*
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.storage.GameResultsDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val gameResultListStorage: GameResultListStorage,
+    private val gameResultListStorage: GameResultsDataSource,
     private val achievementsProgressStorage: AchievementsProgressStorage,
     private val achievementsList: AchievementsList
 ) : ViewModel() {

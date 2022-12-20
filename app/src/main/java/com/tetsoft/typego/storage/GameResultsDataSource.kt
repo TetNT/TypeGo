@@ -9,13 +9,17 @@ import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
 
-interface GameResultDataSource {
+interface GameResultsDataSource {
     fun get(): GameResultList
 
-    class Mock : GameResultDataSource {
-        override fun get(): GameResultList {
-            val list = GameResultList()
-            for (i in 0..100) {
+    fun add(gameResult: GameResult)
+
+    class Mock : GameResultsDataSource {
+
+        private val list = GameResultList()
+
+        init {
+            for (i in 0 until 1000) {
                 list.add(
                     GameResult(
                         GameOnTime(
@@ -28,7 +32,14 @@ interface GameResultDataSource {
                     )
                 )
             }
+        }
+
+        override fun get(): GameResultList {
             return list
+        }
+
+        override fun add(gameResult: GameResult) {
+            list.add(gameResult)
         }
 
     }
