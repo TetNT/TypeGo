@@ -12,7 +12,7 @@ class AverageCurrentWpmCalculation(
         if (resultsList.size < resultsPoolSize * 2) return 0
         var wpm = 0.0
         for (i in resultsList.size - 1 downTo resultsList.size - resultsPoolSize)
-            wpm += resultsList[i].wpm.toInt()
+            wpm += resultsList[i].wpm
         if (wpm == 0.0) return 0
         return (wpm / resultsPoolSize).roundToInt()
     }
