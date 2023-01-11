@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<B : ViewBinding> : Fragment() {
+abstract class BaseFragment<B : ViewBinding> : Fragment(), Navigation {
 
     private var _binding: B? = null
 
@@ -28,5 +29,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun navigate(actionId: Int) {
+        binding.root.findNavController().navigate(actionId)
     }
 }

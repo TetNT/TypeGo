@@ -16,11 +16,11 @@ class GameViewModel @Inject constructor(): ViewModel() {
 
     private val _gameMode = MutableLiveData<GameMode>()
 
-    val gameMode : GameMode get() = _gameMode.value!!
+    val gameMode : GameMode get() = _gameMode.value ?: GameMode.Empty()
 
     private val typedWordsList = ArrayList<Word>()
 
-    var score : Int = 0
+    private var score : Int = 0
 
     fun selectGameMode(gameMode: GameMode) {
         _gameMode.postValue(gameMode)
@@ -58,12 +58,18 @@ class GameViewModel @Inject constructor(): ViewModel() {
     }
 
     fun getInputType() : Int {
-        if (gameMode.suggestionsActivated) return InputType.TYPE_CLASS_TEXT
-        else return InputType.TYPE_TEXT_VARIATION_PASSWORD
+        return if (gameMode.suggestionsActivated)
+            InputType.TYPE_CLASS_TEXT
+        else
+            InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
 
     fun addScore(amount: Int) {
         score += amount
+    }
+
+    fun getScore() : Int {
+        return score
     }
 
     fun clearScore() {

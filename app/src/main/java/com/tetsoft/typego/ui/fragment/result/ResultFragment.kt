@@ -85,7 +85,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     }
 
     private fun initPreviousResultSection() {
-        if (/**resultCalledFromHistory()**/ !resultViewModel.isGameCompleted) {
+        if (!resultViewModel.isGameCompleted) {
             binding.previousResultSection.visibility = View.GONE
             return
         }
@@ -114,7 +114,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             val bestResult = resultViewModel.getBestWpmByCurrentLanguage()
             bestResultSection.visibility = resultViewModel.getVisibilityForResult(bestResult)
             tvBestResult.text = (getString(R.string.best_result_pl, bestResult))
-            if (!resultViewModel.isGameCompleted/*resultCalledFromHistory()*/) return
+            if (!resultViewModel.isGameCompleted) return
             val diff = resultViewModel.subtractCurrentWpmAndOtherResult(bestResult)
             tvDifferenceWithBestResult.visibility = resultViewModel.getVisibilityForDifference(diff)
             tvDifferenceWithBestResult.text = resultViewModel.getDifferenceString(diff)

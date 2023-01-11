@@ -42,7 +42,7 @@
     <string name="text_suggestions">Text suggestions</string>
     <string name="text_suggestions_enabled">Text suggestions are enabled.</string>
     <string name="text_suggestions_disabled">Text suggestions are disabled. Mention: not every keyboard supports this option.</string>
-    <string name="msg_results_with_zero_wpm">Not saved: The result has 0 WPM.</string>
+    <string name="msg_results_with_zero_wpm">Results with 0 WPM are not recording.</string>
     <string name="language">Language</string>
     <string name="start_over">Start over</string>
     <string name="finish">Finish</string>
@@ -135,7 +135,6 @@
     <string name="content_desc_my_profile">My profile</string>
     <string name="content_desc_language_select">Select a language</string>
     <string name="content_desc_test_restart">Restart the test</string>
-    <string name="words_loading">The log is loading…</string>
 
     <string name="error_navigation_to_achievements">Unable to navigate to the achievement section.</string>
 
@@ -151,4 +150,7 @@
     <string name="items">Items</string>
     <string name="msg_no_previous_games">No previous games at the moment.</string>
     <string name="undefined">Undefined</string>
+    <string name="avg_result">Avg. WPM</string>
+    <string name="date_pl">Date: %1$s</string>
+    <string name="error_best_result_not_found">Best result not found.</string>
 </resources>
