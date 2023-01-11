@@ -161,7 +161,8 @@
                                 android:text="@string/check"
                                 android:textSize="14sp"
                                 android:translationY="12dp"
-                                tools:ignore="TouchTargetSizeCheck" />
+                                tools:ignore="TouchTargetSizeCheck"
+                                android:visibility="gone"/>
 
 
                         </LinearLayout>

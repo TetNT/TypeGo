@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.adapter.GamesHistoryAdapter.RecyclerViewOnClickListener
@@ -28,10 +27,10 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         super.onViewCreated(view, savedInstanceState)
         initLanguageSpinner()
         binding.bAchievements.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_account_to_achievements)
+            navigate(R.id.action_account_to_achievements)
         }
         binding.bStatistics.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_account_to_statistics)
+            navigate(R.id.action_account_to_statistics)
         }
         viewModel.selectedLanguage.observe(viewLifecycleOwner) {
             binding.averageWpmCounter.text = "-"
@@ -44,7 +43,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                 resultViewModel.result = resultsByLanguage[position]
                 resultViewModel.selectGameMode(resultViewModel.result!!.gameMode)
                 resultViewModel.setGameCompleted(false)
-                binding.root.findNavController().navigate(R.id.action_account_to_result)
+                navigate(R.id.action_account_to_result)
             }
             binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)
             binding.rvPassedTests.animation = viewModel.getGameHistoryEnteringAnimation()
