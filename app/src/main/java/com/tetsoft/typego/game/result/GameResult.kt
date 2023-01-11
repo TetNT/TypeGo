@@ -16,7 +16,7 @@ open class GameResult(
     private fun calculateWpm(): Double {
         if (timeSpentInSeconds == 0 || score == 0) return 0.0
         return try {
-            60.0 / timeSpentInSeconds * (score / WPM_GENERAL_DIVIDER)
+            60.0 / timeSpentInSeconds.toDouble() * (score.toDouble() / WPM_GENERAL_DIVIDER)
         } catch (ae: ArithmeticException) {
             0.0
         }
@@ -29,7 +29,7 @@ open class GameResult(
         /**
          * The divider to not rely on words length when calculating WPM.
          */
-        const val WPM_GENERAL_DIVIDER = 4.0
+        const val WPM_GENERAL_DIVIDER : Double = 4.0
     }
 
     class Empty : GameResult(

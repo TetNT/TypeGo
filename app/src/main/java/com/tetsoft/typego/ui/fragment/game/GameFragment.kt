@@ -385,7 +385,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         resultViewModel.selectGameMode(gameViewModel.gameMode)
         resultViewModel.result = GameResult(
             gameViewModel.gameMode,
-            gameViewModel.score,
+            gameViewModel.getScore(),
             timeTotalAmount,
             gameViewModel.getTypedWords().size,
             gameViewModel.calculateCorrectWords(),
@@ -393,7 +393,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         )
         resultViewModel.selectTypedWordsList(gameViewModel.getTypedWords())
         resultViewModel.setGameCompleted(true)
-        binding.root.findNavController().navigate(R.id.action_gameFragment_to_resultFragment)
+        navigate(R.id.action_gameFragment_to_resultFragment)
     }
 
     override fun onPause() {

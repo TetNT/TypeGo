@@ -59,8 +59,7 @@ class AchievementsAdapter(
                 SimpleDateFormat.DEFAULT,
                 SimpleDateFormat.SHORT
             )
-            holder.tvCompletionDate.text =
-                dateFormat.format(Date(completionDateTime))
+            holder.tvCompletionDate.text = dateFormat.format(Date(completionDateTime))
         }
     }
 

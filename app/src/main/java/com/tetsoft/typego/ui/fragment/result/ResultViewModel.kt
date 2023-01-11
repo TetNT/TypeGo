@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 @HiltViewModel
 class ResultViewModel @Inject constructor(
@@ -104,7 +105,7 @@ class ResultViewModel @Inject constructor(
     }
 
     fun getWpm() : Int {
-        return result?.wpm?.toInt() ?: 0
+        return result?.wpm?.roundToInt() ?: 0
     }
 
     fun getLanguage() : Language {

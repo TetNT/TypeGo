@@ -42,16 +42,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             startBasicTest()
         }
         binding.buttonCustomTestStart.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_main_to_gameSetup)
+            navigate(R.id.action_main_to_gameSetup)
         }
         binding.buttonProfileOpen.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_main_to_account)
+            navigate(R.id.action_main_to_account)
         }
         binding.buttonPreviousTestStart.setOnClickListener {
             startPreviousTest()
         }
         binding.buttonReleaseNotesOpen.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_main_to_releaseNotes)
+            navigate(R.id.action_main_to_releaseNotes)
         }
     }
 
@@ -65,14 +65,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         )
         val gameViewModel: GameViewModel by navGraphViewModels(R.id.main_navigation)
         gameViewModel.selectGameMode(basicGameMode)
-        binding.root.findNavController().navigate(R.id.action_main_to_game)
+        navigate(R.id.action_main_to_game)
     }
 
     private fun startPreviousTest() {
         if (viewModel.userHasPreviousGames()) {
             val gameViewModel: GameViewModel by navGraphViewModels(R.id.main_navigation)
             gameViewModel.selectGameMode(viewModel.getPreviousGameSettings())
-            binding.root.findNavController().navigate(R.id.action_main_to_game)
+            navigate(R.id.action_main_to_game)
         } else Snackbar.make(binding.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
             .withColor(R.color.main_green, R.color.bg_dark_gray)
             .show()
