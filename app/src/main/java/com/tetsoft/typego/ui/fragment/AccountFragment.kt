@@ -34,9 +34,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             binding.root.findNavController().navigate(R.id.action_account_to_statistics)
         }
         viewModel.selectedLanguage.observe(viewLifecycleOwner) {
-            binding.tvAverageWPM.text = getString(R.string.average_wpm_pl, 0)
-            binding.tvBestResult.text = getString(R.string.best_result_pl, 0)
-            binding.tvTestsPassed.text = getString(R.string.tests_passed_pl, 0)
+            binding.averageWpmCounter.text = "-"
+            binding.bestResultCounter.text = "-"
+            binding.testsPassedCounter.text = "-"
             val selectedLanguage = binding.spinnerResultsLanguageSelection.getSelectedLanguage()
             val resultsByLanguage = viewModel.getResults(selectedLanguage, inDescendingOrder)
             val listener = RecyclerViewOnClickListener { _: View?, position: Int ->
@@ -49,17 +49,17 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)
             binding.rvPassedTests.animation = viewModel.getGameHistoryEnteringAnimation()
             if (viewModel.averageWpmCanBeShown(resultsByLanguage)) {
-                binding.tvAverageWPM.text = getString(R.string.average_wpm_pl, viewModel.getAverageWpm(resultsByLanguage))
+                binding.averageWpmCounter.text = viewModel.getAverageWpm(resultsByLanguage).toString()
             } else {
-                binding.tvAverageWPM.text = getString(R.string.msg_average_wpm_unavailable)
+                binding.averageWpmCounter.text = "-"
             }
             if (!viewModel.historyCanBeShown(resultsByLanguage)) {
                 binding.tvPassedTestsInfo.text = getString(R.string.msg_nothing_to_show)
                 return@observe
             }
             binding.tvPassedTestsInfo.text = getString(R.string.msg_passed_tests_information)
-            binding.tvTestsPassed.text = getString(R.string.tests_passed_pl, resultsByLanguage.size)
-            binding.tvBestResult.text = getString(R.string.best_result_pl, viewModel.getBestResultWpm(resultsByLanguage))
+            binding.testsPassedCounter.text = resultsByLanguage.size.toString()
+            binding.bestResultCounter.text = viewModel.getBestResultWpm(resultsByLanguage).toString()
 
         }
     }
