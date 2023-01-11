@@ -16,7 +16,7 @@ open class GameResult(
     private fun calculateWpm(): Double {
         if (timeSpentInSeconds == 0 || score == 0) return 0.0
         return try {
-            60.0 / timeSpentInSeconds.toDouble() * (score.toDouble() / WPM_GENERAL_DIVIDER)
+            (60.0 / timeSpentInSeconds.toDouble()) * (score.toDouble() / WPM_GENERAL_DIVIDER)
         } catch (ae: ArithmeticException) {
             0.0
         }
