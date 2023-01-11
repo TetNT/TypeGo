@@ -29,7 +29,7 @@ open class GameResult(
         /**
          * The divider to not rely on words length when calculating WPM.
          */
-        const val WPM_GENERAL_DIVIDER = 4.0
+        const val WPM_GENERAL_DIVIDER : Double = 4.0
     }
 
     class Empty : GameResult(
