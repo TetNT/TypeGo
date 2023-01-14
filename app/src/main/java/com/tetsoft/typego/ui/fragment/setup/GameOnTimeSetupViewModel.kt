@@ -48,6 +48,7 @@ class GameOnTimeSetupViewModel @Inject constructor(private val gameResultListSto
     }
 
     fun areSuggestionsUsedInLastResultOrDefault() : Boolean {
+        if (lastResult.gameMode is GameMode.Empty) return DEFAULT_SUGGESTIONS_ACTIVATED
         return lastResult.gameMode.suggestionsActivated
     }
 
@@ -55,5 +56,6 @@ class GameOnTimeSetupViewModel @Inject constructor(private val gameResultListSto
         val DEFAULT_LANGUAGE = Language(LanguageList.EN)
         val DEFAULT_TIME_MODE = TimeMode(60)
         val DEFAULT_DICTIONARY = DictionaryType.BASIC
+        const val DEFAULT_SUGGESTIONS_ACTIVATED = true
     }
 }

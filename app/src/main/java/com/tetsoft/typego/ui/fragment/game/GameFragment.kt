@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import com.google.android.gms.ads.AdError
@@ -32,7 +33,6 @@ import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import com.tetsoft.typego.databinding.FragmentGameBinding
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
-import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.greenForeground
 import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.redForeground
 import com.tetsoft.typego.ui.custom.addAfterTextChangedListener
@@ -46,9 +46,9 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import kotlin.math.max
 
-class GameFragment : BaseFragment<FragmentGameBinding>() {
+class GameFragment : Fragment() {
 
-    var countdown: CountDownTimer? = null
+    private var countdown: CountDownTimer? = null
     private var testInitiallyPaused = true
     var secondsRemaining = 0
     var timeTotalAmount = 0
@@ -59,8 +59,22 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
     private val gameViewModel: GameViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
-    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentGameBinding {
-        return FragmentGameBinding.inflate(inflater, container, false)
+    private var _binding : FragmentGameBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentGameBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -393,7 +407,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         )
         resultViewModel.selectTypedWordsList(gameViewModel.getTypedWords())
         resultViewModel.setGameCompleted(true)
-        navigate(R.id.action_gameFragment_to_resultFragment)
+        binding.root.findNavController().navigate(R.id.action_gameFragment_to_resultFragment)
     }
 
     override fun onPause() {

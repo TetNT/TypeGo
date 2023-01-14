@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.adapter.GamesHistoryAdapter.RecyclerViewOnClickListener
@@ -14,23 +16,40 @@ import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.databinding.FragmentAccountBinding
-import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 
-class AccountFragment : BaseFragment<FragmentAccountBinding>() {
+class AccountFragment : Fragment() {
 
     private var inDescendingOrder = true
 
     private val viewModel : AccountViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
+    private var _binding: FragmentAccountBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLanguageSpinner()
         binding.bAchievements.setOnClickListener {
-            navigate(R.id.action_account_to_achievements)
+            binding.root.findNavController().navigate(R.id.action_account_to_achievements)
         }
         binding.bStatistics.setOnClickListener {
-            navigate(R.id.action_account_to_statistics)
+            binding.root.findNavController().navigate(R.id.action_account_to_statistics)
         }
         viewModel.selectedLanguage.observe(viewLifecycleOwner) {
             binding.averageWpmCounter.text = "-"
@@ -43,7 +62,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                 resultViewModel.result = resultsByLanguage[position]
                 resultViewModel.selectGameMode(resultViewModel.result!!.gameMode)
                 resultViewModel.setGameCompleted(false)
-                navigate(R.id.action_account_to_result)
+                binding.root.findNavController().navigate(R.id.action_account_to_result)
             }
             binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)
             binding.rvPassedTests.animation = viewModel.getGameHistoryEnteringAnimation()
@@ -87,9 +106,5 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-    }
-
-    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAccountBinding {
-        return FragmentAccountBinding.inflate(inflater, container, false)
     }
 }

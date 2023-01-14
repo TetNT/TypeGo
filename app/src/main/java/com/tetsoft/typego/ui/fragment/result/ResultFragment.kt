@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -16,12 +17,11 @@ import com.tetsoft.typego.TypedWordsViewModel
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentResultBinding
-import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
 
-class ResultFragment : BaseFragment<FragmentResultBinding>() {
+class ResultFragment : Fragment() {
 
     private val resultViewModel: ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
@@ -29,11 +29,22 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     private var resultSaved = false
 
-    override fun initBinding(
+    private var _binding : FragmentResultBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentResultBinding {
-        return FragmentResultBinding.inflate(inflater, container, false)
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentResultBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

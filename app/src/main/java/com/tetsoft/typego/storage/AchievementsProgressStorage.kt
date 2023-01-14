@@ -1,17 +1,15 @@
 package com.tetsoft.typego.storage
 
 import android.content.Context
-import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
-import com.tetsoft.typego.utils.StringKeys
 
 class AchievementsProgressStorage(context: Context) {
     private val sharedPreferences =
         context.getSharedPreferences(ACHIEVEMENTS_PROGRESS_STORAGE, Context.MODE_PRIVATE)
 
     /**
-     * @param key achievement identifier in String format
+     * @param key achievement identifier in the String format (not index!)
      * @param value achievement completion time in millis
      */
     fun store(key: String, value: Long) {
@@ -31,9 +29,10 @@ class AchievementsProgressStorage(context: Context) {
     }
 
     // Remove a redundant version record from the preferences file
+    // TODO: To be deleted in the next version (1.5.x or 1.6.0)
     fun removeVersion() {
         with(sharedPreferences.edit()) {
-            remove(StringKeys.STORAGE_APP_VERSION)
+            remove("stored_on_app_version")
             apply()
         }
     }
