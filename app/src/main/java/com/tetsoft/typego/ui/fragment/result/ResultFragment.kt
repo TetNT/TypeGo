@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
@@ -17,6 +18,7 @@ import com.tetsoft.typego.TypedWordsViewModel
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentResultBinding
+import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
@@ -141,6 +143,10 @@ class ResultFragment : Fragment() {
 
     private fun initDetailsSectionForPrebuiltMode() {
         with(binding) {
+            if (resultViewModel.gameMode is GameMode.Empty) {
+                findNavController().navigateUp()
+                return
+            }
             if (resultViewModel.isPrebuiltGameMode) {
                 tvLanguage.text =
                     getString(
