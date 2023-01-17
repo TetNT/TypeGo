@@ -32,7 +32,7 @@ class ResultViewModel @Inject constructor(
 
     private val _gameMode = MutableLiveData<GameMode>()
 
-    val gameMode : GameMode get() = _gameMode.value!!
+    val gameMode : GameMode get() = _gameMode.value ?: GameMode.Empty()
 
     var result : GameResult? = null
 

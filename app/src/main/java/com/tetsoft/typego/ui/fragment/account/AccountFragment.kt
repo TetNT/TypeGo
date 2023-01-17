@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.fragment
+package com.tetsoft.typego.ui.fragment.account
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.databinding.FragmentAccountBinding
+import com.tetsoft.typego.ui.fragment.AccountViewModel
 import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 
 class AccountFragment : Fragment() {
