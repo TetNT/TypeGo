@@ -224,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/screen_orientation"
-                            app:drawableStartCompat="@drawable/ic_portrait" />
+                            app:drawableStartCompat="@drawable/ic_rotation" />
 
                     </LinearLayout>
 
