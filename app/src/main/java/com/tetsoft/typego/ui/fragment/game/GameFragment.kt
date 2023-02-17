@@ -33,6 +33,7 @@ import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import com.tetsoft.typego.data.textsource.AssetStringReader
 import com.tetsoft.typego.data.textsource.ShuffledTextFromAsset
 import com.tetsoft.typego.databinding.FragmentGameBinding
+import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.greenForeground
@@ -76,6 +77,10 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (gameViewModel.gameMode is GameMode.Empty) {
+            findNavController().navigateUp()
+            return
+        }
         adsCounter = (requireActivity().application as TypeGoApp).adsCounter
         adShown = false
         loadAd()
