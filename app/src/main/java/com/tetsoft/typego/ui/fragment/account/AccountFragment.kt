@@ -16,7 +16,6 @@ import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.databinding.FragmentAccountBinding
-import com.tetsoft.typego.ui.fragment.AccountViewModel
 import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 
 class AccountFragment : Fragment() {
@@ -58,14 +57,16 @@ class AccountFragment : Fragment() {
             binding.testsPassedCounter.text = "-"
             val selectedLanguage = binding.spinnerResultsLanguageSelection.getSelectedLanguage()
             val resultsByLanguage = viewModel.getResults(selectedLanguage, inDescendingOrder)
-            val listener = RecyclerViewOnClickListener { _: View?, position: Int ->
-                val resultViewModel : ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-                resultViewModel.result = resultsByLanguage[position]
-                resultViewModel.selectGameMode(resultViewModel.result!!.gameMode)
-                resultViewModel.setGameCompleted(false)
-                binding.root.findNavController().navigate(R.id.action_account_to_result)
+            val listener = object : RecyclerViewOnClickListener {
+                override fun onClick(v: View?, position: Int) {
+                    val resultViewModel: ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+                    resultViewModel.result = resultsByLanguage[position]
+                    resultViewModel.selectGameMode(resultViewModel.result!!.gameMode)
+                    resultViewModel.setGameCompleted(false)
+                    binding.root.findNavController().navigate(R.id.action_account_to_result)
+                }
             }
-            binding.rvPassedTests.adapter = GamesHistoryAdapter(context, resultsByLanguage, listener)
+            binding.rvPassedTests.adapter = GamesHistoryAdapter(requireContext(), resultsByLanguage, listener)
             binding.rvPassedTests.animation = viewModel.getGameHistoryEnteringAnimation()
             if (viewModel.averageWpmCanBeShown(resultsByLanguage)) {
                 binding.averageWpmCounter.text = viewModel.getAverageWpm(resultsByLanguage).toString()
