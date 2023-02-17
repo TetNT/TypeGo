@@ -108,6 +108,10 @@ class ResultViewModel @Inject constructor(
         return result?.wpm?.roundToInt() ?: 0
     }
 
+    fun getCpm() : Int {
+        return result?.cpm ?: 0
+    }
+
     fun getLanguage() : Language {
         return if (isPrebuiltGameMode) {
             (result?.gameMode as PrebuiltTextGameMode).getLanguage()

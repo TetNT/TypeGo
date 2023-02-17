@@ -137,8 +137,8 @@
     <string name="items">Кол-во</string>
     <string name="msg_no_previous_games">Предыдущих игр нет.</string>
     <string name="undefined">Неопределено</string>
-    <string name="words_loading">Список загружается…</string>
     <string name="avg_result">Ср. СВМ</string>
     <string name="date_pl">Дата: %1$s</string>
     <string name="error_best_result_not_found">Лучший результат не найден.</string>
+    <string name="cpm_pl">%1$d знаков в минуту</string>
 </resources>

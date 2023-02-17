@@ -47,11 +47,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="24dp"
                     android:fontFamily="@font/redring_bold"
                     android:text="@string/wordsPerMinute"
                     android:textColor="@color/text_accent"
                     android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/tv_cpm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/redring_regular"
+                    android:text="@string/cpm_pl"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_accent"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tvNewBestResult"
@@ -63,7 +73,7 @@
                     android:textColor="@color/golden"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <androidx.cardview.widget.CardView
                     style="@style/basic_cardview"

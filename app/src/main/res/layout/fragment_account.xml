@@ -263,7 +263,6 @@
 
             </LinearLayout>
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_passed_tests"
                 android:layout_width="match_parent"

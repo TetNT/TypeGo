@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,8 @@ import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ResultFragment : Fragment() {
 
@@ -67,11 +70,14 @@ class ResultFragment : Fragment() {
         )
         animationManager.applyCountAnimation(countAnimation, binding.tvWPM)
         countAnimation.start()
+        binding.tvCpm.text = getString(R.string.cpm_pl, resultViewModel.getCpm())
+        binding.tvCpm.animation = animationManager.getFadeInAnimation(COUNT_UP_ANIMATION_DURATION)
+        binding.tvCpm.animation.start()
     }
 
     private fun setupButtons() {
         binding.tvCheckLog.setOnClickListener {
-            if (resultViewModel.hasWordsLog() && resultViewModel.isGameCompleted /*&& !resultCalledFromHistory()*/) {
+            if (resultViewModel.hasWordsLog() && resultViewModel.isGameCompleted) {
                 val typedWordsViewModel : TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                 typedWordsViewModel.selectTypedWordsList(resultViewModel.selectedList.value ?: emptyList())
                 binding.root.findNavController().navigate(R.id.action_result_to_typedWords)
@@ -81,7 +87,17 @@ class ResultFragment : Fragment() {
         }
 
         binding.bFinish.setOnClickListener { binding.root.findNavController().navigateUp() }
-        if (resultCalledFromHistory()) binding.bFinish.text = getString(R.string.close)
+        if (resultCalledFromHistory()) {
+            binding.bFinish.text = getString(R.string.close)
+        } else {
+            binding.bFinish.isEnabled = false
+            binding.bStartOver.isEnabled = false
+            lifecycleScope.launch {
+                delay(COUNT_UP_ANIMATION_DURATION)
+                binding.bFinish.isEnabled = true
+                binding.bStartOver.isEnabled = true
+            }
+        }
         binding.bStartOver.setOnClickListener {
             val gameViewModel: GameViewModel by navGraphViewModels(R.id.main_navigation)
             gameViewModel.selectGameMode(resultViewModel.gameMode)

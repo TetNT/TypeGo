@@ -33,6 +33,7 @@ import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import com.tetsoft.typego.data.textsource.AssetStringReader
 import com.tetsoft.typego.data.textsource.ShuffledTextFromAsset
 import com.tetsoft.typego.databinding.FragmentGameBinding
+import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.greenForeground
@@ -76,6 +77,10 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (gameViewModel.gameMode is GameMode.Empty) {
+            findNavController().navigateUp()
+            return
+        }
         adsCounter = (requireActivity().application as TypeGoApp).adsCounter
         adShown = false
         loadAd()
@@ -282,22 +287,17 @@ class GameFragment : Fragment() {
 
     private fun wordIsCorrect(ignoreCase: Boolean): Boolean {
         val enteredWord: String =
-            binding.inpWord.text.toString().trim { it <= ' ' } // removes a space at the end
+            binding.inpWord.text.toString().trim { it <= ' ' }
         val comparingWord: String = binding.words.selectedWord
         return enteredWord.equals(comparingWord, ignoreCase)
     }
 
-    // TODO: Rename the packages to lower case and use enum.name instead
     private fun getDictionaryFolderPath(dictionaryType: DictionaryType): String {
         return if (dictionaryType === DictionaryType.BASIC) "words/basic/" else "words/enhanced/"
     }
 
     // TODO: move this method to a class that will implement a TextSource interface
     private fun initWords() {
-        if (gameViewModel.gameMode !is PrebuiltTextGameMode) {
-            findNavController().navigateUp()
-            return
-        }
         val gameMode = gameViewModel.gameMode as PrebuiltTextGameMode
         val amountOfWords: Int = max((250.0 * (timeTotalAmount / 60.0)), 100.0).toInt()
         val path = getDictionaryFolderPath(gameMode.getDictionary()) + gameMode.getLanguage().identifier + ".txt"
@@ -397,6 +397,10 @@ class GameFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if (_binding == null) {
+            findNavController().navigateUp()
+            return
+        }
         if (testInitiallyPaused) return
         showContinueDialog(adShown)
     }
