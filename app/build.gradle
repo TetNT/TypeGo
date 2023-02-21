@@ -18,7 +18,7 @@ android {
         applicationId "com.tetsoft.typego"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 22
+        versionCode 24
         versionName "1.5.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -58,7 +58,6 @@ dependencies {
 
     // dagger hilt
     implementation 'com.google.dagger:hilt-android:2.42'
-    //annotationProcessor 'com.google.dagger:hilt-compiler:2.42'
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     kapt 'com.google.dagger:hilt-compiler:2.42'

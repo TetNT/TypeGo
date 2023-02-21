@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.fragment
+package com.tetsoft.typego.ui.fragment.account
 
 import android.view.animation.Animation
 import android.view.animation.AnimationSet

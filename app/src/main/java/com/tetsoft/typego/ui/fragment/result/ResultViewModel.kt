@@ -32,7 +32,7 @@ class ResultViewModel @Inject constructor(
 
     private val _gameMode = MutableLiveData<GameMode>()
 
-    val gameMode : GameMode get() = _gameMode.value!!
+    val gameMode : GameMode get() = _gameMode.value ?: GameMode.Empty()
 
     var result : GameResult? = null
 
@@ -106,6 +106,10 @@ class ResultViewModel @Inject constructor(
 
     fun getWpm() : Int {
         return result?.wpm?.roundToInt() ?: 0
+    }
+
+    fun getCpm() : Int {
+        return result?.cpm ?: 0
     }
 
     fun getLanguage() : Language {

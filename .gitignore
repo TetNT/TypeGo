@@ -2,8 +2,10 @@
 .gradle
 /local.properties
 /.idea/caches
+/.idea/dictionaries
 /.idea/libraries
 /.idea/modules.xml
+/.idea/misc.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
@@ -15,3 +17,4 @@
 local.properties
 /app/src/main/java/com/tetsoft/typego/Config.java
 /app/src/main/res/values/application_ads.xml
+/app/src/main/java/com/tetsoft/typego/Config.kt

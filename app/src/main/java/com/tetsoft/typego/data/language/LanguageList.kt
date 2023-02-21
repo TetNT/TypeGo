@@ -36,7 +36,8 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
             Language(RU),
             Language(ES),
             Language(BG),
-            Language(UA)
+            Language(UA),
+            Language(CZ)
             )
     }
 
@@ -57,5 +58,6 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
         const val BG = "BG"
         const val ID = "ID"
         const val PT = "PT"
+        const val CZ = "CZ"
     }
 }

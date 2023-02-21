@@ -1,6 +1,7 @@
 package com.tetsoft.typego.game.result
 
 import com.tetsoft.typego.game.mode.GameMode
+import kotlin.math.roundToInt
 
 open class GameResult(
     val gameMode: GameMode,
@@ -23,7 +24,16 @@ open class GameResult(
     }
 
     // Chars per minute
-    val cpm: Int = score
+    val cpm: Int = calculateCpm().roundToInt()
+
+    private fun calculateCpm(): Double {
+        if (timeSpentInSeconds == 0 || score == 0) return 0.0
+        return try {
+            (60.0 / timeSpentInSeconds.toDouble()) * score.toDouble()
+        } catch (ae: ArithmeticException) {
+            0.0
+        }
+    }
 
     companion object {
         /**

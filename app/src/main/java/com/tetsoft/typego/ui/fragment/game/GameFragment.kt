@@ -3,7 +3,6 @@ package com.tetsoft.typego.ui.fragment.game
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
-import android.content.res.AssetManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -17,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
@@ -30,7 +30,10 @@ import com.tetsoft.typego.data.AdsCounter
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.PrebuiltTextGameMode
+import com.tetsoft.typego.data.textsource.AssetStringReader
+import com.tetsoft.typego.data.textsource.ShuffledTextFromAsset
 import com.tetsoft.typego.databinding.FragmentGameBinding
+import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.greenForeground
@@ -38,11 +41,6 @@ import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.redForeground
 import com.tetsoft.typego.ui.custom.addAfterTextChangedListener
 import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 import com.tetsoft.typego.utils.TimeConvert.convertSecondsToStamp
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
 import java.util.*
 import kotlin.math.max
 
@@ -79,6 +77,10 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (gameViewModel.gameMode is GameMode.Empty) {
+            findNavController().navigateUp()
+            return
+        }
         adsCounter = (requireActivity().application as TypeGoApp).adsCounter
         adShown = false
         loadAd()
@@ -162,7 +164,7 @@ class GameFragment : Fragment() {
             .setTitle(getString(R.string.welcome_back))
         dialog.setNegativeButton(getString(R.string.no)) { _: DialogInterface?, _: Int ->
             pauseTimer()
-            binding.root.findNavController().navigateUp()
+            findNavController().navigateUp()
         }
         dialog.setPositiveButton(getString(R.string.yes)) { dial: DialogInterface, _: Int ->
             resumeTimer()
@@ -246,7 +248,7 @@ class GameFragment : Fragment() {
         }
         dialog.setPositiveButton(R.string.yes) { _, _ ->
             pauseTimer()
-            binding.root.findNavController().navigateUp()
+            findNavController().navigateUp()
         }
         dialog.show()
         pauseTimer()
@@ -285,63 +287,41 @@ class GameFragment : Fragment() {
 
     private fun wordIsCorrect(ignoreCase: Boolean): Boolean {
         val enteredWord: String =
-            binding.inpWord.text.toString().trim { it <= ' ' } // removes a space at the end
+            binding.inpWord.text.toString().trim { it <= ' ' }
         val comparingWord: String = binding.words.selectedWord
         return enteredWord.equals(comparingWord, ignoreCase)
     }
 
-    // TODO: Rename the packages to lower case and use enum.name instead
     private fun getDictionaryFolderPath(dictionaryType: DictionaryType): String {
-        return if (dictionaryType === DictionaryType.BASIC) "WordLists/Basic/" else "WordLists/Enhanced/"
+        return if (dictionaryType === DictionaryType.BASIC) "words/basic/" else "words/enhanced/"
     }
 
     // TODO: move this method to a class that will implement a TextSource interface
     private fun initWords() {
+        val gameMode = gameViewModel.gameMode as PrebuiltTextGameMode
+        val amountOfWords: Int = max((250.0 * (timeTotalAmount / 60.0)), 100.0).toInt()
+        val path = getDictionaryFolderPath(gameMode.getDictionary()) + gameMode.getLanguage().identifier + ".txt"
+        val textSource = ShuffledTextFromAsset(AssetStringReader(requireActivity().assets), path, amountOfWords).getString()
 
-        val assets: AssetManager = requireActivity().assets
-        val inputStream: InputStream
-        var loadingWordList = ArrayList<String>()
-        try {
-            if (gameViewModel.gameMode is PrebuiltTextGameMode) {
-                val prebuiltGameMode = gameViewModel.gameMode as PrebuiltTextGameMode
-                val languageIdentifier: String = prebuiltGameMode.getLanguage().identifier
-                inputStream = assets.open(
-                    getDictionaryFolderPath(prebuiltGameMode.getDictionary()) + languageIdentifier + ".txt"
-                )
-                val reader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                loadingWordList = ArrayList(reader.readText().split("\r\n"))
-                reader.close()
-                inputStream.close()
-            }
-
-        } catch (e: IOException) {
+        if (textSource.isEmpty()) {
             Toast.makeText(
                 requireContext(),
                 getString(R.string.words_loading_error_occurred),
                 Toast.LENGTH_SHORT
             ).show()
-            binding.root.findNavController().navigateUp()
+            findNavController().navigateUp()
             return
         }
-        val rnd = Random()
-        val str = StringBuilder()
-        val amountOfWords: Int = max((250.0 * (timeTotalAmount / 60.0)), 100.0).toInt()
-        for (i in 0..amountOfWords) {
-            // TODO: move this to the ViewModel and use coroutines to initialize this
-            val word = loadingWordList[rnd.nextInt(loadingWordList.size)]
-            str.append(word).append(" ")
-        }
-        binding.words.setText(str.toString())
+        binding.words.setText(textSource)
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
     private fun setScreenOrientation() {
+        requireActivity().requestedOrientation = gameViewModel.gameMode.screenOrientation.get()
         // TODO: Measure what exact SCROLL_POWER should be
         if (gameViewModel.gameMode.screenOrientation === ScreenOrientation.PORTRAIT) {
-            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             binding.words.autoScrollPredictPosition = 25
         } else {
-            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             binding.words.autoScrollPredictPosition = 0
         }
     }
@@ -417,6 +397,10 @@ class GameFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if (_binding == null) {
+            findNavController().navigateUp()
+            return
+        }
         if (testInitiallyPaused) return
         showContinueDialog(adShown)
     }

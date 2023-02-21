@@ -73,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="8dp"
                         android:text="@string/language"
                         app:drawableStartCompat="@drawable/ic_language" />
 
@@ -115,7 +115,7 @@
                         style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="8dp"
                         android:text="@string/amount_of_time"
                         app:drawableStartCompat="@drawable/ic_timer" />
 
@@ -173,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="8dp"
                         android:text="@string/dictionary_type"
                         app:drawableStartCompat="@drawable/ic_dictionary" />
 
@@ -274,9 +274,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="8dp"
                         android:text="@string/screen_orientation"
-                        app:drawableStartCompat="@drawable/ic_portrait" />
+                        app:drawableStartCompat="@drawable/ic_rotation" />
 
                     <RadioGroup
                         android:id="@+id/rbScreenOrientation"
