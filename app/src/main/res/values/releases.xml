@@ -32,7 +32,7 @@
         • Other improvements\nAdded the "Replay" button on the main page.\nThe results page now shows the difference between the current and the previous result.
     </string>
 
-    <string name="release_notes_description_current_version">
+    <string name="release_notes_description_150">
         This update aims at the app’s optimization, bug fixes and some adjustments\n\n
         • 10-minute test! Now there is no reason to rush\n
         • All transitions between screens have been changed, they have become quicker and more responsive\n
@@ -42,6 +42,15 @@
         • Fixed a bug when if a user had 0% progression, then the respective statistics card was locked\n
         • Fixed Ukrainian words with wrong characters\n
         • Now the game doesn\'t crash if a user reaches the end of a text
+    </string>
+
+    <string name="release_notes_description_current_version">
+        • Now you can see both WPM (Words Per Minute) and CPM (Characters Per Minute) in the results!\n
+        • Added Czech language\n
+        • The English dictionary has become more universal. Words like color/colour, defense/defence are removed\n
+        • Fixed the 0 WPM bug, when the WPM could only be calculated in a 60-second game\n
+        • When a user is being switched to the result screen, the bottom buttons are blocked for a short period of time to prevent accidental clicks\n
+        • Now it\'s less likely to crash when resuming the app after a while.
     </string>
 
 </resources>

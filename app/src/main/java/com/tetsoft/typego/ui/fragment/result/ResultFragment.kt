@@ -21,6 +21,7 @@ import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentResultBinding
 import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
+import com.tetsoft.typego.ui.visibility.VisibilityMapper
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
 import kotlinx.coroutines.delay
@@ -143,12 +144,15 @@ class ResultFragment : Fragment() {
             val bestResult = resultViewModel.getBestWpmByCurrentLanguage()
             bestResultSection.visibility = resultViewModel.getVisibilityForResult(bestResult)
             tvBestResult.text = (getString(R.string.best_result_pl, bestResult))
-            if (!resultViewModel.isGameCompleted) return
+            if (!resultViewModel.isGameCompleted) {
+                tvNewBestResult.visibility = View.GONE
+                return
+            }
             val diff = resultViewModel.subtractCurrentWpmAndOtherResult(bestResult)
             tvDifferenceWithBestResult.visibility = resultViewModel.getVisibilityForDifference(diff)
             tvDifferenceWithBestResult.text = resultViewModel.getDifferenceString(diff)
             tvDifferenceWithBestResult.setTextColor(resultViewModel.getDifferenceColor(diff))
-            if (diff > 0) tvNewBestResult.visibility = View.VISIBLE
+            tvNewBestResult.visibility = VisibilityMapper.FromBoolean(diff > 0).get()
             tvDifferenceWithBestResult.animation =
                 AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
             tvDifferenceWithBestResult.animation.startOffset = BEST_RESULT_FADE_IN_ANIMATION_OFFSET

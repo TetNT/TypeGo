@@ -82,7 +82,7 @@
     <string name="tests_passed_pl">Тестов пройдено: %1$d</string>
     <string name="average_wpm_pl">Средний СВМ: %1$d</string>
 
-    <string name="msg_passed_tests_information">Нажми на любой чтобы посмотреть информацию.</string>
+    <string name="msg_passed_tests_information">Нажми на любой элемент чтобы посмотреть информацию.</string>
     <string name="correct_chars_pl">Правильных символов: %1$d</string>
     <string name="correct_characters">Правильных символов</string>
     <string name="close">Закрыть</string>
