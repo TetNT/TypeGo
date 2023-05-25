@@ -131,7 +131,7 @@
         tools:layout="@layout/fragment_achievements" />
     <fragment
         android:id="@+id/typedWordsFragment"
-        android:name="com.tetsoft.typego.TypedWordsFragment"
+        android:name="com.tetsoft.typego.ui.fragment.typedwords.TypedWordsFragment"
         android:label="fragment_typed_words"
         tools:layout="@layout/fragment_typed_words" >
         <action

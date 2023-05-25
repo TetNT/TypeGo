@@ -1,4 +1,4 @@
-package com.tetsoft.typego
+package com.tetsoft.typego.ui.fragment.typedwords
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

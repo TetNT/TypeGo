@@ -6,6 +6,7 @@ import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.game.mode.GameOnTime
 import java.util.*
 
+@Deprecated("Replaced with GameOnTimeHistoryList")
 class GameResultList : ArrayList<GameResult> {
     constructor()
     constructor(list: List<GameResult>) {

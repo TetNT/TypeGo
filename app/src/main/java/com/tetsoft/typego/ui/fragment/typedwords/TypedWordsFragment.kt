@@ -1,4 +1,4 @@
-package com.tetsoft.typego
+package com.tetsoft.typego.ui.fragment.typedwords
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.word.WordsPagingDataAdapter
 import com.tetsoft.typego.databinding.FragmentTypedWordsBinding
 
