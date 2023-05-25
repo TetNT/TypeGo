@@ -49,6 +49,7 @@ class MainFragment : Fragment() {
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
         viewModel.removeVersioning()
+        viewModel.migrateFromOldResultsToNew()
     }
 
     private fun setupButtonsOnClickListeners() {
