@@ -70,10 +70,20 @@ class GameOnTimeHistoryAdapter(
             } else {
                 itemOrientation.setCompoundDrawablesRelative(AppCompatResources.getDrawable(context, R.drawable.ic_landscape), null, null, null)
             }
-            if (results[position].areSuggestionsActivated()) {
-                DrawableCompat.setTint(itemSuggestions.compoundDrawables[0], ContextCompat.getColor(context, R.color.main_green))
-            } else {
-                DrawableCompat.setTint(itemSuggestions.compoundDrawables[0], ContextCompat.getColor(context, R.color.bg_lighter_gray))
+            setDrawableTint(itemSuggestions)
+            // FIXME
+            //if (results[position].areSuggestionsActivated()) {
+            //    DrawableCompat.setTint(itemSuggestions.compoundDrawables[0], ContextCompat.getColor(context, R.color.main_green))
+            //} else {
+            //    DrawableCompat.setTint(itemSuggestions.compoundDrawables[0], ContextCompat.getColor(context, R.color.bg_lighter_gray))
+            //}
+        }
+    }
+
+    private fun setDrawableTint(textView: TextView) {
+        for (drawable in textView.compoundDrawables) {
+            if (drawable !== null) {
+                DrawableCompat.setTint(drawable, ContextCompat.getColor(context, R.color.main_green))
             }
         }
     }

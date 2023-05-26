@@ -28,7 +28,6 @@ class AchievementsProgressStorage(context: Context) {
         }
     }
 
-    // Remove a redundant version record from the preferences file
     // TODO: To be deleted in the next version (1.5.x or 1.6.0)
     fun removeVersion() {
         with(sharedPreferences.edit()) {

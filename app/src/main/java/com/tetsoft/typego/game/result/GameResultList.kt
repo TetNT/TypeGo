@@ -44,7 +44,6 @@ class GameResultList : ArrayList<GameResult> {
         return selectedResults
     }
 
-    // TODO: Check if we even need this
     fun getLastResultByGameType(gameTypeClass : Class<*>) : GameResult {
         if (this.isEmpty()) return GameResult.Empty()
         this.asReversed().forEach {

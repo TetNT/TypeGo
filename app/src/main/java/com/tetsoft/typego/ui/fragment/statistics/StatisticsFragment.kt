@@ -10,30 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
 
-class StatisticsFragment : Fragment() {
+class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
 
     private val viewModel: StatisticsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-
-    private var _binding : FragmentStatisticsBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentStatisticsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -123,5 +106,12 @@ class StatisticsFragment : Fragment() {
                 animation.animatedValue as Int
             )
         }
+    }
+
+    override fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentStatisticsBinding {
+        return FragmentStatisticsBinding.inflate(inflater, container, false)
     }
 }

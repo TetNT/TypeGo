@@ -3,7 +3,6 @@ package com.tetsoft.typego.ui.custom
 import android.content.Context
 import android.util.AttributeSet
 
-// TODO: Make assignedValue abstract and the class as generic
 class ValRadioButton : androidx.appcompat.widget.AppCompatRadioButton {
 
     constructor(context: Context) : super(context)

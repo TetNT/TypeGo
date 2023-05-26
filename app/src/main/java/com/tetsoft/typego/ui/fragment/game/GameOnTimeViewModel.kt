@@ -1,34 +1,22 @@
 package com.tetsoft.typego.ui.fragment.game
 
 import android.text.InputType
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.data.Word
 import com.tetsoft.typego.game.GameOnTime
-import com.tetsoft.typego.game.mode.GameMode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
-@Deprecated("Use GameOnTimeViewModel instead")
-class GameViewModel @Inject constructor(): ViewModel() {
+class GameOnTimeViewModel @Inject constructor() : ViewModel() {
 
-    private val _gameMode = MutableLiveData<GameMode>()
-
-    val gameMode : GameMode get() = _gameMode.value ?: GameMode.Empty()
-
-    var gameOnTimeResult: GameOnTime = GameOnTime.Empty()
-
-    private val typedWordsList = ArrayList<Word>()
+    var gameOnTime: GameOnTime = GameOnTime.Empty()
 
     private var score : Int = 0
 
-    fun selectGameMode(gameMode: GameMode) {
-        _gameMode.postValue(gameMode)
-    }
+    private val typedWordsList = ArrayList<Word>()
 
     fun addWordToTypedList(inputted: String, original: String) {
         viewModelScope.launch {
@@ -51,6 +39,10 @@ class GameViewModel @Inject constructor(): ViewModel() {
         return typedWordsList
     }
 
+    fun wordIsCorrect(enteredWord: String, otherWord: String, ignoreCase: Boolean) : Boolean {
+        return enteredWord.trim{ it <= ' ' }.equals(otherWord.trim { it <= ' ' }, ignoreCase)
+    }
+
     fun calculateCorrectWords() : Int {
         var count = 0
         viewModelScope.launch {
@@ -62,7 +54,7 @@ class GameViewModel @Inject constructor(): ViewModel() {
     }
 
     fun getInputType() : Int {
-        return if (gameMode.suggestionsActivated)
+        return if (gameOnTime.areSuggestionsActivated())
             InputType.TYPE_CLASS_TEXT
         else
             InputType.TYPE_TEXT_VARIATION_PASSWORD

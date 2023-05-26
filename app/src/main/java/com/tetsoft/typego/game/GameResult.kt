@@ -19,11 +19,11 @@ interface GameResult {
     }
 
     interface WithWordsInformation {
-        fun getWordsWritten() : Int
+        fun getWordsWritten(): Int
 
-        fun getCorrectWords() : Int
+        fun getCorrectWords(): Int
 
-        fun getIncorrectWords() : Int
+        fun getIncorrectWords(): Int
     }
 
 }
@@ -66,15 +66,15 @@ open class GameOnTime(
         return language
     }
 
-    fun getDictionaryType() : DictionaryType {
+    fun getDictionaryType(): DictionaryType {
         return enumValueOf(dictionary)
     }
 
-    fun getScreenOrientation() : ScreenOrientation {
+    fun getScreenOrientation(): ScreenOrientation {
         return enumValueOf(screenOrientation)
     }
 
-    fun areSuggestionsActivated() : Boolean {
+    fun areSuggestionsActivated(): Boolean {
         return suggestionsActivated
     }
 
@@ -89,6 +89,8 @@ open class GameOnTime(
     override fun getIncorrectWords(): Int {
         return wordsWritten - correctWords
     }
+
+    class Empty : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0L)
 }
 
 class GameOnNumberOfWords(
@@ -126,7 +128,7 @@ class GameOnNumberOfWords(
         return language
     }
 
-    fun getWordsNumber() : Int {
+    fun getWordsNumber(): Int {
         return amountOfWords
     }
 

@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.achievement
 
 import com.tetsoft.typego.data.achievement.requirement.Requirement
+import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.game.result.GameResultList
 
 open class Achievement(
@@ -22,7 +23,15 @@ open class Achievement(
     /**
      * @return true if all requirements are complete, false otherwise
      */
+    @Deprecated("Use the new GameOnTime list instead")
     fun requirementsAreComplete(resultList : GameResultList): Boolean {
+        for (requirement in requirements)
+            if (!requirement.isMatching(resultList)) return false
+        return true
+    }
+
+    // TODO: REFACTOR THIS CODE AND DELETE THE OLD IMPLEMENTATION
+    fun requirementsAreComplete(resultList: List<GameOnTime>) : Boolean {
         for (requirement in requirements)
             if (!requirement.isMatching(resultList)) return false
         return true

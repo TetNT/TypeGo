@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.fragment.account
+package com.tetsoft.typego.ui.fragment.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,51 +8,31 @@ import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.GamesHistoryAdapter
-import com.tetsoft.typego.adapter.GamesHistoryAdapter.RecyclerViewOnClickListener
 import com.tetsoft.typego.adapter.history.GameOnTimeHistoryAdapter
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
-import com.tetsoft.typego.databinding.FragmentAccountBinding
+import com.tetsoft.typego.databinding.FragmentGameHistoryBinding
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
 import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 
-@Deprecated("Replaced with the GameHistoryFragment. To be deleted")
-class AccountFragment : Fragment() {
+class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
 
-    private var inDescendingOrder = true
-
-    private val viewModel : AccountViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-
-    private var _binding: FragmentAccountBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentAccountBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+    private val viewModel : GameHistoryViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLanguageSpinner()
         binding.bAchievements.setOnClickListener {
-            //binding.root.findNavController().navigate(R.id.action_account_to_achievements)
+            findNavController().navigate(R.id.action_gameHistoryFragment_to_achievementsFragment)
         }
         binding.bStatistics.setOnClickListener {
-            //binding.root.findNavController().navigate(R.id.action_account_to_statistics)
+            findNavController().navigate(R.id.action_gameHistoryFragment_to_statisticsFragment)
         }
         viewModel.selectedLanguage.observe(viewLifecycleOwner) {
             binding.averageWpmCounter.text = "-"
@@ -60,15 +40,14 @@ class AccountFragment : Fragment() {
             binding.testsPassedCounter.text = "-"
             val selectedLanguage = binding.spinnerResultsLanguageSelection.getSelectedLanguage()
             val resultsByLanguage = viewModel.getOnTimeHistory(selectedLanguage)
-            val listener = object : RecyclerViewOnClickListener {
+            val listener = object : GamesHistoryAdapter.RecyclerViewOnClickListener {
                 override fun onClick(v: View?, position: Int) {
                     val resultViewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                     resultViewModel.result = resultsByLanguage[position]
                     resultViewModel.isGameCompleted = false
-                    //binding.root.findNavController().navigate(R.id.action_account_to_result)
+                    binding.root.findNavController().navigate(R.id.action_gameHistoryFragment_to_gameOnTimeResultFragment)
                 }
             }
-            //binding.rvHistoryGameOnTime.adapter = GamesHistoryAdapter(requireContext(), resultsByLanguage, listener)
             binding.rvHistoryGameOnTime.adapter = GameOnTimeHistoryAdapter(requireContext(), resultsByLanguage, listener)
             binding.rvHistoryGameOnTime.animation = viewModel.getGameHistoryEnteringAnimation()
             if (viewModel.averageWpmCanBeShown(resultsByLanguage)) {
@@ -82,14 +61,13 @@ class AccountFragment : Fragment() {
             }
             binding.tvPassedTestsInfo.text = getString(R.string.msg_passed_tests_information)
             binding.testsPassedCounter.text = resultsByLanguage.size.toString()
-            binding.bestResultCounter.text = viewModel.getBestResultWpm(resultsByLanguage).toString()
-
+            binding.bestResultCounter.text = viewModel.getBestWpm(resultsByLanguage).toString()
         }
     }
 
     private fun initLanguageSpinner() {
         val languages = LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
-        // an option to show the whole stats
+        // an option to show the whole history
         val spinnerItem = LanguageSpinnerItem(
             Language(Language.ALL),
             requireContext().getString(R.string.ALL),
@@ -111,5 +89,9 @@ class AccountFragment : Fragment() {
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
+
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentGameHistoryBinding {
+        return FragmentGameHistoryBinding.inflate(inflater, container, false)
     }
 }

@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -29,24 +28,23 @@ import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.data.AdsCounter
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
-import com.tetsoft.typego.data.language.PrebuiltTextGameMode
+import com.tetsoft.typego.data.calculation.CpmCalculation
+import com.tetsoft.typego.data.calculation.WpmCalculation
 import com.tetsoft.typego.data.textsource.AssetStringReader
 import com.tetsoft.typego.data.textsource.ShuffledTextFromAsset
-import com.tetsoft.typego.databinding.FragmentGameBinding
-import com.tetsoft.typego.game.mode.GameMode
-import com.tetsoft.typego.game.mode.GameOnTime
-import com.tetsoft.typego.game.result.GameResult
-import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.greenForeground
-import com.tetsoft.typego.ui.custom.SpannableEditText.Companion.redForeground
+import com.tetsoft.typego.databinding.FragmentGameOnTimeBinding
+import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.ui.custom.SpannableEditText
 import com.tetsoft.typego.ui.custom.addAfterTextChangedListener
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
-import com.tetsoft.typego.ui.fragment.result.ResultViewModel
-import com.tetsoft.typego.utils.TimeConvert.convertSecondsToStamp
+import com.tetsoft.typego.utils.TimeConvert
 import java.util.*
 import kotlin.math.max
 
-@Deprecated("Replaced with the GameOnTimeFragment. To be deleted")
-class GameFragment : Fragment() {
+class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
+
+    private val viewModel: GameOnTimeViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     private var countdown: CountDownTimer? = null
     private var testInitiallyPaused = true
@@ -57,29 +55,9 @@ class GameFragment : Fragment() {
     var adsCounter: AdsCounter? = null
     var mInterstitialAd: InterstitialAd? = null
 
-    private val gameViewModel: GameViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-
-    private var _binding : FragmentGameBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentGameBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (gameViewModel.gameMode is GameMode.Empty) {
+        if (viewModel.gameOnTime is GameOnTime.Empty) {
             findNavController().navigateUp()
             return
         }
@@ -118,16 +96,15 @@ class GameFragment : Fragment() {
 
             // if user's input is not empty and it has space at the end
             if (binding.words.reachedTheEnd()) {
-                // TODO: Handle this situation with interrupting the test (and maybe granting an achievement)
                 binding.inpWord.text.clear()
                 return@addAfterTextChangedListener
             }
             binding.words.deselectCurrentWord()
-            addWordToTypedList(
+            viewModel.addWordToTypedList(
                 binding.inpWord.text.toString().trim { it <= ' ' },
                 binding.words.selectedWord.trim { it <= ' ' })
-            if (wordIsCorrect(ignoreCase)) {
-                gameViewModel.addScore(binding.words.selectedWord.length)
+            if (viewModel.wordIsCorrect(binding.inpWord.text.toString(), binding.words.selectedWord, ignoreCase)) {
+                viewModel.addScore(binding.words.selectedWord.length)
                 binding.words.selectCurrentWordAsCorrect()
             } else binding.words.selectCurrentWordAsIncorrect()
             binding.words.setNextWordCursors()
@@ -142,20 +119,11 @@ class GameFragment : Fragment() {
         return s[s.length - 1] == ' '
     }
 
-    private fun addWordToTypedList(inputted: String, original: String) {
-        gameViewModel.addWordToTypedList(inputted, original)
-    }
-
     private fun initialize() {
-        // TODO: Test autoscroll
-        val gameMode = gameViewModel.gameMode
-        if (gameViewModel.gameMode is GameOnTime) {
-            timeTotalAmount = (gameMode as GameOnTime).timeMode.timeInSeconds
-            secondsRemaining = timeTotalAmount
-        }
-        gameViewModel.clearTypedWords()
-        binding.inpWord.inputType = gameViewModel.getInputType()
-
+        timeTotalAmount = viewModel.gameOnTime.getTimeSpent()
+        secondsRemaining = timeTotalAmount
+        viewModel.clearTypedWords()
+        binding.inpWord.inputType = viewModel.getInputType()
         binding.restartButton.setOnClickListener { restartTest() }
     }
 
@@ -180,7 +148,7 @@ class GameFragment : Fragment() {
         countdown = object : CountDownTimer(seconds * 1000L, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimeLeft.text =
-                    convertSecondsToStamp((millisUntilFinished / 1000).toInt())
+                    TimeConvert.convertSecondsToStamp((millisUntilFinished / 1000).toInt())
                 secondsRemaining = secondsRemaining.dec()
             }
 
@@ -263,11 +231,11 @@ class GameFragment : Fragment() {
     }
 
     private fun resetAll() {
-        gameViewModel.clearScore()
+        viewModel.clearScore()
         binding.words.selectedWordStartPosition = 0
         binding.words.selectedWordEndPosition = 0
         secondsRemaining = timeTotalAmount
-        binding.tvTimeLeft.text = convertSecondsToStamp(secondsRemaining)
+        binding.tvTimeLeft.text = TimeConvert.convertSecondsToStamp(secondsRemaining)
         testInitiallyPaused = true
         binding.words.initializeWordCursor()
         binding.words.selectNextWord()
@@ -276,22 +244,15 @@ class GameFragment : Fragment() {
     }
 
     private fun selectCurrentLetterAsCorrect(symbolIndex: Int) {
-        binding.words.paintForeground(symbolIndex, greenForeground)
+        binding.words.paintForeground(symbolIndex, SpannableEditText.greenForeground)
     }
 
     private fun selectCurrentLetterAsIncorrect(symbolIndex: Int) {
-        binding.words.paintForeground(symbolIndex, redForeground)
+        binding.words.paintForeground(symbolIndex, SpannableEditText.redForeground)
     }
 
     private fun deselectLetters(startIndex: Int, endIndex: Int) {
         binding.words.clearForeground(startIndex, endIndex)
-    }
-
-    private fun wordIsCorrect(ignoreCase: Boolean): Boolean {
-        val enteredWord: String =
-            binding.inpWord.text.toString().trim { it <= ' ' }
-        val comparingWord: String = binding.words.selectedWord
-        return enteredWord.equals(comparingWord, ignoreCase)
     }
 
     private fun getDictionaryFolderPath(dictionaryType: DictionaryType): String {
@@ -300,9 +261,8 @@ class GameFragment : Fragment() {
 
     // TODO: move this method to a class that will implement a TextSource interface
     private fun initWords() {
-        val gameMode = gameViewModel.gameMode as PrebuiltTextGameMode
         val amountOfWords: Int = max((250.0 * (timeTotalAmount / 60.0)), 100.0).toInt()
-        val path = getDictionaryFolderPath(gameMode.getDictionary()) + gameMode.getLanguage().identifier + ".txt"
+        val path = getDictionaryFolderPath(viewModel.gameOnTime.getDictionaryType()) + viewModel.gameOnTime.getLanguageCode()+ ".txt"
         val textSource = ShuffledTextFromAsset(AssetStringReader(requireActivity().assets), path, amountOfWords).getString()
 
         if (textSource.isEmpty()) {
@@ -319,14 +279,15 @@ class GameFragment : Fragment() {
 
     @SuppressLint("SourceLockedOrientationActivity")
     private fun setScreenOrientation() {
-        requireActivity().requestedOrientation = gameViewModel.gameMode.screenOrientation.get()
+        requireActivity().requestedOrientation = viewModel.gameOnTime.getScreenOrientation().get()
         // TODO: Measure what exact SCROLL_POWER should be
-        if (gameViewModel.gameMode.screenOrientation === ScreenOrientation.PORTRAIT) {
+        if (viewModel.gameOnTime.getScreenOrientation() === ScreenOrientation.PORTRAIT) {
             binding.words.autoScrollPredictPosition = 25
         } else {
             binding.words.autoScrollPredictPosition = 0
         }
     }
+
 
     private fun loadAd() {
         Log.i("LoadAD", "Start loading")
@@ -350,7 +311,15 @@ class GameFragment : Fragment() {
             })
     }
 
-    // TODO: Move this method to the results page
+    private fun showAd() {
+        if (mInterstitialAd == null) {
+            Log.i("AD", "showAd(): Ad is null")
+            return
+        }
+        adShown = true
+        mInterstitialAd!!.show(requireActivity())
+    }
+
     private fun setAdCallback() {
         mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -366,54 +335,25 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun showAd() {
-        if (mInterstitialAd == null) {
-            Log.i("AD", "showAd(): Ad is null")
-            return
-        }
-        adShown = true
-        mInterstitialAd!!.show(requireActivity())
-    }
-
     private fun showResultScreen() {
         binding.tvTimeLeft.text = getString(R.string.time_over)
         val gameOnTimeResultViewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-        gameOnTimeResultViewModel.result = com.tetsoft.typego.game.GameOnTime(
-            0.0,
-            gameViewModel.getScore(),
-            0,
-            (gameViewModel.gameMode as GameOnTime).timeMode.timeInSeconds,
-            (gameViewModel.gameMode as GameOnTime).getLanguage().identifier,
-            (gameViewModel.gameMode as GameOnTime).getDictionary().name,
-            gameViewModel.gameMode.screenOrientation.name,
-            gameViewModel.gameMode.suggestionsActivated,
-            gameViewModel.getTypedWords().size,
-            gameViewModel.calculateCorrectWords(),
+        gameOnTimeResultViewModel.result = GameOnTime(
+            WpmCalculation.Standard(viewModel.gameOnTime.getTimeSpent(), viewModel.getScore()).calculate(),
+            CpmCalculation.Standard(viewModel.gameOnTime.getTimeSpent(), viewModel.getScore()).calculate(),
+            viewModel.getScore(),
+            viewModel.gameOnTime.getTimeSpent(),
+            viewModel.gameOnTime.getLanguageCode(),
+            viewModel.gameOnTime.getDictionaryType().name,
+            viewModel.gameOnTime.getScreenOrientation().name,
+            viewModel.gameOnTime.areSuggestionsActivated(),
+            viewModel.getTypedWords().size,
+            viewModel.calculateCorrectWords(),
             Calendar.getInstance().time.time
         )
-        gameOnTimeResultViewModel.wordsList = gameViewModel.getTypedWords()
+        gameOnTimeResultViewModel.wordsList = viewModel.getTypedWords()
         gameOnTimeResultViewModel.isGameCompleted = true
-        //FIXME binding.root.findNavController().navigate(R.id.action_gameFragment_to_resultFragment)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        pauseTimer()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (_binding == null) {
-            findNavController().navigateUp()
-            return
-        }
-        if (testInitiallyPaused) return
-        showContinueDialog(adShown)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        findNavController().navigate(R.id.action_gameOnTimeFragment_to_gameOnTimeResultFragment)
     }
 
     private fun initializeBackButtonCallback() {
@@ -425,4 +365,21 @@ class GameFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (testInitiallyPaused) return
+        showContinueDialog(adShown)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
+
+    override fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentGameOnTimeBinding {
+        return FragmentGameOnTimeBinding.inflate(inflater, container, false)
+    }
 }

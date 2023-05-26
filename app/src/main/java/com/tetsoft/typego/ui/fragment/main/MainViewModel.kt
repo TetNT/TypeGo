@@ -2,6 +2,7 @@ package com.tetsoft.typego.ui.fragment.main
 
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.data.OldResultsToNewMigration
+import com.tetsoft.typego.data.history.GameOnTimeDataSelector
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.language.PrebuiltTextGameMode
@@ -33,9 +34,9 @@ class MainViewModel @Inject constructor(
 
     private val gameResults get() = gameResultListStorage.get()
 
-    fun userHasPreviousGames() = gameResults.isNotEmpty()
+    fun userHasPreviousGames() = gameOnTimeHistoryStorage.get().isNotEmpty()
 
-    fun getPreviousGameSettings() = gameResults[gameResults.size - 1].gameMode
+    fun getMostRecentGameSettings() = GameOnTimeDataSelector(gameOnTimeHistoryStorage.get()).getMostRecentResult()
 
     fun getLastUsedLanguageOrDefault(): Language {
         val lastResult = gameResults.getLastResultByGameType(PrebuiltTextGameMode::class.java)

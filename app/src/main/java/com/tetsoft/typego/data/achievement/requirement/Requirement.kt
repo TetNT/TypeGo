@@ -3,6 +3,7 @@ package com.tetsoft.typego.data.achievement.requirement
 import com.tetsoft.typego.game.result.GameResultList
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.data.language.LanguageList
+import com.tetsoft.typego.game.result.GameResult
 
 class Requirement(
     private val achievementSection: AchievementSection,
@@ -30,6 +31,20 @@ class Requirement(
             }
             AchievementSection.PASSED_TESTS_AMOUNT -> resultList.size
             AchievementSection.DIFFERENT_LANGUAGES_COUNT -> countUniqueLanguageEntries(resultList)
+        }
+    }
+
+    // finished, needs to be tested
+    private fun getComparingResultBySection(resultList: List<com.tetsoft.typego.game.GameOnTime>): Int {
+        require(!resultList.isEmpty()) { "The result list should not be empty!" }
+        val result = resultList[resultList.size - 1]
+        return when (achievementSection) {
+            AchievementSection.WPM -> resultList[resultList.size].getWpm().toInt()
+            AchievementSection.MISTAKES -> result.getWordsWritten() - result.getCorrectWords()
+            AchievementSection.MISTAKES_IN_A_ROW -> 0 // remove this enum option completely
+            AchievementSection.TIME_MODE -> result.getTimeSpent()
+            AchievementSection.PASSED_TESTS_AMOUNT -> resultList.size
+            AchievementSection.DIFFERENT_LANGUAGES_COUNT -> 0
         }
     }
 
@@ -61,7 +76,18 @@ class Requirement(
         return entries
     }
 
+    @Deprecated("Use the new GameOnTime list instead")
     fun isMatching(resultList: GameResultList): Boolean {
+        val comparingResult = getComparingResultBySection(resultList)
+        val matching: Boolean = when (compareType) {
+            CompareType.EQUALS -> comparingResult == requiredAmount
+            CompareType.LESS_OR_EQUALS -> comparingResult <= requiredAmount
+            CompareType.MORE_OR_EQUALS -> comparingResult >= requiredAmount
+        }
+        return matching
+    }
+    // TODO: REFACTOR THIS CODE AND DELETE THE OLD IMPLEMENTATION
+    fun isMatching(resultList: List<com.tetsoft.typego.game.GameOnTime>): Boolean {
         val comparingResult = getComparingResultBySection(resultList)
         val matching: Boolean = when (compareType) {
             CompareType.EQUALS -> comparingResult == requiredAmount

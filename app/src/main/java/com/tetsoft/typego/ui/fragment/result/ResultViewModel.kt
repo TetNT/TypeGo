@@ -17,6 +17,7 @@ import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -25,16 +26,19 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @HiltViewModel
+@Deprecated("To be deleted")
 class ResultViewModel @Inject constructor(
-    private val resultListStorage: GameResultListStorage,
+    private val resultListStorage: GameOnTimeHistoryStorage,
     private val achievementsProgressStorage: AchievementsProgressStorage
 ) : ViewModel() {
 
     private val _gameMode = MutableLiveData<GameMode>()
 
-    val gameMode : GameMode get() = _gameMode.value ?: GameMode.Empty()
+    //val gameMode : GameMode get() = _gameMode.value ?: GameMode.Empty()
 
-    var result : GameResult? = null
+    //var result : GameResult? = null
+
+    var result : com.tetsoft.typego.game.GameOnTime? = null
 
     val selectedList = MutableLiveData<List<Word>>(ArrayList())
 
@@ -59,11 +63,11 @@ class ResultViewModel @Inject constructor(
     fun hasWordsLog() = selectedList.value?.isNotEmpty() ?: false
 
     fun getCorrectWords() : Int {
-        return result?.correctWords ?: 0
+        return result?.getCorrectWords() ?: 0
     }
 
     fun getIncorrectWords() : Int {
-        return result?.wordsWritten?.minus(getCorrectWords()) ?: 0
+        return result?.getWordsWritten()?.minus(getCorrectWords()) ?: 0
     }
 
     fun getVisibilityForResult(wpmResult : Int) : Int {
@@ -78,7 +82,8 @@ class ResultViewModel @Inject constructor(
     }
 
     fun getBestWpmByCurrentLanguage() : Int {
-        return resultList.getBestResultByLanguage(getLanguage())
+        //return resultList.getBestResultByLanguage(getLanguage())
+        return 0
     }
 
     fun getVisibilityForDifference(difference : Int) : Int {
@@ -101,45 +106,42 @@ class ResultViewModel @Inject constructor(
     }
 
     fun getPreviousWpm() : Int {
-        return resultList.getPreviousResultByLanguage(getLanguage())
+        //return resultList.getPreviousResultByLanguage(getLanguage())
+        return 0
     }
 
     fun getWpm() : Int {
-        return result?.wpm?.roundToInt() ?: 0
+        return result?.getWpm()?.roundToInt() ?: 0
     }
 
     fun getCpm() : Int {
-        return result?.cpm ?: 0
+        return result?.getCpm() ?: 0
     }
 
     fun getLanguage() : Language {
-        return if (isPrebuiltGameMode) {
-            (result?.gameMode as PrebuiltTextGameMode).getLanguage()
-        } else Language("ALL")
+        return Language(result?.getLanguageCode() ?: "ALL")
     }
 
     fun getDictionary() : DictionaryType {
-        if (isPrebuiltGameMode) {
-            return (gameMode as PrebuiltTextGameMode).getDictionary()
-        } else throw IllegalStateException("Only prebuilt game modes have Dictionary type value.")
+        return result?.getDictionaryType() ?: DictionaryType.BASIC
     }
 
     fun getScreenOrientation() : ScreenOrientation {
-        return gameMode.screenOrientation
+        return result?.getScreenOrientation() ?: ScreenOrientation.PORTRAIT
     }
 
     fun getTimeInSeconds() : Int {
-        return if (isGameOnTime) {
-            (result?.gameMode as GameOnTime).timeMode.timeInSeconds
-        } else 0
+        return result?.getTimeSpent() ?: 0
     }
 
     fun resultIsValid() : Boolean {
-        return (result != null && result!!.wpm > 0)
+        return (result != null && result!!.getWpm() > 0)
     }
 
     fun saveResult() {
-        resultListStorage.addResult(result!!)
+        if (result != null) {
+            resultListStorage.add(result!!)
+        }
     }
 
     fun getEarnedAchievementsCount(achievementsList: AchievementsList) : Int {
@@ -157,17 +159,9 @@ class ResultViewModel @Inject constructor(
         return newAchievements
     }
 
-    val isGameOnTime get() = result?.gameMode is GameOnTime
-    val isGameOnCount get() = result?.gameMode is GameOnCount
-    val isPrebuiltGameMode get() = result?.gameMode is PrebuiltTextGameMode
-
     private fun requireResult() : GameResult {
         if (result == null) throw NullPointerException("Result has not been set!")
         return result as GameResult
-    }
-
-    companion object {
-        const val PAGE_SIZE = 10
     }
 
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.slider.Slider
@@ -15,35 +14,24 @@ import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeModeList
-import com.tetsoft.typego.databinding.FragmentGameSetupBinding
+import com.tetsoft.typego.databinding.FragmentGameOnTimeBinding
+import com.tetsoft.typego.databinding.FragmentGameOnTimeSetupBinding
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.ui.custom.ValRadioButton
+import com.tetsoft.typego.ui.fragment.BaseFragment
+import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.utils.Translation
 
-@Deprecated("To be deleted")
-class GameSetupFragment : Fragment() {
+class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
 
-    private val availableTimeModes = TimeModeList()
+    private val viewModel : GameOnTimeSetupViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
-    private val viewModel: OldGameOnTimeSetupViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-
-    private var _binding : FragmentGameSetupBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+    override fun initBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentGameSetupBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        container: ViewGroup?
+    ): FragmentGameOnTimeSetupBinding {
+        return FragmentGameOnTimeSetupBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,16 +49,20 @@ class GameSetupFragment : Fragment() {
 
         binding.buttonStartGame.setOnClickListener {
 
-            val gameOnTime = GameOnTime(
-                binding.spinLanguageSelection.getSelectedLanguage(),
-                binding.timemodeSlider.getSelectedTimeMode(),
-                selectedDictionaryType,
+            val gameOnTime = com.tetsoft.typego.game.GameOnTime(
+                0.0,
+                0,
+                0,
+                binding.timemodeSlider.getSelectedTimeMode().timeInSeconds,
+                binding.spinLanguageSelection.getSelectedLanguage().identifier,
+                selectedDictionaryType.name,
+                selectedScreenOrientation.name,
                 binding.cbPredictiveText.isChecked,
-                selectedScreenOrientation
+                0,0,0L
             )
-            val gameViewModel: GameViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-            gameViewModel.selectGameMode(gameOnTime)
-            //binding.root.findNavController().navigate(R.id.action_gameSetup_to_game)
+            val gameViewModel: GameOnTimeViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+            gameViewModel.gameOnTime = gameOnTime
+            binding.root.findNavController().navigate(R.id.action_gameOnTimeSetupFragment_to_gameOnTimeFragment)
         }
     }
 
@@ -102,16 +94,16 @@ class GameSetupFragment : Fragment() {
     private fun setupTimeModeSlider() {
         val translation = Translation(requireContext())
         with(binding) {
-            timemodeSlider.setTimeModes(availableTimeModes)
+            timemodeSlider.setTimeModes(TimeModeList())
             timemodeSlider.selectTimeMode(viewModel.getLastUsedTimeModeOrDefault())
             timemodeSlider.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
                 val position = value.toInt()
-                tvTimeStamp.text = translation.get(availableTimeModes.getTimeModeByIndex(position))
+                tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(position))
                 tvTimeStamp.startAnimation(
                     AnimationUtils.loadAnimation(requireContext(), R.anim.pop_animation)
                 )
             })
-            tvTimeStamp.text = translation.get(availableTimeModes.getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
+            tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
         }
     }
 
@@ -138,4 +130,5 @@ class GameSetupFragment : Fragment() {
     private fun setupSuggestionsCheckbox() {
         binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
     }
+
 }

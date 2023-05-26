@@ -15,18 +15,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
-import com.tetsoft.typego.TypedWordsViewModel
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentResultBinding
 import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
+import com.tetsoft.typego.ui.fragment.typedwords.TypedWordsViewModel
 import com.tetsoft.typego.ui.visibility.VisibilityMapper
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@Deprecated("Replaced with the GameOnTimeResultFragment. To be deleted")
 class ResultFragment : Fragment() {
 
     private val resultViewModel: ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
@@ -81,7 +82,7 @@ class ResultFragment : Fragment() {
             if (resultViewModel.hasWordsLog() && resultViewModel.isGameCompleted) {
                 val typedWordsViewModel : TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                 typedWordsViewModel.selectTypedWordsList(resultViewModel.selectedList.value ?: emptyList())
-                binding.root.findNavController().navigate(R.id.action_result_to_typedWords)
+                //binding.root.findNavController().navigate(R.id.action_result_to_typedWords)
             } else {
                 Toast.makeText(requireContext(), getString(R.string.typed_words_log_disabled), Toast.LENGTH_SHORT).show()
             }
@@ -101,16 +102,16 @@ class ResultFragment : Fragment() {
         }
         binding.bStartOver.setOnClickListener {
             val gameViewModel: GameViewModel by navGraphViewModels(R.id.main_navigation)
-            gameViewModel.selectGameMode(resultViewModel.gameMode)
+            //gameViewModel.selectGameMode(resultViewModel.gameMode)
             val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.resultFragment, true)
+                //.setPopUpTo(R.id.resultFragment, true)
                 .setEnterAnim(R.anim.slide_in_right)
                 .setExitAnim(R.anim.slide_out_left)
                 .setPopEnterAnim(R.anim.slide_in_left)
                 .setPopExitAnim(R.anim.slide_out_right)
                 .build()
             binding.root.findNavController()
-                .navigate(R.id.action_resultFragment_to_gameFragment, null, navOptions)
+                //.navigate(R.id.action_resultFragment_to_gameFragment, null, navOptions)
         }
     }
 
@@ -140,68 +141,10 @@ class ResultFragment : Fragment() {
     }
 
     private fun initBestResultSection() {
-        with(binding) {
-            val bestResult = resultViewModel.getBestWpmByCurrentLanguage()
-            bestResultSection.visibility = resultViewModel.getVisibilityForResult(bestResult)
-            tvBestResult.text = (getString(R.string.best_result_pl, bestResult))
-            if (!resultViewModel.isGameCompleted) {
-                tvNewBestResult.visibility = View.GONE
-                return
-            }
-            val diff = resultViewModel.subtractCurrentWpmAndOtherResult(bestResult)
-            tvDifferenceWithBestResult.visibility = resultViewModel.getVisibilityForDifference(diff)
-            tvDifferenceWithBestResult.text = resultViewModel.getDifferenceString(diff)
-            tvDifferenceWithBestResult.setTextColor(resultViewModel.getDifferenceColor(diff))
-            tvNewBestResult.visibility = VisibilityMapper.FromBoolean(diff > 0).get()
-            tvDifferenceWithBestResult.animation =
-                AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
-            tvDifferenceWithBestResult.animation.startOffset = BEST_RESULT_FADE_IN_ANIMATION_OFFSET
-            tvDifferenceWithBestResult.animation.start()
-        }
 
     }
 
     private fun initDetailsSectionForPrebuiltMode() {
-        with(binding) {
-            if (resultViewModel.gameMode is GameMode.Empty) {
-                findNavController().navigateUp()
-                return
-            }
-            if (resultViewModel.isPrebuiltGameMode) {
-                tvLanguage.text =
-                    getString(
-                        R.string.selected_language_pl,
-                        translation.get(resultViewModel.getLanguage())
-                    )
-                if (resultViewModel.isGameOnTime) {
-                    tvSelectedTime.text =
-                        getString(
-                            R.string.selected_time_pl,
-                            translation.get(TimeMode(resultViewModel.getTimeInSeconds()))
-                        )
-                }
-                tvDictionary.text =
-                    getString(
-                        R.string.dictionary_pl,
-                        translation.get(resultViewModel.getDictionary())
-                    )
-                tvCorrectWords.text =
-                    getString(R.string.correct_words_pl, resultViewModel.getCorrectWords())
-                tvIncorrectWords.text =
-                    getString(R.string.incorrect_words_pl, resultViewModel.getIncorrectWords())
-            }
-            tvTextSuggestions.text =
-                getString(
-                    R.string.text_suggestions_pl,
-                    translation.get(resultViewModel.gameMode.suggestionsActivated)
-                )
-            tvScreenOrientation.text =
-                getString(
-                    R.string.screen_orientation_pl,
-                    translation.get(resultViewModel.getScreenOrientation())
-                )
-        }
-
     }
 
     private fun resultCalledFromHistory(): Boolean {
@@ -228,7 +171,7 @@ class ResultFragment : Fragment() {
                 )
                     .setAction(R.string.check_profile) {
                         binding.root.findNavController()
-                            .navigate(R.id.action_result_to_achievements)
+                            //.navigate(R.id.action_result_to_achievements)
                     }.show()
             }
         } else {
@@ -243,7 +186,7 @@ class ResultFragment : Fragment() {
 
     companion object {
         private const val COUNT_UP_ANIMATION_DURATION = 1000L
-        const val PREVIOUS_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION - 200L
-        const val BEST_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION
+        private const val PREVIOUS_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION - 200L
+        private const val BEST_RESULT_FADE_IN_ANIMATION_OFFSET = COUNT_UP_ANIMATION_DURATION
     }
 }

@@ -35,7 +35,11 @@ class TypedWordsViewModel @Inject constructor() : ViewModel() {
     private fun updateTypedWordsPagingData(words: List<Word>) : LiveData<PagingData<Word>> {
         val pagingSource = WordsPagingSource(words, DataSelector.FiniteSelector(words))
         return Pager(
-            config = PagingConfig(pageSize = ResultViewModel.PAGE_SIZE),
+            config = PagingConfig(pageSize = PAGE_SIZE),
             pagingSourceFactory = { pagingSource }).liveData
+    }
+
+    private companion object {
+        const val PAGE_SIZE = 10
     }
 }
