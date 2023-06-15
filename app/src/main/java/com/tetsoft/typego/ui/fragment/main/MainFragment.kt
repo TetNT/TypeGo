@@ -19,7 +19,6 @@ import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding
 import com.tetsoft.typego.ui.custom.withColor
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
-import com.tetsoft.typego.ui.fragment.game.GameViewModel
 
 class MainFragment : Fragment() {
 
@@ -48,7 +47,6 @@ class MainFragment : Fragment() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
-        viewModel.removeVersioning()
         viewModel.migrateFromOldResultsToNew()
     }
 

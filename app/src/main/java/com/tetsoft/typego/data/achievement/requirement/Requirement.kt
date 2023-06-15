@@ -1,9 +1,10 @@
 package com.tetsoft.typego.data.achievement.requirement
 
-import com.tetsoft.typego.game.result.GameResultList
-import com.tetsoft.typego.game.mode.GameOnTime
+import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.language.LanguageList
-import com.tetsoft.typego.game.result.GameResult
+import com.tetsoft.typego.game.mode.GameOnTime
+import com.tetsoft.typego.game.result.GameResultList
 
 class Requirement(
     private val achievementSection: AchievementSection,
@@ -63,6 +64,14 @@ class Requirement(
         return when (achievementSection) {
             AchievementSection.WPM -> resultList.bestResultWpm
             AchievementSection.PASSED_TESTS_AMOUNT -> resultList.size
+            else -> 0
+        }
+    }
+
+    fun getCurrentProgress(classicGameHistory: ClassicGameModesHistoryList): Int {
+        return when (achievementSection) {
+            AchievementSection.WPM -> ClassicGameHistoryDataSelector(classicGameHistory).getBestResult().getWpm().toInt()
+            AchievementSection.PASSED_TESTS_AMOUNT -> classicGameHistory.size
             else -> 0
         }
     }

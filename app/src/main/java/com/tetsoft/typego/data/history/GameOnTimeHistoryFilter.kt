@@ -27,7 +27,7 @@ class GameOnTimeHistoryFilter(historyList: GameHistoryList<GameOnTime>) {
         return GameOnTimeHistoryFilter(copy)
     }
 
-    fun get() : GameHistoryList<GameOnTime> {
+    fun getList() : GameHistoryList<GameOnTime> {
         return filteredList
     }
 }

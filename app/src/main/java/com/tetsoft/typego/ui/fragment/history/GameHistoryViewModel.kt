@@ -30,7 +30,7 @@ class GameHistoryViewModel @Inject constructor(private val gameOnTimeHistoryStor
 
     fun getOnTimeHistory(language: Language): GameHistoryList<GameOnTime> {
         return GameOnTimeHistoryFilter(gameOnTimeHistoryStorage.get()).byLanguage(language)
-            .inDescendingOrder().get()
+            .inDescendingOrder().getList()
     }
 
     fun historyCanBeShown(gameResultList: GameHistoryList<GameOnTime>) = gameResultList.isNotEmpty()

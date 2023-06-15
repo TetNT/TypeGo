@@ -9,7 +9,7 @@ import com.tetsoft.typego.data.history.GameOnTimeHistoryList
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.history.adapter.GameOnTimeHistoryToJsonAdapter
 
-class GameOnTimeHistoryStorage(context: Context) : HistoryStorage<GameOnTime> {
+open class GameOnTimeHistoryStorage(context: Context) : HistoryStorage<GameOnTime> {
 
     private val sharedPreferences =
         context.getSharedPreferences(STORAGE_FILE, Context.MODE_PRIVATE)
@@ -42,5 +42,23 @@ class GameOnTimeHistoryStorage(context: Context) : HistoryStorage<GameOnTime> {
     private companion object {
         const val STORAGE_FILE = "history_game_on_time"
         const val KEY_HISTORY = "history"
+    }
+
+    class Mock(context : Context) : GameOnTimeHistoryStorage(context) {
+
+        private val list = GameOnTimeHistoryList()
+
+        override fun get(): GameHistoryList<GameOnTime> {
+            return list
+        }
+
+        override fun add(element: GameOnTime) {
+            list.add(element)
+        }
+
+        override fun store(list: GameHistoryList<GameOnTime>) {
+            list.clear()
+            list.addAll(list)
+        }
     }
 }

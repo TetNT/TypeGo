@@ -1,22 +1,20 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.game.result.GameResult
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 
-class AccuracyCalculation(private val resultsList : List<GameResult>) : StatisticsCalculation {
+class AccuracyCalculation(private val resultsList : ClassicGameModesHistoryList) : StatisticsCalculation {
 
     override fun provide(): Int {
         if (resultsList.isEmpty()) return 0
         var wordsInTotal = 0
         var incorrectWordsCount = 0
         for (result in resultsList) {
-            wordsInTotal += result.wordsWritten
-            incorrectWordsCount += result.wordsWritten - result.correctWords
+            wordsInTotal += result.getWordsWritten()
+            incorrectWordsCount += result.getWordsWritten() - result.getCorrectWords()
         }
         if (wordsInTotal == 0 && incorrectWordsCount > 0)
             return 0
-        return if (incorrectWordsCount == 0 && wordsInTotal > 0)
-            100
-        else
-            (100 - 100 * incorrectWordsCount / wordsInTotal)
+        if (incorrectWordsCount == 0 && wordsInTotal > 0) return 100
+        return (100 - 100 * incorrectWordsCount / wordsInTotal)
     }
 }

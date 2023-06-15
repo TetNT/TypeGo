@@ -2,6 +2,7 @@ package com.tetsoft.typego.di
 
 import android.content.Context
 import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
@@ -26,7 +27,8 @@ class StorageModule {
     @Provides
     @Singleton
     fun provideGameOnTimeHistoryStorage(@ApplicationContext context: Context): GameOnTimeHistoryStorage {
-        return GameOnTimeHistoryStorage(context)
+        //TODO: uncomment this line after testing return GameOnTimeHistoryStorage(context)
+        return GameOnTimeHistoryStorage.Mock(context)
     }
 
     @Provides
@@ -36,9 +38,17 @@ class StorageModule {
     }
 
     @Provides
+    fun provideClassicGameModesHistoryList(@ApplicationContext context: Context): ClassicGameModesHistoryList {
+        return ClassicGameModesHistoryList(
+            GameOnTimeHistoryStorage(context).get(),
+            GameOnNumberOfWordsHistoryStorage(context).get()
+        )
+    }
+
+    @Provides
     @Singleton
     fun provideAchievementsProgressStorage(@ApplicationContext context: Context): AchievementsProgressStorage {
-        return AchievementsProgressStorage(context)
+        return AchievementsProgressStorage.SharedPreferences(context)
     }
 
     @Provides

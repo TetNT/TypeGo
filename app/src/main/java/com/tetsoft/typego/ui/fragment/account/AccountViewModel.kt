@@ -7,12 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.data.history.GameHistoryList
 import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
-import com.tetsoft.typego.data.history.GameOnTimeHistoryList
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.GameOnTime
-import com.tetsoft.typego.game.result.GameResult
-import com.tetsoft.typego.game.result.GameResultList
-import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import com.tetsoft.typego.utils.AnimationManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +40,7 @@ class AccountViewModel @Inject constructor(private val gameOnTimeHistoryStorage:
 //    }
 
     fun getOnTimeHistory(language: Language) : GameHistoryList<GameOnTime> {
-        return GameOnTimeHistoryFilter(onTimeResultList).byLanguage(language).inDescendingOrder().get()
+        return GameOnTimeHistoryFilter(onTimeResultList).byLanguage(language).inDescendingOrder().getList()
     }
 
     fun historyCanBeShown(gameResultList: GameHistoryList<GameOnTime>) = gameResultList.isNotEmpty()

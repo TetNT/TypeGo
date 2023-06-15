@@ -74,7 +74,7 @@ class GameOnTimeResultViewModel @Inject constructor(
     }
 
     fun getPreviousWpm() : Int {
-        val resultsFiltered = GameOnTimeHistoryFilter(historyStorage.get()).byLanguage(getLanguage()).get()
+        val resultsFiltered = GameOnTimeHistoryFilter(historyStorage.get()).byLanguage(getLanguage()).getList()
         // TODO: Change it later to the "getSecondToLastResult()" method.
         return GameOnTimeDataSelector(resultsFiltered).getMostRecentResult().getWpm().roundToInt()
     }

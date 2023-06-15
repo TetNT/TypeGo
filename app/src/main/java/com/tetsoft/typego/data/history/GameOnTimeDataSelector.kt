@@ -18,4 +18,8 @@ class GameOnTimeDataSelector(private val gameOnTimeHistoryList: GameHistoryList<
         if (gameOnTimeHistoryList.isEmpty()) return GameOnTime.Empty()
         return gameOnTimeHistoryList.maxBy { result -> result.getCompletionDateTime() }
     }
+
+    fun getResultsByTimeMode(timeInSeconds: Int) : List<GameOnTime> {
+        return gameOnTimeHistoryList.filter { it.getTimeSpent() == timeInSeconds }
+    }
 }

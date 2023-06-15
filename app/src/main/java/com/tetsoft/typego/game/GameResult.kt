@@ -12,10 +12,16 @@ interface GameResult {
 
     fun getCharsWritten(): Int
 
+    fun areSuggestionsActivated() : Boolean
+
+    fun getScreenOrientation() : ScreenOrientation
+
     fun getCompletionDateTime(): Long
 
     interface WithLanguage {
         fun getLanguageCode(): String
+
+        fun getDictionaryType() : DictionaryType
     }
 
     interface WithWordsInformation {
@@ -25,6 +31,8 @@ interface GameResult {
 
         fun getIncorrectWords(): Int
     }
+
+    interface Classic : GameResult, WithLanguage, WithWordsInformation
 
 }
 
@@ -40,7 +48,7 @@ open class GameOnTime(
     private val wordsWritten: Int,
     private val correctWords: Int,
     private val completionDateTime: Long
-) : GameResult, GameResult.WithLanguage, GameResult.WithWordsInformation {
+) : GameResult.Classic {
 
     override fun getWpm(): Double {
         return wpm
@@ -66,15 +74,15 @@ open class GameOnTime(
         return language
     }
 
-    fun getDictionaryType(): DictionaryType {
+    override fun getDictionaryType(): DictionaryType {
         return enumValueOf(dictionary)
     }
 
-    fun getScreenOrientation(): ScreenOrientation {
+    override fun getScreenOrientation(): ScreenOrientation {
         return enumValueOf(screenOrientation)
     }
 
-    fun areSuggestionsActivated(): Boolean {
+    override fun areSuggestionsActivated(): Boolean {
         return suggestionsActivated
     }
 
@@ -93,17 +101,20 @@ open class GameOnTime(
     class Empty : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0L)
 }
 
-class GameOnNumberOfWords(
-    private val charsWritten: Int,
+open class GameOnNumberOfWords(
     private val wpm: Double,
     private val cpm: Int,
+    private val charsWritten: Int,
     private val timeSpentInSeconds: Int,
     private val amountOfWords: Int,
     private val language: String,
+    private val dictionary: String,
+    private val screenOrientation: String,
+    private val suggestionsActivated: Boolean,
     private val wordsWritten: Int,
     private val correctWords: Int,
     private val completionDateTime: Long
-) : GameResult, GameResult.WithLanguage, GameResult.WithWordsInformation {
+) : GameResult.Classic {
     override fun getWpm(): Double {
         return wpm
     }
@@ -128,8 +139,20 @@ class GameOnNumberOfWords(
         return language
     }
 
-    fun getWordsNumber(): Int {
+    fun getAmountOfWords(): Int {
         return amountOfWords
+    }
+
+    override fun getDictionaryType(): DictionaryType {
+        return enumValueOf(dictionary)
+    }
+
+    override fun getScreenOrientation(): ScreenOrientation {
+        return enumValueOf(screenOrientation)
+    }
+
+    override fun areSuggestionsActivated(): Boolean {
+        return suggestionsActivated
     }
 
     override fun getWordsWritten(): Int {

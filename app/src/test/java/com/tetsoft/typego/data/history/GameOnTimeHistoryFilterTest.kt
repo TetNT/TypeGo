@@ -17,7 +17,7 @@ class GameOnTimeHistoryFilterTest {
             GameOnTimeMock("EN"),
             GameOnTimeMock("FR")
         ))
-        val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("EN")).get()
+        val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("EN")).getList()
         assertEquals(filtered.size, 3)
     }
 
@@ -30,14 +30,14 @@ class GameOnTimeHistoryFilterTest {
             GameOnTimeMock("EN"),
             GameOnTimeMock("FR")
         ))
-        val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("UA")).get()
+        val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("UA")).getList()
         assertEquals(filtered.size, 0)
     }
 
     @Test
     fun byLanguage_emptyList_assertEquals0() {
         val list = GameOnTimeHistoryList()
-        val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("EN")).get()
+        val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("EN")).getList()
         assertEquals(filtered.size, 0)
     }
 
@@ -48,7 +48,7 @@ class GameOnTimeHistoryFilterTest {
             GameOnTimeMock("FR"),
             GameOnTimeMock("ES")
         ))
-        val descending = GameOnTimeHistoryFilter(list).inDescendingOrder().get()
+        val descending = GameOnTimeHistoryFilter(list).inDescendingOrder().getList()
         assertEquals(descending[0].getLanguageCode(), "ES")
         assertEquals(descending[1].getLanguageCode(), "FR")
         assertEquals(descending[2].getLanguageCode(), "EN")
@@ -61,7 +61,7 @@ class GameOnTimeHistoryFilterTest {
             GameOnTimeMock("FR"),
             GameOnTimeMock("ES")
         ))
-        val filter = GameOnTimeHistoryFilter(list).get()
+        val filter = GameOnTimeHistoryFilter(list).getList()
         assertTrue(list == filter)
     }
 
