@@ -1,8 +1,7 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.Achievement
+import com.tetsoft.typego.data.achievement.deprecated.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
-import com.tetsoft.typego.data.statistics.VisibilityProvider
 
 class LastCompletedAchievementCalculation(
     private val achievementsProgressList: List<AchievementsCompletionPair>,
