@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
 import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector

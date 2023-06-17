@@ -15,12 +15,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentGameOnTimeResultBinding
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
-import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.ui.fragment.typedwords.TypedWordsViewModel
 import com.tetsoft.typego.ui.visibility.VisibilityMapper
 import com.tetsoft.typego.utils.AnimationManager

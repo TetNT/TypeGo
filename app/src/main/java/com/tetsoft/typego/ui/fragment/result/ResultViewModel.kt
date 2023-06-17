@@ -8,15 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.Word
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import com.tetsoft.typego.game.mode.GameMode
-import com.tetsoft.typego.game.mode.GameOnCount
-import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

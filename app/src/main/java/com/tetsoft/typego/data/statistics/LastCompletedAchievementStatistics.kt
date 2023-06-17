@@ -1,6 +1,6 @@
 package com.tetsoft.typego.data.statistics
 
-import com.tetsoft.typego.data.achievement.Achievement
+import com.tetsoft.typego.data.achievement.deprecated.Achievement
 import com.tetsoft.typego.data.statistics.calculation.LastCompletedAchievementCalculation
 
 class LastCompletedAchievementStatistics(lastCompletedAchievementCalculation: LastCompletedAchievementCalculation) :

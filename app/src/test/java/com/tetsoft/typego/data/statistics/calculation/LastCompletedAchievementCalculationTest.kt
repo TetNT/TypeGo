@@ -1,7 +1,6 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.Achievement
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.achievement.deprecated.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import org.junit.Assert.*

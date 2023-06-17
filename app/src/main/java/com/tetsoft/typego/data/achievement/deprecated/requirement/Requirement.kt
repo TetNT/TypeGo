@@ -1,11 +1,11 @@
-package com.tetsoft.typego.data.achievement.requirement
+package com.tetsoft.typego.data.achievement.deprecated.requirement
 
 import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResultList
-
+@Deprecated("Use the new GameRequirement class")
 class Requirement(
     private val achievementSection: AchievementSection,
     private val compareType: CompareType,
@@ -40,7 +40,7 @@ class Requirement(
         require(!resultList.isEmpty()) { "The result list should not be empty!" }
         val result = resultList[resultList.size - 1]
         return when (achievementSection) {
-            AchievementSection.WPM -> resultList[resultList.size].getWpm().toInt()
+            AchievementSection.WPM -> result.getWpm().toInt()
             AchievementSection.MISTAKES -> result.getWordsWritten() - result.getCorrectWords()
             AchievementSection.MISTAKES_IN_A_ROW -> 0 // remove this enum option completely
             AchievementSection.TIME_MODE -> result.getTimeSpent()

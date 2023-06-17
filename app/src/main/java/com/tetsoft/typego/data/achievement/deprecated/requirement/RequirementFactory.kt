@@ -1,7 +1,7 @@
-package com.tetsoft.typego.data.achievement.requirement
+package com.tetsoft.typego.data.achievement.deprecated.requirement
 
 import java.util.ArrayList
-
+@Deprecated("Use the new GameRequirement class")
 object RequirementFactory {
     fun wpmIsMoreThan(moreOrEquals: Int): ArrayList<Requirement> {
         val requirement = Requirement(

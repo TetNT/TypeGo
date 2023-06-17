@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.Word
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector
 import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
 import com.tetsoft.typego.data.language.Language

@@ -9,6 +9,7 @@ import com.tetsoft.typego.data.history.GameOnTimeHistoryList
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.history.adapter.GameOnTimeHistoryToJsonAdapter
 
+// TODO: Remake into an interface
 open class GameOnTimeHistoryStorage(context: Context) : HistoryStorage<GameOnTime> {
 
     private val sharedPreferences =

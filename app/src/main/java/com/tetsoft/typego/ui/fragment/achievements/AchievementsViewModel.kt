@@ -1,7 +1,7 @@
 package com.tetsoft.typego.ui.fragment.achievements
 
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.storage.AchievementsProgressStorage

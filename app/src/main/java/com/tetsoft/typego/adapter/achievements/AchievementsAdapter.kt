@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.Achievement
+import com.tetsoft.typego.data.achievement.deprecated.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import java.text.SimpleDateFormat
