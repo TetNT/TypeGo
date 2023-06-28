@@ -14,13 +14,10 @@ import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeModeList
-import com.tetsoft.typego.databinding.FragmentGameOnTimeBinding
 import com.tetsoft.typego.databinding.FragmentGameOnTimeSetupBinding
-import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.ui.custom.ValRadioButton
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
-import com.tetsoft.typego.ui.fragment.game.GameViewModel
 import com.tetsoft.typego.utils.Translation
 
 class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {

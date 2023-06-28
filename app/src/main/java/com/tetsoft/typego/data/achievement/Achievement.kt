@@ -23,12 +23,21 @@ interface Achievement {
 
     abstract class Base(private val id: Int) : Achievement {
 
+        override fun equals(other: Any?): Boolean {
+            if (other !is Achievement) return false
+            return getId() == other.getId()
+        }
+
         override fun getId(): Int {
             return id
         }
 
         override fun isCompleted(result: ClassicGameModesHistoryList): Boolean {
             return getRequirement().isReached(result)
+        }
+
+        override fun hashCode(): Int {
+            return id
         }
     }
 
@@ -87,6 +96,22 @@ interface Achievement {
         override fun getAchievementImageId(): Int {
             return R.drawable.ic_unmistakable
         }
+    }
+
+    open class Empty : Base(-1) {
+
+        override fun getName(context: Context) = ""
+
+        override fun getDescription(context: Context) = ""
+
+        override fun getAchievementImageId() = 0
+
+        override fun withProgressBar() = false
+
+        override fun getRequirement() = GameRequirement.WpmRequirement(0)
+
+        override fun isCompleted(result: ClassicGameModesHistoryList) = false
+
     }
 
 }

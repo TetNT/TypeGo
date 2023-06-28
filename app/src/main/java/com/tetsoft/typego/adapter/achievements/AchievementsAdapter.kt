@@ -11,9 +11,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.deprecated.Achievement
+import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.requirement.GameRequirement
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,26 +41,31 @@ class AchievementsAdapter(
         return AchievementsViewHolder(view)
     }
 
+    // TODO: Refactor
     override fun onBindViewHolder(holder: AchievementsViewHolder, position: Int) {
         val currAchievement = achievements[position]
-        holder.tvAchievementName.text = currAchievement.name
-        holder.tvAchievementDescription.text = currAchievement.description
-        holder.imgAchievement.setImageResource(currAchievement.assignedImageId)
+        holder.tvAchievementName.text = currAchievement.getName(context)
+        holder.tvAchievementDescription.text = currAchievement.getDescription(context)
+        holder.imgAchievement.setImageResource(currAchievement.getAchievementImageId())
         // TODO: Remove if-else and replace visibility toggle with the VisibilityMapper
-        if (!currAchievement.isProgressAttached) {
+        if (!currAchievement.withProgressBar()) {
             holder.progressBarAchievement.visibility = View.GONE
             holder.tvProgressDescription.visibility = View.GONE
         } else {
-            val currRequirement = currAchievement.requirements[0]
-            holder.progressBarAchievement.max = currRequirement.requiredAmount
-            holder.progressBarAchievement.progress = currRequirement.getCurrentProgress(resultList)
-            holder.tvProgressDescription.text = context.getString(
-                R.string.achievement_progress,
-                currRequirement.getCurrentProgress(resultList),
-                currRequirement.requiredAmount
-            )
+            if (currAchievement.getRequirement() is GameRequirement.WithProgress) {
+                val requirement = currAchievement.getRequirement() as GameRequirement.WithProgress
+                val progress = requirement.getCurrentProgress(resultList)
+                holder.progressBarAchievement.max = requirement.provideRequiredAmount()
+                holder.progressBarAchievement.progress = progress
+                holder.tvProgressDescription.text = context.getString(
+                    R.string.achievement_progress,
+                    progress,
+                    requirement.provideRequiredAmount()
+                )
+            }
+
         }
-        val completionDateTime = achievementsProgressList[currAchievement.id].completionDateTimeLong
+        val completionDateTime = achievementsProgressList[currAchievement.getId()].completionDateTimeLong
         if (completionDateTime == 0L) {
             holder.tvCompletionDate.visibility = View.INVISIBLE
             holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)

@@ -11,9 +11,7 @@ import androidx.paging.liveData
 import com.tetsoft.typego.adapter.selector.DataSelector
 import com.tetsoft.typego.adapter.word.WordsPagingSource
 import com.tetsoft.typego.data.Word
-import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.ArrayList
 import javax.inject.Inject
 
 @HiltViewModel

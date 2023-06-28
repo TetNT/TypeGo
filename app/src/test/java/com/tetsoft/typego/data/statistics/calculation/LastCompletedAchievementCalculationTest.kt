@@ -1,10 +1,9 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.deprecated.Achievement
+import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
-import org.junit.Assert.*
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class LastCompletedAchievementCalculationTest {
@@ -15,11 +14,11 @@ class LastCompletedAchievementCalculationTest {
         completedAchievements.add(AchievementsCompletionPair(1, 100L))
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(3, 300L))
-        val achievements = listOf(
-            Achievement(1, "", "", 0, false, emptyList()),
-            Achievement(2, "", "", 0, false, emptyList()),
-            Achievement(3, "", "", 0, false, emptyList()),
-            Achievement(4, "", "", 0, false, emptyList()),
+        val achievements = listOf<Achievement>(
+            AchievementMock(1),
+            AchievementMock(2),
+            AchievementMock(3),
+            AchievementMock(4)
         )
         val calculation = LastCompletedAchievementCalculation(completedAchievements, achievements)
         assertEquals(calculation.provide(), achievements[1])
@@ -31,11 +30,11 @@ class LastCompletedAchievementCalculationTest {
         completedAchievements.add(AchievementsCompletionPair(1, 100L))
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(5, 600L))
-        val achievements = listOf(
-            Achievement(1, "", "", 0, false, emptyList()),
-            Achievement(2, "", "", 0, false, emptyList()),
-            Achievement(3, "", "", 0, false, emptyList()),
-            Achievement(4, "", "", 0, false, emptyList()),
+        val achievements = listOf<Achievement>(
+            AchievementMock(1),
+            AchievementMock(2),
+            AchievementMock(3),
+            AchievementMock(4)
         )
         val calculation = LastCompletedAchievementCalculation(completedAchievements, achievements)
         assertEquals(calculation.provide(), Achievement.Empty())
@@ -55,13 +54,20 @@ class LastCompletedAchievementCalculationTest {
     @Test
     fun provide_emptyCompletionList_equalsEmptyAchievement() {
         val completedAchievements = emptyList<AchievementsCompletionPair>()
-        val achievements = listOf(
-            Achievement(1, "", "", 0, false, emptyList()),
-            Achievement(2, "", "", 0, false, emptyList()),
-            Achievement(3, "", "", 0, false, emptyList()),
-            Achievement(4, "", "", 0, false, emptyList()),
+        val achievements = listOf<Achievement>(
+            AchievementMock(1),
+            AchievementMock(2),
+            AchievementMock(3),
+            AchievementMock(4)
         )
         val calculation = LastCompletedAchievementCalculation(completedAchievements, achievements)
         assertEquals(calculation.provide(), Achievement.Empty())
+    }
+
+    private class AchievementMock(private val id: Int) :
+        Achievement.Empty() {
+        override fun getId(): Int {
+            return id
+        }
     }
 }

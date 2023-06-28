@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
 import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector
@@ -14,6 +13,7 @@ import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.statistics.*
 import com.tetsoft.typego.data.statistics.calculation.*
 import com.tetsoft.typego.storage.AchievementsProgressStorage
+import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
@@ -22,10 +22,11 @@ import javax.inject.Inject
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
     private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage,
-    private val classicGameModesHistoryList: ClassicGameModesHistoryList,
-    private val achievementsProgressStorage: AchievementsProgressStorage,
-    private val achievementsList: AchievementsList
+    private val gameOnNumberOfWordsHistoryStorage: GameOnNumberOfWordsHistoryStorage,
+    private val achievementsProgressStorage: AchievementsProgressStorage
 ) : ViewModel() {
+
+    val classicGameModesHistoryList get() = ClassicGameModesHistoryList(gameOnTimeHistoryStorage, gameOnNumberOfWordsHistoryStorage)
 
     companion object {
         const val RESULTS_DEFAULT_POOL_SIZE = 5
@@ -164,7 +165,7 @@ class StatisticsViewModel @Inject constructor(
             DoneAchievementsCountCalculation(achievementsProgressStorage.getAll())
         )
 
-    val achievementsCount get() = achievementsList.size
+    val achievementsCount get() = com.tetsoft.typego.data.achievement.AchievementsList.get().size
 
     val doneAchievementsPercentageStatistics
         get() = DoneAchievementsPercentageStatistics(
@@ -178,7 +179,7 @@ class StatisticsViewModel @Inject constructor(
         get() = LastCompletedAchievementStatistics(
             LastCompletedAchievementCalculation(
                 achievementsProgressStorage.getAll(),
-                achievementsList
+                com.tetsoft.typego.data.achievement.AchievementsList.get()
             )
         )
 

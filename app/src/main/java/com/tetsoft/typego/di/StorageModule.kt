@@ -1,8 +1,6 @@
 package com.tetsoft.typego.di
 
 import android.content.Context
-import com.tetsoft.typego.data.achievement.AchievementsList
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
@@ -26,34 +24,38 @@ class StorageModule {
 
     @Provides
     @Singleton
-    fun provideGameOnTimeHistoryStorage(@ApplicationContext context: Context): GameOnTimeHistoryStorage {
-        //TODO: uncomment this line after testing return GameOnTimeHistoryStorage(context)
-        return GameOnTimeHistoryStorage.Mock(context)
+    fun provideGameOnTimeHistoryStorage(@ApplicationContext context: Context): GameOnTimeHistoryStorage.SharedPreferences {
+        return GameOnTimeHistoryStorage.SharedPreferences(context)
     }
 
     @Provides
     @Singleton
-    fun provideGameOnNumberOfWordsHistoryStorage(@ApplicationContext context: Context): GameOnNumberOfWordsHistoryStorage {
-        return GameOnNumberOfWordsHistoryStorage(context)
-    }
-
-    @Provides
-    fun provideClassicGameModesHistoryList(@ApplicationContext context: Context): ClassicGameModesHistoryList {
-        return ClassicGameModesHistoryList(
-            GameOnTimeHistoryStorage(context).get(),
-            GameOnNumberOfWordsHistoryStorage(context).get()
-        )
+    fun provideGameOnTimeHistoryMock() : GameOnTimeHistoryStorage.Mock {
+        return GameOnTimeHistoryStorage.Mock()
     }
 
     @Provides
     @Singleton
-    fun provideAchievementsProgressStorage(@ApplicationContext context: Context): AchievementsProgressStorage {
+    fun provideGameOnNumberOfWordsHistoryStorage(@ApplicationContext context: Context): GameOnNumberOfWordsHistoryStorage.SharedPreferences {
+        return GameOnNumberOfWordsHistoryStorage.SharedPreferences(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGameOnNumberOfWordsHistoryMock() : GameOnNumberOfWordsHistoryStorage.Mock {
+        return GameOnNumberOfWordsHistoryStorage.Mock()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAchievementsProgressStorageMock() : AchievementsProgressStorage.Mock {
+        return AchievementsProgressStorage.Mock()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAchievementsProgressStorage(@ApplicationContext context: Context) : AchievementsProgressStorage.SharedPreferences {
         return AchievementsProgressStorage.SharedPreferences(context)
     }
 
-    @Provides
-    @Singleton
-    fun provideAchievementsList(@ApplicationContext context: Context): AchievementsList {
-        return AchievementsList(context)
-    }
 }

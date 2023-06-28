@@ -52,7 +52,7 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             statsDoneAchievementsAmount.text = getString(R.string.stats_achievements_done_pl, viewModel.doneAchievementsCountStatistics.provide(), viewModel.achievementsCount)
             statsAchievementProgressBar.progress = viewModel.doneAchievementsPercentageStatistics.provide()
             statsLastEarnedAchievement.text = getString(
-                R.string.stats_last_earned_achievement_pl, viewModel.lastCompletedAchievementStatistics.provide().name)
+                R.string.stats_last_earned_achievement_pl, viewModel.lastCompletedAchievementStatistics.provide().getName(requireContext()))
         }
 
         val hiddenCards = viewModel.getHiddenCardsCount(binding.statsLinearLayout)

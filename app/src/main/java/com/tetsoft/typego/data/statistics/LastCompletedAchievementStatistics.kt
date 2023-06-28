@@ -1,6 +1,6 @@
 package com.tetsoft.typego.data.statistics
 
-import com.tetsoft.typego.data.achievement.deprecated.Achievement
+import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.data.statistics.calculation.LastCompletedAchievementCalculation
 
 class LastCompletedAchievementStatistics(lastCompletedAchievementCalculation: LastCompletedAchievementCalculation) :
@@ -13,7 +13,7 @@ class LastCompletedAchievementStatistics(lastCompletedAchievementCalculation: La
     }
 
     override fun getVisibility(): VisibilityProvider {
-        return if (lastAchievement.id == Achievement.Empty().id)
+        return if (lastAchievement.getId() == Achievement.Empty().getId())
             VisibilityProvider.Gone()
         else
             VisibilityProvider.Visible()

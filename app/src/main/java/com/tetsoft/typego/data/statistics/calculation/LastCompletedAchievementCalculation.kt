@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.deprecated.Achievement
+
+import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
 
 class LastCompletedAchievementCalculation(
@@ -17,11 +18,12 @@ class LastCompletedAchievementCalculation(
                 achievement.completionDateTimeLong
             if (completionTimeMillis > lastCompletionDate) {
                 lastCompletedAchievement = achievementsList.find {
-                    it.id == achievement.achievementId
+                    it.getId() == achievement.achievementId
                 } ?: Achievement.Empty()
                 lastCompletionDate = completionTimeMillis
             }
         }
         return lastCompletedAchievement
     }
+
 }

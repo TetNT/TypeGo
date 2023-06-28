@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.Word
-import com.tetsoft.typego.data.achievement.deprecated.AchievementsList
+import com.tetsoft.typego.data.achievement.Achievement
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector
 import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.AchievementsProgressStorage
+import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,8 +25,9 @@ import kotlin.math.roundToInt
 
 @HiltViewModel
 class GameOnTimeResultViewModel @Inject constructor(
-    private val historyStorage: GameOnTimeHistoryStorage,
-    private val achievementsProgressStorage: AchievementsProgressStorage
+    private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage,
+    private val gameOnNumberOfWordsHistoryStorage: GameOnNumberOfWordsHistoryStorage,
+    private val achievementsProgressStorage: AchievementsProgressStorage,
 ) : ViewModel() {
 
     var wordsList = emptyList<Word>()
@@ -74,13 +77,13 @@ class GameOnTimeResultViewModel @Inject constructor(
     }
 
     fun getPreviousWpm() : Int {
-        val resultsFiltered = GameOnTimeHistoryFilter(historyStorage.get()).byLanguage(getLanguage()).getList()
+        val resultsFiltered = GameOnTimeHistoryFilter(gameOnTimeHistoryStorage.get()).byLanguage(getLanguage()).getList()
         // TODO: Change it later to the "getSecondToLastResult()" method.
         return GameOnTimeDataSelector(resultsFiltered).getMostRecentResult().getWpm().roundToInt()
     }
 
     fun getBestWpmByCurrentLanguage() : Int {
-        return GameOnTimeDataSelector(historyStorage.get()).getBestResult().getWpm().roundToInt()
+        return GameOnTimeDataSelector(gameOnTimeHistoryStorage.get()).getBestResult().getWpm().roundToInt()
     }
 
     fun getWpm() : Int {
@@ -113,18 +116,20 @@ class GameOnTimeResultViewModel @Inject constructor(
 
     fun saveResult() {
         if (resultIsValid()) {
-            historyStorage.add(result)
+            gameOnTimeHistoryStorage.add(result)
         }
     }
 
-    fun getEarnedAchievementsCount(achievementsList: AchievementsList) : Int {
+    fun getEarnedAchievementsCount(achievementsList: List<Achievement>) : Int {
         var newAchievements = 0
+
         val completedAchievements = achievementsProgressStorage.getAll()
+        val classicGameModesHistoryList = ClassicGameModesHistoryList(gameOnTimeHistoryStorage, gameOnNumberOfWordsHistoryStorage)
         viewModelScope.launch {
-            for (achievement in achievementsList.get()) {
-                if (!completedAchievements[achievement.id].isCompleted() &&
-                    achievement.requirementsAreComplete(historyStorage.get())) {
-                    achievementsProgressStorage.store(achievement.id.toString(), Calendar.getInstance().time.time)
+            for (achievement in achievementsList) {
+                if (!completedAchievements[achievement.getId()].isCompleted() &&
+                    achievement.isCompleted(classicGameModesHistoryList)) {
+                    achievementsProgressStorage.store(achievement.getId().toString(), Calendar.getInstance().time.time)
                     newAchievements++
                 }
             }

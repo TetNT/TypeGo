@@ -22,10 +22,12 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
     class WpmRequirement(requiredAmount: Int) : GameRequirement.WithProgress(requiredAmount) {
 
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
+            if (list.isEmpty()) return 0
             return list[list.size - 1].getWpm().roundToInt()
         }
 
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
+            if (list.isEmpty()) return false
             return list[list.size - 1].getWpm().roundToInt() >= requiredAmount
         }
 
@@ -48,6 +50,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             if (list.isEmpty()) return false
             val lastResult = list[list.size - 1]
+            if (lastResult.getWpm() < 30.0) return false
             if (lastResult is GameOnTime) {
                 return lastResult.getTimeSpent() == requiredAmount && lastResult.getIncorrectWords() == 0
             }
@@ -80,7 +83,9 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             var entries = 0
             for (language in LanguageList().getList()) {
-                if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier).isNotEmpty())
+                if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier)
+                        .isNotEmpty()
+                )
                     entries = entries.inc()
                 if (entries >= uniqueLanguageEntries) return uniqueLanguageEntries
             }
@@ -90,7 +95,9 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             var entries = 0
             for (language in LanguageList().getList()) {
-                if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier).isNotEmpty())
+                if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier)
+                        .isNotEmpty()
+                )
                     entries = entries.inc()
                 if (entries >= uniqueLanguageEntries) return true
             }
