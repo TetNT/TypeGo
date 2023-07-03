@@ -39,7 +39,7 @@
                 style="@style/textview_history_attribute"
                 android:text="@string/enhanced"
                 android:textSize="16sp"
-                android:translationX="-6dp"
+                android:translationX="-8dp"
                 android:layout_marginStart="4dp"/>
 
             <com.google.android.flexbox.FlexboxLayout
