@@ -84,11 +84,13 @@
                     android:clipToPadding="false">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/average_wpm_cardview"
                         android:layout_height="match_parent"
                         android:layout_width="0dp"
                         style="@style/basic_cardview"
                         android:layout_weight="1.0"
-                        android:layout_marginEnd="8dp">
+                        android:layout_marginEnd="8dp"
+                        android:foreground="?android:attr/selectableItemBackground">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -101,19 +103,23 @@
                                 android:id="@+id/average_wpm_counter"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                tools:text="0"
                                 android:gravity="center_horizontal"
                                 android:fontFamily="@font/redring_bold"
                                 android:textColor="@color/white"
                                 android:textSize="24sp"
                                 app:drawableTopCompat="@drawable/ic_keyboard_large"
-                                app:drawableTint="@color/main_green" />
+                                app:drawableTint="@color/main_green"
+                                android:focusable="false"
+                                android:clickable="false"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/average_wpm"
-                                android:gravity="center_horizontal"/>
+                                android:gravity="center_horizontal"
+                                android:focusable="false"
+                                android:clickable="false"/>
 
                         </LinearLayout>
 
@@ -139,7 +145,7 @@
                                 android:id="@+id/best_result_counter"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                tools:text="0"
                                 app:drawableTopCompat="@drawable/ic_star_large"
                                 app:drawableTint="@color/golden"
                                 android:gravity="center_horizontal"
@@ -187,7 +193,7 @@
                                 android:id="@+id/tests_passed_counter"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                tools:text="0"
                                 app:drawableTopCompat="@drawable/ic_games_played_large"
                                 app:drawableTint="@color/main_green"
                                 android:gravity="center_horizontal"

@@ -49,18 +49,27 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
 
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             if (list.isEmpty()) return false
-            val lastResult = list[list.size - 1]
-            if (lastResult.getWpm() < 30.0) return false
+            val lastResult = ClassicGameHistoryDataSelector(list).getMostRecentResult()
+            if (lastResult.getWpm() < MINIMAL_WPM) return false
             if (lastResult is GameOnTime) {
                 return lastResult.getTimeSpent() == requiredAmount && lastResult.getIncorrectWords() == 0
             }
             return false
         }
 
+        companion object {
+            const val MINIMAL_WPM = 30.0
+        }
     }
 
-    class NoMistakesInARowRequirement(private val inARow: Int) : GameRequirement.WithProgress(inARow) {
+    class NoMistakesInARowRequirement(private val inARow: Int) :
+        GameRequirement.WithProgress(inARow) {
+
+        @Deprecated("This should check first if we completed the achievement. \n" +
+                "         If yes, return inARow value instead of calculating again.\n" +
+                "         Do not use until fixed")
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
+            if (list.isEmpty() || list.size < inARow) return 0
             var progress = 0
             for (i in 1..inARow) {
                 if (list[list.size - i].getIncorrectWords() != 0) progress = progress.inc()
@@ -71,7 +80,8 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             if (list.isEmpty() || list.size < inARow) return false
             for (i in 1..inARow) {
-                if (list[list.size - i].getIncorrectWords() != 0) return false
+                val currElem = list[list.size - i]
+                if (currElem.getIncorrectWords() != 0) return false
             }
             return true
         }
@@ -83,17 +93,15 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             var entries = 0
             for (language in LanguageList().getList()) {
-                if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier)
-                        .isNotEmpty()
-                )
+                if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier).isNotEmpty())
                     entries = entries.inc()
-                if (entries >= uniqueLanguageEntries) return uniqueLanguageEntries
             }
             return entries
         }
 
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             var entries = 0
+            if (list.size < uniqueLanguageEntries) return false
             for (language in LanguageList().getList()) {
                 if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier)
                         .isNotEmpty()

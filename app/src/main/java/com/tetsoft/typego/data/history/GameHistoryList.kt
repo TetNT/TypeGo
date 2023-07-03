@@ -24,12 +24,21 @@ class GameOnNumberOfWordsHistoryList : GameHistoryList<GameOnNumberOfWords> {
 }
 
 class ClassicGameModesHistoryList(
-    gameOnTimeList: GameOnTimeHistoryStorage,
-    gameOnNumberOfWordsList: GameOnNumberOfWordsHistoryStorage
+    gameOnTimeHistoryList: List<GameOnTime>,
+    gameOnNumberOfWordsList: List<GameOnNumberOfWords>
 ) : GameHistoryList<GameResult.Classic>() {
+
+    constructor(
+        gameOnTimeStorage: GameOnTimeHistoryStorage,
+        gameOnNumberOfWordsStorage: GameOnNumberOfWordsHistoryStorage
+    ) : this(gameOnTimeStorage.get(), gameOnNumberOfWordsStorage.get())
+
+    constructor() : this(emptyList(), emptyList())
+
+
     init {
-        this.addAll(gameOnTimeList.get())
-        this.addAll(gameOnNumberOfWordsList.get())
+        this.addAll(gameOnTimeHistoryList)
+        this.addAll(gameOnNumberOfWordsList)
         sortBy { it.getCompletionDateTime() }
     }
 }

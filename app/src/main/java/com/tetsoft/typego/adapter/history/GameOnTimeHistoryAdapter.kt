@@ -1,21 +1,27 @@
 package com.tetsoft.typego.adapter.history
 
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.history.GameHistoryList
 import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.ui.custom.setDrawableTint
 import com.tetsoft.typego.utils.TimeConvert
 import com.tetsoft.typego.utils.Translation
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 class GameOnTimeHistoryAdapter(
@@ -26,12 +32,14 @@ class GameOnTimeHistoryAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        var itemWpm: TextView
-        var itemTime: TextView
-        var itemLanguage: TextView
-        var itemDictionary: TextView
-        var itemSuggestions: TextView
-        var itemOrientation: TextView
+        val itemWpm: TextView
+        val itemTime: TextView
+        val itemLanguage: TextView
+        val itemDictionary: TextView
+        val itemSuggestions: TextView
+        val itemOrientation: TextView
+        val completionTime: TextView
+
         override fun onClick(v: View) {
             listener.onClick(v, adapterPosition)
         }
@@ -43,6 +51,7 @@ class GameOnTimeHistoryAdapter(
             itemDictionary = itemView.findViewById(R.id.history_attribute_dictionary)
             itemSuggestions = itemView.findViewById(R.id.history_attribute_suggestions)
             itemOrientation = itemView.findViewById(R.id.history_attribute_orientation)
+            completionTime = itemView.findViewById(R.id.completion_time)
             itemView.setOnClickListener(this)
         }
     }
@@ -65,26 +74,22 @@ class GameOnTimeHistoryAdapter(
             itemLanguage.text = results[position].getLanguageCode()
             itemTime.text = TimeConvert.convertSecondsToStamp(results[position].getTimeSpent())
             itemDictionary.text = Translation(context).get(results[position].getDictionaryType())
+            val completionTime = Date(results[position].getCompletionDateTime())
+            val dateFormat: DateFormat = SimpleDateFormat.getDateTimeInstance(
+                SimpleDateFormat.DEFAULT,
+                SimpleDateFormat.SHORT
+            )
+            holder.completionTime.text = dateFormat.format(completionTime)
             if (results[position].getScreenOrientation() == ScreenOrientation.PORTRAIT) {
-                itemOrientation.setCompoundDrawablesRelative(AppCompatResources.getDrawable(context, R.drawable.ic_portrait), null, null, null)
+                itemOrientation.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(context, R.drawable.ic_portrait), null, null, null)
             } else {
-                itemOrientation.setCompoundDrawablesRelative(AppCompatResources.getDrawable(context, R.drawable.ic_landscape), null, null, null)
+                itemOrientation.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(context, R.drawable.ic_landscape), null, null, null)
             }
-            setDrawableTint(itemSuggestions)
-            // FIXME
-            //if (results[position].areSuggestionsActivated()) {
-            //    DrawableCompat.setTint(itemSuggestions.compoundDrawables[0], ContextCompat.getColor(context, R.color.main_green))
-            //} else {
-            //    DrawableCompat.setTint(itemSuggestions.compoundDrawables[0], ContextCompat.getColor(context, R.color.bg_lighter_gray))
-            //}
+            if (results[position].areSuggestionsActivated())
+                itemSuggestions.setDrawableTint(R.color.white)
+            else
+                itemSuggestions.setDrawableTint(R.color.bg_lighter_gray)
         }
     }
 
-    private fun setDrawableTint(textView: TextView) {
-        for (drawable in textView.compoundDrawables) {
-            if (drawable !== null) {
-                DrawableCompat.setTint(drawable, ContextCompat.getColor(context, R.color.main_green))
-            }
-        }
-    }
 }

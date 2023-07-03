@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -19,7 +19,6 @@ import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.databinding.FragmentGameHistoryBinding
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
-import com.tetsoft.typego.ui.fragment.result.ResultViewModel
 
 class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
 
@@ -51,8 +50,12 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
             binding.rvHistoryGameOnTime.adapter = GameOnTimeHistoryAdapter(requireContext(), resultsByLanguage, listener)
             binding.rvHistoryGameOnTime.animation = viewModel.getGameHistoryEnteringAnimation()
             if (viewModel.averageWpmCanBeShown(resultsByLanguage)) {
+                binding.averageWpmCardview.setOnClickListener{ }
                 binding.averageWpmCounter.text = viewModel.getAverageWpm(resultsByLanguage).toString()
             } else {
+                binding.averageWpmCardview.setOnClickListener {
+                    Toast.makeText(requireContext(), getString(R.string.msg_average_wpm_unavailable), Toast.LENGTH_SHORT).show()
+                }
                 binding.averageWpmCounter.text = "-"
             }
             if (!viewModel.historyCanBeShown(resultsByLanguage)) {

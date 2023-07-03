@@ -10,7 +10,7 @@ class AccuracyStatisticsTest {
 
     @Test
     fun getVisibility_resultsEmpty_equalsGone() {
-        val results = ClassicGameModesHistoryList(emptyList(), emptyList())
+        val results = ClassicGameModesHistoryList()
         val calculation = AccuracyCalculation(results)
         val statistics = AccuracyStatistics(calculation)
         assertEquals(VisibilityProvider.Gone().get(), statistics.getVisibility().get())

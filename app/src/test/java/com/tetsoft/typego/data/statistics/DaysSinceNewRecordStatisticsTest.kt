@@ -1,10 +1,8 @@
 package com.tetsoft.typego.data.statistics
 
 import com.tetsoft.typego.data.statistics.calculation.DaysSinceNewRecordCalculation
-import com.tetsoft.typego.game.result.GameResult
-import com.tetsoft.typego.mock.GameOnTimeMock
-import org.junit.Assert.*
-
+import com.tetsoft.typego.game.GameOnTime
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*
 
@@ -14,12 +12,12 @@ class DaysSinceNewRecordStatisticsTest {
 
     @Test
     fun visibility_resultIsEmpty_equalsGone() {
-        val result = GameResult.Empty()
+        val result = GameOnTime.Empty()
         val visibility =
             DaysSinceNewRecordStatistics(
                 DaysSinceNewRecordCalculation(
                     calendar.timeInMillis,
-                    result.completionDateTime
+                    result.getCompletionDateTime()
                 )
             ).getVisibility()
         assertEquals(VisibilityProvider.Gone().get(), visibility.get())
@@ -27,19 +25,12 @@ class DaysSinceNewRecordStatisticsTest {
 
     @Test
     fun visibility_completionDateIsEmpty_equalsGone() {
-        val result = GameResult(
-            GameOnTimeMock().getEnglishBasicPortraitWithSuggestions(60),
-            30,
-            60,
-            30,
-            30,
-            0L
-        )
+        val result = FakeGameOnTime(0)
         val visibility =
             DaysSinceNewRecordStatistics(
                 DaysSinceNewRecordCalculation(
                     calendar.timeInMillis,
-                    result.completionDateTime
+                    result.getCompletionDateTime()
                 )
             ).getVisibility()
         assertEquals(VisibilityProvider.Gone().get(), visibility.get())
@@ -48,20 +39,13 @@ class DaysSinceNewRecordStatisticsTest {
     @Test
     fun visibility_completionTimeNotEmptyNotSameDay_equalsVisible() {
         calendar.set(2022, 10, 5)
-        val result = GameResult(
-            GameOnTimeMock().getEnglishBasicPortraitWithSuggestions(60),
-            30,
-            60,
-            30,
-            30,
-            calendar.timeInMillis
-        )
+        val result = FakeGameOnTime(calendar.timeInMillis)
         calendar.set(2022, 10, 9)
         val visibility =
             DaysSinceNewRecordStatistics(
                 DaysSinceNewRecordCalculation(
                     calendar.timeInMillis,
-                    result.completionDateTime
+                    result.getCompletionDateTime()
                 )
             ).getVisibility()
         assertEquals(VisibilityProvider.Visible().get(), visibility.get())
@@ -70,21 +54,17 @@ class DaysSinceNewRecordStatisticsTest {
     @Test
     fun visibility_completionTimeNotEmptySameDay_equalsGone() {
         calendar.set(2022, 10, 5)
-        val result = GameResult(
-            GameOnTimeMock().getEnglishBasicPortraitWithSuggestions(60),
-            30,
-            60,
-            30,
-            30,
-            calendar.timeInMillis
-        )
+        val result = FakeGameOnTime(calendar.timeInMillis)
         val visibility =
             DaysSinceNewRecordStatistics(
                 DaysSinceNewRecordCalculation(
                     calendar.timeInMillis,
-                    result.completionDateTime
+                    result.getCompletionDateTime()
                 )
             ).getVisibility()
         assertEquals(VisibilityProvider.Gone().get(), visibility.get())
     }
+
+    private class FakeGameOnTime(completionDateTime: Long) :
+        GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, completionDateTime)
 }

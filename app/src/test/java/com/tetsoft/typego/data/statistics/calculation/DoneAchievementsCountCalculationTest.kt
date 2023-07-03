@@ -2,9 +2,7 @@ package com.tetsoft.typego.data.statistics.calculation
 
 import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
-import com.tetsoft.typego.data.statistics.calculation.DoneAchievementsCountCalculation
-import org.junit.Assert.*
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class DoneAchievementsCountCalculationTest {
@@ -43,7 +41,5 @@ class DoneAchievementsCountCalculationTest {
     fun provide_emptyAchievementProgressList_equals0() {
         val progressList = AchievementsProgressList()
         assertEquals(0, DoneAchievementsCountCalculation(progressList).provide())
-        val arrayProgressList = ArrayList<AchievementsCompletionPair>()
-        assertEquals(0, DoneAchievementsCountCalculation(arrayProgressList).provide())
     }
 }
