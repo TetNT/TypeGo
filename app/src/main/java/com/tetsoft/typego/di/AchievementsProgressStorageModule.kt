@@ -11,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 interface AchievementsProgressStorageModule {
 
     @Binds
-    fun bindAchievementsProgressStorage(achievementsProgressStorage: AchievementsProgressStorage.Mock) : AchievementsProgressStorage
+    fun bindAchievementsProgressStorage(achievementsProgressStorage: AchievementsProgressStorage.SharedPreferences) : AchievementsProgressStorage
 }

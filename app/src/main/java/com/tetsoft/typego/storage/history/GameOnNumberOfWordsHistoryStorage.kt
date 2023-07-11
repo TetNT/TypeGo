@@ -11,7 +11,7 @@ import com.tetsoft.typego.storage.history.adapter.GameOnNumberOfWordsHistoryToJs
 
 interface GameOnNumberOfWordsHistoryStorage : HistoryStorage<GameOnNumberOfWords> {
 
-    class SharedPreferences(context: Context) : HistoryStorage<GameOnNumberOfWords> {
+    class SharedPreferences(context: Context) : GameOnNumberOfWordsHistoryStorage {
         private val sharedPreferences =
             context.getSharedPreferences(STORAGE_FILE, Context.MODE_PRIVATE)
 

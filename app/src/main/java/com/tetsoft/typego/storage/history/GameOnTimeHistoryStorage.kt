@@ -12,7 +12,7 @@ import java.sql.Date
 
 interface GameOnTimeHistoryStorage : HistoryStorage<GameOnTime> {
 
-    class SharedPreferences(context: Context) : HistoryStorage<GameOnTime> {
+    class SharedPreferences(context: Context) : GameOnTimeHistoryStorage {
 
         private val sharedPreferences =
             context.getSharedPreferences(STORAGE_FILE, Context.MODE_PRIVATE)

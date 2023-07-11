@@ -11,8 +11,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface HistoryStorageModule {
     @Binds
-    fun bindGameOnTimeHistoryStorage(gameOnTimeHistoryStorage: GameOnTimeHistoryStorage.Mock) : GameOnTimeHistoryStorage
+    fun bindGameOnTimeHistoryStorage(gameOnTimeHistoryStorage: GameOnTimeHistoryStorage.SharedPreferences): GameOnTimeHistoryStorage
 
     @Binds
-    fun bindGameOnNumberOfWordsHistoryStorage(gameOnNumberOfWordsHistoryStorage : GameOnNumberOfWordsHistoryStorage.Mock) : GameOnNumberOfWordsHistoryStorage
+    fun bindGameOnNumberOfWordsHistoryStorage(gameOnNumberOfWordsHistoryStorage: GameOnNumberOfWordsHistoryStorage.SharedPreferences): GameOnNumberOfWordsHistoryStorage
 }
