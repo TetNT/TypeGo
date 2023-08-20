@@ -6,34 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
 
-class StatisticsFragment : Fragment() {
+class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
 
     private val viewModel: StatisticsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-
-    private var _binding : FragmentStatisticsBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentStatisticsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,7 +52,7 @@ class StatisticsFragment : Fragment() {
             statsDoneAchievementsAmount.text = getString(R.string.stats_achievements_done_pl, viewModel.doneAchievementsCountStatistics.provide(), viewModel.achievementsCount)
             statsAchievementProgressBar.progress = viewModel.doneAchievementsPercentageStatistics.provide()
             statsLastEarnedAchievement.text = getString(
-                R.string.stats_last_earned_achievement_pl, viewModel.lastCompletedAchievementStatistics.provide().name)
+                R.string.stats_last_earned_achievement_pl, viewModel.lastCompletedAchievementStatistics.provide().getName(requireContext()))
         }
 
         val hiddenCards = viewModel.getHiddenCardsCount(binding.statsLinearLayout)
@@ -123,5 +105,12 @@ class StatisticsFragment : Fragment() {
                 animation.animatedValue as Int
             )
         }
+    }
+
+    override fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentStatisticsBinding {
+        return FragmentStatisticsBinding.inflate(inflater, container, false)
     }
 }

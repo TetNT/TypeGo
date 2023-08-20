@@ -1,6 +1,5 @@
 package com.tetsoft.typego.data.textsource
 
-import android.util.Log
 import kotlin.random.Random
 
 class ShuffledTextFromAsset(assetReader: AssetReader, path: String, private val amount: Int) : TextSource {

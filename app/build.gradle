@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     buildFeatures {
@@ -17,9 +17,9 @@ android {
     defaultConfig {
         applicationId "com.tetsoft.typego"
         minSdkVersion 23
-        targetSdkVersion 33
-        versionCode 24
-        versionName "1.5.1"
+        targetSdkVersion 32
+        versionCode 25
+        versionName "1.5.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.preference:preference-ktx:1.2.0'
@@ -69,6 +69,9 @@ dependencies {
 
     // paging
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+
+    // flexbox
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     // tests
     testImplementation 'junit:junit:4.13.2'
