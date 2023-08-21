@@ -21,11 +21,11 @@ jobs:
       run: |
           sed -i "s|@string/application_ad_id|${{ secrets.APPLICATION_ADS_ID }}|g" app/src/main/AndroidManifest.xml
         
-    - name: set up JDK 11
+    - name: set up JDK 18
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
-        distribution: 'temurin'
+        java-version: '18'
+        distribution: 'oracle'
         cache: gradle
 
     - name: Grant execute permission for gradlew
