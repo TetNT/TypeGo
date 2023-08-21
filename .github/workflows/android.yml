@@ -21,7 +21,7 @@ jobs:
       uses: MathieuSoysal/replace-string-in-file@v1.0.0
       with:
         file: AndroidManifest.xml
-        old-string: @string/application_ad_id
+        old-string: "@string/application_ad_id"
         new-string: ${{ env.APPLICATION_ADS_ID }}
         
     - name: set up JDK 11
