@@ -25,6 +25,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '18'
+        gradle-version: '8.2.0-alpha16'
         distribution: 'oracle'
         cache: gradle
 
