@@ -28,13 +28,6 @@ jobs:
         distribution: 'oracle'
         cache: gradle
     
-    - name: Download and set up Gradle
-      run:
-          wget -q "https://services.gradle.org/distributions/gradle-8.2-all.zip"
-          unzip -q gradle-8.2-all.zip
-          export GRADLE_HOME=$PWD/gradle-8.2
-          export PATH=$GRADLE_HOME/bin:$PATH
-
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
