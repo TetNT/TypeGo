@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "workflow_test" ]
   pull_request:
     branches: [ "master" ]
 
@@ -20,7 +20,7 @@ jobs:
     - name: Add the secret to the manifest file
       uses: MathieuSoysal/replace-string-in-file@v1.0.0
       with:
-        file: AndroidManifest.xml
+        file: app/src/main/AndroidManifest.xml
         old-string: "@string/application_ad_id"
         new-string: ${{ env.APPLICATION_ADS_ID }}
         
