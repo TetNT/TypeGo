@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.AccountFragment">
+    tools:context=".ui.fragment.account.AccountFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/accountNestedScrollView"
@@ -263,16 +263,17 @@
 
             </LinearLayout>
 
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_passed_tests"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/rv_history_game_on_time"
                 app:layout_constraintTop_toBottomOf="@id/info_body_section"
                 android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingHorizontal="4dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/passed_tests_item" />
+                tools:listitem="@layout/history_on_time_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="3"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -7,9 +7,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
-
+    namespace 'com.tetsoft.typego'
+    compileSdk 33
     buildFeatures {
         viewBinding true
     }
@@ -18,9 +17,8 @@ android {
         applicationId "com.tetsoft.typego"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 21
-        versionName "1.5.1"
-
+        versionCode 25
+        versionName "1.5.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,49 +28,51 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    namespace 'com.tetsoft.typego'
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.preference:preference-ktx:1.2.0'
-    implementation 'androidx.annotation:annotation:1.5.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "com.android.support:support-emoji-appcompat:$version"
-    implementation "com.android.support:support-emoji-bundled:$version"
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.preference.ktx
+    implementation libs.androidx.annotation
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.legacy.support.v4
 
-    implementation 'com.google.android.gms:play-services-ads:21.4.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
-    implementation 'androidx.work:work-runtime-ktx:2.7.1'
-    implementation 'org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.6.10'
+
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
+    implementation libs.androidx.work.runtime.ktx
+    implementation libs.kotlin.android.extensions.runtime
+
+    // play services
+    implementation libs.play.services.ads
 
     // navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
+    implementation libs.androidx.navigation.fragment.ktx
+    implementation libs.androidx.navigation.ui.ktx
+    implementation libs.androidx.navigation.runtime.ktx
 
     // dagger hilt
-    implementation 'com.google.dagger:hilt-android:2.42'
-    //annotationProcessor 'com.google.dagger:hilt-compiler:2.42'
-    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
-    testImplementation 'junit:junit:4.13.2'
-    kapt 'com.google.dagger:hilt-compiler:2.42'
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.42'
+    implementation libs.hilt.android
+    implementation libs.androidx.hilt.navigation.fragment
+    kapt libs.hilt.compiler
+    annotationProcessor libs.hilt.compiler
+
+    // gson
+    implementation libs.gson
 
     // moshi
-    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
-    implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
+    implementation libs.moshi.kotlin
+    implementation libs.moshi.adapters
 
     // paging
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation libs.androidx.paging.runtime.ktx
+
+    // flexbox
+    implementation libs.flexbox
 
     // tests
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.espresso.core
 }

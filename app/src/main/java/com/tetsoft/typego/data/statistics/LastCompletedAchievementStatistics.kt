@@ -13,7 +13,7 @@ class LastCompletedAchievementStatistics(lastCompletedAchievementCalculation: La
     }
 
     override fun getVisibility(): VisibilityProvider {
-        return if (lastAchievement.id == Achievement.Empty().id)
+        return if (lastAchievement.getId() == Achievement.Empty().getId())
             VisibilityProvider.Gone()
         else
             VisibilityProvider.Visible()

@@ -82,7 +82,7 @@
     <string name="tests_passed_pl">Тестов пройдено: %1$d</string>
     <string name="average_wpm_pl">Средний СВМ: %1$d</string>
 
-    <string name="msg_passed_tests_information">Нажми на любой чтобы посмотреть информацию.</string>
+    <string name="msg_passed_tests_information">Нажми на любой элемент чтобы посмотреть информацию.</string>
     <string name="correct_chars_pl">Правильных символов: %1$d</string>
     <string name="correct_characters">Правильных символов</string>
     <string name="close">Закрыть</string>
@@ -137,8 +137,8 @@
     <string name="items">Кол-во</string>
     <string name="msg_no_previous_games">Предыдущих игр нет.</string>
     <string name="undefined">Неопределено</string>
-    <string name="words_loading">Список загружается…</string>
     <string name="avg_result">Ср. СВМ</string>
     <string name="date_pl">Дата: %1$s</string>
     <string name="error_best_result_not_found">Лучший результат не найден.</string>
+    <string name="cpm_pl">%1$d знаков в минуту</string>
 </resources>

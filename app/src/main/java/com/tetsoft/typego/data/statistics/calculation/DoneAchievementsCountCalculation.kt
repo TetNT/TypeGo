@@ -1,9 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
-import com.tetsoft.typego.data.statistics.VisibilityProvider
+import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 
-class DoneAchievementsCountCalculation(private val completedAchievements: List<AchievementsCompletionPair>) :
+class DoneAchievementsCountCalculation(private val completedAchievements: AchievementsProgressList) :
     StatisticsCalculation {
 
     override fun provide(): Int {
