@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     env:
       APPLICATION_ADS_ID: ${{ secrets.APPLICATION_ADS_ID }}
