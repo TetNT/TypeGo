@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -22,7 +21,6 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.tetsoft.typego.Config
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.data.AdsCounter
@@ -103,7 +101,12 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
             viewModel.addWordToTypedList(
                 binding.inpWord.text.toString().trim { it <= ' ' },
                 binding.words.selectedWord.trim { it <= ' ' })
-            if (viewModel.wordIsCorrect(binding.inpWord.text.toString(), binding.words.selectedWord, ignoreCase)) {
+            if (viewModel.wordIsCorrect(
+                    binding.inpWord.text.toString(),
+                    binding.words.selectedWord,
+                    ignoreCase
+                )
+            ) {
                 viewModel.addScore(binding.words.selectedWord.length)
                 binding.words.selectCurrentWordAsCorrect()
             } else binding.words.selectCurrentWordAsIncorrect()
@@ -262,8 +265,13 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
     // TODO: move this method to a class that will implement a TextSource interface
     private fun initWords() {
         val amountOfWords: Int = max((250.0 * (timeTotalAmount / 60.0)), 100.0).toInt()
-        val path = getDictionaryFolderPath(viewModel.gameOnTime.getDictionaryType()) + viewModel.gameOnTime.getLanguageCode()+ ".txt"
-        val textSource = ShuffledTextFromAsset(AssetStringReader(requireActivity().assets), path, amountOfWords).getString()
+        val path =
+            getDictionaryFolderPath(viewModel.gameOnTime.getDictionaryType()) + viewModel.gameOnTime.getLanguageCode() + ".txt"
+        val textSource = ShuffledTextFromAsset(
+            AssetStringReader(requireActivity().assets),
+            path,
+            amountOfWords
+        ).getString()
 
         if (textSource.isEmpty()) {
             Toast.makeText(
@@ -291,11 +299,9 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
     private fun loadAd() {
         Log.i("LoadAD", "Start loading")
-        MobileAds.initialize(
-            requireContext()
-        ) { }
+        MobileAds.initialize(requireContext()) { }
         InterstitialAd.load(requireContext(),
-            Config.INTERSTITIAL_ID,
+            viewModel.getInterstitialAdsId(),
             (requireContext().applicationContext as TypeGoApp).adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
@@ -313,7 +319,7 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
     private fun showAd() {
         if (mInterstitialAd == null) {
-            Log.i("AD", "showAd(): Ad is null")
+            Log.e("AD", "showAd(): Ad is null")
             return
         }
         adShown = true
@@ -323,7 +329,7 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
     private fun setAdCallback() {
         mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                Log.i("AD", "Failed to show ad:" + adError.message)
+                Log.e("AD", "Failed to show ad:" + adError.message)
                 showResultScreen()
             }
 
@@ -339,8 +345,10 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
         binding.tvTimeLeft.text = getString(R.string.time_over)
         val gameOnTimeResultViewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
         gameOnTimeResultViewModel.result = GameOnTime(
-            WpmCalculation.Standard(viewModel.gameOnTime.getTimeSpent(), viewModel.getScore()).calculate(),
-            CpmCalculation.Standard(viewModel.gameOnTime.getTimeSpent(), viewModel.getScore()).calculate(),
+            WpmCalculation.Standard(viewModel.gameOnTime.getTimeSpent(), viewModel.getScore())
+                .calculate(),
+            CpmCalculation.Standard(viewModel.gameOnTime.getTimeSpent(), viewModel.getScore())
+                .calculate(),
             viewModel.getScore(),
             viewModel.gameOnTime.getTimeSpent(),
             viewModel.gameOnTime.getLanguageCode(),
