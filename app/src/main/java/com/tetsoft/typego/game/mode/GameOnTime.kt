@@ -7,6 +7,7 @@ import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.data.language.PrebuiltTextGameMode
 import java.io.Serializable
 
+@Deprecated("Replaced with interface-based GameOnTime")
 class GameOnTime(
     private val language: Language,
     val timeMode: TimeMode,

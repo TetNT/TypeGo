@@ -78,4 +78,19 @@
         <item name="fontFamily">@font/redring_bold</item>
         <item name="android:padding">2dp</item>
     </style>
+
+    <style name="textview_history_attribute">
+        <item name="android:drawableTint">@color/white</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">@font/redring_regular</item>
+    </style>
 </resources>

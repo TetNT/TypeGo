@@ -1,11 +1,11 @@
 package com.tetsoft.typego.game.mode
 
 import com.tetsoft.typego.data.DictionaryType
-import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.ScreenOrientation
+import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.language.PrebuiltTextGameMode
-import java.lang.ArithmeticException
 
+@Deprecated("Replaced with the new GameOnNumberOfWords")
 class GameOnCount(
     private val language: Language,
     //val wordsCount: WordsCount,

@@ -4,46 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tetsoft.typego.adapter.AchievementsAdapter
-import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentAchievementsBinding
-import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultListStorage
+import com.tetsoft.typego.ui.fragment.achievements.AchievementsViewModel
 
-class AchievementsFragment : Fragment() {
+class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
 
-    private var _binding : FragmentAchievementsBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentAchievementsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+    private val viewModel : AchievementsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val gameResultListStorage = GameResultListStorage(requireContext())
-        val achievementsProgressStorage = AchievementsProgressStorage(requireContext())
-        val staticAchievements = AchievementsList(requireContext())
-        binding.rvAchievements.adapter = AchievementsAdapter(
+        binding.rvAchievements.adapter = com.tetsoft.typego.adapter.achievements.AchievementsAdapter(
             requireContext(),
-            staticAchievements.get(),
-            gameResultListStorage.get(),
-            achievementsProgressStorage.getAll()
+            viewModel.getAchievementsList(),
+            viewModel.getResults(),
+            viewModel.getAchievementsProgressList()
         )
         val linearLayoutManager = LinearLayoutManager(context)
         binding.rvAchievements.layoutManager = linearLayoutManager
+    }
+
+    override fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentAchievementsBinding {
+        return FragmentAchievementsBinding.inflate(inflater, container, false)
     }
 }

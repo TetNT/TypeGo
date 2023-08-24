@@ -13,6 +13,7 @@ import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
 
+@Deprecated("Replaced with the new GameOnTimeHistoryStorage")
 class GameResultListStorage(context: Context) {
     private val sharedPreferences =
         context.getSharedPreferences(KEY_RESULT_LIST_STORAGE, Context.MODE_PRIVATE)

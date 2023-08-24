@@ -35,6 +35,7 @@ class Translation(private val context: Context) {
             "BG" -> context.getString(R.string.BG)
             "UA" -> context.getString(R.string.UA)
             "CZ" -> context.getString(R.string.CZ)
+            "PL" -> context.getString(R.string.PL)
             else -> context.getString(R.string.undefined)
         }
     }

@@ -1,45 +1,117 @@
 package com.tetsoft.typego.data.achievement
 
-import com.tetsoft.typego.data.achievement.requirement.Requirement
-import com.tetsoft.typego.game.result.GameResultList
+import android.content.Context
+import com.tetsoft.typego.R
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.requirement.GameRequirement
 
-open class Achievement(
-    var id: Int,
-    val name: String,
-    val description: String,
-    val assignedImageId: Int,
-    val isProgressAttached: Boolean,
-    val requirements: List<Requirement> // Progress will be shown based on the very first requirement
-) {
+interface Achievement {
 
-    override fun equals(other: Any?): Boolean {
-        if (other is Achievement) {
-            return (other.id == id)
+    fun getId() : Int
+
+    fun getName(context: Context) : String
+
+    fun getDescription(context: Context) : String
+
+    fun getAchievementImageId() : Int
+
+    fun withProgressBar() : Boolean
+
+    fun getRequirement() : GameRequirement
+
+    fun isCompleted(result: ClassicGameModesHistoryList) : Boolean
+
+    abstract class Base(private val id: Int) : Achievement {
+
+        override fun equals(other: Any?): Boolean {
+            if (other !is Achievement) return false
+            return getId() == other.getId()
         }
-        return false
+
+        override fun getId(): Int {
+            return id
+        }
+
+        override fun isCompleted(result: ClassicGameModesHistoryList): Boolean {
+            return getRequirement().isReached(result)
+        }
+
+        override fun hashCode(): Int {
+            return id
+        }
     }
 
-    /**
-     * @return true if all requirements are complete, false otherwise
-     */
-    fun requirementsAreComplete(resultList : GameResultList): Boolean {
-        for (requirement in requirements)
-            if (!requirement.isMatching(resultList)) return false
-        return true
+    abstract class Wpm(id: Int, private val requiredWpm: Int) : Base(id) {
+
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.typewriter_wpm, getRequirement().provideRequiredAmount())
+        }
+
+        override fun withProgressBar(): Boolean {
+            return true
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.WpmRequirement(requiredWpm)
+        }
     }
 
-    override fun hashCode(): Int {
-        var result = id
-        result = 31 * result + name.hashCode()
-        return result
+    abstract class CompletedGamesAmount(id: Int, private val requiredCompletedGames : Int, private val stage: String) : Base(id) {
+
+        override fun getName(context: Context): String {
+            return context.getString(R.string.big_fan, stage)
+        }
+
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.big_fan_desc, requiredCompletedGames)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_times_played
+        }
+
+        override fun withProgressBar(): Boolean {
+            return true
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.CompletedGamesAmountRequirement(requiredCompletedGames)
+        }
     }
 
-    class Empty : Achievement(
-        -1,
-        "",
-        "",
-        0,
-        false,
-        ArrayList()
-    )
+    abstract class SharpEye(id: Int, private val requiredTimeInSeconds: Int, private val stage: String) : Base(id) {
+
+        override fun getName(context: Context): String {
+            return context.getString(R.string.unmistakable, stage)
+        }
+
+        override fun withProgressBar(): Boolean {
+            return false
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.SharpEyeRequirement(requiredTimeInSeconds)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_unmistakable
+        }
+    }
+
+    open class Empty : Base(-1) {
+
+        override fun getName(context: Context) = ""
+
+        override fun getDescription(context: Context) = ""
+
+        override fun getAchievementImageId() = 0
+
+        override fun withProgressBar() = false
+
+        override fun getRequirement() = GameRequirement.WpmRequirement(0)
+
+        override fun isCompleted(result: ClassicGameModesHistoryList) = false
+
+    }
+
 }

@@ -6,6 +6,7 @@ import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
 import kotlin.collections.toList
 
+@Deprecated("Must be deleted once the migration from GameResult will be done")
 class GameResultListToJsonAdapter {
 
     @ToJson

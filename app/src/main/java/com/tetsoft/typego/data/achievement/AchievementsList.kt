@@ -2,189 +2,129 @@ package com.tetsoft.typego.data.achievement
 
 import android.content.Context
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.achievement.requirement.RequirementFactory
+import com.tetsoft.typego.data.requirement.GameRequirement
 
-class AchievementsList(val context: Context) : ArrayList<Achievement>() {
-    init {
-        this.add(
-            Achievement(
-                1,
-                context.getString(R.string.the_first_step),
-                context.getString(R.string.the_first_step_desc),
-                R.drawable.ic_achievement_star,
-                false,
-                RequirementFactory.passedTestsAmount(1)
-            )
-        )
-        this.add(
-            Achievement(
-                2,
-                context.getString(R.string.beginner),
-                context.getString(R.string.typewriter_wpm, 20),
-                R.drawable.ic_child,
-                true,
-                RequirementFactory.wpmIsMoreThan(20)
-            )
-        )
-        this.add(
-            Achievement(
-                3,
-                context.getString(R.string.promising),
-                context.getString(R.string.typewriter_wpm, 40),
-                R.drawable.ic_star,
-                true,
-                RequirementFactory.wpmIsMoreThan(40)
-            )
-        )
-        this.add(
-            Achievement(
-                4,
-                context.getString(R.string.typewriter),
-                context.getString(R.string.typewriter_wpm, 50),
-                R.drawable.ic_keyboard,
-                true,
-                RequirementFactory.wpmIsMoreThan(50)
-            )
-        )
-        this.add(
-            Achievement(
-                5,
-                context.getString(R.string.type_bachelor),
-                context.getString(R.string.typewriter_wpm, 60),
-                R.drawable.ic_bachelor,
-                true,
-                RequirementFactory.wpmIsMoreThan(60)
-            )
-        )
-        this.add(
-            Achievement(
-                6,
-                context.getString(R.string.mastermind),
-                context.getString(R.string.typewriter_wpm, 70),
-                R.drawable.ic_brain,
-                true,
-                RequirementFactory.wpmIsMoreThan(70)
-            )
-        )
-        this.add(
-            Achievement(
-                7,
-                context.getString(R.string.alien),
-                context.getString(R.string.typewriter_wpm, 80),
-                R.drawable.ic_alien,
-                true,
-                RequirementFactory.wpmIsMoreThan(80)
-            )
-        )
-        this.add(
-            Achievement(
-                8,
-                context.getString(R.string.unmistakable, "I"),
-                context.getString(R.string.unmistakable_desc_with_seconds, 30, 30),
-                R.drawable.ic_unmistakable,
-                false,
-                RequirementFactory.timeModeNoMistakes(30)
-            )
-        )
-        this.add(
-            Achievement(
-                9,
-                context.getString(R.string.unmistakable, "II"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 1, 30),
-                R.drawable.ic_unmistakable,
-                false,
-                RequirementFactory.timeModeNoMistakes(60)
-            )
-        )
-        this.add(
-            Achievement(
-                10,
-                context.getString(R.string.unmistakable, "III"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 2, 30),
-                R.drawable.ic_unmistakable,
-                false,
-                RequirementFactory.timeModeNoMistakes(120)
-            )
-        )
-        this.add(
-            Achievement(
-                11,
-                context.getString(R.string.unmistakable, "IV"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 3, 30),
-                R.drawable.ic_unmistakable,
-                false,
-                RequirementFactory.timeModeNoMistakes(180)
-            )
-        )
-        this.add(
-            Achievement(
-                12,
-                context.getString(R.string.unmistakable, "V"),
-                context.getString(R.string.unmistakable_desc_with_minutes, 5, 30),
-                R.drawable.ic_unmistakable,
-                false,
-                RequirementFactory.timeModeNoMistakes(300)
-            )
-        )
-        this.add(
-            Achievement(
-                13,
-                context.getString(R.string.big_fan, "I"),
-                context.getString(R.string.big_fan_desc, 10),
-                R.drawable.ic_times_played,
-                true,
-                RequirementFactory.passedTestsAmount(10)
-            )
-        )
-        this.add(
-            Achievement(
-                14,
-                context.getString(R.string.big_fan, "II"),
-                context.getString(R.string.big_fan_desc, 50),
-                R.drawable.ic_times_played,
-                true,
-                RequirementFactory.passedTestsAmount(50)
-            )
-        )
-        this.add(
-            Achievement(
-                15,
-                context.getString(R.string.big_fan, "III"),
-                context.getString(R.string.big_fan_desc, 100),
-                R.drawable.ic_times_played,
-                true,
-                RequirementFactory.passedTestsAmount(100)
-            )
-        )
-        this.add(
-            Achievement(
-                16,
-                context.getString(R.string.big_fan, "IV"),
-                context.getString(R.string.big_fan_desc, 200),
-                R.drawable.ic_times_played,
-                true,
-                RequirementFactory.passedTestsAmount(200)
-            )
-        )
-        this.add(
-            Achievement(
-                17,
-                context.getString(R.string.big_fan, "V"),
-                context.getString(R.string.big_fan_desc, 500),
-                R.drawable.ic_times_played,
-                true,
-                RequirementFactory.passedTestsAmount(500)
-            )
+object AchievementsList {
+    fun get(): List<Achievement> {
+        return listOf(
+            FirstStep(1),
+            Beginner(2),
+            Promising(3),
+            Typewriter(4),
+            Bachelor(5),
+            Mastermind(6),
+            Alien(7),
+            SharpEyeInSeconds(8, 30, "I"),
+            SharpEyeInMinutes(9, 1, "II"),
+            SharpEyeInMinutes(10, 2, "III"),
+            SharpEyeInMinutes(11, 3, "IV"),
+            SharpEyeInSeconds(12, 5, "V"),
+            BigFan(13, 10, "I"),
+            BigFan(14, 50, "II"),
+            BigFan(15, 100, "III"),
+            BigFan(16, 200, "IV"),
+            BigFan(17, 500, "V")
         )
     }
-    fun get(): AchievementsList {
-        return this
-    }
 
-    fun getById(id: Int) : Achievement {
-        forEach {
-            if (it.id == id) return it
+    private class FirstStep(id: Int) : Achievement.Base(id) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.the_first_step)
         }
-        return Achievement.Empty()
+
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.the_first_step_desc)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_achievement_star
+        }
+
+        override fun withProgressBar(): Boolean {
+            return false
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.CompletedGamesAmountRequirement(1)
+        }
     }
+
+    private class Beginner(id: Int) : Achievement.Wpm(id, 20) {
+
+        override fun getName(context: Context): String {
+            return context.getString(R.string.beginner)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_child
+        }
+    }
+
+    private class Promising(id: Int) : Achievement.Wpm(id, 40) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.promising)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_star
+        }
+    }
+
+    private class Typewriter(id: Int) : Achievement.Wpm(id, 50) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.typewriter)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_keyboard
+        }
+    }
+
+    private class Bachelor(id: Int) : Achievement.Wpm(id, 60) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.type_bachelor)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_bachelor
+        }
+
+    }
+
+    private class Mastermind(id: Int) : Achievement.Wpm(id, 70) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.mastermind)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_brain
+        }
+    }
+
+    private class Alien(id: Int) : Achievement.Wpm(id, 80) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.alien)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_alien
+        }
+    }
+
+    private class SharpEyeInSeconds(id: Int, private val timeInSeconds: Int, stage: String) :
+        Achievement.SharpEye(id, timeInSeconds, stage) {
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.unmistakable_desc_with_seconds, timeInSeconds, 30)
+        }
+    }
+
+    private class SharpEyeInMinutes(id: Int, private val timeInMinutes: Int, stage: String) :
+        Achievement.SharpEye(id, timeInMinutes, stage) {
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.unmistakable_desc_with_minutes, timeInMinutes, 30)
+        }
+    }
+
+    private class BigFan(id: Int, gamesAmount: Int, stage: String) : Achievement.CompletedGamesAmount(id, gamesAmount, stage)
 }
+

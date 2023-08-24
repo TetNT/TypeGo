@@ -3,9 +3,10 @@ package com.tetsoft.typego.game.result
 import com.tetsoft.typego.game.mode.GameMode
 import kotlin.math.roundToInt
 
+@Deprecated("Replaced with a new GameResult interface")
 open class GameResult(
     val gameMode: GameMode,
-    private val score: Int,
+    val score: Int,
     val timeSpentInSeconds: Int,
     val wordsWritten: Int,
     val correctWords: Int,

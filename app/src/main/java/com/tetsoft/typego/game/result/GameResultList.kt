@@ -6,6 +6,7 @@ import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.game.mode.GameOnTime
 import java.util.*
 
+@Deprecated("Replaced with GameOnTimeHistoryList")
 class GameResultList : ArrayList<GameResult> {
     constructor()
     constructor(list: List<GameResult>) {
@@ -43,7 +44,6 @@ class GameResultList : ArrayList<GameResult> {
         return selectedResults
     }
 
-    // TODO: Check if we even need this
     fun getLastResultByGameType(gameTypeClass : Class<*>) : GameResult {
         if (this.isEmpty()) return GameResult.Empty()
         this.asReversed().forEach {
