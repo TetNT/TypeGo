@@ -4,21 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tetsoft.typego.data.achievement.AchievementsList
-import com.tetsoft.typego.adapter.AchievementsAdapter
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tetsoft.typego.adapter.AchievementsAdapter
+import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.databinding.FragmentAchievementsBinding
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.GameResultListStorage
-import com.tetsoft.typego.ui.custom.BaseFragment
 
-class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
+class AchievementsFragment : Fragment() {
 
-    override fun initBinding(
+    private var _binding : FragmentAchievementsBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentAchievementsBinding {
-        return FragmentAchievementsBinding.inflate(inflater, container, false)
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAchievementsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

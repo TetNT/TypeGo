@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
@@ -16,12 +19,15 @@ import com.tetsoft.typego.TypedWordsViewModel
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentResultBinding
-import com.tetsoft.typego.ui.custom.BaseFragment
+import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
+import com.tetsoft.typego.ui.visibility.VisibilityMapper
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class ResultFragment : BaseFragment<FragmentResultBinding>() {
+class ResultFragment : Fragment() {
 
     private val resultViewModel: ResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
@@ -29,11 +35,22 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     private var resultSaved = false
 
-    override fun initBinding(
+    private var _binding : FragmentResultBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentResultBinding {
-        return FragmentResultBinding.inflate(inflater, container, false)
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentResultBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,11 +71,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         )
         animationManager.applyCountAnimation(countAnimation, binding.tvWPM)
         countAnimation.start()
+        binding.tvCpm.text = getString(R.string.cpm_pl, resultViewModel.getCpm())
+        binding.tvCpm.animation = animationManager.getFadeInAnimation(COUNT_UP_ANIMATION_DURATION)
+        binding.tvCpm.animation.start()
     }
 
     private fun setupButtons() {
         binding.tvCheckLog.setOnClickListener {
-            if (resultViewModel.hasWordsLog() && resultViewModel.isGameCompleted /*&& !resultCalledFromHistory()*/) {
+            if (resultViewModel.hasWordsLog() && resultViewModel.isGameCompleted) {
                 val typedWordsViewModel : TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                 typedWordsViewModel.selectTypedWordsList(resultViewModel.selectedList.value ?: emptyList())
                 binding.root.findNavController().navigate(R.id.action_result_to_typedWords)
@@ -68,7 +88,17 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         }
 
         binding.bFinish.setOnClickListener { binding.root.findNavController().navigateUp() }
-        if (resultCalledFromHistory()) binding.bFinish.text = getString(R.string.close)
+        if (resultCalledFromHistory()) {
+            binding.bFinish.text = getString(R.string.close)
+        } else {
+            binding.bFinish.isEnabled = false
+            binding.bStartOver.isEnabled = false
+            lifecycleScope.launch {
+                delay(COUNT_UP_ANIMATION_DURATION)
+                binding.bFinish.isEnabled = true
+                binding.bStartOver.isEnabled = true
+            }
+        }
         binding.bStartOver.setOnClickListener {
             val gameViewModel: GameViewModel by navGraphViewModels(R.id.main_navigation)
             gameViewModel.selectGameMode(resultViewModel.gameMode)
@@ -114,12 +144,15 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             val bestResult = resultViewModel.getBestWpmByCurrentLanguage()
             bestResultSection.visibility = resultViewModel.getVisibilityForResult(bestResult)
             tvBestResult.text = (getString(R.string.best_result_pl, bestResult))
-            if (!resultViewModel.isGameCompleted) return
+            if (!resultViewModel.isGameCompleted) {
+                tvNewBestResult.visibility = View.GONE
+                return
+            }
             val diff = resultViewModel.subtractCurrentWpmAndOtherResult(bestResult)
             tvDifferenceWithBestResult.visibility = resultViewModel.getVisibilityForDifference(diff)
             tvDifferenceWithBestResult.text = resultViewModel.getDifferenceString(diff)
             tvDifferenceWithBestResult.setTextColor(resultViewModel.getDifferenceColor(diff))
-            if (diff > 0) tvNewBestResult.visibility = View.VISIBLE
+            tvNewBestResult.visibility = VisibilityMapper.FromBoolean(diff > 0).get()
             tvDifferenceWithBestResult.animation =
                 AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
             tvDifferenceWithBestResult.animation.startOffset = BEST_RESULT_FADE_IN_ANIMATION_OFFSET
@@ -130,6 +163,10 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     private fun initDetailsSectionForPrebuiltMode() {
         with(binding) {
+            if (resultViewModel.gameMode is GameMode.Empty) {
+                findNavController().navigateUp()
+                return
+            }
             if (resultViewModel.isPrebuiltGameMode) {
                 tvLanguage.text =
                     getString(

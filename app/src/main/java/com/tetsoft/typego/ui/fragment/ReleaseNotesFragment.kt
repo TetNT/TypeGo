@@ -4,14 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentReleaseNotesBinding
-import com.tetsoft.typego.ui.custom.BaseFragment
 
-class ReleaseNotesFragment : BaseFragment<FragmentReleaseNotesBinding>() {
-    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentReleaseNotesBinding {
-        return FragmentReleaseNotesBinding.inflate(inflater, container, false)
+class ReleaseNotesFragment : Fragment() {
+
+    private var _binding : FragmentReleaseNotesBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentReleaseNotesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

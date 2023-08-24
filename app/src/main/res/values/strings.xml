@@ -114,7 +114,7 @@
     <string name="my_statistics">My statistics</string>
     <string name="statistics">Statistics</string>
     <string name="stats_locked_cards">Some cards are still locked. Pass more tests to unlock them! Cards left: %1$d</string>
-
+    <string name="cpm_pl">%1$d chars per minute</string>
     <string name="whats_new_pl">%1$s: what\'s new</string>
     <string name="whats_new">What\'s new</string>
     <string name="whats_new_description">See what\'s new in this version of the app.</string>

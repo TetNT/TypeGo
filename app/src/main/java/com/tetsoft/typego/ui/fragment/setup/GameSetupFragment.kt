@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.RadioButton
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.slider.Slider
@@ -18,23 +17,32 @@ import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeModeList
 import com.tetsoft.typego.databinding.FragmentGameSetupBinding
 import com.tetsoft.typego.game.mode.GameOnTime
-import com.tetsoft.typego.ui.custom.BaseFragment
 import com.tetsoft.typego.ui.custom.ValRadioButton
 import com.tetsoft.typego.ui.fragment.game.GameViewModel
-import com.tetsoft.typego.utils.TimeConvert
 import com.tetsoft.typego.utils.Translation
 
-class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
+class GameSetupFragment : Fragment() {
 
     private val availableTimeModes = TimeModeList()
 
     private val viewModel: GameOnTimeSetupViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
-    override fun initBinding(
+    private var _binding : FragmentGameSetupBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentGameSetupBinding {
-        return FragmentGameSetupBinding.inflate(inflater, container, false)
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentGameSetupBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,22 +99,18 @@ class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
     }
 
     private fun setupTimeModeSlider() {
+        val translation = Translation(requireContext())
         with(binding) {
             timemodeSlider.setTimeModes(availableTimeModes)
             timemodeSlider.selectTimeMode(viewModel.getLastUsedTimeModeOrDefault())
             timemodeSlider.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
                 val position = value.toInt()
-                tvTimeStamp.text = TimeConvert.convertSeconds(
-                    requireContext(),
-                    availableTimeModes.getTimeModeByIndex(position).timeInSeconds
-                )
+                tvTimeStamp.text = translation.get(availableTimeModes.getTimeModeByIndex(position))
                 tvTimeStamp.startAnimation(
                     AnimationUtils.loadAnimation(requireContext(), R.anim.pop_animation)
                 )
             })
-            val progressInSeconds =
-                availableTimeModes.getTimeModeByIndex(binding.timemodeSlider.value.toInt()).timeInSeconds
-            tvTimeStamp.text = TimeConvert.convertSeconds(requireContext(), progressInSeconds)
+            tvTimeStamp.text = translation.get(availableTimeModes.getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
         }
 
     }

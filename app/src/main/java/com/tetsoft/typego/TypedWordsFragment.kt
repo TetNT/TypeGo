@@ -4,16 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.adapter.word.WordsPagingDataAdapter
 import com.tetsoft.typego.databinding.FragmentTypedWordsBinding
-import com.tetsoft.typego.ui.custom.BaseFragment
 
-class TypedWordsFragment : BaseFragment<FragmentTypedWordsBinding>() {
+class TypedWordsFragment : Fragment() {
 
     val viewModel : TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+
+    private var _binding : FragmentTypedWordsBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTypedWordsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,12 +44,4 @@ class TypedWordsFragment : BaseFragment<FragmentTypedWordsBinding>() {
         val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.rvTypedWords.layoutManager = layoutManager
     }
-
-    override fun initBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentTypedWordsBinding {
-        return FragmentTypedWordsBinding.inflate(inflater, container, false)
-    }
-
 }

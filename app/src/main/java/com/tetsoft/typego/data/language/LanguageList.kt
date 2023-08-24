@@ -33,11 +33,11 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
             Language(FR),
             Language(DE),
             Language(IT),
-            Language(KR),
             Language(RU),
             Language(ES),
             Language(BG),
-            Language(UA)
+            Language(UA),
+            Language(CZ)
             )
     }
 
@@ -54,10 +54,10 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
         const val DE = "DE"
         const val ES = "ES"
         const val IT = "IT"
-        const val KR = "KR"
         const val UA = "UA"
         const val BG = "BG"
         const val ID = "ID"
         const val PT = "PT"
+        const val CZ = "CZ"
     }
 }
