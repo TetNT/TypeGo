@@ -10,9 +10,6 @@ jobs:
   build:
 
     runs-on: windows-latest
-    
-    env:
-      APPLICATION_ADS_ID: ${{ secrets.APPLICATION_ADS_ID }}
       
     steps:
     - uses: actions/checkout@v3
