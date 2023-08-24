@@ -71,4 +71,8 @@ class GameOnTimeViewModel @Inject constructor() : ViewModel() {
     fun clearScore() {
         score = 0
     }
+
+    fun getInterstitialAdsId() : String {
+        return com.tetsoft.typego.Config.INTERSTITIAL_ID
+    }
 }
