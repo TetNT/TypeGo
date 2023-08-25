@@ -6,15 +6,14 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.tetsoft.typego.BuildConfig
+import com.tetsoft.typego.adapter.result.GameResultListToJsonAdapter
 import com.tetsoft.typego.game.mode.GameMode
 import com.tetsoft.typego.game.mode.GameOnCount
 import com.tetsoft.typego.game.mode.GameOnTime
 import com.tetsoft.typego.game.result.GameResult
 import com.tetsoft.typego.game.result.GameResultList
-import com.tetsoft.typego.adapter.result.GameResultListToJsonAdapter
-import com.tetsoft.typego.utils.StringKeys
 
+@Deprecated("Replaced with the new GameOnTimeHistoryStorage")
 class GameResultListStorage(context: Context) {
     private val sharedPreferences =
         context.getSharedPreferences(KEY_RESULT_LIST_STORAGE, Context.MODE_PRIVATE)
@@ -31,7 +30,6 @@ class GameResultListStorage(context: Context) {
         Log.d("MOSHI", "store JSON: " + jsonAdapter.toJson(gameResultList))
 
         with(sharedPreferences.edit()) {
-            putInt(StringKeys.STORAGE_APP_VERSION, BuildConfig.VERSION_CODE)
             putString(KEY_RESULTS, jsonAdapter.toJson(gameResultList))
             apply()
         }
@@ -50,21 +48,8 @@ class GameResultListStorage(context: Context) {
         store(resultList)
     }
 
-    private fun getVersion(): Int {
-        return sharedPreferences.getInt(StringKeys.STORAGE_APP_VERSION, EMPTY_VERSION)
-    }
-
-    fun isUpToDate(): Boolean {
-        return getVersion() == BuildConfig.VERSION_CODE
-    }
-
-    fun isEmpty(): Boolean {
-        return getVersion() == EMPTY_VERSION
-    }
-
     companion object {
         private const val KEY_RESULT_LIST_STORAGE = "result_list_storage"
         private const val KEY_RESULTS = "results"
-        private const val EMPTY_VERSION = 0
     }
 }

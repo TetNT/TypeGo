@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
-import com.tetsoft.typego.ui.custom.BaseFragment
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.utils.AnimationManager
 import com.tetsoft.typego.utils.Translation
 
@@ -52,7 +52,7 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             statsDoneAchievementsAmount.text = getString(R.string.stats_achievements_done_pl, viewModel.doneAchievementsCountStatistics.provide(), viewModel.achievementsCount)
             statsAchievementProgressBar.progress = viewModel.doneAchievementsPercentageStatistics.provide()
             statsLastEarnedAchievement.text = getString(
-                R.string.stats_last_earned_achievement_pl, viewModel.lastCompletedAchievementStatistics.provide().name)
+                R.string.stats_last_earned_achievement_pl, viewModel.lastCompletedAchievementStatistics.provide().getName(requireContext()))
         }
 
         val hiddenCards = viewModel.getHiddenCardsCount(binding.statsLinearLayout)
@@ -111,7 +111,6 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentStatisticsBinding {
-        return FragmentStatisticsBinding.inflate(layoutInflater, container, false)
+        return FragmentStatisticsBinding.inflate(inflater, container, false)
     }
-
 }

@@ -1,47 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="release_notes_description_140">
-        • New Statistics section in your profile\nNow you can see the progress you\'ve made and a lot of joyful information!\n\n
-        • Bulgarian and Ukrainian languages are added\nWelcome to the club, buddy!\n\n
-        • Major UI improvements\nAnimations, better design, fonts, fixed visual bugs. All included!
-    </string>
+    <string name="release_notes_description_140"><ul><li>New Statistics section in your profile\nNow you can see the progress you\'ve made and a lot of joyful information!\n</li><li>Bulgarian and Ukrainian languages are added\nWelcome to the club, buddy!\n</li><li>Major UI improvements\nAnimations, better design, fonts, fixed visual bugs. All included!</li></ul></string>
 
-    <string name="release_notes_description_143">
-        • Less ads\nAds appear less in short tests (15 secs, 30 secs).\n\n
-        • More statistics\nStatistics became more informative.\n\n
-        • Other improvements\nNow it\'s shown in a typed word list if an inputted word is shorter than the original.\n\n
-        • Bug fixes\nFixed app crash on Android 12 and higher.\nFixed a bug that caused text suggestions not to work.\nFixed a bug when statistics displayed the wrong time a user has spent on tests.
-    </string>
+    <string name="release_notes_description_143"><ul><li>Ads appear less in short tests (15 secs, 30 secs)\n</li><li>Statistics became more informative\n</li><li>Now it\'s shown in a typed word list if an inputted word is shorter than the original.\n</li></ul>\nBug fixes\n<ul><li>Fixed app crash on Android 12 and higher\n</li><li>Fixed a bug that caused text suggestions not to work\n</li><li>Fixed a bug when statistics displayed the wrong time a user has spent on tests.</li></ul></string>
 
-    <string name="release_notes_description_147">
-        • Less ads \nAds appear less in 1-minute tests.\n\n
-        • Other improvements\nSome \"under the hood\" changes to improve app stability.
-    </string>
+    <string name="release_notes_description_147"><ul><li>Ads appear less in 1-minute tests\n</li><li>Some \"under the hood\" changes to improve app stability.</li></ul></string>
 
-    <string name="release_notes_description_148">
-        This is more of an \"under the hood\" update. It will make future updates much easier.\n
-        • Less ads\nAds appear less in most games.\n\n
-        • Bug fixes\nFixed a bug when the last completed achievement in statistics could be displayed in wrong language.\n\n
-        • Other improvements\nLanguages are now sorted in alphabetical order.\n\n
-        • What to expect next?\nMore achievements, new game mode and some other features. Stay tuned!
-    </string>
+    <string name="release_notes_description_148">This is more of an \"under the hood\" update. It will make future updates much easier.\n<ul>\nBug fixes\n<li>Fixed a bug when the last completed achievement in statistics could be displayed in wrong language\n</li>\nOther improvements\n<li>Ads appear less in most games\n</li><li>Languages are now sorted in alphabetical order\n</li>\nWhat to expect next?\n<li>More achievements, new game mode and some other features. Stay tuned!</li></ul></string>
 
-    <string name="release_notes_description_149">
-        The main page has been redesigned!\n
-        • Bug fixes\nFixed a major bug that, while playing, could cause the app to crash unexpectedly.\nFixed a bug when some statistics cards could be invisible.\n\n
-        • Other improvements\nAdded the "Replay" button on the main page.\nThe results page now shows the difference between the current and the previous result.
-    </string>
+    <string name="release_notes_description_149"><ul><li>The main page has been redesigned!\n</li></ul>Bug fixes:\n<ul><li>Fixed a major bug that, while playing, could cause the app to crash unexpectedly\n</li><li>Fixed a bug when some statistics cards could be invisible\n</li></ul>Other improvements:\n<ul><li>Added the "Replay" button on the main page\n</li><li>The results page now shows the difference between the current and the previous result</li> </ul></string>
 
-    <string name="release_notes_description_current_version">
-        This update aims at the app’s optimization, bug fixes and some adjustments\n\n
-        • 10-minute test! Now there is no reason to rush\n
-        • All transitions between screens have been changed, they have become quicker and more responsive\n
-        • The result screen loads much faster and the typed words list is moved to another window\n
-        • The profile tab is slightly redesigned\n
-        • The favorite Time mode statistics are back!\n
-        • Fixed a bug when if a user had 0% progression, then the respective statistics card was locked\n
-        • Fixed Ukrainian words with wrong characters\n
-        • Now the game doesn\'t crash if a user reaches the end of a text
-    </string>
+    <string name="release_notes_description_150">This update aims at the app’s optimization, bug fixes and some adjustments\n<ul><li>10-minute test! Now there is no reason to rush\n</li><li>All transitions between screens have been changed, they have become quicker and more responsive\n</li><li>The result screen loads much faster and the typed words list is moved to another window\n</li><li>The profile tab is slightly redesigned\n</li><li>The favorite Time mode statistics are back!\n</li><li>Fixed a bug when if a user had 0% progression, the respective statistics card was locked\n</li><li>Fixed Ukrainian words with wrong characters\n</li><li>Now the game doesn\'t crash if a user reaches the end of a text</li></ul></string>
+
+    <string name="release_notes_description_151"><ul><li>Now you can see both WPM (Words Per Minute) and CPM (Characters Per Minute) in the results!\n</li><li>Added Czech language\n</li><li>The English dictionary has become more universal. Words like color/colour, defense/defence are removed\n</li><li>Fixed the 0 WPM bug, when the WPM could only be calculated in a 60-second game\n</li><li>When a user is being switched to the result screen, the bottom buttons are blocked for a short period of time to prevent accidental clicks\n</li><li>Now it\'s less likely to crash when resuming the app after a while.</li></ul></string>
+
+    <string name="release_notes_description_current_version"><ul><li>The history page is redesigned\n</li><li>Added the Polish language!\n</li><li>Bullet points are displayed properly on the release notes page\n</li><li>A lot of good things behind the scene\n</li></ul>\nThe upcoming updates will bring more variety to the gameplay. Stay tuned!</string>
 
 </resources>

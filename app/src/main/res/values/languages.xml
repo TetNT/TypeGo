@@ -10,4 +10,6 @@
     <string name="KR">Korean</string>
     <string name="BG">Bulgarian</string>
     <string name="UA">Ukrainian</string>
+    <string name="CZ">Czech</string>
+    <string name="PL">Polish</string>
 </resources>

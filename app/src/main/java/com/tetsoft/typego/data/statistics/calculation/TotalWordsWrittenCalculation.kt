@@ -1,13 +1,13 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.game.result.GameResult
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 
-class TotalWordsWrittenCalculation(private val resultsList : List<GameResult>) :
+class TotalWordsWrittenCalculation(private val resultsList : ClassicGameModesHistoryList) :
     StatisticsCalculation {
     override fun provide(): Int {
         var total = 0
         for (result in resultsList) {
-            total += result.wordsWritten
+            total += result.getWordsWritten()
         }
         return total
     }

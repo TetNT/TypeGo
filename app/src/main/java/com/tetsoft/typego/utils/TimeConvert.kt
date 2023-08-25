@@ -1,7 +1,6 @@
 package com.tetsoft.typego.utils
 
 import android.content.Context
-import com.tetsoft.typego.utils.TimeConvert
 import com.tetsoft.typego.R
 
 object TimeConvert {

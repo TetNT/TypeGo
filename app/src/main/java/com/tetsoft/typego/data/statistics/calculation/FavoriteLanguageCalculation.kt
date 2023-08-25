@@ -1,11 +1,11 @@
 package com.tetsoft.typego.data.statistics.calculation
 
+import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
+import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.statistics.VisibilityProvider
-import com.tetsoft.typego.game.result.GameResultList
 
 class FavoriteLanguageCalculation(
-    private val resultsList: GameResultList,
+    private val resultsList: ClassicGameModesHistoryList,
     private val languages: List<Language>
 ) : StatisticsCalculation {
 
@@ -13,7 +13,8 @@ class FavoriteLanguageCalculation(
         var mostFrequentLanguage = Language("")
         var mostFrequency = 0
         for (language in languages) {
-            val langFrequency: Int = resultsList.getResultsByLanguage(language).size
+            val langFrequency: Int =
+                ClassicGameHistoryDataSelector(resultsList).getResultsByLanguage(language.identifier).size
             if (langFrequency > mostFrequency) {
                 mostFrequency = langFrequency
                 mostFrequentLanguage = language
