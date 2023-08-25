@@ -7,6 +7,9 @@ plugins {
 }
 
 android {
+    lint {
+        disable += "SuspiciousIndentation"
+    }
     namespace 'com.tetsoft.typego'
     compileSdk 33
     buildFeatures {

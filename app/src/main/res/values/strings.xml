@@ -72,7 +72,6 @@
     <string name="portrait">Portrait</string>
     <string name="landscape">Landscape</string>
 
-    <!--  Placeholders  -->
     <string name="previous_result_pl">Previous result: %1$d</string>
     <string name="best_result_pl">Best result: %1$d</string>
     <string name="correct_words_pl">Correct words: %1$d</string>
@@ -98,11 +97,11 @@
     <string name="activate">Activate</string>
     <string name="stats_wpm_pl">%1$d WPM</string>
     <string name="progression">progression</string>
-    <string name="stats_progression_pl" translatable="false">%1$d\%%</string>
+    <string name="stats_progression_pl" translatable="false">%1$d\%</string>
     <string name="stats_days_since_first_test_pl">%1$d days with us since the first test!</string>
     <string name="stats_words_written_total_pl">%1$d words written in total</string>
-    <string name="stats_accuracy_pl">%1$d%% accuracy</string>
-    <string name="stats_total_minutes_of_testing_pl">%1$d minutes of testing</string>
+    <string name="stats_accuracy_pl">%1$d\% accuracy</string>
+    <string name="stats_total_minutes_of_testing_pl" formatted="true">%1$d minutes of testing</string>
     <string name="stats_avg_result_in_the_past">Avg. result in the past</string>
     <string name="stats_avg_result_now">Avg. result now</string>
     <string name="stats_time_mode_pl">Time mode: %1$s</string>
