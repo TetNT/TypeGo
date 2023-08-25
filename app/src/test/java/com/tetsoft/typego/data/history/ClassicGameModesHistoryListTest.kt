@@ -28,7 +28,7 @@ class ClassicGameModesHistoryListTest {
         assertEquals(combined[1].getCompletionDateTime(), 150L)
         assertEquals(combined[2].getCompletionDateTime(), 200L)
         assertEquals(combined[3].getCompletionDateTime(), 400L)
-        assertEquals(combined[4].getCompletionDateTime(), 400L)
+        assertEquals(combined[4].getCompletionDateTime(), 500L)
     }
 
     private class GameOnTimeMock(dateTime: Long) :
