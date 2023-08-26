@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.fragment
+package com.tetsoft.typego.ui.fragment.achievements
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentAchievementsBinding
-import com.tetsoft.typego.ui.fragment.achievements.AchievementsViewModel
+import com.tetsoft.typego.ui.fragment.BaseFragment
 
 class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
 
