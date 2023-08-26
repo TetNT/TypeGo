@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.fragment
+package com.tetsoft.typego.ui.fragment.releasenotes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.releasenotes.ReleaseNotesAdapter
 import com.tetsoft.typego.data.ReleaseNotesList
 import com.tetsoft.typego.databinding.FragmentReleaseNotesBinding
+import com.tetsoft.typego.ui.fragment.BaseFragment
 
 class ReleaseNotesFragment : BaseFragment<FragmentReleaseNotesBinding>() {
 

@@ -175,15 +175,15 @@
                         android:text="@string/dictionary_type"
                         app:drawableStartCompat="@drawable/ic_dictionary" />
 
-                    <RadioGroup
+                    <com.tetsoft.typego.ui.custom.radiogroup.DictionaryTypeRadioGroup
                         android:id="@+id/rbDictionaryType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checkedButton="@id/rbBasic"
+
                         android:hapticFeedbackEnabled="true">
 
-                        <com.tetsoft.typego.ui.custom.ValRadioButton
-                            android:id="@+id/rbBasic"
+                        <RadioButton
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/main_green"
@@ -192,8 +192,8 @@
                             android:text="@string/basic"
                             android:textSize="16sp" />
 
-                        <com.tetsoft.typego.ui.custom.ValRadioButton
-                            android:id="@+id/rbEnhanced"
+                        <RadioButton
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
@@ -202,7 +202,7 @@
                             android:minHeight="48dp"
                             android:text="@string/enhanced"
                             android:textSize="16sp" />
-                    </RadioGroup>
+                    </com.tetsoft.typego.ui.custom.radiogroup.DictionaryTypeRadioGroup>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -276,24 +276,21 @@
                         android:text="@string/screen_orientation"
                         app:drawableStartCompat="@drawable/ic_rotation" />
 
-                    <RadioGroup
+                    <com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup
                         android:id="@+id/rbScreenOrientation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <com.tetsoft.typego.ui.custom.ValRadioButton
-                            android:id="@+id/rbPortrait"
+                        <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/main_green"
-                            android:checked="true"
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
                             android:text="@string/portrait"
                             android:textSize="16sp" />
 
-                        <com.tetsoft.typego.ui.custom.ValRadioButton
-                            android:id="@+id/rbLandscape"
+                        <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/main_green"
@@ -301,7 +298,7 @@
                             android:minHeight="48dp"
                             android:text="@string/landscape"
                             android:textSize="16sp" />
-                    </RadioGroup>
+                    </com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup>
 
                 </LinearLayout>
 
