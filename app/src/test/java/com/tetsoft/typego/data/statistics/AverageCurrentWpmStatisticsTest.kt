@@ -12,12 +12,12 @@ class AverageCurrentWpmStatisticsTest {
     fun getVisibility_resultsLessThanDoubledPoolSize_equalsGone() {
         val results = ClassicGameModesHistoryList(
             listOf(
-                GameOnTimeMock(0.0),
-                GameOnTimeMock(0.0),
-                GameOnTimeMock(0.0),
-                GameOnTimeMock(0.0),
-                GameOnTimeMock(0.0),
-                GameOnTimeMock(0.0),
+                MockGameOnTime(0.0),
+                MockGameOnTime(0.0),
+                MockGameOnTime(0.0),
+                MockGameOnTime(0.0),
+                MockGameOnTime(0.0),
+                MockGameOnTime(0.0),
             ), emptyList()
         )
         val avgWpmStatistics = AverageCurrentWpmStatistics(AverageCurrentWpmCalculation(results, 4))
@@ -28,22 +28,22 @@ class AverageCurrentWpmStatisticsTest {
     fun getVisibility_resultsMoreThanDoubledPoolSize_equalsVisible() {
         val results = ClassicGameModesHistoryList(
             listOf(
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
-                GameOnTimeMock(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
+                MockGameOnTime(30.0),
             ), emptyList()
         )
         val avgWpmStatistics = AverageCurrentWpmStatistics(AverageCurrentWpmCalculation(results, 4))
         assertEquals(VisibilityProvider.Visible().get(), avgWpmStatistics.getVisibility().get())
     }
 
-    private class GameOnTimeMock(wpm: Double) :
+    private class MockGameOnTime(wpm: Double) :
         GameOnTime(wpm, 0, 0, 0, "", "", "", false, 0, 0, 0L)
 
 }

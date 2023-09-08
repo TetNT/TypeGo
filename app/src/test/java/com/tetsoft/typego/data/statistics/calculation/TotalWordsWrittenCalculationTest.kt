@@ -10,10 +10,10 @@ class TotalWordsWrittenCalculationTest {
     @Test
     fun provide_variousResults_equals130() {
         val results = ClassicGameModesHistoryList(listOf(
-            GameOnTimeMock( 40),
-            GameOnTimeMock( 50),
-            GameOnTimeMock( 30),
-            GameOnTimeMock( 10),
+            MockGameOnTime( 40),
+            MockGameOnTime( 50),
+            MockGameOnTime( 30),
+            MockGameOnTime( 10),
         ), emptyList())
         val calculation = TotalWordsWrittenCalculation(results)
         assertEquals(calculation.provide(), 130)
@@ -26,7 +26,7 @@ class TotalWordsWrittenCalculationTest {
         assertEquals(calculation.provide(), 0)
     }
 
-    private class GameOnTimeMock(wordsWritten: Int) :
+    private class MockGameOnTime(wordsWritten: Int) :
         GameOnTime(0.0, 0, 0, 0, "", "", "", false, wordsWritten, 0, 0L)
 
 

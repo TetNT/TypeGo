@@ -9,10 +9,10 @@ class GameOnTimeDataSelectorTest {
     @Test
     fun getBestResult_severalResults_wpmEquals30() {
         val historyList = GameOnTimeHistoryList()
-        historyList.add(GameOnTimeMock(13.0))
-        historyList.add(GameOnTimeMock(24.0))
-        historyList.add(GameOnTimeMock(30.0))
-        historyList.add(GameOnTimeMock(10.0))
+        historyList.add(MockGameOnTime(13.0))
+        historyList.add(MockGameOnTime(24.0))
+        historyList.add(MockGameOnTime(30.0))
+        historyList.add(MockGameOnTime(10.0))
         assertEquals(GameOnTimeDataSelector(historyList).getBestResult().getWpm(), 30.0, 0.001)
     }
 
@@ -25,17 +25,17 @@ class GameOnTimeDataSelectorTest {
     @Test
     fun getSecondToLastResult_moreThan1Result_wpmEquals24() {
         val historyList = GameOnTimeHistoryList()
-        historyList.add(GameOnTimeMock(13.0))
-        historyList.add(GameOnTimeMock(30.0))
-        historyList.add(GameOnTimeMock(24.0))
-        historyList.add(GameOnTimeMock(10.0))
+        historyList.add(MockGameOnTime(13.0))
+        historyList.add(MockGameOnTime(30.0))
+        historyList.add(MockGameOnTime(24.0))
+        historyList.add(MockGameOnTime(10.0))
         assertEquals(GameOnTimeDataSelector(historyList).getSecondToLastResult().getWpm(), 24.0, 0.001)
     }
 
     @Test
     fun getSecondToLastResult_1result_wpmEquals0() {
         val historyList = GameOnTimeHistoryList()
-        historyList.add(GameOnTimeMock(13.0))
+        historyList.add(MockGameOnTime(13.0))
         assertEquals(GameOnTimeDataSelector(historyList).getSecondToLastResult().getWpm(), 0.0, 0.001)
     }
 
@@ -48,10 +48,10 @@ class GameOnTimeDataSelectorTest {
     @Test
     fun getMostRecentResult_severalResults_completionTimeEquals50000() {
         val historyList = GameOnTimeHistoryList()
-        historyList.add(GameOnTimeMock(0.0, 10000L))
-        historyList.add(GameOnTimeMock(0.0, 50000L))
-        historyList.add(GameOnTimeMock(0.0, 40000L))
-        historyList.add(GameOnTimeMock(0.0, 30000L))
+        historyList.add(MockGameOnTime(0.0, 10000L))
+        historyList.add(MockGameOnTime(0.0, 50000L))
+        historyList.add(MockGameOnTime(0.0, 40000L))
+        historyList.add(MockGameOnTime(0.0, 30000L))
         assertEquals(GameOnTimeDataSelector(historyList).getMostRecentResult().getCompletionDateTime(), 50000L)
     }
 
@@ -61,6 +61,6 @@ class GameOnTimeDataSelectorTest {
         assertEquals(GameOnTimeDataSelector(historyList).getMostRecentResult().getCompletionDateTime(), 0L)
     }
 
-    private class GameOnTimeMock(wpm: Double, completionDate: Long = 0L) :
+    private class MockGameOnTime(wpm: Double, completionDate: Long = 0L) :
         GameOnTime(wpm, 0, 0, 0, "", "", "", false, 0, 0, completionDate)
 }

@@ -11,38 +11,38 @@ class NoMistakesInARowRequirementTest {
     @Test
     fun isReached_listSizeMoreThanRequiredNoIncorrectWords_assertTrue() {
         val list = ClassicGameModesHistoryList()
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
         assertTrue(GameRequirement.NoMistakesInARowRequirement(3).isReached(list))
     }
 
     @Test
     fun isReached_incorrectWordsOutsideOfTheRow_assertTrue() {
         val list = ClassicGameModesHistoryList()
-        list.add(FakeGameOnNumberOfWords(3))
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(3))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
         assertTrue(GameRequirement.NoMistakesInARowRequirement(3).isReached(list))
     }
 
     @Test
     fun isReached_listContainsIncorrectWords_assertFalse() {
         val list = ClassicGameModesHistoryList()
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(3))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(3))
         assertFalse(GameRequirement.NoMistakesInARowRequirement(3).isReached(list))
     }
 
     @Test
     fun isReached_listSizeLessThanRequired_assertFalse() {
         val list = ClassicGameModesHistoryList()
-        list.add(FakeGameOnNumberOfWords(0))
-        list.add(FakeGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
         assertFalse(GameRequirement.NoMistakesInARowRequirement(3).isReached(list))
     }
 
@@ -57,7 +57,7 @@ class NoMistakesInARowRequirementTest {
         // To be done after the method fix
     }
 
-    private class FakeGameOnNumberOfWords(private val incorrectWords: Int) :
+    private class MockGameOnNumberOfWords(private val incorrectWords: Int) :
         GameOnNumberOfWords(0.0, 0, 0, 0, 0, "", "", "", false, 0, 0, 0) {
         override fun getIncorrectWords(): Int {
             return incorrectWords
