@@ -31,6 +31,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -78,4 +81,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core
+    testImplementation libs.mockito.core
+    androidTestImplementation libs.mockito.android
 }

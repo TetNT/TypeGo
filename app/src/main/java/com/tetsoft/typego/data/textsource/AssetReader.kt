@@ -6,11 +6,11 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 
-abstract class AssetReader(assetManager: AssetManager) {
-    abstract fun read(path: String) : String
+interface AssetReader {
+    fun read(path: String) : String
 }
 
-class AssetStringReader(private val assetManager: AssetManager) : AssetReader(assetManager) {
+class AssetStringReader(private val assetManager: AssetManager) : AssetReader {
     override fun read(path: String): String {
         return try {
             val inputStream = assetManager.open(path)
