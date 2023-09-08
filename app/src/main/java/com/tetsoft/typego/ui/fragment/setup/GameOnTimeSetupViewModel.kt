@@ -51,6 +51,13 @@ class GameOnTimeSetupViewModel @Inject constructor(private val gameOnTimeHistory
         return lastResult.areSuggestionsActivated()
     }
 
+    fun getLastUsedSeed(): String {
+        if (lastResult is GameOnTime.Empty) {
+            return ""
+        }
+        return lastResult.getSeed()
+    }
+
     private companion object {
         val DEFAULT_LANGUAGE = Language(LanguageList.EN)
         val DEFAULT_TIME_MODE = TimeMode(60)

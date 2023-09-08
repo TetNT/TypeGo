@@ -41,6 +41,7 @@
         style="@style/scrollbars"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipChildren="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="64dp"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:paddingHorizontal="16dp"
+            android:clipToPadding="false">
 
             <androidx.cardview.widget.CardView
                 style="@style/basic_cardview"
@@ -179,7 +181,7 @@
                         android:id="@+id/rbDictionaryType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginBottom="8dp"
                         android:hapticFeedbackEnabled="true">
 
                         <RadioButton
@@ -190,18 +192,21 @@
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
                             android:text="@string/basic"
-                            android:textSize="16sp" />
+                            android:layout_marginStart="-4dp"
+                            android:textSize="16sp"
+                            android:hapticFeedbackEnabled="true"/>
 
                         <RadioButton
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
                             android:buttonTint="@color/main_green"
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
                             android:text="@string/enhanced"
-                            android:textSize="16sp" />
+                            android:layout_marginStart="-4dp"
+                            android:textSize="16sp"
+                            android:hapticFeedbackEnabled="true"/>
                     </com.tetsoft.typego.ui.custom.radiogroup.DictionaryTypeRadioGroup>
 
                     <TextView
@@ -209,6 +214,47 @@
                         android:layout_height="match_parent"
                         android:text="@string/dictionary_type_note" />
 
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/seed_section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:drawablePadding="8dp"
+                        android:text="@string/seed"
+                        app:drawableStartCompat="@drawable/ic_key" />
+
+                    <EditText
+                        android:id="@+id/et_seed"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/text_input"
+                        android:layout_marginBottom="8dp"
+                        android:hint="@string/seed_hint"
+                        android:maxLength="40"
+                        android:importantForAutofill="no"
+                        android:paddingStart="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/seed_description"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -244,7 +290,9 @@
                         android:fontFamily="@font/redring_regular"
                         android:minHeight="48dp"
                         android:text="@string/activate"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginStart="-8dp"
+                        android:hapticFeedbackEnabled="true"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -258,7 +306,8 @@
                 style="@style/basic_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp"
+                >
 
                 <LinearLayout
                     android:id="@+id/screenOrientationSection"
@@ -288,7 +337,9 @@
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
                             android:text="@string/portrait"
-                            android:textSize="16sp" />
+                            android:layout_marginStart="-4dp"
+                            android:textSize="16sp"
+                            android:hapticFeedbackEnabled="true"/>
 
                         <RadioButton
                             android:layout_width="wrap_content"
@@ -297,7 +348,9 @@
                             android:fontFamily="@font/redring_regular"
                             android:minHeight="48dp"
                             android:text="@string/landscape"
-                            android:textSize="16sp" />
+                            android:layout_marginStart="-4dp"
+                            android:textSize="16sp"
+                            android:hapticFeedbackEnabled="true"/>
                     </com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup>
 
                 </LinearLayout>

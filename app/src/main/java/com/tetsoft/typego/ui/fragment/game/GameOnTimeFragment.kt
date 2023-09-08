@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -24,12 +23,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.data.AdsCounter
-import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.calculation.CpmCalculation
 import com.tetsoft.typego.data.calculation.WpmCalculation
 import com.tetsoft.typego.data.textsource.AssetStringReader
-import com.tetsoft.typego.data.textsource.ShuffledTextFromAsset
+import com.tetsoft.typego.data.textsource.TextSource
 import com.tetsoft.typego.databinding.FragmentGameOnTimeBinding
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.ui.custom.SpannableEditText
@@ -38,7 +36,6 @@ import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
 import com.tetsoft.typego.utils.TimeConvert
 import java.util.*
-import kotlin.math.max
 
 class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
@@ -152,6 +149,7 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
             override fun onTick(millisUntilFinished: Long) {
                 binding.tvTimeLeft.text =
                     TimeConvert.convertSecondsToStamp((millisUntilFinished / 1000).toInt())
+                // TODO: create an interface Counter that will handle this logic
                 secondsRemaining = secondsRemaining.dec()
             }
 
@@ -258,30 +256,13 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
         binding.words.clearForeground(startIndex, endIndex)
     }
 
-    private fun getDictionaryFolderPath(dictionaryType: DictionaryType): String {
-        return if (dictionaryType === DictionaryType.BASIC) "words/basic/" else "words/enhanced/"
-    }
-
-    // TODO: move this method to a class that will implement a TextSource interface
     private fun initWords() {
-        val amountOfWords: Int = max((250.0 * (timeTotalAmount / 60.0)), 100.0).toInt()
-        val path =
-            getDictionaryFolderPath(viewModel.gameOnTime.getDictionaryType()) + viewModel.gameOnTime.getLanguageCode() + ".txt"
-        val textSource = ShuffledTextFromAsset(
+        val textSource = TextSource.Factory.FromAsset(
             AssetStringReader(requireActivity().assets),
-            path,
-            amountOfWords
-        ).getString()
-
-        if (textSource.isEmpty()) {
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.words_loading_error_occurred),
-                Toast.LENGTH_SHORT
-            ).show()
-            findNavController().navigateUp()
-            return
-        }
+            viewModel.getDictionaryPath(),
+            viewModel.getAmountOfLoadedWordsRequired(),
+            viewModel.gameOnTime.getSeed()
+        ).create().getString()
         binding.words.setText(textSource)
     }
 
@@ -357,7 +338,8 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
             viewModel.gameOnTime.areSuggestionsActivated(),
             viewModel.getTypedWords().size,
             viewModel.calculateCorrectWords(),
-            Calendar.getInstance().time.time
+            Calendar.getInstance().time.time,
+            viewModel.gameOnTime.getSeed()
         )
         gameOnTimeResultViewModel.wordsList = viewModel.getTypedWords()
         gameOnTimeResultViewModel.isGameCompleted = true

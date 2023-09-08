@@ -1,12 +1,12 @@
 package com.tetsoft.typego.ui.fragment.result
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
@@ -197,6 +197,7 @@ class GameOnTimeResultFragment : Fragment() {
                     R.string.screen_orientation_pl,
                     translation.get(viewModel.getScreenOrientation())
                 )
+            tvSeed.text = getString(R.string.seed_pl, viewModel.result.getSeed())
         }
     }
     // TODO: Overhaul

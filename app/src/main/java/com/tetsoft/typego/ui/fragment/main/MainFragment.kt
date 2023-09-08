@@ -78,9 +78,7 @@ class MainFragment : Fragment() {
             DEFAULT_DICTIONARY_TYPE.name,
             DEFAULT_SCREEN_ORIENTATION.name,
             DEFAULT_SUGGESTIONS_ACTIVATED,
-            0,
-            0,
-            0L
+            ""
         )
         val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
         gameViewModel.gameOnTime = basicGameMode

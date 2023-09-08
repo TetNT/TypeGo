@@ -12,16 +12,16 @@ interface GameResult {
 
     fun getCharsWritten(): Int
 
-    fun areSuggestionsActivated() : Boolean
+    fun areSuggestionsActivated(): Boolean
 
-    fun getScreenOrientation() : ScreenOrientation
+    fun getScreenOrientation(): ScreenOrientation
 
     fun getCompletionDateTime(): Long
 
     interface WithLanguage {
         fun getLanguageCode(): String
 
-        fun getDictionaryType() : DictionaryType
+        fun getDictionaryType(): DictionaryType
     }
 
     interface WithWordsInformation {
@@ -30,6 +30,10 @@ interface GameResult {
         fun getCorrectWords(): Int
 
         fun getIncorrectWords(): Int
+    }
+
+    interface RandomlyGenerated {
+        fun getSeed(): String
     }
 
     interface Classic : GameResult, WithLanguage, WithWordsInformation
@@ -47,8 +51,61 @@ open class GameOnTime(
     private val suggestionsActivated: Boolean,
     private val wordsWritten: Int,
     private val correctWords: Int,
-    private val completionDateTime: Long
-) : GameResult.Classic {
+    private val completionDateTime: Long,
+    private val seed: String?
+) : GameResult.Classic, GameResult.RandomlyGenerated {
+
+    constructor(
+        wpm: Double,
+        cpm: Int,
+        charsWritten: Int,
+        chosenTime: Int,
+        language: String,
+        dictionary: String,
+        screenOrientation: String,
+        suggestionsActivated: Boolean,
+        seed: String
+    ) : this(
+        wpm,
+        cpm,
+        charsWritten,
+        chosenTime,
+        language,
+        dictionary,
+        screenOrientation,
+        suggestionsActivated,
+        0,
+        0,
+        0L,
+        seed
+    )
+
+    constructor(
+        wpm: Double,
+        cpm: Int,
+        charsWritten: Int,
+        chosenTime: Int,
+        language: String,
+        dictionary: String,
+        screenOrientation: String,
+        suggestionsActivated: Boolean,
+        wordsWritten : Int,
+        correctWords : Int,
+        completionDateTime : Long,
+    ) : this(
+        wpm,
+        cpm,
+        charsWritten,
+        chosenTime,
+        language,
+        dictionary,
+        screenOrientation,
+        suggestionsActivated,
+        wordsWritten,
+        correctWords,
+        completionDateTime,
+        ""
+    )
 
     override fun getWpm(): Double {
         return wpm
@@ -98,7 +155,11 @@ open class GameOnTime(
         return wordsWritten - correctWords
     }
 
-    class Empty : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0L)
+    class Empty : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0L, "")
+
+    override fun getSeed(): String {
+        return seed ?: ""
+    }
 }
 
 open class GameOnNumberOfWords(
