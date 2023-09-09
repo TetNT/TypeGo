@@ -12,10 +12,10 @@ class FavoriteLanguageCalculationTest {
     @Test
     fun provide_3english1french_equalsEnglish() {
         val results = ClassicGameModesHistoryList()
-        results.add(GameOnTimeMock("EN"))
-        results.add(GameOnTimeMock("EN"))
-        results.add(GameOnTimeMock("FR"))
-        results.add(GameOnTimeMock("EN"))
+        results.add(MockGameOnTime("EN"))
+        results.add(MockGameOnTime("EN"))
+        results.add(MockGameOnTime("FR"))
+        results.add(MockGameOnTime("EN"))
         val calculation = FavoriteLanguageCalculation(results, LanguageList().getList())
         assertEquals(calculation.provide(), Language("EN"))
     }
@@ -23,9 +23,9 @@ class FavoriteLanguageCalculationTest {
     @Test
     fun provide_2italian1english_equalsItalian() {
         val results = ClassicGameModesHistoryList()
-        results.add(GameOnTimeMock("IT"))
-        results.add(GameOnTimeMock("IT"))
-        results.add(GameOnTimeMock("EN"))
+        results.add(MockGameOnTime("IT"))
+        results.add(MockGameOnTime("IT"))
+        results.add(MockGameOnTime("EN"))
         val calculation = FavoriteLanguageCalculation(results, LanguageList().getList())
         assertEquals(calculation.provide(), Language("IT"))
     }
@@ -37,7 +37,7 @@ class FavoriteLanguageCalculationTest {
         assertEquals(calculation.provide(), Language(""))
     }
 
-    private class GameOnTimeMock(languageCode: String) :
+    private class MockGameOnTime(languageCode: String) :
         GameOnTime(0.0, 0, 0, 0, languageCode, "", "", false, 0, 0, 0L)
 
 }

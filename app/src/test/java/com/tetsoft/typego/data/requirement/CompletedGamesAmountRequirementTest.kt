@@ -12,10 +12,10 @@ class CompletedGamesAmountRequirementTest {
     fun isReached_moreThanRequired_assertTrue() {
         val list = ClassicGameModesHistoryList(
             listOf<GameOnTime>(
-                FakeGameOnTime(),
-                FakeGameOnTime(),
-                FakeGameOnTime(),
-                FakeGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
             ), emptyList()
         )
         assertTrue(GameRequirement.CompletedGamesAmountRequirement(3).isReached(list))
@@ -25,9 +25,9 @@ class CompletedGamesAmountRequirementTest {
     fun isReached_sameAsRequired_assertTrue() {
         val list = ClassicGameModesHistoryList(
             listOf<GameOnTime>(
-                FakeGameOnTime(),
-                FakeGameOnTime(),
-                FakeGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
             ), emptyList()
         )
         assertTrue(GameRequirement.CompletedGamesAmountRequirement(3).isReached(list))
@@ -37,8 +37,8 @@ class CompletedGamesAmountRequirementTest {
     fun isReached_lessThanRequired_assertFalse() {
         val list = ClassicGameModesHistoryList(
             listOf<GameOnTime>(
-                FakeGameOnTime(),
-                FakeGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
             ), emptyList()
         )
         assertFalse(GameRequirement.CompletedGamesAmountRequirement(3).isReached(list))
@@ -48,12 +48,12 @@ class CompletedGamesAmountRequirementTest {
     fun getCurrentProgress_notEmptyList_assertEqualsListSize() {
         val list = ClassicGameModesHistoryList(
             listOf<GameOnTime>(
-                FakeGameOnTime(),
-                FakeGameOnTime(),
+                MockGameOnTime(),
+                MockGameOnTime(),
             ), emptyList()
         )
         assertEquals(GameRequirement.CompletedGamesAmountRequirement(3).getCurrentProgress(list), list.size)
     }
 
-    private class FakeGameOnTime : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0)
+    private class MockGameOnTime : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0)
 }

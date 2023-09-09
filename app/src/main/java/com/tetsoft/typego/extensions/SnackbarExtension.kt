@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.custom
+package com.tetsoft.typego.extensions
 
 import androidx.annotation.ColorRes
 import com.google.android.material.snackbar.Snackbar

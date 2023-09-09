@@ -1,24 +1,23 @@
 package com.tetsoft.typego.ui.fragment.result
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentGameOnTimeResultBinding
+import com.tetsoft.typego.extensions.copyToClipboard
 import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
 import com.tetsoft.typego.ui.fragment.typedwords.TypedWordsViewModel
 import com.tetsoft.typego.ui.visibility.VisibilityMapper
@@ -27,7 +26,7 @@ import com.tetsoft.typego.utils.Translation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class GameOnTimeResultFragment : Fragment() {
+class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>() {
 
     private val viewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
@@ -35,21 +34,11 @@ class GameOnTimeResultFragment : Fragment() {
 
     private var resultSaved = false
 
-    private var _binding: FragmentGameOnTimeResultBinding? = null
-
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentGameOnTimeResultBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    override fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentGameOnTimeResultBinding {
+        return FragmentGameOnTimeResultBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,11 +54,11 @@ class GameOnTimeResultFragment : Fragment() {
     private fun setupButtons() {
         binding.tvCheckLog.setOnClickListener {
             if (viewModel.hasWordsLog() && viewModel.isGameCompleted) {
-                val typedWordsViewModel : TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+                val typedWordsViewModel: TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                 typedWordsViewModel.selectTypedWordsList(viewModel.wordsList)
                 findNavController().navigate(R.id.action_gameOnTimeResultFragment_to_typedWordsFragment)
             } else {
-                Toast.makeText(requireContext(), getString(R.string.typed_words_log_disabled), Toast.LENGTH_SHORT).show()
+                showToast(R.string.typed_words_log_disabled)
             }
         }
 
@@ -96,7 +85,11 @@ class GameOnTimeResultFragment : Fragment() {
                 .setPopExitAnim(R.anim.slide_out_right)
                 .build()
             binding.root.findNavController()
-                .navigate(R.id.action_gameOnTimeResultFragment_to_gameOnTimeFragment, null, navOptions)
+                .navigate(
+                    R.id.action_gameOnTimeResultFragment_to_gameOnTimeFragment,
+                    null,
+                    navOptions
+                )
         }
     }
 
@@ -170,13 +163,11 @@ class GameOnTimeResultFragment : Fragment() {
                     R.string.selected_language_pl,
                     translation.get(viewModel.getLanguage())
                 )
-
             tvSelectedTime.text =
                 getString(
                     R.string.selected_time_pl,
                     translation.get(TimeMode(viewModel.getTimeInSeconds()))
                 )
-
             tvDictionary.text =
                 getString(
                     R.string.dictionary_pl,
@@ -186,7 +177,6 @@ class GameOnTimeResultFragment : Fragment() {
                 getString(R.string.correct_words_pl, viewModel.getCorrectWords())
             tvIncorrectWords.text =
                 getString(R.string.incorrect_words_pl, viewModel.getIncorrectWords())
-
             tvTextSuggestions.text =
                 getString(
                     R.string.text_suggestions_pl,
@@ -197,33 +187,44 @@ class GameOnTimeResultFragment : Fragment() {
                     R.string.screen_orientation_pl,
                     translation.get(viewModel.getScreenOrientation())
                 )
+            tvSeed.text = getString(R.string.seed_pl, viewModel.getSeedOrBlankSign())
+            tvSeed.setOnClickListener {
+                if (!viewModel.seedIsEmpty()) {
+                    showToast(getString(R.string.seed_copy_hint, viewModel.result.getSeed()))
+                } else {
+                    showToast(R.string.seed_not_set)
+                }
+            }
+            tvSeed.setOnLongClickListener {
+                if (!viewModel.seedIsEmpty()) {
+                    showToast(R.string.seed_copied)
+                    requireContext().copyToClipboard("TypeGo seed", viewModel.result.getSeed())
+                    return@setOnLongClickListener true
+                }
+                return@setOnLongClickListener false
+            }
         }
     }
+
     // TODO: Overhaul
     private fun storeResult() {
         if (resultSaved) {
             return
         }
-        if (!viewModel.isGameCompleted
-        /**resultCalledFromHistory()**/
-        ) {
+        if (!viewModel.isGameCompleted) {
             return
         }
         if (viewModel.resultIsValid()) {
             viewModel.saveResult()
             resultSaved = true
             if (viewModel.getEarnedAchievementsCount(AchievementsList.get()) > 0) {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.new_achievements_notification),
-                    Snackbar.LENGTH_LONG
-                )
+                makeSnackbar(getString(R.string.new_achievements_notification))
                     .setAction(R.string.check_profile) {
                         binding.root.findNavController()
                             .navigate(R.id.action_gameOnTimeResultFragment_to_achievementsFragment)
                     }.show()
             }
-        } else Toast.makeText(requireContext(), getString(R.string.msg_results_with_zero_wpm), Toast.LENGTH_SHORT).show()
+        } else showToast(getString(R.string.msg_results_with_zero_wpm))
     }
 
     private fun resultCalledFromHistory(): Boolean {

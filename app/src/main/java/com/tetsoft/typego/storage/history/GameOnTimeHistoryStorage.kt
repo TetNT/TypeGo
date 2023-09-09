@@ -54,11 +54,11 @@ interface GameOnTimeHistoryStorage : HistoryStorage<GameOnTime> {
         private val list = GameOnTimeHistoryList()
 
         init {
-            list.add(GameOnTime(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, 50, 50, Date.valueOf("2023-06-27").time))
-            list.add(GameOnTime(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, 50, 50, Date.valueOf("2023-06-27").time))
-            list.add(GameOnTime(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, 50, 50, Date.valueOf("2023-06-27").time))
-            list.add(GameOnTime(30.0, 200, 150, 15, "EN", "ENHANCED", "LANDSCAPE", false, 50, 50, Date.valueOf("2023-06-28").time))
-            list.add(GameOnTime(30.0, 200, 150, 15, "FR", "ENHANCED", "LANDSCAPE", false, 50, 50, Date.valueOf("2023-06-29").time))
+            list.add(GameOnTime(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, 50, 50, Date.valueOf("2023-06-27").time, ""))
+            list.add(GameOnTime(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, 50, 50, Date.valueOf("2023-06-27").time, ""))
+            list.add(GameOnTime(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, 50, 50, Date.valueOf("2023-06-27").time, ""))
+            list.add(GameOnTime(30.0, 200, 150, 15, "EN", "ENHANCED", "LANDSCAPE", false, 50, 50, Date.valueOf("2023-06-28").time, ""))
+            list.add(GameOnTime(30.0, 200, 150, 15, "FR", "ENHANCED", "LANDSCAPE", false, 50, 50, Date.valueOf("2023-06-29").time, ""))
         }
 
         override fun get(): GameHistoryList<GameOnTime> {

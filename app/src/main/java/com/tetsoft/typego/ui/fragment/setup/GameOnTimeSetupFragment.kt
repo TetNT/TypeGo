@@ -34,6 +34,7 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
         setupButtons()
         setupTimeModeSlider()
         setupLanguageSpinner()
+        binding.etSeed.setText(viewModel.getLastUsedSeed())
         binding.rbDictionaryType.selectIndex(viewModel.getLastUsedDictionaryTypeOrDefault().id)
         binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
         binding.rbScreenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
@@ -52,7 +53,7 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
                 binding.rbDictionaryType.getSelectedValue().name,
                 binding.rbScreenOrientation.getSelectedValue().name,
                 binding.cbPredictiveText.isChecked,
-                0,0,0L
+                binding.etSeed.text.toString()
             )
             val gameViewModel: GameOnTimeViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             gameViewModel.gameOnTime = gameOnTime

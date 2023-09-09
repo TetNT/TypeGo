@@ -10,10 +10,10 @@ class TimeSpentCalculationTest {
     @Test
     fun provide_differentResults_equals11() {
         val results = ClassicGameModesHistoryList(listOf(
-            GameOnTimeMock( 600),
-            GameOnTimeMock( 60),
-            GameOnTimeMock( 15),
-            GameOnTimeMock( 30),
+            MockGameOnTime( 600),
+            MockGameOnTime( 60),
+            MockGameOnTime( 15),
+            MockGameOnTime( 30),
         ), emptyList())
         val calculation = TimeSpentCalculation(results)
         assertEquals(calculation.provide(), 11)
@@ -22,8 +22,8 @@ class TimeSpentCalculationTest {
     @Test
     fun provide_differentResults_equals0() {
         val results = ClassicGameModesHistoryList(listOf(
-            GameOnTimeMock( 15),
-            GameOnTimeMock( 30),
+            MockGameOnTime( 15),
+            MockGameOnTime( 30),
         ), emptyList())
         val calculation = TimeSpentCalculation(results)
         assertEquals(calculation.provide(), 0)
@@ -36,7 +36,7 @@ class TimeSpentCalculationTest {
         assertEquals(calculation.provide(), 0)
     }
 
-    private class GameOnTimeMock(timeSpent: Int) :
+    private class MockGameOnTime(timeSpent: Int) :
         GameOnTime(0.0, 0, 0, timeSpent, "", "", "", false, 0, 0, 0L)
 
 }

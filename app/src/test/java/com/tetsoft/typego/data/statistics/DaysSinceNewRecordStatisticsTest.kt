@@ -25,7 +25,7 @@ class DaysSinceNewRecordStatisticsTest {
 
     @Test
     fun visibility_completionDateIsEmpty_equalsGone() {
-        val result = FakeGameOnTime(0)
+        val result = MockGameOnTime(0)
         val visibility =
             DaysSinceNewRecordStatistics(
                 DaysSinceNewRecordCalculation(
@@ -39,7 +39,7 @@ class DaysSinceNewRecordStatisticsTest {
     @Test
     fun visibility_completionTimeNotEmptyNotSameDay_equalsVisible() {
         calendar.set(2022, 10, 5)
-        val result = FakeGameOnTime(calendar.timeInMillis)
+        val result = MockGameOnTime(calendar.timeInMillis)
         calendar.set(2022, 10, 9)
         val visibility =
             DaysSinceNewRecordStatistics(
@@ -54,7 +54,7 @@ class DaysSinceNewRecordStatisticsTest {
     @Test
     fun visibility_completionTimeNotEmptySameDay_equalsGone() {
         calendar.set(2022, 10, 5)
-        val result = FakeGameOnTime(calendar.timeInMillis)
+        val result = MockGameOnTime(calendar.timeInMillis)
         val visibility =
             DaysSinceNewRecordStatistics(
                 DaysSinceNewRecordCalculation(
@@ -65,6 +65,6 @@ class DaysSinceNewRecordStatisticsTest {
         assertEquals(VisibilityProvider.Gone().get(), visibility.get())
     }
 
-    private class FakeGameOnTime(completionDateTime: Long) :
+    private class MockGameOnTime(completionDateTime: Long) :
         GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, completionDateTime)
 }

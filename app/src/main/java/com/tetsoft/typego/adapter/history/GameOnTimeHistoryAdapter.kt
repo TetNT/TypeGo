@@ -1,22 +1,18 @@
 package com.tetsoft.typego.adapter.history
 
 import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.ColorRes
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.history.GameHistoryList
 import com.tetsoft.typego.game.GameOnTime
-import com.tetsoft.typego.ui.custom.setDrawableTint
+import com.tetsoft.typego.extensions.setDrawableTint
 import com.tetsoft.typego.utils.TimeConvert
 import com.tetsoft.typego.utils.Translation
 import java.text.DateFormat
@@ -38,10 +34,11 @@ class GameOnTimeHistoryAdapter(
         val itemDictionary: TextView
         val itemSuggestions: TextView
         val itemOrientation: TextView
+        val itemSeed: TextView
         val completionTime: TextView
 
         override fun onClick(v: View) {
-            listener.onClick(v, adapterPosition)
+            listener.onClick(v, bindingAdapterPosition)
         }
 
         init {
@@ -51,6 +48,7 @@ class GameOnTimeHistoryAdapter(
             itemDictionary = itemView.findViewById(R.id.history_attribute_dictionary)
             itemSuggestions = itemView.findViewById(R.id.history_attribute_suggestions)
             itemOrientation = itemView.findViewById(R.id.history_attribute_orientation)
+            itemSeed = itemView.findViewById(R.id.history_attribute_seed)
             completionTime = itemView.findViewById(R.id.completion_time)
             itemView.setOnClickListener(this)
         }
@@ -80,15 +78,23 @@ class GameOnTimeHistoryAdapter(
                 SimpleDateFormat.SHORT
             )
             holder.completionTime.text = dateFormat.format(completionTime)
+            // TODO: make stuff below a separate class and test it
             if (results[position].getScreenOrientation() == ScreenOrientation.PORTRAIT) {
                 itemOrientation.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(context, R.drawable.ic_portrait), null, null, null)
             } else {
                 itemOrientation.setCompoundDrawablesRelativeWithIntrinsicBounds(AppCompatResources.getDrawable(context, R.drawable.ic_landscape), null, null, null)
             }
-            if (results[position].areSuggestionsActivated())
+            if (results[position].areSuggestionsActivated()) {
                 itemSuggestions.setDrawableTint(R.color.white)
-            else
+            }
+            else {
                 itemSuggestions.setDrawableTint(R.color.bg_lighter_gray)
+            }
+            if(results[position].getSeed().isNotEmpty()) {
+                itemSeed.setDrawableTint(R.color.white)
+            } else {
+                itemSeed.setDrawableTint(R.color.bg_lighter_gray)
+            }
         }
     }
 

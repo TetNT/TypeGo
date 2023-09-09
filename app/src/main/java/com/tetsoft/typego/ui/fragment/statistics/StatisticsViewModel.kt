@@ -95,6 +95,15 @@ class StatisticsViewModel @Inject constructor(
             )
         )
 
+    fun getProgressionStatistics() : Int {
+        return ProgressionStatistics(
+            ProgressionCalculation(
+                averagePastWpmStatistics.provide(),
+                averageCurrentWpmStatistics.provide()
+            )
+        ).provide()
+    }
+
     val totalWordsWrittenStatistics
         get() = TotalWordsWrittenStatistics(
             TotalWordsWrittenCalculation(classicGameModesHistoryList)

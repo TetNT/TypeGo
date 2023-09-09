@@ -29,11 +29,13 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             viewModel.toggleStatisticsCard(statsCardTimeSpent, viewModel.timeSpentStatistics)
             viewModel.toggleStatisticsCard(statsCardPreferences, viewModel.favoriteLanguageStatistics)
             viewModel.toggleStatisticsCard(statsCardAchievement, viewModel.doneAchievementsCountStatistics)
-            progression.text = getString(R.string.stats_progression_pl, viewModel.progressionStatistics.provide())
+            // Workaround for the formatting of the percent sign (%)
+            progression.text = getString(R.string.stats_progression_pl, viewModel.progressionStatistics.provide()).replace("(p)", "%")
             pastWpm.text = getString(R.string.average_wpm_pl, viewModel.averagePastWpmStatistics.provide())
             currentWpm.text = getString(R.string.average_wpm_pl, viewModel.averageCurrentWpmStatistics.provide())
             tvWordsWritten.text = getString(R.string.stats_words_written_total_pl, viewModel.totalWordsWrittenStatistics.provide())
-            tvAccuracy.text = getString(R.string.stats_accuracy_pl, viewModel.accuracyStatistics.provide())
+            // Workaround for the formatting of the percent sign (%)
+            tvAccuracy.text = getString(R.string.stats_accuracy_pl, viewModel.accuracyStatistics.provide()).replace("(p)", "%")
             tvAccuracy.setTextColor(viewModel.getAccuracyTextColor())
             tvStatsBestResult.text = getString(R.string.stats_best_result, viewModel.bestResultStatistics.provide())
             tvStatsRecordSetTime.text = getString(R.string.stats_best_result_set_time, viewModel.daysSinceNewRecordStatistics.provide())
@@ -100,10 +102,11 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
     private fun applyCountProgression(animator: ValueAnimator, view: TextView) {
         animator.addUpdateListener { animation: ValueAnimator ->
             if (context == null) return@addUpdateListener
+            // Workaround for the formatting of the percent sign (%)
             view.text = getString(
                 R.string.stats_progression_pl,
                 animation.animatedValue as Int
-            )
+            ).replace("(p)", "%")
         }
     }
 

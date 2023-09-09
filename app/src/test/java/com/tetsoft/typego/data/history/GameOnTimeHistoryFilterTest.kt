@@ -11,11 +11,11 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun byLanguage_filterEnglish_assertEquals3() {
         val list = GameOnTimeHistoryList(listOf(
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("FR"),
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("FR")
+            MockGameOnTime("EN"),
+            MockGameOnTime("EN"),
+            MockGameOnTime("FR"),
+            MockGameOnTime("EN"),
+            MockGameOnTime("FR")
         ))
         val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("EN")).getList()
         assertEquals(filtered.size, 3)
@@ -24,11 +24,11 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun byLanguage_filterItemNotInList_assertEquals0() {
         val list = GameOnTimeHistoryList(listOf(
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("FR"),
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("FR")
+            MockGameOnTime("EN"),
+            MockGameOnTime("EN"),
+            MockGameOnTime("FR"),
+            MockGameOnTime("EN"),
+            MockGameOnTime("FR")
         ))
         val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("UA")).getList()
         assertEquals(filtered.size, 0)
@@ -44,9 +44,9 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun inDescendingOrder_populatedList_assertOrderedProperly() {
         val list = GameOnTimeHistoryList(listOf(
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("FR"),
-            GameOnTimeMock("ES")
+            MockGameOnTime("EN"),
+            MockGameOnTime("FR"),
+            MockGameOnTime("ES")
         ))
         val descending = GameOnTimeHistoryFilter(list).inDescendingOrder().getList()
         assertEquals(descending[0].getLanguageCode(), "ES")
@@ -57,13 +57,13 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun get() {
         val list = GameOnTimeHistoryList(listOf(
-            GameOnTimeMock("EN"),
-            GameOnTimeMock("FR"),
-            GameOnTimeMock("ES")
+            MockGameOnTime("EN"),
+            MockGameOnTime("FR"),
+            MockGameOnTime("ES")
         ))
         val filter = GameOnTimeHistoryFilter(list).getList()
         assertTrue(list == filter)
     }
 
-    private class GameOnTimeMock(language: String) : GameOnTime(0.0, 0, 0, 0, language, "", "", false, 0, 0, 0L)
+    private class MockGameOnTime(language: String) : GameOnTime(0.0, 0, 0, 0, language, "", "", false, 0, 0, 0L)
 }
