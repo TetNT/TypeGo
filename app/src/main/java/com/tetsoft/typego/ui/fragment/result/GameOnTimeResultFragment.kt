@@ -191,8 +191,9 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
             tvSeed.setOnClickListener {
                 if (!viewModel.seedIsEmpty()) {
                     showToast(getString(R.string.seed_copy_hint, viewModel.result.getSeed()))
+                } else {
+                    showToast(R.string.seed_not_set)
                 }
-                showToast(R.string.seed_not_set)
             }
             tvSeed.setOnLongClickListener {
                 if (!viewModel.seedIsEmpty()) {

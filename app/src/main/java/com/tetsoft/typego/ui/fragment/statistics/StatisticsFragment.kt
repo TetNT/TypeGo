@@ -105,7 +105,7 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             view.text = getString(
                 R.string.stats_progression_pl,
                 animation.animatedValue as Int
-            )
+            ).replace("(p)", "%")
         }
     }
 
