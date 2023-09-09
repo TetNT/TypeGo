@@ -102,6 +102,7 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
     private fun applyCountProgression(animator: ValueAnimator, view: TextView) {
         animator.addUpdateListener { animation: ValueAnimator ->
             if (context == null) return@addUpdateListener
+            // Workaround for the formatting of the percent sign (%)
             view.text = getString(
                 R.string.stats_progression_pl,
                 animation.animatedValue as Int
