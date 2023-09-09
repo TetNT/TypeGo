@@ -249,6 +249,7 @@
                         android:hint="@string/seed_hint"
                         android:maxLength="40"
                         android:importantForAutofill="no"
+                        android:inputType="text"
                         android:paddingStart="8dp"/>
 
                     <TextView

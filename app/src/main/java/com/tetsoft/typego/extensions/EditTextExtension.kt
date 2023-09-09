@@ -1,4 +1,4 @@
-package com.tetsoft.typego.ui.custom
+package com.tetsoft.typego.extensions
 
 import android.text.Editable
 import android.text.TextWatcher

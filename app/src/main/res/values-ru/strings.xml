@@ -145,4 +145,7 @@
     <string name="seed_pl">Сид: %1$s</string>
     <string name="seed_hint">Любое значение</string>
     <string name="seed_description">Этот параметр позволяет получать один и тот же набор слов. Оставь пустым для случайной генерации.</string>
+    <string name="seed_copy_hint">Сид: %1$s\nУдерживайте чтобы скопировать.</string>
+    <string name="seed_copied">Сид был скопирован.</string>
+    <string name="seed_not_set">Сид не установлен.</string>
 </resources>

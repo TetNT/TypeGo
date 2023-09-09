@@ -17,7 +17,7 @@ import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding
-import com.tetsoft.typego.ui.custom.withColor
+import com.tetsoft.typego.extensions.withColor
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
 
 class MainFragment : Fragment() {

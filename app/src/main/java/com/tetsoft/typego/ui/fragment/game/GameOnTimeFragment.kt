@@ -31,7 +31,7 @@ import com.tetsoft.typego.data.textsource.TextSource
 import com.tetsoft.typego.databinding.FragmentGameOnTimeBinding
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.ui.custom.SpannableEditText
-import com.tetsoft.typego.ui.custom.addAfterTextChangedListener
+import com.tetsoft.typego.extensions.addAfterTextChangedListener
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
 import com.tetsoft.typego.utils.TimeConvert

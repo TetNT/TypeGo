@@ -232,7 +232,11 @@
                             android:ellipsize="end"
                             android:layout_marginTop="10dp"
                             android:text="@string/seed"
-                            app:drawableStartCompat="@drawable/ic_key"/>
+                            android:maxLines="1"
+                            app:drawableStartCompat="@drawable/ic_key"
+                            android:hapticFeedbackEnabled="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>

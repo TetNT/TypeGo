@@ -157,4 +157,7 @@
     <string name="seed_pl">Seed: %1$s</string>
     <string name="seed_hint">Any value</string>
     <string name="seed_description">This setting enables you to have the same order of generated words. Leave blank to have a random generation.</string>
+    <string name="seed_copy_hint">Seed: %1$s\nLong press to copy.</string>
+    <string name="seed_copied">The seed has been copied.</string>
+    <string name="seed_not_set">Seed is not set.</string>
 </resources>
