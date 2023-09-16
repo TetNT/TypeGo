@@ -29,13 +29,28 @@ class NoMistakesInARowRequirementTest {
     }
 
     @Test
-    fun isReached_listContainsIncorrectWords_assertFalse() {
+    fun isReached_listContainsIncorrectWordsButRequirementIsMet_assertTrue() {
         val list = ClassicGameModesHistoryList()
         list.add(MockGameOnNumberOfWords(0))
         list.add(MockGameOnNumberOfWords(0))
         list.add(MockGameOnNumberOfWords(0))
         list.add(MockGameOnNumberOfWords(3))
-        assertFalse(GameRequirement.NoMistakesInARowRequirement(3).isReached(list))
+        list.add(MockGameOnNumberOfWords(0))
+        assertTrue(GameRequirement.NoMistakesInARowRequirement(3).isReached(list))
+    }
+
+    @Test
+    fun isReached_listContainsIncorrectWords_assertTrue() {
+        val list = ClassicGameModesHistoryList()
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(2))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(2))
+        assertTrue(GameRequirement.NoMistakesInARowRequirement(5).isReached(list))
     }
 
     @Test
@@ -53,8 +68,35 @@ class NoMistakesInARowRequirementTest {
     }
 
     @Test
-    fun getCurrentProgress_listSizeMoreThanRequiredNoIncorrectWords_assert3() {
-        // To be done after the method fix
+    fun getCurrentProgress_listSizeMoreThanRequiredNoIncorrectWords_assert4() {
+        val list = ClassicGameModesHistoryList()
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        assertEquals(GameRequirement.NoMistakesInARowRequirement(3).getCurrentProgress(list), 4)
+    }
+
+    @Test
+    fun getCurrentProgress_listSizeLessThanRequiredNoIncorrectWords_assert2() {
+        val list = ClassicGameModesHistoryList()
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        assertEquals(GameRequirement.NoMistakesInARowRequirement(3).getCurrentProgress(list), 2)
+    }
+
+    @Test
+    fun getCurrentProgress_listContainsIncorrectWords_assert5() {
+        val list = ClassicGameModesHistoryList()
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(2))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(0))
+        list.add(MockGameOnNumberOfWords(2))
+        assertEquals(GameRequirement.NoMistakesInARowRequirement(3).getCurrentProgress(list), 5)
     }
 
     private class MockGameOnNumberOfWords(private val incorrectWords: Int) :
