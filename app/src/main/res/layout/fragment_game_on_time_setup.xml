@@ -10,7 +10,7 @@
         android:id="@+id/custom_test_action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_dark_gray"
+        android:background="@color/background_main"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -250,7 +250,8 @@
                         android:maxLength="40"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:paddingStart="8dp"/>
+                        android:paddingStart="8dp"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:layout_width="wrap_content"

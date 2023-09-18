@@ -94,7 +94,7 @@
                     android:layout_marginBottom="8dp"
                     android:text=""
                     app:drawableStartCompat="@drawable/ic_info"
-                    app:drawableTint="@color/bg_lighter_gray" />
+                    app:drawableTint="@color/background_variant" />
 
                 <TextView
                     android:id="@+id/history_attribute_seed"
@@ -106,7 +106,7 @@
                     android:layout_marginBottom="8dp"
                     android:text=""
                     app:drawableStartCompat="@drawable/ic_key"
-                    app:drawableTint="@color/bg_lighter_gray" />
+                    app:drawableTint="@color/background_variant" />
 
             </com.google.android.flexbox.FlexboxLayout>
 
