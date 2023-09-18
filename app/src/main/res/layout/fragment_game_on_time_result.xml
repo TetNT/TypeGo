@@ -78,8 +78,7 @@
                     style="@style/basic_cardview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="16dp">
+                    android:layout_marginBottom="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -172,8 +171,7 @@
                 <androidx.cardview.widget.CardView
                     style="@style/basic_cardview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -292,7 +290,6 @@
         android:id="@+id/action_buttons_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_dark_gray"
         android:paddingVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent">
 

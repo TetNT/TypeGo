@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.history.GameHistoryList
 import com.tetsoft.typego.game.GameOnTime
@@ -23,8 +22,12 @@ import kotlin.math.roundToInt
 class GameOnTimeHistoryAdapter(
     private val context: Context,
     private var results: GameHistoryList<GameOnTime>,
-    private val listener: GamesHistoryAdapter.RecyclerViewOnClickListener
+    private val listener: RecyclerViewOnClickListener
 ) : RecyclerView.Adapter<GameOnTimeHistoryAdapter.ViewHolder>() {
+
+    interface RecyclerViewOnClickListener {
+        fun onClick(v: View?, position: Int)
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -88,12 +91,12 @@ class GameOnTimeHistoryAdapter(
                 itemSuggestions.setDrawableTint(R.color.white)
             }
             else {
-                itemSuggestions.setDrawableTint(R.color.bg_lighter_gray)
+                itemSuggestions.setDrawableTint(R.color.background_variant)
             }
             if(results[position].getSeed().isNotEmpty()) {
                 itemSeed.setDrawableTint(R.color.white)
             } else {
-                itemSeed.setDrawableTint(R.color.bg_lighter_gray)
+                itemSeed.setDrawableTint(R.color.background_variant)
             }
         }
     }

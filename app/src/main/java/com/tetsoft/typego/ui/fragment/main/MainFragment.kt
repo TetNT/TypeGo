@@ -91,7 +91,7 @@ class MainFragment : Fragment() {
             gameViewModel.gameOnTime = viewModel.getMostRecentGameSettings()
             binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
         } else Snackbar.make(binding.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
-            .withColor(R.color.main_green, R.color.bg_dark_gray)
+            .withColor(R.color.main_green, R.color.cardview_main_color)
             .show()
     }
 

@@ -10,7 +10,6 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
-import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.adapter.history.GameOnTimeHistoryAdapter
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
@@ -39,7 +38,7 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
             binding.testsPassedCounter.text = "-"
             val selectedLanguage = binding.spinnerResultsLanguageSelection.getSelectedLanguage()
             val resultsByLanguage = viewModel.getOnTimeHistory(selectedLanguage)
-            val listener = object : GamesHistoryAdapter.RecyclerViewOnClickListener {
+            val listener = object : GameOnTimeHistoryAdapter.RecyclerViewOnClickListener {
                 override fun onClick(v: View?, position: Int) {
                     val resultViewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                     resultViewModel.result = resultsByLanguage[position]
