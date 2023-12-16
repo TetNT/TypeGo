@@ -1,8 +1,8 @@
 package com.tetsoft.typego.adapter.achievements
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +46,8 @@ class AchievementsAdapter(
         fun bind(
             dataItem: AchievementDataItem
         ) {
-            tvCompletionDate.visibility = VisibilityMapper.VisibleInvisible(dataItem.completionTime != 0L).get()
+            tvCompletionDate.visibility =
+                VisibilityMapper.VisibleInvisible(dataItem.completionTime != 0L).get()
             tvProgressDescription.visibility =
                 VisibilityMapper.FromBoolean(dataItem.achievement.withProgressBar()).get()
             progressBarAchievement.visibility =
@@ -58,10 +59,17 @@ class AchievementsAdapter(
             progressBarAchievement.max = dataItem.requiredAmount
             progressBarAchievement.progress = dataItem.calculatedProgress
             tvProgressDescription.text =
-                context.getString(R.string.achievement_progress, dataItem.calculatedProgress, dataItem.requiredAmount)
+                context.getString(
+                    R.string.achievement_progress,
+                    dataItem.calculatedProgress,
+                    dataItem.requiredAmount
+                )
+            val colorMatrix = ColorMatrix()
             if (dataItem.completionTime == 0L) {
-                imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
-            }
+                colorMatrix.setSaturation(0f)
+            } else
+                colorMatrix.setSaturation(1f)
+            imgAchievement.colorFilter = ColorMatrixColorFilter(colorMatrix)
         }
 
     }
@@ -86,7 +94,7 @@ class AchievementsAdapter(
         return achievements.size
     }
 
-    private fun getAchievementDataItem(currAchievement : Achievement) : AchievementDataItem {
+    private fun getAchievementDataItem(currAchievement: Achievement): AchievementDataItem {
         val completionTime =
             achievementsProgressList[currAchievement.getId()].completionDateTimeLong
         var calculatedProgress = 0
@@ -105,7 +113,12 @@ class AchievementsAdapter(
             }
             requiredAmount = requirement.provideRequiredAmount()
         }
-        return AchievementDataItem(currAchievement, calculatedProgress, completionTime, requiredAmount)
+        return AchievementDataItem(
+            currAchievement,
+            calculatedProgress,
+            completionTime,
+            requiredAmount
+        )
     }
 }
 

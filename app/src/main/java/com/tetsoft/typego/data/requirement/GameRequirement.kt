@@ -2,7 +2,7 @@ package com.tetsoft.typego.data.requirement
 
 import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.data.language.LanguageList
+import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.GameOnTime
 import kotlin.math.roundToInt
 
@@ -116,7 +116,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
 
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             var entries = 0
-            for (language in LanguageList().getList()) {
+            for (language in Language.LANGUAGE_LIST) {
                 if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier).isNotEmpty())
                     entries = entries.inc()
             }
@@ -126,7 +126,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             var entries = 0
             if (list.size < uniqueLanguageEntries) return false
-            for (language in LanguageList().getList()) {
+            for (language in Language.LANGUAGE_LIST) {
                 if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier)
                         .isNotEmpty()
                 )

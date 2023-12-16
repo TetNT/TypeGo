@@ -5,7 +5,6 @@ import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
@@ -59,7 +58,7 @@ class GameOnTimeSetupViewModel @Inject constructor(private val gameOnTimeHistory
     }
 
     private companion object {
-        val DEFAULT_LANGUAGE = Language(LanguageList.EN)
+        val DEFAULT_LANGUAGE = Language(Language.EN)
         val DEFAULT_TIME_MODE = TimeMode(60)
         val DEFAULT_DICTIONARY = DictionaryType.BASIC
         val DEFAULT_SCREEN_ORIENTATION = ScreenOrientation.PORTRAIT

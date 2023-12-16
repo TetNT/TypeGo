@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.history.GameOnTimeHistoryAdapter
+import com.tetsoft.typego.adapter.language.LanguageFlagMapper
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
@@ -68,12 +69,12 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
     }
 
     private fun initLanguageSpinner() {
-        val languages = LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+        val languages = LanguageList().getLocalized(requireContext())
         // an option to show the whole history
         val spinnerItem = LanguageSpinnerItem(
             Language(Language.ALL),
             requireContext().getString(R.string.ALL),
-            R.drawable.ic_language
+            LanguageFlagMapper().get(Language(Language.ALL))
         )
         languages.add(0, spinnerItem)
         val spinnerAdapter = LanguageSpinnerAdapter(requireContext(), languages)

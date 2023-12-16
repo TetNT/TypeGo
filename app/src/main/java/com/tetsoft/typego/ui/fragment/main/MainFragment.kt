@@ -47,7 +47,6 @@ class MainFragment : Fragment() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
-        viewModel.migrateFromOldResultsToNew()
     }
 
     private fun setupButtonsOnClickListeners() {
@@ -98,7 +97,7 @@ class MainFragment : Fragment() {
     private fun setupLanguageSpinner() {
         val spinnerAdapter = LanguageSpinnerAdapter(
             requireContext(),
-            LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+            LanguageList().getLocalized(requireContext())
         )
         binding.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
         val lastLanguage = viewModel.getLastUsedLanguageOrDefault()

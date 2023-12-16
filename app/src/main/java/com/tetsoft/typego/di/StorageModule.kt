@@ -2,7 +2,6 @@ package com.tetsoft.typego.di
 
 import android.content.Context
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.Module
@@ -15,12 +14,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class StorageModule {
-
-    @Provides
-    @Singleton
-    fun provideGameResultListStorage(@ApplicationContext context: Context): GameResultListStorage {
-        return GameResultListStorage(context)
-    }
 
     @Provides
     @Singleton

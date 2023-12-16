@@ -67,7 +67,7 @@ interface Achievement {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_times_played
+            return R.drawable.ic_achievement_bigfan
         }
 
         override fun withProgressBar(): Boolean {
@@ -82,7 +82,7 @@ interface Achievement {
     abstract class SharpEye(id: Int, private val requiredTimeInSeconds: Int, private val stage: String) : Base(id) {
 
         override fun getName(context: Context): String {
-            return context.getString(R.string.unmistakable, stage)
+            return context.getString(R.string.sharp_eye, stage)
         }
 
         override fun withProgressBar(): Boolean {
@@ -94,7 +94,7 @@ interface Achievement {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_unmistakable
+            return R.drawable.ic_achievement_sharpeye
         }
     }
 
