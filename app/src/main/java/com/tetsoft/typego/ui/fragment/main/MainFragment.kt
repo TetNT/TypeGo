@@ -17,7 +17,7 @@ import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding
-import com.tetsoft.typego.ui.custom.withColor
+import com.tetsoft.typego.extensions.withColor
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
 
 class MainFragment : Fragment() {
@@ -47,7 +47,6 @@ class MainFragment : Fragment() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
-        viewModel.migrateFromOldResultsToNew()
     }
 
     private fun setupButtonsOnClickListeners() {
@@ -78,9 +77,7 @@ class MainFragment : Fragment() {
             DEFAULT_DICTIONARY_TYPE.name,
             DEFAULT_SCREEN_ORIENTATION.name,
             DEFAULT_SUGGESTIONS_ACTIVATED,
-            0,
-            0,
-            0L
+            ""
         )
         val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
         gameViewModel.gameOnTime = basicGameMode
@@ -93,14 +90,14 @@ class MainFragment : Fragment() {
             gameViewModel.gameOnTime = viewModel.getMostRecentGameSettings()
             binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
         } else Snackbar.make(binding.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
-            .withColor(R.color.main_green, R.color.bg_dark_gray)
+            .withColor(R.color.main_green, R.color.cardview_main_color)
             .show()
     }
 
     private fun setupLanguageSpinner() {
         val spinnerAdapter = LanguageSpinnerAdapter(
             requireContext(),
-            LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+            LanguageList().getLocalized(requireContext())
         )
         binding.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
         val lastLanguage = viewModel.getLastUsedLanguageOrDefault()

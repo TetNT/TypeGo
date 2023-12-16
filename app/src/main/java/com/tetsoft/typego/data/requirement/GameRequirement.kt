@@ -2,7 +2,7 @@ package com.tetsoft.typego.data.requirement
 
 import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.data.language.LanguageList
+import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.GameOnTime
 import kotlin.math.roundToInt
 
@@ -19,7 +19,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         abstract fun getCurrentProgress(list: ClassicGameModesHistoryList): Int
     }
 
-    class WpmRequirement(requiredAmount: Int) : GameRequirement.WithProgress(requiredAmount) {
+    class WpmRequirement(requiredAmount: Int) : WithProgress(requiredAmount) {
 
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             if (list.isEmpty()) return 0
@@ -34,7 +34,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
     }
 
     class CompletedGamesAmountRequirement(requiredAmount: Int) :
-        GameRequirement.WithProgress(requiredAmount) {
+        WithProgress(requiredAmount) {
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             return list.size
         }
@@ -63,36 +63,60 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
     }
 
     class NoMistakesInARowRequirement(private val inARow: Int) :
-        GameRequirement.WithProgress(inARow) {
+        WithProgress(inARow) {
 
-        @Deprecated("This should check first if we completed the achievement. \n" +
-                "         If yes, return inARow value instead of calculating again.\n" +
-                "         Do not use until fixed")
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
-            if (list.isEmpty() || list.size < inARow) return 0
-            var progress = 0
-            for (i in 1..inARow) {
-                if (list[list.size - i].getIncorrectWords() != 0) progress = progress.inc()
+            if (list.isEmpty()) return 0
+            var maxProgress = 0
+            var i = 0
+            while(i < list.size - 1) {
+                if (list[i].getIncorrectWords() == 0) {
+                    var progress = 1
+                    var j = i + 1
+                    while(j < list.size && list[j].getIncorrectWords() == 0) {
+                        progress += 1
+                        j += 1
+                    }
+                    if (progress > maxProgress) {
+                        maxProgress = progress
+                    }
+                }
+                i += 1
             }
-            return progress
+            return maxProgress
         }
 
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
-            if (list.isEmpty() || list.size < inARow) return false
-            for (i in 1..inARow) {
-                val currElem = list[list.size - i]
-                if (currElem.getIncorrectWords() != 0) return false
+            if (list.isEmpty()) return false
+            var maxProgress = 0
+            var i = 0
+            while(i < list.size - 1) {
+                if (list[i].getIncorrectWords() == 0) {
+                    var progress = 1
+                    var j = i + 1
+                    while(j < list.size && list[j].getIncorrectWords() == 0) {
+                        progress += 1
+                        j += 1
+                    }
+                    if (progress > maxProgress) {
+                        maxProgress = progress
+                    }
+                    if (maxProgress >= inARow) {
+                        return true
+                    }
+                }
+                i += 1
             }
-            return true
+            return false
         }
     }
 
     class DifferentLanguagesRequirement(private val uniqueLanguageEntries: Int) :
-        GameRequirement.WithProgress(uniqueLanguageEntries) {
+        WithProgress(uniqueLanguageEntries) {
 
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             var entries = 0
-            for (language in LanguageList().getList()) {
+            for (language in Language.LANGUAGE_LIST) {
                 if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier).isNotEmpty())
                     entries = entries.inc()
             }
@@ -102,7 +126,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             var entries = 0
             if (list.size < uniqueLanguageEntries) return false
-            for (language in LanguageList().getList()) {
+            for (language in Language.LANGUAGE_LIST) {
                 if (ClassicGameHistoryDataSelector(list).getResultsByLanguage(language.identifier)
                         .isNotEmpty()
                 )

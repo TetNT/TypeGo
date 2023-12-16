@@ -3,7 +3,7 @@
     <!--  Achievements names  -->
     <string name="the_first_step">The first step</string>
     <string name="typewriter">Typewriter</string>
-    <string name="unmistakable">Unmistakable %1$s</string>
+    <string name="sharp_eye">Sharp eye %1$s</string>
     <string name="big_fan">Big fan %1$s</string>
     <string name="beginner">Beginner</string>
     <string name="promising">Promising</string>
@@ -16,14 +16,14 @@
     <!-- Achievements descriptions -->
     <string name="the_first_step_desc">Complete your first test</string>
     <string name="typewriter_wpm">Reach at least %1$d WPM</string>
-    <string name="unmistakable_desc_with_seconds">Complete a %1$d second test with no mistakes and at least %2$d WPM</string>
-    <string name="unmistakable_desc_with_minutes">Complete a %1$d minute test with no mistakes and at least %2$d WPM</string>
+    <string name="sharp_eye_desc_with_seconds">Complete a %1$d second test with no mistakes and at least %2$d WPM</string>
+    <string name="sharp_eye_desc_with_minutes">Complete a %1$d minute test with no mistakes and at least %2$d WPM</string>
     <string name="big_fan_desc">Pass %1$d tests in total</string>
     <string name="polyglot_desc">Complete tests in %1$d different languages.</string>
 
     <!--  Additional strings  -->
     <string name="achievement_progress" translatable="false">%1$d / %2$d</string>
-    <string name="new_achievements_notification">You got new achievements!</string>
+    <string name="new_achievements_notification">You\'ve got new achievements!</string>
     <string name="check_profile">Check profile</string>
     <string name="achievement_image_content_description">Achievement image</string>
 

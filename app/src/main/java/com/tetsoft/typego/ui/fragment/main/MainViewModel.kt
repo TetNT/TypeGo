@@ -1,27 +1,16 @@
 package com.tetsoft.typego.ui.fragment.main
 
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.OldResultsToNewMigration
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.language.LanguageList
-import com.tetsoft.typego.storage.GameResultListStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val gameResultListStorage: GameResultListStorage,
     private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage
 ) : ViewModel() {
-
-    fun migrateFromOldResultsToNew() {
-        val gameResults = gameResultListStorage.get()
-        if (gameResults.isNotEmpty() && gameOnTimeHistoryStorage.get().isEmpty()) {
-            gameOnTimeHistoryStorage.store(OldResultsToNewMigration(gameResults).getNewResultsList())
-        }
-    }
 
     fun userHasPreviousGames() = gameOnTimeHistoryStorage.get().isNotEmpty()
 
@@ -34,6 +23,6 @@ class MainViewModel @Inject constructor(
     }
 
     companion object {
-        val DEFAULT_LANGUAGE = Language(LanguageList.EN)
+        val DEFAULT_LANGUAGE = Language(Language.EN)
     }
 }

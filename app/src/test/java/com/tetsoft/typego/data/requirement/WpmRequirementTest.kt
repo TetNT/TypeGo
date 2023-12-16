@@ -79,6 +79,5 @@ class WpmRequirementTest {
     }
 
     private class Result(wpm: Double) :
-        GameOnNumberOfWords(wpm, 0, 0, 0, 0, "", "", "", false, 0, 0, 0L) {
-    }
+        GameOnNumberOfWords(wpm, 0, 0, 0, 0, "", "", "", false, 0, 0, 0L)
 }

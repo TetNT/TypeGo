@@ -11,15 +11,15 @@ class ClassicGameModesHistoryListTest {
     fun init_twoLists_assertMergedProperly() {
         val gameOnTimeList = GameOnTimeHistoryList(
             listOf(
-                GameOnTimeMock(100L),
-                GameOnTimeMock(400L),
-                GameOnTimeMock(150L),
+                MockGameOnTime(100L),
+                MockGameOnTime(400L),
+                MockGameOnTime(150L),
             )
         )
         val gameOnNumberOfWordsList = GameOnNumberOfWordsHistoryList(
             listOf(
-                GameOnNumberOfWordsMock(200L),
-                GameOnNumberOfWordsMock(500L)
+                MockGameOnNumberOfWords(200L),
+                MockGameOnNumberOfWords(500L)
             )
         )
 
@@ -31,9 +31,9 @@ class ClassicGameModesHistoryListTest {
         assertEquals(combined[4].getCompletionDateTime(), 500L)
     }
 
-    private class GameOnTimeMock(dateTime: Long) :
+    private class MockGameOnTime(dateTime: Long) :
         GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, dateTime)
 
-    private class GameOnNumberOfWordsMock(dateTime: Long) :
+    private class MockGameOnNumberOfWords(dateTime: Long) :
         GameOnNumberOfWords(0.0, 0, 0, 0, 0, "", "", "", false, 0, 0, dateTime)
 }

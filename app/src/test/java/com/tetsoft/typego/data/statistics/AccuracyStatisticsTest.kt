@@ -18,7 +18,7 @@ class AccuracyStatisticsTest {
 
     @Test
     fun getVisibility_resultsNotEmptyWithCorrectWords_equalsVisible() {
-        val results = ClassicGameModesHistoryList(listOf(GameOnTimeMock(30, 29)), emptyList())
+        val results = ClassicGameModesHistoryList(listOf(MockGameOnTime(30, 29)), emptyList())
         val calculation = AccuracyCalculation(results)
         val statistics = AccuracyStatistics(calculation)
         assertEquals(VisibilityProvider.Visible().get(), statistics.getVisibility().get())
@@ -26,12 +26,12 @@ class AccuracyStatisticsTest {
 
     @Test
     fun getVisibility_resultsNotEmptyWordsAllWrong_equalsGone() {
-        val results = ClassicGameModesHistoryList(listOf(GameOnTimeMock(5, 0)), emptyList())
+        val results = ClassicGameModesHistoryList(listOf(MockGameOnTime(5, 0)), emptyList())
         val calculation = AccuracyCalculation(results)
         val statistics = AccuracyStatistics(calculation)
         assertEquals(VisibilityProvider.Gone().get(), statistics.getVisibility().get())
     }
 
-    private class GameOnTimeMock(wordsWritten: Int, correctWords: Int) :
+    private class MockGameOnTime(wordsWritten: Int, correctWords: Int) :
         GameOnTime(0.0, 0, 30, 0, "", "", "", false, wordsWritten, correctWords, 0L)
 }

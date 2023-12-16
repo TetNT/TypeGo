@@ -10,12 +10,9 @@ import androidx.navigation.findNavController
 import com.google.android.material.slider.Slider
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
-import com.tetsoft.typego.data.DictionaryType
-import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeModeList
 import com.tetsoft.typego.databinding.FragmentGameOnTimeSetupBinding
-import com.tetsoft.typego.ui.custom.ValRadioButton
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
 import com.tetsoft.typego.utils.Translation
@@ -31,19 +28,20 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
         return FragmentGameOnTimeSetupBinding.inflate(inflater, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupButtons()
         setupTimeModeSlider()
         setupLanguageSpinner()
-        setupDictionaryTypeRadioButtons()
-        setupSuggestionsCheckbox()
-        setupScreenOrientationRadioButtons()
+        binding.etSeed.setText(viewModel.getLastUsedSeed())
+        binding.rbDictionaryType.selectIndex(viewModel.getLastUsedDictionaryTypeOrDefault().id)
+        binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
+        binding.rbScreenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
     }
 
     private fun setupButtons() {
         binding.tvTestSetup.setOnClickListener { binding.root.findNavController().navigateUp() }
-
         binding.buttonStartGame.setOnClickListener {
 
             val gameOnTime = com.tetsoft.typego.game.GameOnTime(
@@ -52,10 +50,10 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
                 0,
                 binding.timemodeSlider.getSelectedTimeMode().timeInSeconds,
                 binding.spinLanguageSelection.getSelectedLanguage().identifier,
-                selectedDictionaryType.name,
-                selectedScreenOrientation.name,
+                binding.rbDictionaryType.getSelectedValue().name,
+                binding.rbScreenOrientation.getSelectedValue().name,
                 binding.cbPredictiveText.isChecked,
-                0,0,0L
+                binding.etSeed.text.toString()
             )
             val gameViewModel: GameOnTimeViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             gameViewModel.gameOnTime = gameOnTime
@@ -63,24 +61,10 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
         }
     }
 
-    private val selectedDictionaryType: DictionaryType
-        get() {
-            val radioButton =
-                binding.root.findViewById<ValRadioButton>(binding.rbDictionaryType.checkedRadioButtonId)
-            return radioButton.assignedValue as DictionaryType
-        }
-
-    private val selectedScreenOrientation: ScreenOrientation
-        get() {
-            val screenOrientation =
-                binding.root.findViewById<ValRadioButton>(binding.rbScreenOrientation.checkedRadioButtonId)
-            return screenOrientation.assignedValue as ScreenOrientation
-        }
-
     private fun setupLanguageSpinner() {
         val spinnerAdapter = LanguageSpinnerAdapter(
             requireContext(),
-            LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+            LanguageList().getLocalized(requireContext())
         )
         binding.spinLanguageSelection.adapter = spinnerAdapter
         val lastUsedLanguage = viewModel.getLastUsedLanguageOrDefault()
@@ -102,30 +86,6 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
             })
             tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
         }
-    }
-
-    private fun setupDictionaryTypeRadioButtons() {
-        with(binding) {
-            rbBasic.assignedValue = DictionaryType.BASIC
-            rbEnhanced.assignedValue = DictionaryType.ENHANCED
-            val lastSelectedRadioButton =
-                rbDictionaryType.getChildAt(viewModel.getLastUsedDictionaryTypeOrDefault().id) as ValRadioButton
-            lastSelectedRadioButton.isChecked = true
-        }
-    }
-
-    private fun setupScreenOrientationRadioButtons() {
-        with(binding) {
-            rbPortrait.assignedValue = ScreenOrientation.PORTRAIT
-            rbLandscape.assignedValue = ScreenOrientation.LANDSCAPE
-            val lastSelectedRadioButton =
-                rbScreenOrientation.getChildAt(viewModel.getLastUsedOrientationOrDefault().id) as ValRadioButton
-            lastSelectedRadioButton.isChecked = true
-        }
-    }
-
-    private fun setupSuggestionsCheckbox() {
-        binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
     }
 
 }

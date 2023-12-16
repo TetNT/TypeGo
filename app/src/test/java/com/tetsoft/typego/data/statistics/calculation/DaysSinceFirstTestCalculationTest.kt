@@ -16,13 +16,13 @@ class DaysSinceFirstTestCalculationTest {
         val currentTime = calendar.timeInMillis
         calendar.set(2022, 10, 1)
         val results = ClassicGameModesHistoryList()
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         calendar.set(2022, 10, 2)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         calendar.set(2022, 10, 2)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         calendar.set(2022, 10, 3)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         val calculation = DaysSinceFirstTestCalculation(results, currentTime)
         assertEquals(calculation.provide(), 5)
     }
@@ -33,13 +33,13 @@ class DaysSinceFirstTestCalculationTest {
         val currentTime = calendar.timeInMillis
         val results = ClassicGameModesHistoryList()
         calendar.set(2022, 10, 10)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         calendar.set(2022, 10, 20)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         calendar.set(2022, 10, 20)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         calendar.set(2022, 10, 30)
-        results.add(GameOnTimeMock(calendar.timeInMillis))
+        results.add(MockGameOnTime(calendar.timeInMillis))
         val calculation = DaysSinceFirstTestCalculation(results, currentTime)
         assertEquals(calculation.provide(), 0)
     }
@@ -53,7 +53,7 @@ class DaysSinceFirstTestCalculationTest {
         assertEquals(calculation.provide(), 0)
     }
 
-    private class GameOnTimeMock(dateTime: Long) :
+    private class MockGameOnTime(dateTime: Long) :
         GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, dateTime)
 
 }

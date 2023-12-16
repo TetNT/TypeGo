@@ -140,4 +140,11 @@ class GameOnTimeResultViewModel @Inject constructor(
     fun areSuggestionsActivated(): Boolean {
         return result.areSuggestionsActivated()
     }
+
+    fun getSeedOrBlankSign(): String {
+        if (seedIsEmpty()) return "-"
+        return result.getSeed()
+    }
+
+    fun seedIsEmpty() = result.getSeed().isEmpty()
 }

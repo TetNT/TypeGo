@@ -9,14 +9,42 @@ import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.history.GameOnTimeDataSelector
 import com.tetsoft.typego.data.history.GameOnTimeHistoryList
-import com.tetsoft.typego.data.language.LanguageList
-import com.tetsoft.typego.data.statistics.*
-import com.tetsoft.typego.data.statistics.calculation.*
+import com.tetsoft.typego.data.language.Language
+import com.tetsoft.typego.data.statistics.AccuracyStatistics
+import com.tetsoft.typego.data.statistics.AverageCurrentWpmStatistics
+import com.tetsoft.typego.data.statistics.AveragePastWpmStatistics
+import com.tetsoft.typego.data.statistics.BestResultStatistics
+import com.tetsoft.typego.data.statistics.DaysSinceFirstTestStatistics
+import com.tetsoft.typego.data.statistics.DaysSinceNewRecordStatistics
+import com.tetsoft.typego.data.statistics.DoneAchievementCountStatistics
+import com.tetsoft.typego.data.statistics.DoneAchievementsPercentageStatistics
+import com.tetsoft.typego.data.statistics.FavoriteLanguageStatistics
+import com.tetsoft.typego.data.statistics.FavoriteTimeModeStatistics
+import com.tetsoft.typego.data.statistics.LastCompletedAchievementStatistics
+import com.tetsoft.typego.data.statistics.PoolEnhancement
+import com.tetsoft.typego.data.statistics.ProgressionStatistics
+import com.tetsoft.typego.data.statistics.Statistics
+import com.tetsoft.typego.data.statistics.TimeSpentStatistics
+import com.tetsoft.typego.data.statistics.TotalWordsWrittenStatistics
+import com.tetsoft.typego.data.statistics.calculation.AccuracyCalculation
+import com.tetsoft.typego.data.statistics.calculation.AverageCurrentWpmCalculation
+import com.tetsoft.typego.data.statistics.calculation.AveragePastWpmCalculation
+import com.tetsoft.typego.data.statistics.calculation.BestResultCalculation
+import com.tetsoft.typego.data.statistics.calculation.DaysSinceFirstTestCalculation
+import com.tetsoft.typego.data.statistics.calculation.DaysSinceNewRecordCalculation
+import com.tetsoft.typego.data.statistics.calculation.DoneAchievementsCountCalculation
+import com.tetsoft.typego.data.statistics.calculation.DoneAchievementsPercentageCalculation
+import com.tetsoft.typego.data.statistics.calculation.FavoriteLanguageCalculation
+import com.tetsoft.typego.data.statistics.calculation.FavoriteTimeModeCalculation
+import com.tetsoft.typego.data.statistics.calculation.LastCompletedAchievementCalculation
+import com.tetsoft.typego.data.statistics.calculation.ProgressionCalculation
+import com.tetsoft.typego.data.statistics.calculation.TimeSpentCalculation
+import com.tetsoft.typego.data.statistics.calculation.TotalWordsWrittenCalculation
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -95,6 +123,15 @@ class StatisticsViewModel @Inject constructor(
             )
         )
 
+    fun getProgressionStatistics() : Int {
+        return ProgressionStatistics(
+            ProgressionCalculation(
+                averagePastWpmStatistics.provide(),
+                averageCurrentWpmStatistics.provide()
+            )
+        ).provide()
+    }
+
     val totalWordsWrittenStatistics
         get() = TotalWordsWrittenStatistics(
             TotalWordsWrittenCalculation(classicGameModesHistoryList)
@@ -140,7 +177,7 @@ class StatisticsViewModel @Inject constructor(
 
     val favoriteLanguageStatistics
         get() = FavoriteLanguageStatistics(
-            FavoriteLanguageCalculation(classicGameModesHistoryList, LanguageList().getList())
+            FavoriteLanguageCalculation(classicGameModesHistoryList, Language.LANGUAGE_LIST)
         )
 
     val favoriteLanguageGamesCount
