@@ -25,10 +25,9 @@
                 android:layout_height="48dp"
                 android:layout_margin="12dp"
                 android:contentDescription="@string/achievement_image_content_description"
-                android:src="@drawable/ic_achievement_star"
+                android:src="@drawable/ic_achievement_beginner"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/main_green" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tvAchievementName"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.SpinnerAdapter
 import android.widget.TextView
 import com.tetsoft.typego.R
@@ -31,14 +32,18 @@ class LanguageSpinnerAdapter(
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view : View = inflater.inflate(R.layout.spinner_item, parent, false)
         val tvLanguage : TextView = view.findViewById(R.id.language)
+        val imgFlag : ImageView = view.findViewById(R.id.flag)
         tvLanguage.text = languageItems[position].languageTranslation
+        imgFlag.setImageResource(languageItems[position].flag)
         return view
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view : View = inflater.inflate(R.layout.spinner_item, parent, false)
         val tvLanguage : TextView = view.findViewById(R.id.language)
+        val imgFlag : ImageView = view.findViewById(R.id.flag)
         tvLanguage.text = languageItems[position].languageTranslation
+        imgFlag.setImageResource(languageItems[position].flag)
         return view
     }
 

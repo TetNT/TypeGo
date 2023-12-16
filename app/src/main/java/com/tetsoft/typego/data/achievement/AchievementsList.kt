@@ -37,7 +37,7 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_achievement_star
+            return R.drawable.ic_achievement_firststep
         }
 
         override fun withProgressBar(): Boolean {
@@ -56,7 +56,7 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_child
+            return R.drawable.ic_achievement_beginner
         }
     }
 
@@ -66,7 +66,7 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_star
+            return R.drawable.ic_achievement_promising
         }
     }
 
@@ -76,7 +76,7 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_keyboard
+            return R.drawable.ic_achievement_typewriter
         }
     }
 
@@ -86,7 +86,7 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_bachelor
+            return R.drawable.ic_achievement_bachelor
         }
 
     }
@@ -97,7 +97,7 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_brain
+            return R.drawable.ic_achievement_mastermind
         }
     }
 
@@ -107,21 +107,21 @@ object AchievementsList {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_alien
+            return R.drawable.ic_achievement_alien
         }
     }
 
     private class SharpEyeInSeconds(id: Int, private val timeInSeconds: Int, stage: String) :
         Achievement.SharpEye(id, timeInSeconds, stage) {
         override fun getDescription(context: Context): String {
-            return context.getString(R.string.unmistakable_desc_with_seconds, timeInSeconds, 30)
+            return context.getString(R.string.sharp_eye_desc_with_seconds, timeInSeconds, 30)
         }
     }
 
     private class SharpEyeInMinutes(id: Int, private val timeInMinutes: Int, stage: String) :
         Achievement.SharpEye(id, timeInMinutes, stage) {
         override fun getDescription(context: Context): String {
-            return context.getString(R.string.unmistakable_desc_with_minutes, timeInMinutes, 30)
+            return context.getString(R.string.sharp_eye_desc_with_minutes, timeInMinutes, 30)
         }
     }
 

@@ -17,6 +17,13 @@ class SharpEyeRequirementTest {
     }
 
     @Test
+    fun isReached_lastResultTimeSpent120WpmMoreThan30_assertTrue() {
+        val list = ClassicGameModesHistoryList()
+        list.add(MockGameOnTime(31.0, 120))
+        assertTrue(GameRequirement.SharpEyeRequirement(120).isReached(list))
+    }
+
+    @Test
     fun isReached_lastResultTimeSpentNotEquals_assertFalse() {
         val list = ClassicGameModesHistoryList()
         list.add(MockGameOnTime(31.0, 60))
