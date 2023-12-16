@@ -64,7 +64,7 @@ class GameOnTimeSetupFragment : BaseFragment<FragmentGameOnTimeSetupBinding>() {
     private fun setupLanguageSpinner() {
         val spinnerAdapter = LanguageSpinnerAdapter(
             requireContext(),
-            LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+            LanguageList().getLocalized(requireContext())
         )
         binding.spinLanguageSelection.adapter = spinnerAdapter
         val lastUsedLanguage = viewModel.getLastUsedLanguageOrDefault()

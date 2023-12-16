@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.history.GameHistoryList
-import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.extensions.setDrawableTint
+import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.utils.TimeConvert
 import com.tetsoft.typego.utils.Translation
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 import kotlin.math.roundToInt
 
 class GameOnTimeHistoryAdapter(
