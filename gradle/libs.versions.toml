@@ -26,6 +26,7 @@ navigation-fragment-ktx = "2.5.3"
 paging-runtime-ktx = "3.1.1"
 play-services-ads = "22.2.0"
 preference-ktx = "1.2.1"
+user-messaging-platform = "2.1.0"
 work-runtime-ktx = "2.8.1"
 
 [libraries]
@@ -60,6 +61,7 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-cor
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi-kotlin" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi-kotlin" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
+user-messaging-platform = { module = "com.google.android.ump:user-messaging-platform", version.ref = "user-messaging-platform" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
