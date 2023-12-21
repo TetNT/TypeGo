@@ -21,7 +21,8 @@ import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
 import com.tetsoft.typego.ui.fragment.typedwords.TypedWordsViewModel
 import com.tetsoft.typego.ui.visibility.VisibilityMapper
-import com.tetsoft.typego.utils.AnimationManager
+import com.tetsoft.typego.utils.AnimationsPreset
+import com.tetsoft.typego.utils.Animator
 import com.tetsoft.typego.utils.Translation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -94,15 +95,14 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
     }
 
     private fun initWpm() {
-        val animationManager = AnimationManager()
-        val countAnimation = animationManager.getCountAnimation(
-            0, viewModel.getWpm(),
-            COUNT_UP_ANIMATION_DURATION
-        )
-        animationManager.applyCountAnimation(countAnimation, binding.tvWPM)
+        val countAnimation = Animator.CountUp(COUNT_UP_ANIMATION_DURATION, viewModel.getWpm()).get()
+        countAnimation.addUpdateListener { anim ->
+            if (context == null) return@addUpdateListener
+            binding.tvWPM.text = anim.animatedValue.toString()
+        }
         countAnimation.start()
         binding.tvCpm.text = getString(R.string.cpm_pl, viewModel.getCpm())
-        binding.tvCpm.animation = animationManager.getFadeInAnimation(COUNT_UP_ANIMATION_DURATION)
+        binding.tvCpm.animation = AnimationsPreset.FadeIn(COUNT_UP_ANIMATION_DURATION).get()
         binding.tvCpm.animation.start()
     }
 
