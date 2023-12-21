@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.R
 import com.tetsoft.typego.adapter.releasenotes.ReleaseNotesAdapter
@@ -22,6 +23,9 @@ class ReleaseNotesFragment : BaseFragment<FragmentReleaseNotesBinding>() {
                 requireContext(),
                 ReleaseNotesList.Standard(requireContext()).getReversed()
             )
+        binding.buttonOpenCarousel.setOnClickListener {
+            findNavController().navigate(R.id.action_releaseNotes_to_keyNotes)
+        }
     }
 
     override fun initBinding(

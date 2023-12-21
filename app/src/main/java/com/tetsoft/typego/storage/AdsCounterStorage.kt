@@ -2,22 +2,29 @@ package com.tetsoft.typego.storage
 
 import android.content.Context
 
-class AdsCounterStorage (context: Context) : FloatValueStorage {
-    private val sharedPreferences =
-        context.getSharedPreferences(KEY_ADS_COUNTER_STORAGE, Context.MODE_PRIVATE)
-    override fun store(key: String?, value: Float) {
-        with(sharedPreferences.edit()) {
-            putFloat(key, value)
-            apply()
+interface AdsCounterStorage {
+    fun store(value: Float)
+
+    fun getFloat(): Float
+
+    class Standard (context: Context) : AdsCounterStorage {
+        private val sharedPreferences =
+            context.getSharedPreferences(KEY_ADS_COUNTER_STORAGE, Context.MODE_PRIVATE)
+        override fun store(value: Float) {
+            with(sharedPreferences.edit()) {
+                putFloat(ADS_COUNTER_VALUE, value)
+                apply()
+            }
         }
-    }
 
-    override fun getFloat(key: String?): Float {
-        return sharedPreferences.getFloat(key, 0f)
-    }
+        override fun getFloat(): Float {
+            return sharedPreferences.getFloat(ADS_COUNTER_VALUE, 0f)
+        }
 
-    companion object {
-        private const val KEY_ADS_COUNTER_STORAGE = "ads_counter_storage"
-    }
+        private companion object {
+            const val KEY_ADS_COUNTER_STORAGE = "ads_counter_storage"
+            const val ADS_COUNTER_VALUE = "ads_counter_value"
+        }
 
+    }
 }

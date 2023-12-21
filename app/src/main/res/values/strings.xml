@@ -160,4 +160,6 @@
     <string name="seed_copy_hint">Seed: %1$s\nLong press to copy.</string>
     <string name="seed_copied">The seed has been copied.</string>
     <string name="seed_not_set">Seed is not set.</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
 </resources>

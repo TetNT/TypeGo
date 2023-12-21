@@ -12,7 +12,7 @@ open class TypeGoApp : Application() {
 
     // TODO: Remove, it should be handled by the Hilt module
     open val adsCounter by lazy {
-        AdsCounter(AdsCounterStorage(this))
+        AdsCounter(AdsCounterStorage.Standard(this))
     }
 
     // TODO: Check if it's possible to put it inside of a Hilt module
