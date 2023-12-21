@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.BuildConfig
@@ -20,10 +21,14 @@ import com.tetsoft.typego.extensions.withColor
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private val viewModel: MainViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+
+    private var initialCheckCompleted = false
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding {
         return FragmentMainBinding.inflate(inflater, container, false)
@@ -34,6 +39,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
+        if (!initialCheckCompleted && viewModel.hasUncheckedNotes()) {
+            findNavController().navigate(
+                R.id.action_main_to_keyNotes,
+                Bundle().apply { putBoolean("show_all", false) })
+        }
+        initialCheckCompleted = true
     }
 
     private fun setupButtonsOnClickListeners() {
@@ -41,10 +52,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             startBasicTest()
         }
         binding.buttonCustomTestStart.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeSetupFragment)
+            binding.root.findNavController()
+                .navigate(R.id.action_mainFragment_to_gameOnTimeSetupFragment)
         }
         binding.buttonProfileOpen.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameHistoryFragment)
+            binding.root.findNavController()
+                .navigate(R.id.action_mainFragment_to_gameHistoryFragment)
         }
         binding.buttonPreviousTestStart.setOnClickListener {
             startPreviousTest()
@@ -75,7 +88,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         if (viewModel.userHasPreviousGames()) {
             val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
             gameViewModel.gameOnTime = viewModel.getMostRecentGameSettings()
-            binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
+            binding.root.findNavController()
+                .navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
         } else Snackbar.make(binding.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
             .withColor(R.color.main_green, R.color.cardview_main_color)
             .show()

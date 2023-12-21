@@ -148,4 +148,6 @@
     <string name="seed_copy_hint">Сид: %1$s\nУдерживайте чтобы скопировать.</string>
     <string name="seed_copied">Сид был скопирован.</string>
     <string name="seed_not_set">Сид не установлен.</string>
+    <string name="next">Далее</string>
+    <string name="back">Назад</string>
 </resources>

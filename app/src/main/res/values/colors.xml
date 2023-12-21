@@ -5,6 +5,7 @@
     <color name="background_variant">#3A3D40</color>
     <color name="main_green">#00CC9C</color>
     <color name="main_green_darker">#00886d</color>
+    <color name="dark_accent">#3D3F50</color>
     <color name="game_attribute_game_on_time">#268675</color>
     <color name="text_accent">#FFFFFF</color>
     <color name="golden">#ffcc00</color>

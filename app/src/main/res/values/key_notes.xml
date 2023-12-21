@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_note_redesign">Design</string>
+    <string name="key_note_redesign_description">We\'ve refreshed the app\'s theme and icons – it\'s time to add a splash of color to your experience!</string>
+
+    <string name="key_note_seeds">Seeds</string>
+    <string name="key_note_seeds_description">Introducing the Seeds feature – compete head-to-head with friends using the same generated words! Give it a try and see who comes out on top!</string>
+
+    <string name="key_note_achievements">New achievements</string>
+    <string name="key_note_achievements_description">Explore new achievement types and enjoy enhanced versions of the classic ones!</string>
+</resources>
