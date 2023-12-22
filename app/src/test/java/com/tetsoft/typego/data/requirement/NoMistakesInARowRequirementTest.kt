@@ -99,6 +99,13 @@ class NoMistakesInARowRequirementTest {
         assertEquals(GameRequirement.NoMistakesInARowRequirement(3).getCurrentProgress(list), 5)
     }
 
+    @Test
+    fun getCurrentProgress_oneEntryNoMistakes_assert1() {
+        val list = ClassicGameModesHistoryList()
+        list.add(MockGameOnNumberOfWords(0))
+        assertEquals(GameRequirement.NoMistakesInARowRequirement(3).getCurrentProgress(list), 1)
+    }
+
     private class MockGameOnNumberOfWords(private val incorrectWords: Int) :
         GameOnNumberOfWords(0.0, 0, 0, 0, 0, "", "", "", false, 0, 0, 0) {
         override fun getIncorrectWords(): Int {

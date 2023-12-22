@@ -23,12 +23,12 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
 
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             if (list.isEmpty()) return 0
-            return list[list.size - 1].getWpm().roundToInt()
+            return list.maxBy { it.getWpm() }.getWpm().roundToInt()
         }
 
         override fun isReached(list: ClassicGameModesHistoryList): Boolean {
             if (list.isEmpty()) return false
-            return list[list.size - 1].getWpm().roundToInt() >= requiredAmount
+            return list.maxBy { it.getWpm() }.getWpm().roundToInt() >= requiredAmount
         }
 
     }
@@ -68,6 +68,7 @@ abstract class GameRequirement(protected val requiredAmount: Int) {
         override fun getCurrentProgress(list: ClassicGameModesHistoryList): Int {
             if (list.isEmpty()) return 0
             var maxProgress = 0
+            if (list.size == 1 && list[0].getIncorrectWords() == 0) return 1
             var i = 0
             while(i < list.size - 1) {
                 if (list[i].getIncorrectWords() == 0) {

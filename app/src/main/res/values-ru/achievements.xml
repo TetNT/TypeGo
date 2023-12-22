@@ -12,15 +12,18 @@
     <string name="double_agent">Двойной агент</string>
     <string name="linguist">Лингвист</string>
     <string name="polyglot">Полиглот</string>
+    <string name="mister_universe">Мистер Вселенная</string>
 
     <string name="the_first_step_desc">Заверши свой первый тест</string>
     <string name="typewriter_wpm">Достигни как минимум %1$d СВМ</string>
     <string name="sharp_eye_desc_with_seconds">Заверши %1$d-секундный тест без ошибок и как минимум %2$d СВМ</string>
     <string name="sharp_eye_desc_with_minutes">Заверши %1$d-минутный тест без ошибок и как минимум %2$d СВМ</string>
     <string name="big_fan_desc">Пройди %1$d тестов</string>
-    <string name="polyglot_desc">Пройди тесты на %1$d разных языках.</string>
+    <string name="polyglot_desc">Пройди тесты на %1$d разных языках</string>
 
     <string name="new_achievements_notification">Получены новые достижения!</string>
     <string name="check_profile">Посмотреть профиль</string>
     <string name="achievement_image_content_description">Изображение для достижения</string>
+    <string name="strike">Страйк! %1$s</string>
+    <string name="strike_desc">Заверши %1$d игр подряд без ошибок</string>
 </resources>

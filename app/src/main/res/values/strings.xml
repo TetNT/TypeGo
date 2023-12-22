@@ -86,7 +86,7 @@
     <string name="tests_passed_pl">Tests passed: %1$d</string>
     <string name="average_wpm_pl">Average WPM: %1$d</string>
 
-    <string name="msg_passed_tests_information">Tap on any of these to watch test details.</string>
+    <string name="msg_passed_tests_information">Tap to watch details.</string>
     <string name="correct_chars_pl">Correct characters: %1$d</string>
     <string name="correct_characters">Correct characters</string>
     <string name="close">Close</string>
