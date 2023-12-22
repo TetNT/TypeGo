@@ -3,6 +3,7 @@ package com.tetsoft.typego.ui.fragment.game
 import android.text.InputType
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.data.AssetPathResolver
 import com.tetsoft.typego.data.Word
 import com.tetsoft.typego.game.GameOnTime
@@ -75,6 +76,9 @@ class GameOnTimeViewModel @Inject constructor() : ViewModel() {
     }
 
     fun getInterstitialAdsId(): String {
+        if (BuildConfig.DEBUG) {
+            return "ca-app-pub-3940256099942544/1033173712" // demo ad unit from Google
+        }
         return com.tetsoft.typego.Config.INTERSTITIAL_ID
     }
 

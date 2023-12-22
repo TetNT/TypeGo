@@ -13,13 +13,16 @@
     <string name="double_agent">Double agent</string>
     <string name="linguist">Linguist</string>
     <string name="polyglot">Polyglot</string>
+    <string name="mister_universe">Mister Universe</string>
+    <string name="strike">Strike! %1$s</string>
     <!-- Achievements descriptions -->
     <string name="the_first_step_desc">Complete your first test</string>
     <string name="typewriter_wpm">Reach at least %1$d WPM</string>
     <string name="sharp_eye_desc_with_seconds">Complete a %1$d second test with no mistakes and at least %2$d WPM</string>
     <string name="sharp_eye_desc_with_minutes">Complete a %1$d minute test with no mistakes and at least %2$d WPM</string>
     <string name="big_fan_desc">Pass %1$d tests in total</string>
-    <string name="polyglot_desc">Complete tests in %1$d different languages.</string>
+    <string name="polyglot_desc">Complete tests in %1$d different languages</string>
+    <string name="strike_desc">Complete %1$d games in a row without a mistake</string>
 
     <!--  Additional strings  -->
     <string name="achievement_progress" translatable="false">%1$d / %2$d</string>

@@ -31,6 +31,7 @@ class AchievementsAdapter(
 ) : RecyclerView.Adapter<AchievementsAdapter.AchievementsViewHolder>() {
 
     private val wpmClusterCache = AchievementProgressCache.Standard()
+    private val languageClusterCache = AchievementProgressCache.Standard()
 
     inner class AchievementsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvAchievementName: TextView = itemView.findViewById(R.id.tvAchievementName)
@@ -101,15 +102,17 @@ class AchievementsAdapter(
         var requiredAmount = 0
         val requirement = currAchievement.getRequirement()
         if (requirement is GameRequirement.WithProgress) {
-            if (currAchievement is Achievement.Wpm) {
-                if (wpmClusterCache.isCached()) {
-                    calculatedProgress = wpmClusterCache.get()
-                } else {
-                    calculatedProgress = requirement.getCurrentProgress(resultList)
-                    wpmClusterCache.put(calculatedProgress)
+
+            when (currAchievement) {
+                is Achievement.Wpm -> {
+                    calculatedProgress = applyCache(wpmClusterCache, requirement)
                 }
-            } else {
-                calculatedProgress = requirement.getCurrentProgress(resultList)
+                is Achievement.DifferentLanguages -> {
+                    calculatedProgress = applyCache(languageClusterCache, requirement)
+                }
+                else -> {
+                    calculatedProgress = requirement.getCurrentProgress(resultList)
+                }
             }
             requiredAmount = requirement.provideRequiredAmount()
         }
@@ -119,6 +122,16 @@ class AchievementsAdapter(
             completionTime,
             requiredAmount
         )
+    }
+
+    private fun applyCache(cache: AchievementProgressCache, requirement: GameRequirement.WithProgress) : Int {
+        if (cache.isCached()) {
+            return cache.get()
+        }
+        else {
+            cache.put(requirement.getCurrentProgress(resultList))
+            return cache.get()
+        }
     }
 }
 

@@ -8,23 +8,22 @@ import com.tetsoft.typego.storage.AdsCounterStorage
   */
 class AdsCounter(private val adsCounterStorage: AdsCounterStorage) : AdsCounterManager {
 
-    companion object {
-        const val ADS_COUNTER_VALUE = "ads_counter_value"
+    private companion object {
         const val MINIMUM_TO_SHOW_AD : Float = 1.1f
     }
 
     override fun addValue(float: Float) {
-        val storedValue = adsCounterStorage.getFloat(ADS_COUNTER_VALUE)
-        adsCounterStorage.store(ADS_COUNTER_VALUE, storedValue + float)
+        val storedValue = adsCounterStorage.getFloat()
+        adsCounterStorage.store(storedValue + float)
     }
 
     override fun enoughToShowAd() : Boolean {
-        val storedValue = adsCounterStorage.getFloat(ADS_COUNTER_VALUE)
+        val storedValue = adsCounterStorage.getFloat()
         return (storedValue >= MINIMUM_TO_SHOW_AD)
     }
 
     override fun reset() {
-        adsCounterStorage.store(ADS_COUNTER_VALUE, 0f)
+        adsCounterStorage.store(0f)
     }
 
     override fun getMinimalValueToShowAd(): Float {

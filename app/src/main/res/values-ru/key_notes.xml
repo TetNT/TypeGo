@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_note_redesign">Дизайн</string>
+    <string name="key_note_redesign_description">Мы обновили тему приложения и добавили много новых значков.</string>
+
+    <string name="key_note_seeds">Сиды</string>
+    <string name="key_note_seeds_description">Представляем функцию Сидов. Соревнуйся со своими друзьями в одинаково составленных текстах и узнай, кто будет первым!</string>
+
+    <string name="key_note_achievements">Новые достижения</string>
+    <string name="key_note_achievements_description">Появилось 7 новых достижений. Они ждут, когда ты их выполнишь!</string>
+</resources>

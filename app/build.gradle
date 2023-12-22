@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.tetsoft.typego"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 33
         versionCode 26
         versionName "1.5.3"
@@ -76,6 +76,9 @@ dependencies {
 
     // flexbox
     implementation libs.flexbox
+
+    // Google UMP
+    implementation(libs.user.messaging.platform)
 
     // tests
     testImplementation libs.junit

@@ -98,6 +98,42 @@ interface Achievement {
         }
     }
 
+    abstract class NoMistakesInARow(id: Int, private val requiredInARow: Int, private val stage: String) : Base(id) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.strike, stage)
+        }
+
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.strike_desc, requiredInARow)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_achievement_strike
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.NoMistakesInARowRequirement(requiredInARow)
+        }
+
+        override fun withProgressBar(): Boolean {
+            return true
+        }
+    }
+
+    abstract class DifferentLanguages(id: Int, private val requiredUniqueEntries : Int) : Base(id) {
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.polyglot_desc, requiredUniqueEntries)
+        }
+
+        override fun withProgressBar(): Boolean {
+            return true
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.DifferentLanguagesRequirement(requiredUniqueEntries)
+        }
+    }
+
     open class Empty : Base(-1) {
 
         override fun getName(context: Context) = ""

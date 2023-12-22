@@ -45,6 +45,14 @@
                     android:textColor="@color/white"
                     tools:text="@string/release_notes_description_current_version"/>
 
+                <Button
+                    android:id="@+id/button_open_carousel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:paddingHorizontal="32dp"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
