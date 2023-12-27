@@ -17,8 +17,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.ump.UserMessagingPlatform
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.data.AdsCounter
@@ -158,7 +160,7 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
                 // TODO: extract this if statement as a ViewModel method
                 if (mInterstitialAd == null
                     || !adsCounter?.enoughToShowAd()!!
-                    || !(requireContext().applicationContext as TypeGoApp).canRequestAds.get()) {
+                    ) {
                     showResultScreen()
                 } else showAd()
             }
@@ -281,9 +283,9 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
 
     private fun loadAd() {
-        if ((requireContext().applicationContext as TypeGoApp).canRequestAds.get()) {
-            Log.i("LoadAD", "Ads can be loaded")
-        } else return
+        val canRequestAds = UserMessagingPlatform.getConsentInformation(requireContext()).canRequestAds()
+        if (!canRequestAds) return
+        MobileAds.initialize(requireContext()) {}
         InterstitialAd.load(requireContext(),
             viewModel.getInterstitialAdsId(),
             (requireContext().applicationContext as TypeGoApp).adRequest,
@@ -303,7 +305,6 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
     private fun showAd() {
         if (mInterstitialAd == null) {
-            Log.e("AD", "showAd(): Ad is null")
             return
         }
         adShown = true
