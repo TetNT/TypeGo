@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -36,6 +37,8 @@ import com.tetsoft.typego.ui.custom.SpannableEditText
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
 import com.tetsoft.typego.utils.TimeConvert
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
@@ -57,6 +60,7 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
             findNavController().navigateUp()
             return
         }
+        binding.progressLoadingResult.visibility = View.GONE
         adsCounter = (requireActivity().application as TypeGoApp).adsCounter
         adShown = false
         loadAd()
@@ -156,13 +160,18 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
             override fun onFinish() {
                 binding.inpWord.isEnabled = false
+                binding.words.isEnabled = false
+                binding.progressLoadingResult.visibility = View.VISIBLE
                 adsCounter?.addValue(timeTotalAmount / 60f)
                 // TODO: extract this if statement as a ViewModel method
-                if (mInterstitialAd == null
-                    || !adsCounter?.enoughToShowAd()!!
+                lifecycleScope.launch {
+                    delay(750)
+                    if (mInterstitialAd == null
+                        || !adsCounter?.enoughToShowAd()!!
                     ) {
-                    showResultScreen()
-                } else showAd()
+                        showResultScreen()
+                    } else showAd()
+                }
             }
         }.start()
     }
