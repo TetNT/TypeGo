@@ -1,9 +1,7 @@
 package com.tetsoft.typego
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.MobileAds
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.tetsoft.typego.databinding.ActivityMainBinding
@@ -23,24 +21,11 @@ class MainActivity : AppCompatActivity() {
             this,
             ConsentRequestParameters.Builder().build(),
             {
-                UserMessagingPlatform.loadAndShowConsentFormIfRequired(this) { formError ->
-                    if (formError != null) {
-                        Log.d("CONSENT", "Form error. " + formError.message)
-                    }
-
-                    if (consentInformation.canRequestAds()) {
-                        (application as TypeGoApp).canRequestAds.set(true)
-                        MobileAds.initialize(this) {}
-                    }
+                UserMessagingPlatform.loadAndShowConsentFormIfRequired(this) { _ ->
                 }
             },
-            { formError ->
-                Log.e("CONSENT", "Failure. " + formError.message)
+            { _ ->
             }
         )
-        if (consentInformation.canRequestAds()) {
-            (application as TypeGoApp).canRequestAds.set(true)
-            MobileAds.initialize(this) {}
-        }
     }
 }
