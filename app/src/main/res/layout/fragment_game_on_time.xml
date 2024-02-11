@@ -73,4 +73,14 @@
         app:layout_constraintStart_toEndOf="@id/tvTimeLeft"
         app:layout_constraintTop_toTopOf="@+id/tvTimeLeft" />
 
+    <ProgressBar
+        android:id="@+id/progress_loading_result"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toTopOf="@id/words"
+        app:layout_constraintBottom_toBottomOf="@id/words"
+        app:layout_constraintStart_toStartOf="@id/words"
+        app:layout_constraintEnd_toEndOf="@id/words"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

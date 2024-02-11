@@ -13,12 +13,15 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.ump.UserMessagingPlatform
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.data.AdsCounter
@@ -34,6 +37,8 @@ import com.tetsoft.typego.ui.custom.SpannableEditText
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
 import com.tetsoft.typego.utils.TimeConvert
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
@@ -55,6 +60,7 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
             findNavController().navigateUp()
             return
         }
+        binding.progressLoadingResult.visibility = View.GONE
         adsCounter = (requireActivity().application as TypeGoApp).adsCounter
         adShown = false
         loadAd()
@@ -154,13 +160,18 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
             override fun onFinish() {
                 binding.inpWord.isEnabled = false
+                binding.words.isEnabled = false
+                binding.progressLoadingResult.visibility = View.VISIBLE
                 adsCounter?.addValue(timeTotalAmount / 60f)
                 // TODO: extract this if statement as a ViewModel method
-                if (mInterstitialAd == null
-                    || !adsCounter?.enoughToShowAd()!!
-                    || !(requireContext().applicationContext as TypeGoApp).canRequestAds.get()) {
-                    showResultScreen()
-                } else showAd()
+                lifecycleScope.launch {
+                    delay(750)
+                    if (mInterstitialAd == null
+                        || !adsCounter?.enoughToShowAd()!!
+                    ) {
+                        showResultScreen()
+                    } else showAd()
+                }
             }
         }.start()
     }
@@ -281,9 +292,9 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
 
     private fun loadAd() {
-        if ((requireContext().applicationContext as TypeGoApp).canRequestAds.get()) {
-            Log.i("LoadAD", "Ads can be loaded")
-        } else return
+        val canRequestAds = UserMessagingPlatform.getConsentInformation(requireContext()).canRequestAds()
+        if (!canRequestAds) return
+        MobileAds.initialize(requireContext()) {}
         InterstitialAd.load(requireContext(),
             viewModel.getInterstitialAdsId(),
             (requireContext().applicationContext as TypeGoApp).adRequest,
@@ -303,7 +314,6 @@ class GameOnTimeFragment : BaseFragment<FragmentGameOnTimeBinding>() {
 
     private fun showAd() {
         if (mInterstitialAd == null) {
-            Log.e("AD", "showAd(): Ad is null")
             return
         }
         adShown = true
