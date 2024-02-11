@@ -19,21 +19,26 @@
         android:layout_height="wrap_content"
         android:text="@string/typed_words_log_description"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="12dp"
         />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_dark_gray"
+        android:background="@color/background_main"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_typed_words"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="4dp"
             />
 
     </FrameLayout>
-
-
 </LinearLayout>

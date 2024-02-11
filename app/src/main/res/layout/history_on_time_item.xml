@@ -77,9 +77,8 @@
                     android:id="@+id/history_attribute_orientation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="4dp"
                     android:layout_marginBottom="8dp"
                     android:text=""
                     app:drawableStartCompat="@drawable/ic_portrait"
@@ -89,13 +88,25 @@
                     android:id="@+id/history_attribute_suggestions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
+                    android:paddingHorizontal="2dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    app:drawableStartCompat="@drawable/ic_info"
+                    app:drawableTint="@color/background_variant" />
+
+                <TextView
+                    android:id="@+id/history_attribute_seed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="2dp"
                     android:paddingVertical="4dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:text=""
-                    app:drawableStartCompat="@drawable/ic_info"
-                    app:drawableTint="@color/bg_lighter_gray" />
+                    app:drawableStartCompat="@drawable/ic_key"
+                    app:drawableTint="@color/background_variant" />
 
             </com.google.android.flexbox.FlexboxLayout>
 

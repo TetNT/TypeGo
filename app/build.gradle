@@ -18,10 +18,10 @@ android {
 
     defaultConfig {
         applicationId "com.tetsoft.typego"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 33
-        versionCode 25
-        versionName "1.5.2"
+        versionCode 29
+        versionName "1.5.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,6 +30,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 
@@ -74,8 +77,13 @@ dependencies {
     // flexbox
     implementation libs.flexbox
 
+    // Google UMP
+    implementation(libs.user.messaging.platform)
+
     // tests
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core
+    testImplementation libs.mockito.core
+    androidTestImplementation libs.mockito.android
 }

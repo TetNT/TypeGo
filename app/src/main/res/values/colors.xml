@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="bg_dark_gray">#2c2c2c</color>
-    <color name="bg_lighter_gray">#313436</color>
-    <color name="background_main">#313436</color>
+    <color name="background_main">#1E1F22</color>
+    <color name="background_variant">#3A3D40</color>
     <color name="main_green">#00CC9C</color>
     <color name="main_green_darker">#00886d</color>
+    <color name="dark_accent">#3D3F50</color>
     <color name="game_attribute_game_on_time">#268675</color>
     <color name="text_accent">#FFFFFF</color>
     <color name="golden">#ffcc00</color>
     <color name="correct_green">#44ff00</color>
     <color name="incorrect_red">#ff0000</color>
-    <color name="cardview_main_color">#262624</color>
+    <color name="cardview_main_color">#2B2D30</color>
 </resources>

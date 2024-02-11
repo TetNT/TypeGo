@@ -10,7 +10,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentStatisticsBinding
 import com.tetsoft.typego.ui.fragment.BaseFragment
-import com.tetsoft.typego.utils.AnimationManager
+import com.tetsoft.typego.utils.Animator
 import com.tetsoft.typego.utils.Translation
 
 class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
@@ -29,11 +29,13 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             viewModel.toggleStatisticsCard(statsCardTimeSpent, viewModel.timeSpentStatistics)
             viewModel.toggleStatisticsCard(statsCardPreferences, viewModel.favoriteLanguageStatistics)
             viewModel.toggleStatisticsCard(statsCardAchievement, viewModel.doneAchievementsCountStatistics)
-            progression.text = getString(R.string.stats_progression_pl, viewModel.progressionStatistics.provide())
+            // Workaround for the formatting of the percent sign (%)
+            progression.text = getString(R.string.stats_progression_pl, viewModel.progressionStatistics.provide()).replace("(p)", "%")
             pastWpm.text = getString(R.string.average_wpm_pl, viewModel.averagePastWpmStatistics.provide())
             currentWpm.text = getString(R.string.average_wpm_pl, viewModel.averageCurrentWpmStatistics.provide())
             tvWordsWritten.text = getString(R.string.stats_words_written_total_pl, viewModel.totalWordsWrittenStatistics.provide())
-            tvAccuracy.text = getString(R.string.stats_accuracy_pl, viewModel.accuracyStatistics.provide())
+            // Workaround for the formatting of the percent sign (%)
+            tvAccuracy.text = getString(R.string.stats_accuracy_pl, viewModel.accuracyStatistics.provide()).replace("(p)", "%")
             tvAccuracy.setTextColor(viewModel.getAccuracyTextColor())
             tvStatsBestResult.text = getString(R.string.stats_best_result, viewModel.bestResultStatistics.provide())
             tvStatsRecordSetTime.text = getString(R.string.stats_best_result_set_time, viewModel.daysSinceNewRecordStatistics.provide())
@@ -62,11 +64,10 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             binding.tvStatsUnlockedCards.text = getString(R.string.stats_locked_cards, hiddenCards)
             binding.statsCardLocked.visibility = View.VISIBLE
         }
-        val animationManager = AnimationManager()
-        val pastWpmAnim = animationManager.getCountAnimation(0, viewModel.averagePastWpmStatistics.provide(), 1000)
-        val currentWpmAnim = animationManager.getCountAnimation(0, viewModel.averageCurrentWpmStatistics.provide(), 1000)
-        val progressionAnim = animationManager.getCountAnimation(0, viewModel.progressionStatistics.provide(), 1000)
-        val totalWordsAnim = animationManager.getCountAnimation(0, viewModel.totalWordsWrittenStatistics.provide(), 1000)
+        val pastWpmAnim = Animator.CountUp(ANIMATION_DURATION, viewModel.averagePastWpmStatistics.provide()).get()
+        val currentWpmAnim = Animator.CountUp(ANIMATION_DURATION, viewModel.averageCurrentWpmStatistics.provide()).get()
+        val progressionAnim = Animator.CountUp(ANIMATION_DURATION, viewModel.progressionStatistics.provide()).get()
+        val totalWordsAnim = Animator.CountUp(ANIMATION_DURATION, viewModel.totalWordsWrittenStatistics.provide()).get()
         applyCountWPM(pastWpmAnim, binding.pastWpm)
         applyCountWPM(currentWpmAnim, binding.currentWpm)
         applyCountProgression(progressionAnim, binding.progression)
@@ -100,10 +101,11 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
     private fun applyCountProgression(animator: ValueAnimator, view: TextView) {
         animator.addUpdateListener { animation: ValueAnimator ->
             if (context == null) return@addUpdateListener
+            // Workaround for the formatting of the percent sign (%)
             view.text = getString(
                 R.string.stats_progression_pl,
                 animation.animatedValue as Int
-            )
+            ).replace("(p)", "%")
         }
     }
 
@@ -112,5 +114,9 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
         container: ViewGroup?
     ): FragmentStatisticsBinding {
         return FragmentStatisticsBinding.inflate(inflater, container, false)
+    }
+
+    private companion object {
+        const val ANIMATION_DURATION = 1000L
     }
 }

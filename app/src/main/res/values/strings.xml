@@ -86,7 +86,7 @@
     <string name="tests_passed_pl">Tests passed: %1$d</string>
     <string name="average_wpm_pl">Average WPM: %1$d</string>
 
-    <string name="msg_passed_tests_information">Tap on any of these to watch test details.</string>
+    <string name="msg_passed_tests_information">Tap to watch details.</string>
     <string name="correct_chars_pl">Correct characters: %1$d</string>
     <string name="correct_characters">Correct characters</string>
     <string name="close">Close</string>
@@ -97,10 +97,11 @@
     <string name="activate">Activate</string>
     <string name="stats_wpm_pl">%1$d WPM</string>
     <string name="progression">progression</string>
-    <string name="stats_progression_pl" translatable="false">%1$d\%</string>
+    <string name="stats_progression_pl" translatable="false">%1$d(p)</string> <!-- (p) is a workaround for the percent sign "%" -->
+
     <string name="stats_days_since_first_test_pl">%1$d days with us since the first test!</string>
     <string name="stats_words_written_total_pl">%1$d words written in total</string>
-    <string name="stats_accuracy_pl">%1$d\% accuracy</string>
+    <string name="stats_accuracy_pl">%1$d(p) accuracy</string> <!-- (p) is a workaround for the percent sign "%" -->
     <string name="stats_total_minutes_of_testing_pl" formatted="true">%1$d minutes of testing</string>
     <string name="stats_avg_result_in_the_past">Avg. result in the past</string>
     <string name="stats_avg_result_now">Avg. result now</string>
@@ -120,8 +121,8 @@
 
     <string name="previous_versions">Previous versions</string>
 
-    <string name="text_suggestions_note">* it also depends on your keyboard settings.</string>
-    <string name="dictionary_type_note">* the basic dictionary is limited to 200 words.</string>
+    <string name="text_suggestions_note">It also depends on your keyboard settings.</string>
+    <string name="dictionary_type_note">The basic dictionary is limited to 200 words.</string>
 
     <string name="favorite_language_description_pl">%1$d out of %2$d tests are completed in this language.</string>
     <string name="favorite_timemode_description_pl">%1$d out of %2$d tests are completed in this time mode.</string>
@@ -152,4 +153,13 @@
     <string name="avg_result">Avg. WPM</string>
     <string name="date_pl">Date: %1$s</string>
     <string name="error_best_result_not_found">Best result not found.</string>
+    <string name="seed">Seed</string>
+    <string name="seed_pl">Seed: %1$s</string>
+    <string name="seed_hint">Any value</string>
+    <string name="seed_description">This setting enables you to have the same order of generated words. Leave blank to have a random generation.</string>
+    <string name="seed_copy_hint">Seed: %1$s\nLong press to copy.</string>
+    <string name="seed_copied">The seed has been copied.</string>
+    <string name="seed_not_set">Seed is not set.</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
 </resources>

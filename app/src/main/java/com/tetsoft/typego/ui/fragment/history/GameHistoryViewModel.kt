@@ -1,6 +1,5 @@
 package com.tetsoft.typego.ui.fragment.history
 
-import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,7 @@ import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
-import com.tetsoft.typego.utils.AnimationManager
+import com.tetsoft.typego.utils.AnimationsPreset
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -51,13 +50,13 @@ class GameHistoryViewModel @Inject constructor(private val gameOnTimeHistoryStor
     }
 
     fun getGameHistoryEnteringAnimation(): AnimationSet {
-        val animationManager = AnimationManager()
-        val slideIn: Animation = animationManager.getSlideInAnimation(0f, 50f, 500)
-        val fadeIn: Animation = animationManager.getFadeInAnimation(500)
         val animationSet = AnimationSet(false)
-        animationSet.addAnimation(slideIn)
-        animationSet.addAnimation(fadeIn)
+        animationSet.addAnimation(AnimationsPreset.SlideIn(ANIMATION_DURATION, 0f, 50f).get())
+        animationSet.addAnimation(AnimationsPreset.FadeIn(ANIMATION_DURATION).get())
         return animationSet
+    }
 
+    private companion object {
+        const val ANIMATION_DURATION = 500L
     }
 }

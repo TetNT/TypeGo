@@ -1,8 +1,8 @@
 package com.tetsoft.typego.adapter.achievements
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
+import com.tetsoft.typego.data.cache.AchievementProgressCache
 import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
 import com.tetsoft.typego.data.requirement.GameRequirement
-import java.text.SimpleDateFormat
-import java.util.*
+import com.tetsoft.typego.ui.visibility.VisibilityMapper
+import com.tetsoft.typego.utils.DateTimeFormatter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AchievementsAdapter(
     private val context: Context,
@@ -25,13 +30,48 @@ class AchievementsAdapter(
     private val achievementsProgressList: AchievementsProgressList
 ) : RecyclerView.Adapter<AchievementsAdapter.AchievementsViewHolder>() {
 
-    inner class AchievementsViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val tvAchievementName: TextView = itemView.findViewById(R.id.tvAchievementName)
-        val tvAchievementDescription: TextView = itemView.findViewById(R.id.tvAchievementDescription)
-        val tvCompletionDate: TextView = itemView.findViewById(R.id.tvCompletionTime)
-        val tvProgressDescription: TextView = itemView.findViewById(R.id.tvProgressDescription)
-        val imgAchievement: ImageView = itemView.findViewById(R.id.imgAchievement)
-        val progressBarAchievement: ProgressBar = itemView.findViewById(R.id.progressbarAchievement)
+    private val wpmClusterCache = AchievementProgressCache.Standard()
+    private val languageClusterCache = AchievementProgressCache.Standard()
+
+    inner class AchievementsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val tvAchievementName: TextView = itemView.findViewById(R.id.tvAchievementName)
+        private val tvAchievementDescription: TextView =
+            itemView.findViewById(R.id.tvAchievementDescription)
+        private val tvCompletionDate: TextView = itemView.findViewById(R.id.tvCompletionTime)
+        private val tvProgressDescription: TextView =
+            itemView.findViewById(R.id.tvProgressDescription)
+        private val imgAchievement: ImageView = itemView.findViewById(R.id.imgAchievement)
+        private val progressBarAchievement: ProgressBar =
+            itemView.findViewById(R.id.progressbarAchievement)
+
+        fun bind(
+            dataItem: AchievementDataItem
+        ) {
+            tvCompletionDate.visibility =
+                VisibilityMapper.VisibleInvisible(dataItem.completionTime != 0L).get()
+            tvProgressDescription.visibility =
+                VisibilityMapper.FromBoolean(dataItem.achievement.withProgressBar()).get()
+            progressBarAchievement.visibility =
+                VisibilityMapper.FromBoolean(dataItem.achievement.withProgressBar()).get()
+            tvAchievementName.text = dataItem.achievement.getName(context)
+            tvAchievementDescription.text = dataItem.achievement.getDescription(context)
+            tvCompletionDate.text = DateTimeFormatter.Standard().format(dataItem.completionTime)
+            imgAchievement.setImageResource(dataItem.achievement.getAchievementImageId())
+            progressBarAchievement.max = dataItem.requiredAmount
+            progressBarAchievement.progress = dataItem.calculatedProgress
+            tvProgressDescription.text =
+                context.getString(
+                    R.string.achievement_progress,
+                    dataItem.calculatedProgress,
+                    dataItem.requiredAmount
+                )
+            val colorMatrix = ColorMatrix()
+            if (dataItem.completionTime == 0L) {
+                colorMatrix.setSaturation(0f)
+            } else
+                colorMatrix.setSaturation(1f)
+            imgAchievement.colorFilter = ColorMatrixColorFilter(colorMatrix)
+        }
 
     }
 
@@ -41,44 +81,63 @@ class AchievementsAdapter(
         return AchievementsViewHolder(view)
     }
 
-    // TODO: Refactor
     override fun onBindViewHolder(holder: AchievementsViewHolder, position: Int) {
         val currAchievement = achievements[position]
-        holder.tvAchievementName.text = currAchievement.getName(context)
-        holder.tvAchievementDescription.text = currAchievement.getDescription(context)
-        holder.imgAchievement.setImageResource(currAchievement.getAchievementImageId())
-        // TODO: Remove if-else and replace visibility toggle with the VisibilityMapper
-        if (!currAchievement.withProgressBar()) {
-            holder.progressBarAchievement.visibility = View.GONE
-            holder.tvProgressDescription.visibility = View.GONE
-        } else {
-            if (currAchievement.getRequirement() is GameRequirement.WithProgress) {
-                val requirement = currAchievement.getRequirement() as GameRequirement.WithProgress
-                val progress = requirement.getCurrentProgress(resultList)
-                holder.progressBarAchievement.max = requirement.provideRequiredAmount()
-                holder.progressBarAchievement.progress = progress
-                holder.tvProgressDescription.text = context.getString(
-                    R.string.achievement_progress,
-                    progress,
-                    requirement.provideRequiredAmount()
-                )
+        CoroutineScope(Dispatchers.IO).launch {
+            val achievementDataItem = getAchievementDataItem(currAchievement)
+            withContext(Dispatchers.Main) {
+                holder.bind(achievementDataItem)
             }
-
-        }
-        val completionDateTime = achievementsProgressList[currAchievement.getId()].completionDateTimeLong
-        if (completionDateTime == 0L) {
-            holder.tvCompletionDate.visibility = View.INVISIBLE
-            holder.imgAchievement.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN)
-        } else {
-            val dateFormat = SimpleDateFormat.getDateTimeInstance(
-                SimpleDateFormat.DEFAULT,
-                SimpleDateFormat.SHORT
-            )
-            holder.tvCompletionDate.text = dateFormat.format(Date(completionDateTime))
         }
     }
 
     override fun getItemCount(): Int {
         return achievements.size
     }
+
+    private fun getAchievementDataItem(currAchievement: Achievement): AchievementDataItem {
+        val completionTime =
+            achievementsProgressList[currAchievement.getId()].completionDateTimeLong
+        var calculatedProgress = 0
+        var requiredAmount = 0
+        val requirement = currAchievement.getRequirement()
+        if (requirement is GameRequirement.WithProgress) {
+
+            when (currAchievement) {
+                is Achievement.Wpm -> {
+                    calculatedProgress = applyCache(wpmClusterCache, requirement)
+                }
+                is Achievement.DifferentLanguages -> {
+                    calculatedProgress = applyCache(languageClusterCache, requirement)
+                }
+                else -> {
+                    calculatedProgress = requirement.getCurrentProgress(resultList)
+                }
+            }
+            requiredAmount = requirement.provideRequiredAmount()
+        }
+        return AchievementDataItem(
+            currAchievement,
+            calculatedProgress,
+            completionTime,
+            requiredAmount
+        )
+    }
+
+    private fun applyCache(cache: AchievementProgressCache, requirement: GameRequirement.WithProgress) : Int {
+        if (cache.isCached()) {
+            return cache.get()
+        }
+        else {
+            cache.put(requirement.getCurrentProgress(resultList))
+            return cache.get()
+        }
+    }
 }
+
+data class AchievementDataItem(
+    val achievement: Achievement,
+    val calculatedProgress: Int,
+    val completionTime: Long,
+    val requiredAmount: Int
+)

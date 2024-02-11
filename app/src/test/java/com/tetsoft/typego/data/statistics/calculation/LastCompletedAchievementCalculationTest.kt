@@ -15,10 +15,10 @@ class LastCompletedAchievementCalculationTest {
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(3, 300L))
         val achievements = listOf<Achievement>(
-            AchievementMock(1),
-            AchievementMock(2),
-            AchievementMock(3),
-            AchievementMock(4)
+            MockAchievement(1),
+            MockAchievement(2),
+            MockAchievement(3),
+            MockAchievement(4)
         )
         val calculation = LastCompletedAchievementCalculation(completedAchievements, achievements)
         assertEquals(calculation.provide(), achievements[1])
@@ -31,10 +31,10 @@ class LastCompletedAchievementCalculationTest {
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(5, 600L))
         val achievements = listOf<Achievement>(
-            AchievementMock(1),
-            AchievementMock(2),
-            AchievementMock(3),
-            AchievementMock(4)
+            MockAchievement(1),
+            MockAchievement(2),
+            MockAchievement(3),
+            MockAchievement(4)
         )
         val calculation = LastCompletedAchievementCalculation(completedAchievements, achievements)
         assertEquals(calculation.provide(), Achievement.Empty())
@@ -55,16 +55,16 @@ class LastCompletedAchievementCalculationTest {
     fun provide_emptyCompletionList_equalsEmptyAchievement() {
         val completedAchievements = emptyList<AchievementsCompletionPair>()
         val achievements = listOf<Achievement>(
-            AchievementMock(1),
-            AchievementMock(2),
-            AchievementMock(3),
-            AchievementMock(4)
+            MockAchievement(1),
+            MockAchievement(2),
+            MockAchievement(3),
+            MockAchievement(4)
         )
         val calculation = LastCompletedAchievementCalculation(completedAchievements, achievements)
         assertEquals(calculation.provide(), Achievement.Empty())
     }
 
-    private class AchievementMock(private val id: Int) :
+    private class MockAchievement(private val id: Int) :
         Achievement.Empty() {
         override fun getId(): Int {
             return id

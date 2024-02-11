@@ -95,7 +95,7 @@
     <string name="progression">прогресс</string>
     <string name="stats_days_since_first_test_pl">%1$d дней прошло с первого теста</string>
     <string name="stats_words_written_total_pl">%1$d слов написано всего</string>
-    <string name="stats_accuracy_pl">%1$d\% точность</string>
+    <string name="stats_accuracy_pl">%1$d(p) точность</string> <!-- (p) is a workaround for the percent sign "%" -->
     <string name="stats_total_minutes_of_testing_pl">%1$d минут тестов пройдено</string>
     <string name="stats_avg_result_in_the_past">Ср. результат раньше</string>
     <string name="stats_avg_result_now">Ср. результат сейчас</string>
@@ -110,8 +110,8 @@
     <string name="stats_locked_cards">Некоторые карточки всё ещё заблокированы. Проходи больше тестов, чтобы их разблокировать! Карточек осталось: %1$d</string>
 
     <string name="whats_new_pl">%1$s: что нового</string>
-    <string name="text_suggestions_note">* это также зависит и от настроек самой клавиатуры.</string>
-    <string name="dictionary_type_note">* базовый набор ограничен 200 словами.</string>
+    <string name="text_suggestions_note">Это также зависит и от настроек самой клавиатуры.</string>
+    <string name="dictionary_type_note">Базовый набор ограничен 200 словами.</string>
     <string name="favorite_language_description_pl">%1$d из %2$d тестов выполнены на этом языке.</string>
     <string name="favorite_timemode_description_pl">%1$d из %2$d тестов выполнены в этом режиме.</string>
     <string name="stats_best_result_description">твой текущий рекорд!</string>
@@ -141,4 +141,13 @@
     <string name="date_pl">Дата: %1$s</string>
     <string name="error_best_result_not_found">Лучший результат не найден.</string>
     <string name="cpm_pl">%1$d знаков в минуту</string>
+    <string name="seed">Сид</string>
+    <string name="seed_pl">Сид: %1$s</string>
+    <string name="seed_hint">Любое значение</string>
+    <string name="seed_description">Этот параметр позволяет получать один и тот же набор слов. Оставь пустым для случайной генерации.</string>
+    <string name="seed_copy_hint">Сид: %1$s\nУдерживайте чтобы скопировать.</string>
+    <string name="seed_copied">Сид был скопирован.</string>
+    <string name="seed_not_set">Сид не установлен.</string>
+    <string name="next">Далее</string>
+    <string name="back">Назад</string>
 </resources>

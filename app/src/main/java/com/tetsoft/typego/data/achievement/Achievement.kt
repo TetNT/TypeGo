@@ -67,7 +67,7 @@ interface Achievement {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_times_played
+            return R.drawable.ic_achievement_bigfan
         }
 
         override fun withProgressBar(): Boolean {
@@ -82,7 +82,7 @@ interface Achievement {
     abstract class SharpEye(id: Int, private val requiredTimeInSeconds: Int, private val stage: String) : Base(id) {
 
         override fun getName(context: Context): String {
-            return context.getString(R.string.unmistakable, stage)
+            return context.getString(R.string.sharp_eye, stage)
         }
 
         override fun withProgressBar(): Boolean {
@@ -94,7 +94,43 @@ interface Achievement {
         }
 
         override fun getAchievementImageId(): Int {
-            return R.drawable.ic_unmistakable
+            return R.drawable.ic_achievement_sharpeye
+        }
+    }
+
+    abstract class NoMistakesInARow(id: Int, private val requiredInARow: Int, private val stage: String) : Base(id) {
+        override fun getName(context: Context): String {
+            return context.getString(R.string.strike, stage)
+        }
+
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.strike_desc, requiredInARow)
+        }
+
+        override fun getAchievementImageId(): Int {
+            return R.drawable.ic_achievement_strike
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.NoMistakesInARowRequirement(requiredInARow)
+        }
+
+        override fun withProgressBar(): Boolean {
+            return true
+        }
+    }
+
+    abstract class DifferentLanguages(id: Int, private val requiredUniqueEntries : Int) : Base(id) {
+        override fun getDescription(context: Context): String {
+            return context.getString(R.string.polyglot_desc, requiredUniqueEntries)
+        }
+
+        override fun withProgressBar(): Boolean {
+            return true
+        }
+
+        override fun getRequirement(): GameRequirement {
+            return GameRequirement.DifferentLanguagesRequirement(requiredUniqueEntries)
         }
     }
 

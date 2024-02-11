@@ -36,11 +36,23 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_main_to_keyNotes"
+            app:destination="@id/keyNotesFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up"/>
     </fragment>
     <fragment
         android:id="@+id/releaseNotesFragment"
-        android:name="com.tetsoft.typego.ui.fragment.ReleaseNotesFragment"
-        android:label="ReleaseNotesFragment" />
+        android:name="com.tetsoft.typego.ui.fragment.releasenotes.ReleaseNotesFragment"
+        android:label="ReleaseNotesFragment" >
+        <action
+            android:id="@+id/action_releaseNotes_to_keyNotes"
+            app:destination="@id/keyNotesFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up"
+            />
+    </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="com.tetsoft.typego.ui.fragment.statistics.StatisticsFragment"
@@ -48,7 +60,7 @@
         tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/achievementsFragment"
-        android:name="com.tetsoft.typego.ui.fragment.AchievementsFragment"
+        android:name="com.tetsoft.typego.ui.fragment.achievements.AchievementsFragment"
         android:label="fragment_achievements"
         tools:layout="@layout/fragment_achievements" />
     <fragment
@@ -134,5 +146,10 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/keyNotesFragment"
+        android:name="com.tetsoft.typego.ui.fragment.keynotes.KeyNotesFragment"
+        android:label="fragment_carousel"
+        tools:layout="@layout/fragment_key_notes" />
 
 </navigation>

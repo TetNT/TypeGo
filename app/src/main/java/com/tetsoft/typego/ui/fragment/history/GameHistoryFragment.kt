@@ -10,8 +10,8 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
-import com.tetsoft.typego.adapter.GamesHistoryAdapter
 import com.tetsoft.typego.adapter.history.GameOnTimeHistoryAdapter
+import com.tetsoft.typego.adapter.language.LanguageFlagMapper
 import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
 import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
 import com.tetsoft.typego.data.language.Language
@@ -39,7 +39,7 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
             binding.testsPassedCounter.text = "-"
             val selectedLanguage = binding.spinnerResultsLanguageSelection.getSelectedLanguage()
             val resultsByLanguage = viewModel.getOnTimeHistory(selectedLanguage)
-            val listener = object : GamesHistoryAdapter.RecyclerViewOnClickListener {
+            val listener = object : GameOnTimeHistoryAdapter.RecyclerViewOnClickListener {
                 override fun onClick(v: View?, position: Int) {
                     val resultViewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                     resultViewModel.result = resultsByLanguage[position]
@@ -69,12 +69,12 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
     }
 
     private fun initLanguageSpinner() {
-        val languages = LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+        val languages = LanguageList().getLocalized(requireContext())
         // an option to show the whole history
         val spinnerItem = LanguageSpinnerItem(
             Language(Language.ALL),
             requireContext().getString(R.string.ALL),
-            R.drawable.ic_language
+            LanguageFlagMapper().get(Language(Language.ALL))
         )
         languages.add(0, spinnerItem)
         val spinnerAdapter = LanguageSpinnerAdapter(requireContext(), languages)

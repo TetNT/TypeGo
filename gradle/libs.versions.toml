@@ -19,11 +19,14 @@ legacy-support-v4 = "1.0.0"
 lifecycle-runtime-ktx = "2.6.1"
 lifecycle-viewmodel-ktx = "2.5.1"
 material = "1.9.0"
+mockito-android = "3.12.4"
+mockito-core = "5.5.0"
 moshi-kotlin = "1.13.0"
 navigation-fragment-ktx = "2.5.3"
 paging-runtime-ktx = "3.1.1"
 play-services-ads = "22.2.0"
 preference-ktx = "1.2.1"
+user-messaging-platform = "2.1.0"
 work-runtime-ktx = "2.8.1"
 
 [libraries]
@@ -53,9 +56,12 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 kotlin-android-extensions-runtime = { module = "org.jetbrains.kotlin:kotlin-android-extensions-runtime", version.ref = "kotlin-android-extensions-runtime" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito-android" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
 moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi-kotlin" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi-kotlin" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
+user-messaging-platform = { module = "com.google.android.ump:user-messaging-platform", version.ref = "user-messaging-platform" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

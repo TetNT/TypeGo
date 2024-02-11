@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.tetsoft.typego.BuildConfig
@@ -17,29 +17,21 @@ import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding
-import com.tetsoft.typego.ui.custom.withColor
+import com.tetsoft.typego.extensions.withColor
+import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainFragment : Fragment() {
+@AndroidEntryPoint
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private val viewModel: MainViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
-    private var _binding : FragmentMainBinding? = null
+    private var initialCheckCompleted = false
 
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding {
+        return FragmentMainBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,7 +39,12 @@ class MainFragment : Fragment() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.tvAppVersion.text = BuildConfig.VERSION_NAME
-        viewModel.migrateFromOldResultsToNew()
+        if (!initialCheckCompleted && viewModel.hasUncheckedNotes()) {
+            findNavController().navigate(
+                R.id.action_main_to_keyNotes,
+                Bundle().apply { putBoolean("show_all", false) })
+        }
+        initialCheckCompleted = true
     }
 
     private fun setupButtonsOnClickListeners() {
@@ -55,10 +52,12 @@ class MainFragment : Fragment() {
             startBasicTest()
         }
         binding.buttonCustomTestStart.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeSetupFragment)
+            binding.root.findNavController()
+                .navigate(R.id.action_mainFragment_to_gameOnTimeSetupFragment)
         }
         binding.buttonProfileOpen.setOnClickListener {
-            binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameHistoryFragment)
+            binding.root.findNavController()
+                .navigate(R.id.action_mainFragment_to_gameHistoryFragment)
         }
         binding.buttonPreviousTestStart.setOnClickListener {
             startPreviousTest()
@@ -69,7 +68,7 @@ class MainFragment : Fragment() {
     }
 
     private fun startBasicTest() {
-        val basicGameMode = com.tetsoft.typego.game.GameOnTime(
+        val basicGameMode = GameOnTime(
             0.0,
             0,
             0,
@@ -78,9 +77,7 @@ class MainFragment : Fragment() {
             DEFAULT_DICTIONARY_TYPE.name,
             DEFAULT_SCREEN_ORIENTATION.name,
             DEFAULT_SUGGESTIONS_ACTIVATED,
-            0,
-            0,
-            0L
+            ""
         )
         val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
         gameViewModel.gameOnTime = basicGameMode
@@ -91,16 +88,17 @@ class MainFragment : Fragment() {
         if (viewModel.userHasPreviousGames()) {
             val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
             gameViewModel.gameOnTime = viewModel.getMostRecentGameSettings()
-            binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
+            binding.root.findNavController()
+                .navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
         } else Snackbar.make(binding.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
-            .withColor(R.color.main_green, R.color.bg_dark_gray)
+            .withColor(R.color.main_green, R.color.cardview_main_color)
             .show()
     }
 
     private fun setupLanguageSpinner() {
         val spinnerAdapter = LanguageSpinnerAdapter(
             requireContext(),
-            LanguageList().getTranslatableListInAlphabeticalOrder(requireContext())
+            LanguageList().getLocalized(requireContext())
         )
         binding.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
         val lastLanguage = viewModel.getLastUsedLanguageOrDefault()
