@@ -1,0 +1,52 @@
+package com.tetsoft.typego.data.history
+
+import com.tetsoft.typego.data.DictionaryType
+import com.tetsoft.typego.data.ScreenOrientation
+import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.data.language.Language
+import org.junit.Test
+
+import org.junit.Assert.*
+
+class GameResultWithLanguageTest {
+    @Test
+    fun constructor_randomWordsResult_mappedProperly() {
+        val wpm = 25.0
+        val cpm = 100
+        val charsWritten = 120
+        val timeSpent = 60
+        val languageCode = Language.EN
+        val dictionaryType = DictionaryType.BASIC.name
+        val screenOrientation = ScreenOrientation.PORTRAIT.name
+        val suggestionsActivated = true
+        val ignoreCase = true
+        val wordsWritten = 30
+        val correctWords = 29
+        val completionDateTime = 100L
+        val seed = "123f"
+        val randomWords = RandomWords(wpm,
+            cpm,
+            charsWritten,
+            timeSpent,
+            languageCode,
+            dictionaryType,
+            screenOrientation,
+            suggestionsActivated,
+            ignoreCase,
+            wordsWritten,
+            correctWords,
+            completionDateTime,
+            seed)
+        val gameResultWithLanguage = GameHistory.GameResultWithLanguage(randomWords)
+        assertEquals(wpm, gameResultWithLanguage.getWpm(), 0.01)
+        assertEquals(cpm, gameResultWithLanguage.getCpm())
+        assertEquals(charsWritten, gameResultWithLanguage.getCharsWritten())
+        assertEquals(timeSpent, gameResultWithLanguage.getTimeSpent())
+        assertEquals(screenOrientation, gameResultWithLanguage.getScreenOrientation().name)
+        assertEquals(suggestionsActivated, gameResultWithLanguage.areSuggestionsActivated())
+        assertEquals(ignoreCase, gameResultWithLanguage.ignoreCase())
+        assertEquals(languageCode, gameResultWithLanguage.getLanguageCode())
+        assertEquals(dictionaryType, gameResultWithLanguage.getDictionaryType().name)
+        assertEquals(completionDateTime, gameResultWithLanguage.getCompletionDateTime())
+    }
+}

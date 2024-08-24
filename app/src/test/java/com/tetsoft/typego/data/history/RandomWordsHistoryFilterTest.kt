@@ -1,21 +1,21 @@
 package com.tetsoft.typego.data.history
 
+import com.tetsoft.typego.data.RandomWordsLanguageCodeMock
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.game.GameOnTime
 import org.junit.Assert.*
 
 import org.junit.Test
 
-class GameOnTimeHistoryFilterTest {
+class RandomWordsHistoryFilterTest {
 
     @Test
     fun byLanguage_filterEnglish_assertEquals3() {
         val list = GameOnTimeHistoryList(listOf(
-            MockGameOnTime("EN"),
-            MockGameOnTime("EN"),
-            MockGameOnTime("FR"),
-            MockGameOnTime("EN"),
-            MockGameOnTime("FR")
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("FR"),
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("FR")
         ))
         val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("EN")).getList()
         assertEquals(filtered.size, 3)
@@ -24,11 +24,11 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun byLanguage_filterItemNotInList_assertEquals0() {
         val list = GameOnTimeHistoryList(listOf(
-            MockGameOnTime("EN"),
-            MockGameOnTime("EN"),
-            MockGameOnTime("FR"),
-            MockGameOnTime("EN"),
-            MockGameOnTime("FR")
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("FR"),
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("FR")
         ))
         val filtered = GameOnTimeHistoryFilter(list).byLanguage(Language("UA")).getList()
         assertEquals(filtered.size, 0)
@@ -44,9 +44,9 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun inDescendingOrder_populatedList_assertOrderedProperly() {
         val list = GameOnTimeHistoryList(listOf(
-            MockGameOnTime("EN"),
-            MockGameOnTime("FR"),
-            MockGameOnTime("ES")
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("FR"),
+            RandomWordsLanguageCodeMock("ES")
         ))
         val descending = GameOnTimeHistoryFilter(list).inDescendingOrder().getList()
         assertEquals(descending[0].getLanguageCode(), "ES")
@@ -57,13 +57,11 @@ class GameOnTimeHistoryFilterTest {
     @Test
     fun get() {
         val list = GameOnTimeHistoryList(listOf(
-            MockGameOnTime("EN"),
-            MockGameOnTime("FR"),
-            MockGameOnTime("ES")
+            RandomWordsLanguageCodeMock("EN"),
+            RandomWordsLanguageCodeMock("FR"),
+            RandomWordsLanguageCodeMock("ES")
         ))
         val filter = GameOnTimeHistoryFilter(list).getList()
         assertTrue(list == filter)
     }
-
-    private class MockGameOnTime(language: String) : GameOnTime(0.0, 0, 0, 0, language, "", "", false, 0, 0, 0L)
 }

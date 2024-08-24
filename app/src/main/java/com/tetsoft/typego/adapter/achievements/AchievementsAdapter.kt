@@ -14,9 +14,9 @@ import com.tetsoft.typego.R
 import com.tetsoft.typego.data.achievement.Achievement
 import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
 import com.tetsoft.typego.data.cache.AchievementProgressCache
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.history.GameHistory
 import com.tetsoft.typego.data.requirement.GameRequirement
-import com.tetsoft.typego.ui.visibility.VisibilityMapper
+import com.tetsoft.typego.ui.VisibilityMapper
 import com.tetsoft.typego.utils.DateTimeFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 class AchievementsAdapter(
     private val context: Context,
     private val achievements: List<Achievement>,
-    private val resultList: ClassicGameModesHistoryList,
+    private val gameHistory: GameHistory,
     private val achievementsProgressList: AchievementsProgressList
 ) : RecyclerView.Adapter<AchievementsAdapter.AchievementsViewHolder>() {
 
@@ -103,15 +103,17 @@ class AchievementsAdapter(
         val requirement = currAchievement.getRequirement()
         if (requirement is GameRequirement.WithProgress) {
 
-            when (currAchievement) {
+            calculatedProgress = when (currAchievement) {
                 is Achievement.Wpm -> {
-                    calculatedProgress = applyCache(wpmClusterCache, requirement)
+                    applyCache(wpmClusterCache, requirement)
                 }
+
                 is Achievement.DifferentLanguages -> {
-                    calculatedProgress = applyCache(languageClusterCache, requirement)
+                    applyCache(languageClusterCache, requirement)
                 }
+
                 else -> {
-                    calculatedProgress = requirement.getCurrentProgress(resultList)
+                    requirement.getCurrentProgress(gameHistory)
                 }
             }
             requiredAmount = requirement.provideRequiredAmount()
@@ -125,12 +127,11 @@ class AchievementsAdapter(
     }
 
     private fun applyCache(cache: AchievementProgressCache, requirement: GameRequirement.WithProgress) : Int {
-        if (cache.isCached()) {
-            return cache.get()
-        }
-        else {
-            cache.put(requirement.getCurrentProgress(resultList))
-            return cache.get()
+        return if (cache.isCached()) {
+            cache.get()
+        } else {
+            cache.put(requirement.getCurrentProgress(gameHistory))
+            cache.get()
         }
     }
 }

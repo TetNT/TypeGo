@@ -1,8 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.game.GameResult
 
-class AccuracyCalculation(private val resultsList : ClassicGameModesHistoryList) : StatisticsCalculation {
+class AccuracyCalculation(private val resultsList : List<GameResult.WithWordsInformation>) : StatisticsCalculation {
 
     override fun provide(): Int {
         if (resultsList.isEmpty()) return 0

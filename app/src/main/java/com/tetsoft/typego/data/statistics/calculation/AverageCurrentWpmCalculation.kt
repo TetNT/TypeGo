@@ -1,10 +1,10 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.game.GameResult
 import kotlin.math.roundToInt
 
 class AverageCurrentWpmCalculation(
-    private val resultsList: ClassicGameModesHistoryList,
+    private val resultsList: List<GameResult>,
     private val resultsPoolSize: Int
 ) :
     StatisticsCalculation {

@@ -1,10 +1,10 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.data.TimeGameCompletionDateTimeMock
+import com.tetsoft.typego.data.game.GameResult
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
+import java.util.Calendar
 
 class DaysSinceFirstTestCalculationTest {
 
@@ -15,14 +15,14 @@ class DaysSinceFirstTestCalculationTest {
         calendar.set(2022, 10, 6)
         val currentTime = calendar.timeInMillis
         calendar.set(2022, 10, 1)
-        val results = ClassicGameModesHistoryList()
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        val results = ArrayList<GameResult>()
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         calendar.set(2022, 10, 2)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         calendar.set(2022, 10, 2)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         calendar.set(2022, 10, 3)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         val calculation = DaysSinceFirstTestCalculation(results, currentTime)
         assertEquals(calculation.provide(), 5)
     }
@@ -31,15 +31,15 @@ class DaysSinceFirstTestCalculationTest {
     fun provide_currentDayLessThanCompletionDay_equals0() {
         calendar.set(2022, 10, 1)
         val currentTime = calendar.timeInMillis
-        val results = ClassicGameModesHistoryList()
+        val results = ArrayList<GameResult>()
         calendar.set(2022, 10, 10)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         calendar.set(2022, 10, 20)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         calendar.set(2022, 10, 20)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         calendar.set(2022, 10, 30)
-        results.add(MockGameOnTime(calendar.timeInMillis))
+        results.add(TimeGameCompletionDateTimeMock(calendar.timeInMillis))
         val calculation = DaysSinceFirstTestCalculation(results, currentTime)
         assertEquals(calculation.provide(), 0)
     }
@@ -48,12 +48,8 @@ class DaysSinceFirstTestCalculationTest {
     fun provide_emptyResults_equals0() {
         calendar.set(2022, 10, 1)
         val currentTime = calendar.timeInMillis
-        val results = ClassicGameModesHistoryList()
+        val results = ArrayList<GameResult>()
         val calculation = DaysSinceFirstTestCalculation(results, currentTime)
         assertEquals(calculation.provide(), 0)
     }
-
-    private class MockGameOnTime(dateTime: Long) :
-        GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, dateTime)
-
 }

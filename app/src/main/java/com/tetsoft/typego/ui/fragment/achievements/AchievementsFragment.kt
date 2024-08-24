@@ -20,7 +20,7 @@ class AchievementsFragment : BaseFragment<FragmentAchievementsBinding>() {
         binding.rvAchievements.adapter = AchievementsAdapter(
             requireContext(),
             viewModel.getAchievementsList(),
-            viewModel.getResults(),
+            viewModel.getHistory(),
             viewModel.getAchievementsProgressList()
         )
         val linearLayoutManager = LinearLayoutManager(context)

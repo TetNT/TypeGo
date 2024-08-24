@@ -1,9 +1,9 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.game.GameResult
 import java.util.concurrent.TimeUnit
 
-class DaysSinceFirstTestCalculation(private val gameResultList: ClassicGameModesHistoryList, private val currentDate : Long) :
+class DaysSinceFirstTestCalculation(private val gameResultList: List<GameResult>, private val currentDate : Long) :
     StatisticsCalculation {
     override fun provide(): Int {
         if (gameResultList.isEmpty()) return 0
