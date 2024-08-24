@@ -1,10 +1,10 @@
-package com.tetsoft.typego.ui.visibility
+package com.tetsoft.typego.ui
 
 import android.view.View
 import com.tetsoft.typego.data.statistics.VisibilityProvider
 
 interface VisibilityMapper : VisibilityProvider {
-    // TODO: JUnits
+
     open class VisibleGone(private val statement: Boolean) : VisibilityMapper {
         override fun get(): Int {
             if (statement == true) return View.VISIBLE
@@ -21,5 +21,4 @@ interface VisibilityMapper : VisibilityProvider {
 
     class FromBoolean(boolean: Boolean) : VisibleGone(boolean)
 
-    class FromLong(long: Long) : VisibleInvisible(long != 0L)
 }

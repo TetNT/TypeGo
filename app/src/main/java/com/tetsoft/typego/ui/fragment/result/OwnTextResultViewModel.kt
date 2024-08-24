@@ -74,7 +74,7 @@ class OwnTextResultViewModel @Inject constructor(
     }
 
     fun getLastResultOrBlank(): String {
-        val lastResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getSecondToLastResult()
+        val lastResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getLastResult()
         return lastResult?.getWpm()?.roundToInt()?.toString() ?: "-"
     }
 
@@ -92,7 +92,7 @@ class OwnTextResultViewModel @Inject constructor(
     }
 
     fun getLastResultDifference(): Int? {
-        val lastResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getSecondToLastResult()?.getWpm()?.roundToInt()
+        val lastResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getLastResult()?.getWpm()?.roundToInt()
         return if (lastResult == null)
             null
         else
