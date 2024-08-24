@@ -2,20 +2,20 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true" >
         <shape android:layout_width="wrap_content" android:layout_height="wrap_content" android:shape="rectangle">
-            <corners android:radius="30dip" />
-            <solid android:color="@color/main_green_darker" />
+
+            <solid android:color="@color/cardview_main_color"/>
         </shape>
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle"  >
-            <corners android:radius="30dip" />
-            <solid android:color="@color/main_green_darker"/>
+
+            <solid android:color="@color/cardview_main_color"/>
         </shape>
     </item>
     <item >
         <shape android:shape="rectangle"  >
-            <corners android:radius="30dip" />
-            <gradient android:startColor="@color/main_green_darker" android:endColor="@color/main_green"/>
+
+            <solid android:color="@color/cardview_main_color"/>
         </shape>
     </item >
 </selector>

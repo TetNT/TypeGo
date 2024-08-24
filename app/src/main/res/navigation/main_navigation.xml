@@ -16,13 +16,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_mainFragment_to_gameOnTimeSetupFragment"
-            app:destination="@id/gameOnTimeSetupFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
             android:id="@+id/action_mainFragment_to_gameOnTimeFragment"
             app:destination="@id/gameOnTimeFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -41,6 +34,13 @@
             app:destination="@id/keyNotesFragment"
             app:enterAnim="@anim/slide_in_up"
             app:popEnterAnim="@anim/slide_in_up"/>
+        <action
+            android:id="@+id/action_mainFragment_to_gameSetupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/gameSetupFragment" />
     </fragment>
     <fragment
         android:id="@+id/releaseNotesFragment"
@@ -92,12 +92,17 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_gameHistoryFragment_to_ownTextResultFragment"
+            app:destination="@id/ownTextResultFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:popEnterAnim="@anim/slide_in_up"/>
     </fragment>
     <fragment
         android:id="@+id/gameOnTimeResultFragment"
-        android:name="com.tetsoft.typego.ui.fragment.result.GameOnTimeResultFragment"
+        android:name="com.tetsoft.typego.ui.fragment.result.RandomWordsResultFragment"
         android:label="fragment_game_on_time_result"
-        tools:layout="@layout/fragment_game_on_time_result" >
+        tools:layout="@layout/fragment_random_words_result" >
         <action
             android:id="@+id/action_gameOnTimeResultFragment_to_gameOnTimeFragment"
             app:destination="@id/gameOnTimeFragment"
@@ -119,26 +124,22 @@
             app:exitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/gameOnTimeSetupFragment"
-        android:name="com.tetsoft.typego.ui.fragment.setup.GameOnTimeSetupFragment"
-        android:label="fragment_game_on_time_setup"
-        tools:layout="@layout/fragment_game_on_time_setup" >
+        android:id="@+id/gameOnTimeFragment"
+        android:name="com.tetsoft.typego.ui.fragment.game.TimeGameFragment"
+        android:label="fragment_game_on_time"
+        tools:layout="@layout/fragment_time_game" >
         <action
-            android:id="@+id/action_gameOnTimeSetupFragment_to_gameOnTimeFragment"
-            app:destination="@id/gameOnTimeFragment"
+            android:id="@+id/action_timeGameFragment_to_randomWordsResultFragment"
+            app:destination="@id/gameOnTimeResultFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/gameOnTimeFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
-    <fragment
-        android:id="@+id/gameOnTimeFragment"
-        android:name="com.tetsoft.typego.ui.fragment.game.GameOnTimeFragment"
-        android:label="fragment_game_on_time"
-        tools:layout="@layout/fragment_game_on_time" >
         <action
-            android:id="@+id/action_gameOnTimeFragment_to_gameOnTimeResultFragment"
-            app:destination="@id/gameOnTimeResultFragment"
+            android:id="@+id/action_timeGameFragment_to_ownTextResultFragment"
+            app:destination="@id/ownTextResultFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/gameOnTimeFragment"
             app:enterAnim="@anim/slide_in_left"
@@ -151,5 +152,46 @@
         android:name="com.tetsoft.typego.ui.fragment.keynotes.KeyNotesFragment"
         android:label="fragment_carousel"
         tools:layout="@layout/fragment_key_notes" />
+    <fragment
+        android:id="@+id/gameSetupFragment"
+        android:name="com.tetsoft.typego.ui.fragment.setup.GameSetupFragment"
+        android:label="fragment_game_setup"
+        tools:layout="@layout/fragment_game_setup" >
+        <action
+            android:id="@+id/action_gameSetupFragment_to_gameOnTimeFragment"
+            app:destination="@id/gameOnTimeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/ownTextResultFragment"
+        android:name="com.tetsoft.typego.ui.fragment.result.OwnTextResultFragment"
+        android:label="fragment_own_text_result"
+        tools:layout="@layout/fragment_own_text_result" >
+        <action
+            android:id="@+id/action_ownTextResultFragment_to_typedWordsFragment"
+            app:destination="@id/typedWordsFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_down"
+            />
+        <action
+            android:id="@+id/action_ownTextResultFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_ownTextResultFragment_to_gameOnTimeFragment"
+            app:destination="@id/gameOnTimeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
 </navigation>

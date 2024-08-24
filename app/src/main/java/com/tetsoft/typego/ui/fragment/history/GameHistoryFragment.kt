@@ -4,21 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
-import com.tetsoft.typego.adapter.history.GameOnTimeHistoryAdapter
-import com.tetsoft.typego.adapter.language.LanguageFlagMapper
-import com.tetsoft.typego.adapter.language.LanguageSpinnerAdapter
-import com.tetsoft.typego.adapter.language.LanguageSpinnerItem
-import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.language.LanguageList
+import com.tetsoft.typego.adapter.history.GameHistoryAdapter
+import com.tetsoft.typego.data.game.OwnText
+import com.tetsoft.typego.data.game.RandomWords
 import com.tetsoft.typego.databinding.FragmentGameHistoryBinding
 import com.tetsoft.typego.ui.fragment.BaseFragment
-import com.tetsoft.typego.ui.fragment.result.GameOnTimeResultViewModel
+import com.tetsoft.typego.ui.fragment.result.OwnTextResultViewModel
+import com.tetsoft.typego.ui.fragment.result.RandomWordsResultViewModel
 
 class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
 
@@ -26,72 +22,38 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLanguageSpinner()
         binding.bAchievements.setOnClickListener {
             findNavController().navigate(R.id.action_gameHistoryFragment_to_achievementsFragment)
         }
         binding.bStatistics.setOnClickListener {
             findNavController().navigate(R.id.action_gameHistoryFragment_to_statisticsFragment)
         }
-        viewModel.selectedLanguage.observe(viewLifecycleOwner) {
-            binding.averageWpmCounter.text = "-"
-            binding.bestResultCounter.text = "-"
-            binding.testsPassedCounter.text = "-"
-            val selectedLanguage = binding.spinnerResultsLanguageSelection.getSelectedLanguage()
-            val resultsByLanguage = viewModel.getOnTimeHistory(selectedLanguage)
-            val listener = object : GameOnTimeHistoryAdapter.RecyclerViewOnClickListener {
-                override fun onClick(v: View?, position: Int) {
-                    val resultViewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
-                    resultViewModel.result = resultsByLanguage[position]
+        binding.averageWpmCounter.text = viewModel.getAverageWpmString()
+        binding.bestResultCounter.text = viewModel.getBestWpmString()
+        binding.testsPassedCounter.text = viewModel.getTotalResultsCountString()
+        val listener = object : GameHistoryAdapter.RecyclerViewOnClickListener {
+            override fun onClick(v: View?, position: Int) {
+                val selectedItem = viewModel.getHistory()[position]
+                if (selectedItem is RandomWords) {
+                    val resultViewModel: RandomWordsResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+                    resultViewModel.setRandomWordsResult(selectedItem)
                     resultViewModel.isGameCompleted = false
                     binding.root.findNavController().navigate(R.id.action_gameHistoryFragment_to_gameOnTimeResultFragment)
+                } else if (selectedItem is OwnText) {
+                    val resultViewModel : OwnTextResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+                    resultViewModel.setOwnTextResult(selectedItem)
+                    resultViewModel.setTypedWordsList(emptyList())
+                    findNavController().navigate(R.id.action_gameHistoryFragment_to_ownTextResultFragment)
                 }
             }
-            binding.rvHistoryGameOnTime.adapter = GameOnTimeHistoryAdapter(requireContext(), resultsByLanguage, listener)
-            binding.rvHistoryGameOnTime.animation = viewModel.getGameHistoryEnteringAnimation()
-            if (viewModel.averageWpmCanBeShown(resultsByLanguage)) {
-                binding.averageWpmCardview.setOnClickListener{ }
-                binding.averageWpmCounter.text = viewModel.getAverageWpm(resultsByLanguage).toString()
-            } else {
-                binding.averageWpmCardview.setOnClickListener {
-                    Toast.makeText(requireContext(), getString(R.string.msg_average_wpm_unavailable), Toast.LENGTH_SHORT).show()
-                }
-                binding.averageWpmCounter.text = "-"
-            }
-            if (!viewModel.historyCanBeShown(resultsByLanguage)) {
-                binding.tvPassedTestsInfo.text = getString(R.string.msg_nothing_to_show)
-                return@observe
-            }
-            binding.tvPassedTestsInfo.text = getString(R.string.msg_passed_tests_information)
-            binding.testsPassedCounter.text = resultsByLanguage.size.toString()
-            binding.bestResultCounter.text = viewModel.getBestWpm(resultsByLanguage).toString()
         }
-    }
-
-    private fun initLanguageSpinner() {
-        val languages = LanguageList().getLocalized(requireContext())
-        // an option to show the whole history
-        val spinnerItem = LanguageSpinnerItem(
-            Language(Language.ALL),
-            requireContext().getString(R.string.ALL),
-            LanguageFlagMapper().get(Language(Language.ALL))
-        )
-        languages.add(0, spinnerItem)
-        val spinnerAdapter = LanguageSpinnerAdapter(requireContext(), languages)
-        binding.spinnerResultsLanguageSelection.adapter = spinnerAdapter
-        binding.spinnerResultsLanguageSelection.setSelection(0)
-        binding.spinnerResultsLanguageSelection.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewModel.selectLanguage(binding.spinnerResultsLanguageSelection.getSelectedLanguage())
-                }
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+        binding.rvHistoryGameOnTime.adapter = GameHistoryAdapter(requireContext(), viewModel.getHistory(), listener)
+        binding.rvHistoryGameOnTime.animation = viewModel.getGameHistoryEnteringAnimation()
+        if (!viewModel.historyCanBeShown()) {
+            binding.tvPassedTestsInfo.text = getString(R.string.msg_nothing_to_show)
+            return
+        }
+        binding.tvPassedTestsInfo.text = getString(R.string.msg_passed_tests_information)
     }
 
     override fun initBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentGameHistoryBinding {

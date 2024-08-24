@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.game.GameOnTimeFragment">
+    tools:context=".ui.fragment.game.TimeGameFragment">
 
     <com.tetsoft.typego.ui.custom.SpannableEditText
         android:id="@+id/words"
@@ -15,7 +15,7 @@
         android:clickable="false"
         android:focusable="false"
         android:gravity="top|start"
-        android:inputType="textMultiLine"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:padding="8dp"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/inpWord"

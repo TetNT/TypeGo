@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_note_redesign">Дизайн</string>
-    <string name="key_note_redesign_description">Мы обновили тему приложения и добавили много новых значков.</string>
 
-    <string name="key_note_seeds">Сиды</string>
-    <string name="key_note_seeds_description">Представляем функцию Сидов. Соревнуйся со своими друзьями в одинаково составленных текстах и узнай, кто будет первым!</string>
+    <string name="key_note_new_game_mode">Новый игровой режим: Свой текст!</string>
+    <string name="key_note_new_game_mode_description">По многочисленным просьбам, мы добавляем возможность создавать ваш собственный текст. Выпускайте ваше воображение!</string>
 
-    <string name="key_note_achievements">Новые достижения</string>
-    <string name="key_note_achievements_description">Появилось 7 новых достижений. Они ждут, когда ты их выполнишь!</string>
+    <string name="key_note_new_theme">Новая тема</string>
+    <string name="key_note_new_theme_description">Основная тема приложения обновлена. Теперь игровые режимы представлены цветами.</string>
 </resources>

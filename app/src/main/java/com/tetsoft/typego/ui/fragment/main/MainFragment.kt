@@ -17,10 +17,10 @@ import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.language.LanguageList
 import com.tetsoft.typego.data.timemode.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding
-import com.tetsoft.typego.extensions.withColor
-import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.data.game.GameSettings
+import com.tetsoft.typego.extensions.withAppColors
 import com.tetsoft.typego.ui.fragment.BaseFragment
-import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
+import com.tetsoft.typego.ui.fragment.game.TimeGameViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +53,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
         binding.buttonCustomTestStart.setOnClickListener {
             binding.root.findNavController()
-                .navigate(R.id.action_mainFragment_to_gameOnTimeSetupFragment)
+                .navigate(R.id.action_mainFragment_to_gameSetupFragment)
         }
         binding.buttonProfileOpen.setOnClickListener {
             binding.root.findNavController()
@@ -68,30 +68,28 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun startBasicTest() {
-        val basicGameMode = GameOnTime(
-            0.0,
-            0,
-            0,
-            DEFAULT_TIME_MODE.timeInSeconds,
+        val basicGameMode = GameSettings.ForRandomlyGeneratedWords(
             binding.spinnerBasicTestLanguageSelection.getSelectedLanguage().identifier,
-            DEFAULT_DICTIONARY_TYPE.name,
-            DEFAULT_SCREEN_ORIENTATION.name,
+            DEFAULT_TIME_MODE.timeInSeconds,
+            DEFAULT_DICTIONARY_TYPE,
+            "",
             DEFAULT_SUGGESTIONS_ACTIVATED,
-            ""
+            DEFAULT_SCREEN_ORIENTATION,
+            true
         )
-        val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
-        gameViewModel.gameOnTime = basicGameMode
+        val gameViewModel: TimeGameViewModel by navGraphViewModels(R.id.main_navigation)
+        gameViewModel.gameSettings = basicGameMode
         binding.root.findNavController().navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
     }
 
     private fun startPreviousTest() {
         if (viewModel.userHasPreviousGames()) {
-            val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
-            gameViewModel.gameOnTime = viewModel.getMostRecentGameSettings()
+            val gameViewModel: TimeGameViewModel by navGraphViewModels(R.id.main_navigation)
+            gameViewModel.gameSettings = viewModel.getMostRecentGameSettings() as GameSettings.TimeBased
             binding.root.findNavController()
                 .navigate(R.id.action_mainFragment_to_gameOnTimeFragment)
         } else Snackbar.make(binding.root, R.string.msg_no_previous_games, Snackbar.LENGTH_LONG)
-            .withColor(R.color.main_green, R.color.cardview_main_color)
+            .withAppColors()
             .show()
     }
 

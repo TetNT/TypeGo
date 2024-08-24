@@ -5,10 +5,8 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.history.ClassicGameHistoryDataSelector
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.data.history.GameOnTimeDataSelector
-import com.tetsoft.typego.data.history.GameOnTimeHistoryList
+import com.tetsoft.typego.data.achievement.AchievementsList
+import com.tetsoft.typego.data.history.GameHistory
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.data.statistics.AccuracyStatistics
 import com.tetsoft.typego.data.statistics.AverageCurrentWpmStatistics
@@ -41,20 +39,21 @@ import com.tetsoft.typego.data.statistics.calculation.ProgressionCalculation
 import com.tetsoft.typego.data.statistics.calculation.TimeSpentCalculation
 import com.tetsoft.typego.data.statistics.calculation.TotalWordsWrittenCalculation
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
-import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
+import com.tetsoft.typego.storage.history.OwnTextGameHistoryStorage
+import com.tetsoft.typego.storage.history.RandomWordsHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage,
-    private val gameOnNumberOfWordsHistoryStorage: GameOnNumberOfWordsHistoryStorage,
+    private val randomWordsHistoryStorage: RandomWordsHistoryStorage,
+    private val ownTextGameHistoryStorage: OwnTextGameHistoryStorage,
     private val achievementsProgressStorage: AchievementsProgressStorage
 ) : ViewModel() {
 
-    val classicGameModesHistoryList get() = ClassicGameModesHistoryList(gameOnTimeHistoryStorage, gameOnNumberOfWordsHistoryStorage)
+    // FIXME: remove that and inject gameHistory properly
+    private val gameHistory get() = GameHistory.Standard(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
 
     companion object {
         const val RESULTS_DEFAULT_POOL_SIZE = 5
@@ -101,10 +100,10 @@ class StatisticsViewModel @Inject constructor(
     val averagePastWpmStatistics
         get() = AveragePastWpmStatistics(
             AveragePastWpmCalculation(
-                classicGameModesHistoryList,
+                gameHistory.getAllResults(),
                 RESULTS_DEFAULT_POOL_SIZE,
                 PoolEnhancement.Base(
-                    classicGameModesHistoryList.size,
+                    gameHistory.getAllResults().size,
                     RESULTS_DEFAULT_POOL_SIZE
                 )
             )
@@ -112,7 +111,7 @@ class StatisticsViewModel @Inject constructor(
 
     val averageCurrentWpmStatistics
         get() = AverageCurrentWpmStatistics(
-            AverageCurrentWpmCalculation(classicGameModesHistoryList, RESULTS_DEFAULT_POOL_SIZE)
+            AverageCurrentWpmCalculation(gameHistory.getAllResults(), RESULTS_DEFAULT_POOL_SIZE)
         )
 
     val progressionStatistics
@@ -134,27 +133,27 @@ class StatisticsViewModel @Inject constructor(
 
     val totalWordsWrittenStatistics
         get() = TotalWordsWrittenStatistics(
-            TotalWordsWrittenCalculation(classicGameModesHistoryList)
+            TotalWordsWrittenCalculation(gameHistory.getResultsWithWordsInformation())
         )
 
     val accuracyStatistics
         get() = AccuracyStatistics(
             AccuracyCalculation(
-                classicGameModesHistoryList
+                gameHistory.getResultsWithWordsInformation()
             )
         )
 
     val timeSpentStatistics
         get() = TimeSpentStatistics(
             TimeSpentCalculation(
-                classicGameModesHistoryList
+                gameHistory.getAllResults()
             )
         )
 
     val bestResultStatistics
         get() = BestResultStatistics(
             BestResultCalculation(
-                classicGameModesHistoryList
+                gameHistory.getAllResults()
             )
         )
 
@@ -162,47 +161,43 @@ class StatisticsViewModel @Inject constructor(
         get() = DaysSinceNewRecordStatistics(
             DaysSinceNewRecordCalculation(
                 Calendar.getInstance().timeInMillis,
-                ClassicGameHistoryDataSelector(classicGameModesHistoryList).getBestResult()
-                    .getCompletionDateTime()
+                gameHistory.getBestResult().getCompletionDateTime()
             )
         )
 
     val daysSinceFirstTestStatistics
         get() = DaysSinceFirstTestStatistics(
             DaysSinceFirstTestCalculation(
-                classicGameModesHistoryList,
+                gameHistory.getAllResults(),
                 Calendar.getInstance().timeInMillis
             )
         )
 
     val favoriteLanguageStatistics
         get() = FavoriteLanguageStatistics(
-            FavoriteLanguageCalculation(classicGameModesHistoryList, Language.LANGUAGE_LIST)
+            FavoriteLanguageCalculation(gameHistory.getResultsWithLanguage(), Language.LANGUAGE_LIST)
         )
 
     val favoriteLanguageGamesCount
-        get() =
-            ClassicGameHistoryDataSelector(classicGameModesHistoryList).getResultsByLanguage(
-                favoriteLanguageStatistics.provide().identifier
-            ).size
+        get() = gameHistory.getResultsWithLanguage().filter {
+            it.getLanguageCode() == favoriteLanguageStatistics.provide().identifier
+        }.size
 
     val favoriteTimeModeStatistics
         get() = FavoriteTimeModeStatistics(
-            FavoriteTimeModeCalculation(GameOnTimeHistoryList(gameOnTimeHistoryStorage.get()))
+            FavoriteTimeModeCalculation(gameHistory.getTimeLimitedResults())
         )
 
     val favoriteTimeModeGamesCount
         get() =
-            GameOnTimeDataSelector(gameOnTimeHistoryStorage.get()).getResultsByTimeMode(
-                favoriteTimeModeStatistics.provide().timeInSeconds
-            ).size
+            gameHistory.getTimeLimitedResults().filter { it.getChosenTimeInSeconds() == favoriteTimeModeStatistics.provide().timeInSeconds }.size
 
     val doneAchievementsCountStatistics
         get() = DoneAchievementCountStatistics(
             DoneAchievementsCountCalculation(achievementsProgressStorage.getAll())
         )
 
-    val achievementsCount get() = com.tetsoft.typego.data.achievement.AchievementsList.get().size
+    val achievementsCount get() = AchievementsList.get().size
 
     val doneAchievementsPercentageStatistics
         get() = DoneAchievementsPercentageStatistics(
@@ -216,10 +211,10 @@ class StatisticsViewModel @Inject constructor(
         get() = LastCompletedAchievementStatistics(
             LastCompletedAchievementCalculation(
                 achievementsProgressStorage.getAll(),
-                com.tetsoft.typego.data.achievement.AchievementsList.get()
+                AchievementsList.get()
             )
         )
 
-    val gamesCount get() = classicGameModesHistoryList.size
+    val gamesCount get() = gameHistory.getAllResults().size
 
 }
