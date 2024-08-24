@@ -1,9 +1,10 @@
 package com.tetsoft.typego.di
 
 import android.content.Context
+import com.tetsoft.typego.data.history.GameHistory
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
-import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
+import com.tetsoft.typego.storage.history.RandomWordsHistoryStorage
+import com.tetsoft.typego.storage.history.OwnTextGameHistoryStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,26 +18,20 @@ class StorageModule {
 
     @Provides
     @Singleton
-    fun provideGameOnTimeHistoryStorage(@ApplicationContext context: Context): GameOnTimeHistoryStorage.SharedPreferences {
-        return GameOnTimeHistoryStorage.SharedPreferences(context)
+    fun provideRandomWordsHistoryStorage(@ApplicationContext context: Context): RandomWordsHistoryStorage.SharedPreferences {
+        return RandomWordsHistoryStorage.SharedPreferences(context)
     }
 
     @Provides
     @Singleton
-    fun provideGameOnTimeHistoryMock() : GameOnTimeHistoryStorage.Mock {
-        return GameOnTimeHistoryStorage.Mock()
+    fun provideRandomWordsHistoryStorageMock() : RandomWordsHistoryStorage.Mock {
+        return RandomWordsHistoryStorage.Mock()
     }
 
     @Provides
     @Singleton
-    fun provideGameOnNumberOfWordsHistoryStorage(@ApplicationContext context: Context): GameOnNumberOfWordsHistoryStorage.SharedPreferences {
-        return GameOnNumberOfWordsHistoryStorage.SharedPreferences(context)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGameOnNumberOfWordsHistoryMock() : GameOnNumberOfWordsHistoryStorage.Mock {
-        return GameOnNumberOfWordsHistoryStorage.Mock()
+    fun provideOwnTextGameHistoryStorage(@ApplicationContext context: Context) : OwnTextGameHistoryStorage.SharedPreferences {
+        return OwnTextGameHistoryStorage.SharedPreferences(context)
     }
 
     @Provides
@@ -49,6 +44,15 @@ class StorageModule {
     @Singleton
     fun provideAchievementsProgressStorage(@ApplicationContext context: Context) : AchievementsProgressStorage.SharedPreferences {
         return AchievementsProgressStorage.SharedPreferences(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGameHistory(@ApplicationContext context: Context) : GameHistory.Standard {
+        return GameHistory.Standard(
+            RandomWordsHistoryStorage.SharedPreferences(context).get(),
+            OwnTextGameHistoryStorage.SharedPreferences(context).get()
+        )
     }
 
 }

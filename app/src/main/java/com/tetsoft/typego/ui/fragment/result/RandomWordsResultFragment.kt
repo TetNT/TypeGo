@@ -14,22 +14,21 @@ import androidx.navigation.navGraphViewModels
 import com.tetsoft.typego.R
 import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.timemode.TimeMode
-import com.tetsoft.typego.databinding.FragmentGameOnTimeResultBinding
+import com.tetsoft.typego.databinding.FragmentRandomWordsResultBinding
 import com.tetsoft.typego.extensions.copyToClipboard
-import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.ui.VisibilityMapper
 import com.tetsoft.typego.ui.fragment.BaseFragment
-import com.tetsoft.typego.ui.fragment.game.GameOnTimeViewModel
+import com.tetsoft.typego.ui.fragment.game.TimeGameViewModel
 import com.tetsoft.typego.ui.fragment.typedwords.TypedWordsViewModel
-import com.tetsoft.typego.ui.visibility.VisibilityMapper
 import com.tetsoft.typego.utils.AnimationsPreset
 import com.tetsoft.typego.utils.Animator
 import com.tetsoft.typego.utils.Translation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>() {
+class RandomWordsResultFragment : BaseFragment<FragmentRandomWordsResultBinding>() {
 
-    private val viewModel: GameOnTimeResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
+    private val viewModel: RandomWordsResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
 
     private val translation by lazy { Translation(requireContext()) }
 
@@ -38,8 +37,8 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
     override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentGameOnTimeResultBinding {
-        return FragmentGameOnTimeResultBinding.inflate(inflater, container, false)
+    ): FragmentRandomWordsResultBinding {
+        return FragmentRandomWordsResultBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,8 +75,8 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
             }
         }
         binding.bStartOver.setOnClickListener {
-            val gameViewModel: GameOnTimeViewModel by navGraphViewModels(R.id.main_navigation)
-            gameViewModel.gameOnTime = (viewModel.result)
+            val gameViewModel: TimeGameViewModel by navGraphViewModels(R.id.main_navigation)
+            gameViewModel.gameSettings = viewModel.getSettings()
             val navOptions = NavOptions.Builder()
                 .setPopUpTo(R.id.gameOnTimeResultFragment, true)
                 .setEnterAnim(R.anim.slide_in_right)
@@ -154,7 +153,7 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
 
     private fun initDetails() {
         with(binding) {
-            if (viewModel.result is GameOnTime.Empty) {
+            if (!viewModel.resultIsValid()) {
                 findNavController().navigateUp()
                 return
             }
@@ -190,7 +189,7 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
             tvSeed.text = getString(R.string.seed_pl, viewModel.getSeedOrBlankSign())
             tvSeed.setOnClickListener {
                 if (!viewModel.seedIsEmpty()) {
-                    showToast(getString(R.string.seed_copy_hint, viewModel.result.getSeed()))
+                    showToast(getString(R.string.seed_copy_hint, viewModel.getSeedOrBlankSign()))
                 } else {
                     showToast(R.string.seed_not_set)
                 }
@@ -198,11 +197,12 @@ class GameOnTimeResultFragment : BaseFragment<FragmentGameOnTimeResultBinding>()
             tvSeed.setOnLongClickListener {
                 if (!viewModel.seedIsEmpty()) {
                     showToast(R.string.seed_copied)
-                    requireContext().copyToClipboard("TypeGo seed", viewModel.result.getSeed())
+                    requireContext().copyToClipboard("TypeGo seed", viewModel.getSeedOrBlankSign())
                     return@setOnLongClickListener true
                 }
                 return@setOnLongClickListener false
             }
+
         }
     }
 

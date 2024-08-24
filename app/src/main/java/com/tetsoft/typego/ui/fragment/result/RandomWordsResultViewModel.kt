@@ -8,14 +8,15 @@ import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.Word
 import com.tetsoft.typego.data.achievement.Achievement
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.data.history.GameOnTimeDataSelector
+import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.data.game.GameSettings
+import com.tetsoft.typego.data.history.DataSelector
+import com.tetsoft.typego.data.history.GameHistory
 import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.AchievementsProgressStorage
-import com.tetsoft.typego.storage.history.GameOnNumberOfWordsHistoryStorage
-import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
+import com.tetsoft.typego.storage.history.OwnTextGameHistoryStorage
+import com.tetsoft.typego.storage.history.RandomWordsHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -24,15 +25,22 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @HiltViewModel
-class GameOnTimeResultViewModel @Inject constructor(
-    private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage,
-    private val gameOnNumberOfWordsHistoryStorage: GameOnNumberOfWordsHistoryStorage,
+class RandomWordsResultViewModel @Inject constructor(
+    private val randomWordsHistoryStorage: RandomWordsHistoryStorage,
+    private val ownTextGameHistoryStorage: OwnTextGameHistoryStorage,
     private val achievementsProgressStorage: AchievementsProgressStorage,
 ) : ViewModel() {
 
+    // FIXME: remove that and inject gameHistory properly
+    private val gameHistory get() = GameHistory.Standard(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
+
     var wordsList = emptyList<Word>()
 
-    var result : GameOnTime = GameOnTime.Empty()
+    private var result : RandomWords = RandomWords.Empty()
+
+    fun setRandomWordsResult(randomWords: RandomWords) {
+        result = randomWords
+    }
 
     var isGameCompleted : Boolean = false
 
@@ -77,13 +85,12 @@ class GameOnTimeResultViewModel @Inject constructor(
     }
 
     fun getPreviousWpm() : Int {
-        val resultsFiltered = GameOnTimeHistoryFilter(gameOnTimeHistoryStorage.get()).byLanguage(getLanguage()).getList()
-        // TODO: Change it later to the "getSecondToLastResult()" method.
-        return GameOnTimeDataSelector(resultsFiltered).getMostRecentResult().getWpm().roundToInt()
+        val resultsFiltered = GameOnTimeHistoryFilter(randomWordsHistoryStorage.get()).byLanguage(getLanguage()).getList()
+        return DataSelector.Standard(resultsFiltered).getMostRecentResult()?.getWpm()?.roundToInt() ?: 0
     }
 
     fun getBestWpmByCurrentLanguage() : Int {
-        return GameOnTimeDataSelector(gameOnTimeHistoryStorage.get()).getBestResult().getWpm().roundToInt()
+        return DataSelector.Standard(randomWordsHistoryStorage.get()).getBestResult()?.getWpm()?.roundToInt() ?: 0
     }
 
     fun getWpm() : Int {
@@ -111,24 +118,22 @@ class GameOnTimeResultViewModel @Inject constructor(
     }
 
     fun resultIsValid() : Boolean {
-        return (result.getWpm() > 0 && result !is GameOnTime.Empty)
+        return (result.getWpm() > 0 && result !is RandomWords.Empty)
     }
 
     fun saveResult() {
         if (resultIsValid()) {
-            gameOnTimeHistoryStorage.add(result)
+            randomWordsHistoryStorage.add(result)
         }
     }
 
     fun getEarnedAchievementsCount(achievementsList: List<Achievement>) : Int {
         var newAchievements = 0
-
         val completedAchievements = achievementsProgressStorage.getAll()
-        val classicGameModesHistoryList = ClassicGameModesHistoryList(gameOnTimeHistoryStorage, gameOnNumberOfWordsHistoryStorage)
         viewModelScope.launch {
             for (achievement in achievementsList) {
                 if (!completedAchievements[achievement.getId()].isCompleted() &&
-                    achievement.isCompleted(classicGameModesHistoryList)) {
+                    achievement.isCompleted(gameHistory)) {
                     achievementsProgressStorage.store(achievement.getId().toString(), Calendar.getInstance().time.time)
                     newAchievements++
                 }
@@ -146,5 +151,11 @@ class GameOnTimeResultViewModel @Inject constructor(
         return result.getSeed()
     }
 
-    fun seedIsEmpty() = result.getSeed().isEmpty()
+    fun seedIsEmpty() : Boolean {
+        return result.getSeed().isEmpty()
+    }
+
+    fun getSettings() : GameSettings.ForRandomlyGeneratedWords {
+        return result.toSettings() as GameSettings.ForRandomlyGeneratedWords
+    }
 }

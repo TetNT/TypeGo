@@ -8,7 +8,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         style="@style/basic_cardview"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,7 +23,7 @@
                 android:layout_height="wrap_content"
                 style="@style/submenu_header"
                 tools:text="1.5.0"
-                app:drawableTint="@color/main_green"
+                app:drawableTint="?attr/colorPrimary"
                 app:drawableStartCompat="@drawable/ic_release_notes"
                 android:drawablePadding="4dp"
                 android:layout_marginBottom="16dp"/>
