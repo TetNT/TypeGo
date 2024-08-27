@@ -22,7 +22,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/custom_test"
-            android:textColor="@color/text_accent"
             app:drawableStartCompat="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -53,7 +53,8 @@ class GameHistoryAdapter(
         View.OnClickListener {
         val itemWpm: TextView
         val itemText: TextView
-        val itemTime: TextView
+        val itemChosenTime: TextView
+        val itemSpentTime: TextView
         val itemSuggestions: TextView
         val itemOrientation: TextView
         val itemCompletionTime: TextView
@@ -64,8 +65,9 @@ class GameHistoryAdapter(
 
         init {
             itemWpm = itemView.findViewById(R.id.history_item_wpm)
-            itemTime = itemView.findViewById(R.id.history_attribute_time)
             itemText = itemView.findViewById(R.id.history_attribute_text)
+            itemChosenTime = itemView.findViewById(R.id.history_attribute_chosen_time)
+            itemSpentTime = itemView.findViewById(R.id.history_attribute_spent_time)
             itemSuggestions = itemView.findViewById(R.id.history_attribute_suggestions)
             itemOrientation = itemView.findViewById(R.id.history_attribute_orientation)
             itemCompletionTime = itemView.findViewById(R.id.completion_time)
@@ -143,7 +145,8 @@ class GameHistoryAdapter(
             with(ownTextItem) {
                 itemWpm.text = history.getWpm().roundToInt().toString()
                 itemText.text = history.getText()
-                itemTime.text = TimeConvert.convertSecondsToStamp(history.getTimeSpent())
+                itemChosenTime.text = TimeConvert.convertSecondsToStamp(history.getChosenTimeInSeconds())
+                itemSpentTime.text = TimeConvert.convertSecondsToStamp(history.getTimeSpent())
                 itemCompletionTime.text = DATE_FORMAT.format(Date(history.getCompletionDateTime()))
                 val orientationDrawable = SCREEN_ORIENTATION_DRAWABLE_MAP.getOrDefault(history.getScreenOrientation(), R.drawable.ic_portrait)
                 itemOrientation.setDrawableStart(AppCompatResources.getDrawable(context, orientationDrawable))

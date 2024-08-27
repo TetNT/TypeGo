@@ -18,7 +18,7 @@
     </style>
 
     <style name="activity_title">
-        <item name="android:textColor">@color/text_accent</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:clickable">true</item>
@@ -92,7 +92,7 @@
 
     <style name="textview_history_attribute">
         <item name="android:drawableTint">@color/white</item>
-        <item name="android:drawablePadding">4dp</item>
+        <item name="android:drawablePadding">6dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:maxLines">1</item>
@@ -103,6 +103,8 @@
         <item name="android:paddingEnd">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:maxEms">10</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">@font/redring_regular</item>
     </style>
 </resources>

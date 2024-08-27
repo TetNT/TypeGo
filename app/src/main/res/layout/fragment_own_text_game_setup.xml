@@ -47,7 +47,7 @@
                         android:layout_marginBottom="8dp"
                         android:drawablePadding="8dp"
                         android:text="@string/your_text"
-                        app:drawableStartCompat="@drawable/ic_paste" />
+                        app:drawableStartCompat="@drawable/ic_text" />
 
 
                     <EditText
@@ -102,8 +102,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="8dp"
-                        android:text="@string/amount_of_time"
-                        app:drawableStartCompat="@drawable/ic_timer" />
+                        android:text="@string/time"
+                        app:drawableStartCompat="@drawable/ic_clock" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -121,7 +121,8 @@
                             app:haloRadius="12dp"
                             app:labelBehavior="gone"
                             app:thumbRadius="6dp"
-                            app:tickColor="@color/white" />
+                            app:tickColor="@color/white"
+                            android:contentDescription="@string/amount_of_time"/>
 
                         <TextView
                             android:id="@+id/tvTimeStamp"
@@ -140,10 +141,6 @@
 
             </androidx.cardview.widget.CardView>
 
-
-
-
-
             <androidx.cardview.widget.CardView
                 style="@style/basic_cardview"
                 android:layout_width="match_parent"
@@ -161,9 +158,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="8dp"
                         android:text="@string/text_suggestions"
-                        app:drawableStartCompat="@drawable/ic_info" />
+                        app:drawableStartCompat="@drawable/ic_suggestions" />
 
                     <CheckBox
                         android:id="@+id/cbPredictiveText"

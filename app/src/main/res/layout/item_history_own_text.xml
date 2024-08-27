@@ -56,14 +56,24 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/history_attribute_time"
+                    android:id="@+id/history_attribute_chosen_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/attribute_own_text_background"
                     style="@style/textview_history_attribute"
                     tools:text="0:15"
                     android:textSize="11sp"
-                    app:drawableStartCompat="@drawable/ic_timer" />
+                    app:drawableStartCompat="@drawable/ic_clock" />
+
+                <TextView
+                    android:id="@+id/history_attribute_spent_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/attribute_own_text_background"
+                    style="@style/textview_history_attribute"
+                    tools:text="0:15"
+                    android:textSize="11sp"
+                    app:drawableStartCompat="@drawable/ic_hourglass" />
 
                 <TextView
                     android:id="@+id/history_attribute_orientation"
@@ -86,18 +96,6 @@
                     android:layout_marginBottom="8dp"
                     android:text=""
                     app:drawableStartCompat="@drawable/ic_info"
-                    app:drawableTint="@color/background_variant" />
-
-                <TextView
-                    android:id="@+id/history_attribute_seed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="2dp"
-                    android:paddingVertical="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
-                    app:drawableStartCompat="@drawable/ic_key"
                     app:drawableTint="@color/background_variant" />
 
             </com.google.android.flexbox.FlexboxLayout>

@@ -21,7 +21,7 @@
     <string name="enhanced">Расширенный</string>
     <string name="basic">Базовый</string>
     <string name="dictionary">Словарь</string>
-    <string name="allotted_time">Время</string>
+    <string name="time">Время</string>
     <string name="testing">Тестирование</string>
     <string name="amount_of_time">Количество времени</string>
     <string name="dictionary_type">Набор слов</string>
@@ -157,7 +157,7 @@
     <string name="seed_not_set">Сид не установлен.</string>
     <string name="next">Далее</string>
     <string name="back">Назад</string>
-    <string name="your_text">Твой текст</string>
+    <string name="your_text">Текст</string>
     <string name="paste_your_text">Вставь свой текст сюда.</string>
     <string name="random_words">Случайные слова</string>
     <string name="own_text">Свой текст</string>

@@ -104,7 +104,7 @@
         android:label="fragment_game_on_time_result"
         tools:layout="@layout/fragment_random_words_result" >
         <action
-            android:id="@+id/action_gameOnTimeResultFragment_to_gameOnTimeFragment"
+            android:id="@+id/action_randomWordsResultFragment_to_timeGameFragment"
             app:destination="@id/gameOnTimeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

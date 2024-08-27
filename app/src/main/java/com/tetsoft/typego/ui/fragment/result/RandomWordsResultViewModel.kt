@@ -1,27 +1,25 @@
 package com.tetsoft.typego.ui.fragment.result
 
-import android.graphics.Color
-import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tetsoft.typego.R
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
 import com.tetsoft.typego.data.Word
-import com.tetsoft.typego.data.achievement.Achievement
-import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.data.achievement.AchievementsList
 import com.tetsoft.typego.data.game.GameSettings
+import com.tetsoft.typego.data.game.RandomWords
 import com.tetsoft.typego.data.history.DataSelector
 import com.tetsoft.typego.data.history.GameHistory
-import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
 import com.tetsoft.typego.data.language.Language
 import com.tetsoft.typego.storage.AchievementsProgressStorage
 import com.tetsoft.typego.storage.history.OwnTextGameHistoryStorage
 import com.tetsoft.typego.storage.history.RandomWordsHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
-import kotlin.math.abs
 import kotlin.math.roundToInt
 
 @HiltViewModel
@@ -44,61 +42,12 @@ class RandomWordsResultViewModel @Inject constructor(
 
     var isGameCompleted : Boolean = false
 
-    fun getCorrectWords() : Int {
-        return result.getCorrectWords()
-    }
-
-    fun getIncorrectWords() : Int {
-        return result.getWordsWritten().minus(getCorrectWords())
-    }
-
-    fun hasWordsLog() = wordsList.isNotEmpty()
-
-    fun getVisibilityForResult(wpmResult : Int) : Int {
-        if (wpmResult == 0) {
-            return View.GONE
-        }
-        return View.VISIBLE
-    }
-
-    fun getVisibilityForDifference(difference : Int) : Int {
-        if (difference == 0) {
-            return View.GONE
-        }
-        return View.VISIBLE
-    }
-
-    fun subtractCurrentWpmAndOtherResult(other: Int) : Int {
-        return (result.getWpm() - other).toInt()
-    }
-
-    fun getDifferenceString(difference: Int) : String {
-        if (difference > 0) return "+${abs(difference)}"
-        if (difference < 0) return "-${abs(difference)}"
-        else return ""
-    }
-
-    fun getDifferenceColor(difference: Int) : Int {
-        if (difference > 0) return Color.GREEN
-        if (difference < 0) return Color.RED
-        else return Color.GRAY
-    }
-
-    fun getPreviousWpm() : Int {
-        val resultsFiltered = GameOnTimeHistoryFilter(randomWordsHistoryStorage.get()).byLanguage(getLanguage()).getList()
-        return DataSelector.Standard(resultsFiltered).getMostRecentResult()?.getWpm()?.roundToInt() ?: 0
-    }
-
-    fun getBestWpmByCurrentLanguage() : Int {
-        return DataSelector.Standard(randomWordsHistoryStorage.get()).getBestResult()?.getWpm()?.roundToInt() ?: 0
-    }
-
     fun getWpm() : Int {
         return result.getWpm().roundToInt()
     }
 
-    fun getCpm() : Int {
-        return result.getCpm()
+    fun getCpm() : String {
+        return result.getCpm().toString()
     }
 
     fun getLanguage() : Language {
@@ -114,24 +63,14 @@ class RandomWordsResultViewModel @Inject constructor(
     }
 
     fun getTimeInSeconds() : Int {
-        return result.getTimeSpent()
+        return result.getChosenTimeInSeconds()
     }
 
-    fun resultIsValid() : Boolean {
-        return (result.getWpm() > 0 && result !is RandomWords.Empty)
-    }
-
-    fun saveResult() {
-        if (resultIsValid()) {
-            randomWordsHistoryStorage.add(result)
-        }
-    }
-
-    fun getEarnedAchievementsCount(achievementsList: List<Achievement>) : Int {
+    fun getEarnedAchievementsCount() : Int {
         var newAchievements = 0
         val completedAchievements = achievementsProgressStorage.getAll()
         viewModelScope.launch {
-            for (achievement in achievementsList) {
+            for (achievement in AchievementsList.get()) {
                 if (!completedAchievements[achievement.getId()].isCompleted() &&
                     achievement.isCompleted(gameHistory)) {
                     achievementsProgressStorage.store(achievement.getId().toString(), Calendar.getInstance().time.time)
@@ -155,7 +94,81 @@ class RandomWordsResultViewModel @Inject constructor(
         return result.getSeed().isEmpty()
     }
 
-    fun getSettings() : GameSettings.ForRandomlyGeneratedWords {
+    fun saveResultIfValid() : Boolean {
+        if (result is RandomWords.Empty ||
+            result.getWpm() == 0.0 ||
+            randomWordsHistoryStorage.get().find { it.getCompletionDateTime() == result.getCompletionDateTime() } !== null)
+            return false
+        randomWordsHistoryStorage.add(result)
+        return true
+    }
+
+    fun getWordsWritten(): String {
+        return result.getWordsWritten().toString()
+    }
+
+    fun getCorrectWordsCount() : Int {
+        return result.getCorrectWords()
+    }
+
+    fun getLastResultOrBlank(): String {
+        val lastResult = DataSelector.Standard(randomWordsHistoryStorage.get()).getLastResult()
+        return lastResult?.getWpm()?.roundToInt()?.toString() ?: "-"
+    }
+
+    fun getTypedWordsList(): List<Word> {
+        return wordsList
+    }
+
+    fun getGameSettings(): GameSettings.ForRandomlyGeneratedWords {
         return result.toSettings() as GameSettings.ForRandomlyGeneratedWords
     }
+
+    @StringRes
+    fun getLastResultDifferenceStringResId() : Int  {
+        val currentToLastResultDifference = getLastResultDifference()
+        return if (currentToLastResultDifference == null)
+            R.string.no_last_results
+        else if (currentToLastResultDifference > 0)
+            R.string.current_to_last_wpm_more
+        else if (currentToLastResultDifference < 0)
+            R.string.current_to_last_wpm_less
+        else
+            R.string.current_to_last_wpm_same
+    }
+
+    fun getLastResultDifference(): Int? {
+        val lastResult = DataSelector.Standard(randomWordsHistoryStorage.get()).getLastResult()?.getWpm()?.roundToInt()
+        return if (lastResult == null)
+            null
+        else
+            result.getWpm().roundToInt() - lastResult
+    }
+
+    fun getBestResultOrBlank(): String {
+        val bestResult = DataSelector.Standard(randomWordsHistoryStorage.get()).getBestResult()
+        return bestResult?.getWpm()?.roundToInt()?.toString() ?: "-"
+    }
+
+    @StringRes
+    fun getBestResultDifferenceStringResId() : Int  {
+        val currentToBestResultDifference = getBestResultDifference()
+        return if (currentToBestResultDifference == null)
+            R.string.no_last_results
+        else if (currentToBestResultDifference > 0)
+            R.string.current_to_best_wpm_more
+        else if (currentToBestResultDifference < 0)
+            R.string.current_to_best_wpm_less
+        else
+            R.string.current_to_best_wpm_same
+    }
+
+    fun getBestResultDifference(): Int? {
+        val bestResult = DataSelector.Standard(randomWordsHistoryStorage.get()).getBestResult()?.getWpm()?.roundToInt()
+        return if (bestResult == null)
+            null
+        else
+            result.getWpm().roundToInt() - bestResult
+    }
+
 }

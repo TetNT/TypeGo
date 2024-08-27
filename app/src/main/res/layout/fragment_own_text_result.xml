@@ -8,7 +8,6 @@
     tools:context=".ui.fragment.result.OwnTextResultFragment"
     android:clipChildren="false"
     android:clipToPadding="false"
-
     android:theme="@style/TypeGo.Lilac">
 
     <LinearLayout
@@ -27,7 +26,7 @@
             android:text="@string/results_wpm_pl"
             tools:text="40"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/text_accent"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="72sp" />
 
         <TextView
@@ -36,7 +35,7 @@
             android:fontFamily="@font/redring_bold"
             android:text="@string/words_per_minute"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/text_accent"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -83,7 +82,7 @@
                         android:id="@+id/last_wpm_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="4 WPM more than the last time."
+                        tools:text="@string/current_to_last_wpm_less"
                         android:minLines="2"
                         />
 
@@ -128,8 +127,9 @@
                         android:id="@+id/best_wpm_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="4 WPM more than the last set record."
+                        tools:text="@string/current_to_best_wpm_less"
                         android:minLines="2"
+                        android:ellipsize="end"
                         />
 
                 </LinearLayout>
@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         style="@style/text_with_drawable"
                         android:text="@string/characters"
-                        app:drawableStartCompat="@drawable/ic_rounded_data_usage"
+                        app:drawableStartCompat="@drawable/ic_hashtag"
                         />
 
                     <TextView
@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         style="@style/text_with_drawable"
                         android:text="@string/words"
-                        app:drawableStartCompat="@drawable/ic_rounded_data_usage"
+                        app:drawableStartCompat="@drawable/ic_hashtag"
                         />
 
                     <TextView
@@ -229,7 +229,7 @@
                         android:id="@+id/words_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="24 of them are correct."
+                        tools:text="@string/correct_words_out_of_total"
                         android:minLines="2"
                         />
 
@@ -257,16 +257,25 @@
                 android:background="@drawable/attribute_own_text_background"
                 style="@style/textview_history_attribute"
                 tools:text="@tools:sample/lorem[5]"
-                app:drawableStartCompat="@drawable/ic_rounded_data_usage" />
+                app:drawableStartCompat="@drawable/ic_text" />
 
             <TextView
-                android:id="@+id/result_attribute_time"
+                android:id="@+id/result_attribute_chosen_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_own_text_background"
                 style="@style/textview_history_attribute"
                 tools:text="0:15"
-                app:drawableStartCompat="@drawable/ic_timer" />
+                app:drawableStartCompat="@drawable/ic_clock" />
+
+            <TextView
+                android:id="@+id/result_attribute_time_spent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_own_text_background"
+                style="@style/textview_history_attribute"
+                tools:text="0:13"
+                app:drawableStartCompat="@drawable/ic_hourglass" />
 
             <TextView
                 android:id="@+id/result_attribute_suggestions"
@@ -275,7 +284,7 @@
                 android:background="@drawable/attribute_own_text_background"
                 style="@style/textview_history_attribute"
                 tools:text="Disabled"
-                app:drawableStartCompat="@drawable/ic_info" />
+                app:drawableStartCompat="@drawable/ic_suggestions" />
 
             <TextView
                 android:id="@+id/result_attribute_orientation"
@@ -300,6 +309,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/redring_regular"
             android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_log"
             android:text="@string/check_words_log"/>
 
         <Button
@@ -314,6 +324,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/redring_regular"
             android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_medal2"
             android:text="@string/check_achievements"/>
 
         <Button
@@ -328,6 +339,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/redring_regular"
             android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_replay"
             android:text="@string/start_over"/>
 
         <Button
@@ -342,6 +354,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/redring_regular"
             android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_close"
             android:text="@string/close"/>
 
     </LinearLayout>

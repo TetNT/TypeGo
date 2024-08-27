@@ -24,7 +24,7 @@
     <string name="enhanced">Enhanced</string>
     <string name="basic">Basic</string>
     <string name="dictionary">Dictionary</string>
-    <string name="allotted_time">Time</string>
+    <string name="time">Time</string>
     <string name="testing">Testing</string>
     <string name="amount_of_time">Amount of time</string>
     <string name="dictionary_type">Dictionary type</string>
@@ -169,7 +169,7 @@
     <string name="seed_not_set">Seed is not set.</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
-    <string name="your_text">Your text</string>
+    <string name="your_text">Text</string>
     <string name="paste_your_text">Paste your text here.</string>
     <string name="random_words">Random words</string>
     <string name="own_text">Own text</string>
