@@ -80,7 +80,8 @@ class OwnTextResultFragment : BaseFragment<FragmentOwnTextResultBinding>() {
 
     private fun initAttributesData() {
         binding.resultAttributeText.text = viewModel.getUserText()
-        binding.resultAttributeTime.text = TimeConvert.convertSecondsToStamp(viewModel.getTimeSpent())
+        binding.resultAttributeChosenTime.text = TimeConvert.convertSecondsToStamp(viewModel.getChosenTime())
+        binding.resultAttributeTimeSpent.text = TimeConvert.convertSecondsToStamp(viewModel.getTimeSpent())
         binding.resultAttributeOrientation.text = translation.get(viewModel.getScreenOrientation())
         binding.resultAttributeSuggestions.text = translation.get(viewModel.suggestionsActivated())
     }

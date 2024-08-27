@@ -145,6 +145,10 @@ class OwnTextResultViewModel @Inject constructor(
         return ownTextResult.getTimeSpent()
     }
 
+    fun getChosenTime(): Int {
+        return ownTextResult.getChosenTimeInSeconds()
+    }
+
     fun getScreenOrientation(): ScreenOrientation {
         return ownTextResult.getScreenOrientation()
     }
