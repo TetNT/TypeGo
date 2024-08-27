@@ -24,7 +24,7 @@
                 style="@style/submenu_header"
                 tools:text="1.5.0"
                 app:drawableTint="?attr/colorPrimary"
-                app:drawableStartCompat="@drawable/ic_release_notes"
+                app:drawableStartCompat="@drawable/ic_bullet"
                 android:drawablePadding="4dp"
                 android:layout_marginBottom="16dp"/>
 
