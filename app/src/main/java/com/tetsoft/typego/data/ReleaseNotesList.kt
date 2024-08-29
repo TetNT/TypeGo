@@ -22,6 +22,7 @@ interface ReleaseNotesList {
                 ReleaseNote.Standard(context, "1.5.0", R.string.release_notes_description_150),
                 ReleaseNote.Standard(context, "1.5.1", R.string.release_notes_description_151),
                 ReleaseNote.Standard(context, "1.5.2", R.string.release_notes_description_152),
+                ReleaseNote.Standard(context, "1.5.3", R.string.release_notes_description_153),
             )
         }
     }

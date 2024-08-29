@@ -1,8 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
+import com.tetsoft.typego.data.RandomWordsMock
 import com.tetsoft.typego.data.history.GameOnTimeHistoryList
 import com.tetsoft.typego.data.timemode.TimeMode
-import com.tetsoft.typego.game.GameOnTime
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -11,10 +11,10 @@ class FavoriteTimeModeCalculationTest {
     @Test
     fun provide_15secondsMajority_equalsTimeMode15() {
         val results = GameOnTimeHistoryList()
-        results.add(MockGameOnTime(15))
-        results.add(MockGameOnTime(15))
-        results.add(MockGameOnTime(30))
-        results.add(MockGameOnTime(15))
+        results.add(MockRandomWords(15))
+        results.add(MockRandomWords(15))
+        results.add(MockRandomWords(30))
+        results.add(MockRandomWords(15))
         val calculation = FavoriteTimeModeCalculation(results)
         assertEquals(calculation.provide(), TimeMode(15))
     }
@@ -26,7 +26,7 @@ class FavoriteTimeModeCalculationTest {
         assertEquals(calculation.provide(), TimeMode(0))
     }
 
-    private class MockGameOnTime(timeInSeconds: Int) :
-        GameOnTime(0.0, 0, 0, timeInSeconds, "", "", "", false, 0, 0, 0L)
-
+    private class MockRandomWords(private val timeInSeconds: Int) : RandomWordsMock() {
+        override fun getChosenTimeInSeconds() = timeInSeconds
+    }
 }

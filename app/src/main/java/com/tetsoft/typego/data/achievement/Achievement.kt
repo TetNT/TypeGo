@@ -2,7 +2,7 @@ package com.tetsoft.typego.data.achievement
 
 import android.content.Context
 import com.tetsoft.typego.R
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.history.GameHistory
 import com.tetsoft.typego.data.requirement.GameRequirement
 
 interface Achievement {
@@ -19,7 +19,7 @@ interface Achievement {
 
     fun getRequirement() : GameRequirement
 
-    fun isCompleted(result: ClassicGameModesHistoryList) : Boolean
+    fun isCompleted(history: GameHistory) : Boolean
 
     abstract class Base(private val id: Int) : Achievement {
 
@@ -32,8 +32,8 @@ interface Achievement {
             return id
         }
 
-        override fun isCompleted(result: ClassicGameModesHistoryList): Boolean {
-            return getRequirement().isReached(result)
+        override fun isCompleted(history: GameHistory): Boolean {
+            return getRequirement().isReached(history)
         }
 
         override fun hashCode(): Int {
@@ -146,7 +146,7 @@ interface Achievement {
 
         override fun getRequirement() = GameRequirement.WpmRequirement(0)
 
-        override fun isCompleted(result: ClassicGameModesHistoryList) = false
+        override fun isCompleted(history: GameHistory) = false
 
     }
 

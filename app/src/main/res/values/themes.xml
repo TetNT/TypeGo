@@ -1,18 +1,19 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="TypeGo" parent="Theme.AppCompat.NoActionBar">
-        <!-- Primary brand color. -->
+    <style name="TypeGo.Green" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/main_green</item>
         <item name="colorOnPrimary">@color/background_variant</item>
-
         <item name="colorOnBackground">@color/background_main</item>
         <item name="colorSurface">@color/main_green</item>
-        <!-- Status bar color. -->
         <item name="android:statusBarColor" >@color/background_main</item>
-        <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background_main</item>
         <item name="android:textViewStyle">@style/textview_default</item>
         <item name="android:buttonStyle">@style/action_button</item>
+    </style>
+    
+    <style name="TypeGo.Lilac" parent="TypeGo.Green">
+        <item name="colorPrimary">@color/lilac</item>
+        <item name="colorSurface">@color/lilac</item>
+        <item name="android:buttonStyle">@style/own_text_button</item>
     </style>
 
     <style name="Theme.TypeGo.NoActionBar">

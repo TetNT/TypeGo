@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.setup.RandomWordsGameSetupFragment"
+    android:theme="@style/TypeGo.Lilac">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/TestSetupNestedScroll"
+        style="@style/scrollbars_own_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipChildren="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="64dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/SectionLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:drawablePadding="8dp"
+                        android:text="@string/your_text"
+                        app:drawableStartCompat="@drawable/ic_text" />
+
+
+                    <EditText
+                        android:id="@+id/user_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/text_input"
+                        android:hint="@string/paste_your_text"
+                        android:gravity="top"
+                        android:minLines="2"
+                        android:maxLines="10"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="4dp"
+                        android:scrollbars="vertical"
+                        android:text="@string/user_text_sample_1"
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine|textNoSuggestions" />
+
+                    <CheckBox
+                        android:id="@+id/user_text_validation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:visibility="visible"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        android:buttonTint="@color/white"
+                        android:textColor="?android:attr/textColorTertiary"
+                        android:text="@string/error_setup_user_text_too_small"
+                        android:drawablePadding="4dp"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/section_amount_of_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_amount_of_time"
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="8dp"
+                        android:text="@string/time"
+                        app:drawableStartCompat="@drawable/ic_clock" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:clipChildren="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.tetsoft.typego.ui.custom.TimeModeSlider
+                            android:id="@+id/timemode_slider"
+                            android:layout_width="200dp"
+                            android:layout_height="36dp"
+                            android:stepSize="1"
+                            app:haloRadius="12dp"
+                            app:labelBehavior="gone"
+                            app:thumbRadius="6dp"
+                            app:tickColor="@color/white"
+                            android:contentDescription="@string/amount_of_time"/>
+
+                        <TextView
+                            android:id="@+id/tvTimeStamp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="8dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="0m. 15s." />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:drawablePadding="8dp"
+                        android:text="@string/text_suggestions"
+                        app:drawableStartCompat="@drawable/ic_suggestions" />
+
+                    <CheckBox
+                        android:id="@+id/cbPredictiveText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-8dp"
+                        android:layout_marginBottom="8dp"
+                        android:buttonTint="?attr/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/redring_regular"
+                        android:hapticFeedbackEnabled="true"
+                        android:minHeight="48dp"
+                        android:text="@string/activate"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/text_suggestions_note" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/basic_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:id="@+id/screenOrientationSection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/submenu_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:drawablePadding="8dp"
+                        android:text="@string/screen_orientation"
+                        app:drawableStartCompat="@drawable/ic_rotation" />
+
+                    <com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup
+                        android:id="@+id/rbScreenOrientation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-4dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:fontFamily="@font/redring_regular"
+                            android:hapticFeedbackEnabled="true"
+                            android:minHeight="48dp"
+                            android:text="@string/portrait"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="-4dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:fontFamily="@font/redring_regular"
+                            android:hapticFeedbackEnabled="true"
+                            android:minHeight="48dp"
+                            android:text="@string/landscape"
+                            android:textSize="16sp" />
+                    </com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/b_start_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/button_start_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/main_green"
+        android:contentDescription="@string/button_StartTest"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_arrow_forward_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
