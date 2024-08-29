@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,7 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parentViewModel = ViewModelProvider(requireActivity())[GameSetupViewModel::class.java]
+        setupButtons()
         setupTimeModeSlider()
         binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
         binding.rbScreenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
@@ -45,6 +47,24 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
             getString(R.string.error_setup_user_text_too_small, parentViewModel.getMinimumWordsConstraint())
         binding.userTextValidation.isChecked =
             parentViewModel.userTextIsValid(viewModel.sanitizeUserTextInput(binding.userText.text.toString()))
+    }
+
+    private fun setupButtons() {
+        binding.buttonClearText.setOnClickListener {
+            Toast.makeText(requireContext(), R.string.user_text_clear_button_prompt, Toast.LENGTH_SHORT).show()
+        }
+        binding.buttonClearText.setOnLongClickListener {
+            binding.userText.text.clear()
+            return@setOnLongClickListener true
+        }
+        binding.buttonRefreshText.setOnClickListener {
+            Toast.makeText(requireContext(), getString(R.string.user_text_refresh_button_prompt), Toast.LENGTH_SHORT).show()
+        }
+        binding.buttonRefreshText.setOnLongClickListener {
+            binding.userText.setText(getString(R.string.user_text_sample_1))
+            return@setOnLongClickListener true
+        }
+
     }
 
     override fun getGameSettings(): GameSettings.ForUserText {

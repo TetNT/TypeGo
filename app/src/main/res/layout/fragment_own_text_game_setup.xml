@@ -40,14 +40,58 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
-                        style="@style/submenu_header"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:layout_marginBottom="8dp"
-                        android:drawablePadding="8dp"
-                        android:text="@string/your_text"
-                        app:drawableStartCompat="@drawable/ic_text" />
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/submenu_header"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="8dp"
+                            android:text="@string/your_text"
+                            app:drawableStartCompat="@drawable/ic_text" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="end">
+
+                            <ImageButton
+                                android:id="@+id/button_refresh_text"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="top"
+                                android:background="@null"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:contentDescription="@string/content_desc_test_restart"
+                                android:focusable="false"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@android:drawable/ic_popup_sync"
+                                />
+
+                            <ImageButton
+                                android:id="@+id/button_clear_text"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="top"
+                                android:background="@null"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:contentDescription="@string/content_desc_test_restart"
+                                android:focusable="false"
+                                android:padding="8dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_close"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
 
 
                     <EditText
@@ -65,6 +109,8 @@
                         android:text="@string/user_text_sample_1"
                         android:importantForAutofill="no"
                         android:inputType="textMultiLine|textNoSuggestions" />
+
+
 
                     <CheckBox
                         android:id="@+id/user_text_validation"
