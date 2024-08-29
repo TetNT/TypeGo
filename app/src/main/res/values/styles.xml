@@ -107,4 +107,9 @@
         <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">@font/redring_regular</item>
     </style>
+
+    <style name="textview_history_attribute_clickable" parent="textview_history_attribute">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
 </resources>

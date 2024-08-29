@@ -81,7 +81,8 @@
     <string name="incorrect_words_pl">Неправильных слов: %1$d</string>
     <string name="dictionary_pl">Словарь: %1$s</string>
     <string name="wpm_pl">СВМ: %1$d</string>
-    <string name="selected_time_pl">Выбранное время: %1$s</string>
+    <string name="chosen_time_pl">Выбранное время: %1$s</string>
+    <string name="time_spent_pl">Времени ушло: %1$s</string>
     <string name="selected_language_pl">Язык: %1$s</string>
     <string name="text_suggestions_pl">Подсказки ввода: %1$s</string>
     <string name="screen_orientation_pl">Положение: %1$s</string>
@@ -152,8 +153,10 @@
     <string name="seed_pl">Сид: %1$s</string>
     <string name="seed_hint">Любое значение</string>
     <string name="seed_description">Этот параметр позволяет получать один и тот же набор слов. Оставь пустым для случайной генерации.</string>
-    <string name="seed_copy_hint">Сид: %1$s\nУдерживайте чтобы скопировать.</string>
+    <string name="seed_copy_hint">Удерживайте чтобы скопировать.\nСид: %1$s</string>
+    <string name="text_copy_hint">Удерживайте чтобы скопировать.\nТекст: %1$s</string>
     <string name="seed_copied">Сид был скопирован.</string>
+    <string name="text_copied">Текст был скопирован.</string>
     <string name="seed_not_set">Сид не установлен.</string>
     <string name="next">Далее</string>
     <string name="back">Назад</string>
@@ -179,4 +182,6 @@
     <string name="user_text_sample_1">Снаружи бушевал шторм, пока он смотрел на таинственное письмо на столе. Чернила были размазаны, но послание было ясным: \"Встреть меня в полночь. Приходи один.\"\n\nОн сунул письмо в карман пальто и взял шляпу. Бросив последний взгляд на часы, он вышел в ночь, дождь скрывал его шаги.</string>
     <string name="user_text_clear_button_prompt">Удерживай кнопку чтобы удалить текст</string>
     <string name="user_text_refresh_button_prompt">Удерживай кнопку чтобы сбросить текст</string>
+    <string name="enabled">Включены</string>
+    <string name="disabled">Отключены</string>
 </resources>
