@@ -10,11 +10,11 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_app_typego"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_app_typego_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/TypeGo">
+        android:theme="@style/TypeGo.Lilac">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"

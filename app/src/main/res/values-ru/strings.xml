@@ -2,8 +2,12 @@
 <resources>
     <string name="button_StartTest">Начать!</string>
     <string name="button_Profile">Мой профиль</string>
-    <string name="wordsPerMinute">Слов В Минуту</string>
+    <string name="words_per_minute">Слов В Минуту</string>
     <string name="previous_result">Предыдущий результат</string>
+    <string name="last">Прошлый</string>
+    <string name="best">Лучший</string>
+    <string name="characters">Знаки</string>
+    <string name="words">Слова</string>
     <string name="best_result">Лучший результат</string>
     <string name="incorrect_words">Неправильных слов</string>
     <string name="_continue">Продолжить</string>
@@ -17,7 +21,7 @@
     <string name="enhanced">Расширенный</string>
     <string name="basic">Базовый</string>
     <string name="dictionary">Словарь</string>
-    <string name="allotted_time">Время</string>
+    <string name="time">Время</string>
     <string name="testing">Тестирование</string>
     <string name="amount_of_time">Количество времени</string>
     <string name="dictionary_type">Набор слов</string>
@@ -43,7 +47,7 @@
     <string name="text_suggestions_disabled">Подсказки ввода отключены. Примечание: работает не со всеми клавиатурами.</string>
     <string name="msg_results_with_zero_wpm">Не сохранено: Результат имеет 0 СВМ.</string>
     <string name="language">Язык</string>
-    <string name="start_over">Заново</string>
+    <string name="start_over">Начать заново</string>
     <string name="finish">Завершить</string>
     <string name="assessment">Мои результаты</string>
     <string name="average_wpm">Средний СВМ</string>
@@ -59,6 +63,8 @@
     <string name="new_best_result">Новый лучший результат!</string>
     <string name="ALL">Все</string>
     <string name="achievements">Достижения</string>
+    <string name="check_achievements">Посмотреть достижения</string>
+    <string name="check_achievements_with_count">Посмотреть достижения (+%1$d)</string>
     <string name="custom_test">Свой тест</string>
     <string name="basic_test">Базовый тест</string>
     <string name="profile">Профиль</string>
@@ -75,7 +81,8 @@
     <string name="incorrect_words_pl">Неправильных слов: %1$d</string>
     <string name="dictionary_pl">Словарь: %1$s</string>
     <string name="wpm_pl">СВМ: %1$d</string>
-    <string name="selected_time_pl">Выбранное время: %1$s</string>
+    <string name="chosen_time_pl">Выбранное время: %1$s</string>
+    <string name="time_spent_pl">Времени ушло: %1$s</string>
     <string name="selected_language_pl">Язык: %1$s</string>
     <string name="text_suggestions_pl">Подсказки ввода: %1$s</string>
     <string name="screen_orientation_pl">Положение: %1$s</string>
@@ -87,6 +94,7 @@
     <string name="correct_characters">Правильных символов</string>
     <string name="close">Закрыть</string>
     <string name="typed_words_log">Список введённых слов</string>
+    <string name="check_words_log">Посмотреть список введённых слов</string>
     <string name="typed_words_log_description">Слева слова, которые вы ввели, а справа их правильное написание.</string>
     <string name="leave_a_feedback">Оставить отзыв</string>
     <string name="typed_words_log_disabled">Список доступен лишь для теста, который был только что пройден.</string>
@@ -145,9 +153,35 @@
     <string name="seed_pl">Сид: %1$s</string>
     <string name="seed_hint">Любое значение</string>
     <string name="seed_description">Этот параметр позволяет получать один и тот же набор слов. Оставь пустым для случайной генерации.</string>
-    <string name="seed_copy_hint">Сид: %1$s\nУдерживайте чтобы скопировать.</string>
+    <string name="seed_copy_hint">Удерживайте чтобы скопировать.\nСид: %1$s</string>
+    <string name="text_copy_hint">Удерживайте чтобы скопировать.\nТекст: %1$s</string>
     <string name="seed_copied">Сид был скопирован.</string>
+    <string name="text_copied">Текст был скопирован.</string>
     <string name="seed_not_set">Сид не установлен.</string>
     <string name="next">Далее</string>
     <string name="back">Назад</string>
+    <string name="your_text">Текст</string>
+    <string name="paste_your_text">Вставь свой текст сюда.</string>
+    <string name="random_words">Случайные слова</string>
+    <string name="own_text">Свой текст</string>
+    <string name="paste">Вставить</string>
+    <string name="accuracy">Точность</string>
+    <string name="no_last_results" />
+    <string name="current_to_last_wpm_more">На %1$d СВМ больше, чем в прошлый раз.</string>
+    <string name="current_to_last_wpm_less">На %1$d СВМ меньше, чем в прошлый раз.</string>
+    <string name="current_to_last_wpm_same">Тот же СВМ, что и в прошлый раз.</string>
+
+    <string name="current_to_best_wpm_more">На %1$d СВМ больше, чем предыдущий рекорд.</string>
+    <string name="current_to_best_wpm_less">На %1$d СВМ меньше, чем предыдущий рекорд.</string>
+    <string name="current_to_best_wpm_same">Тот же СВМ, как и в предыдущем рекорде.</string>
+
+    <string name="per_minute">в минуту.</string>
+
+    <string name="correct_words_out_of_total">%1$d из них верны.</string>
+    <string name="error_setup_user_text_too_small">Введи как минимум %1$d слов</string>
+    <string name="user_text_sample_1">Снаружи бушевал шторм, пока он смотрел на таинственное письмо на столе. Чернила были размазаны, но послание было ясным: \"Встреть меня в полночь. Приходи один.\"\n\nОн сунул письмо в карман пальто и взял шляпу. Бросив последний взгляд на часы, он вышел в ночь, дождь скрывал его шаги.</string>
+    <string name="user_text_clear_button_prompt">Удерживай кнопку чтобы удалить текст</string>
+    <string name="user_text_refresh_button_prompt">Удерживай кнопку чтобы сбросить текст</string>
+    <string name="enabled">Включены</string>
+    <string name="disabled">Отключены</string>
 </resources>

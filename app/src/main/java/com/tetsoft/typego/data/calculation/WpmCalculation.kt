@@ -1,5 +1,7 @@
 package com.tetsoft.typego.data.calculation
 
+import android.util.Log
+
 interface WpmCalculation {
     fun calculate() : Double
 
@@ -10,6 +12,8 @@ interface WpmCalculation {
             return try {
                 (60.0 / timeSpentInSeconds.toDouble()) * (writtenChars.toDouble() / WPM_GENERAL_DIVIDER)
             } catch (ae: ArithmeticException) {
+                Log.e("WPM", "timeSpentInSeconds: " + timeSpentInSeconds + "\n" +
+                        "writtenChars: " + "\n")
                 0.0
             }
         }

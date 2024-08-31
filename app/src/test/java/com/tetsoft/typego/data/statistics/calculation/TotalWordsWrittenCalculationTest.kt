@@ -1,7 +1,7 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.data.RandomWordsMock
+import com.tetsoft.typego.data.game.GameResult
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -9,25 +9,25 @@ class TotalWordsWrittenCalculationTest {
 
     @Test
     fun provide_variousResults_equals130() {
-        val results = ClassicGameModesHistoryList(listOf(
-            MockGameOnTime( 40),
-            MockGameOnTime( 50),
-            MockGameOnTime( 30),
-            MockGameOnTime( 10),
-        ), emptyList())
+        val results = listOf(
+            MockRandomWords( 40),
+            MockRandomWords( 50),
+            MockRandomWords( 30),
+            MockRandomWords( 10),
+        )
         val calculation = TotalWordsWrittenCalculation(results)
         assertEquals(calculation.provide(), 130)
     }
 
     @Test
     fun provide_emptyResults_equals0() {
-        val results = ClassicGameModesHistoryList(emptyList(), emptyList())
+        val results = emptyList<GameResult.WithWordsInformation>()
         val calculation = TotalWordsWrittenCalculation(results)
         assertEquals(calculation.provide(), 0)
     }
 
-    private class MockGameOnTime(wordsWritten: Int) :
-        GameOnTime(0.0, 0, 0, 0, "", "", "", false, wordsWritten, 0, 0L)
-
+    private class MockRandomWords(private val wordsWritten: Int) : RandomWordsMock() {
+        override fun getWordsWritten() = wordsWritten
+    }
 
 }

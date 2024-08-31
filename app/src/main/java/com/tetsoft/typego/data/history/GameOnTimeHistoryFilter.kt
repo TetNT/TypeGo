@@ -1,11 +1,11 @@
 package com.tetsoft.typego.data.history
 
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.game.GameOnTime
+import com.tetsoft.typego.data.game.RandomWords
 import java.util.*
 
-class GameOnTimeHistoryFilter(historyList: GameHistoryList<GameOnTime>) {
-    private val filteredList : GameHistoryList<GameOnTime> = historyList
+class GameOnTimeHistoryFilter(historyList: GameHistoryList<RandomWords>) {
+    private val filteredList : GameHistoryList<RandomWords> = historyList
 
     fun byLanguage(language: Language): GameOnTimeHistoryFilter {
         if (language.identifier == Language.ALL) return GameOnTimeHistoryFilter(filteredList)
@@ -27,7 +27,7 @@ class GameOnTimeHistoryFilter(historyList: GameHistoryList<GameOnTime>) {
         return GameOnTimeHistoryFilter(copy)
     }
 
-    fun getList() : GameHistoryList<GameOnTime> {
+    fun getList() : GameHistoryList<RandomWords> {
         return filteredList
     }
 }

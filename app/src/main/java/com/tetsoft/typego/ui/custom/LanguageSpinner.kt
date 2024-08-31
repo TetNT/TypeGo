@@ -15,5 +15,4 @@ class LanguageSpinner(context: Context, attrs: AttributeSet) : AppCompatSpinner(
     fun getSelectedLanguage() : Language {
         return selectedItem.language
     }
-
 }

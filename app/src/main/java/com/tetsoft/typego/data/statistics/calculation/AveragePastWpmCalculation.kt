@@ -1,6 +1,6 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.game.GameResult
 import com.tetsoft.typego.data.statistics.PoolEnhancement
 import kotlin.math.roundToInt
 
@@ -10,7 +10,7 @@ import kotlin.math.roundToInt
  * @param poolEnhancement an offset to take more items into account
  */
 class AveragePastWpmCalculation(
-    private val resultList: ClassicGameModesHistoryList,
+    private val resultList: List<GameResult>,
     private val resultsPoolSize: Int,
     private val poolEnhancement: PoolEnhancement
 ) : StatisticsCalculation {

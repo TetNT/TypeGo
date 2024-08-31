@@ -18,27 +18,31 @@
     </style>
 
     <style name="activity_title">
-        <item name="android:textColor">@color/text_accent</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-        <item name="drawableTint">@color/main_green</item>
+        <item name="drawableTint">@color/white</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:minHeight">48dp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
-    <style name="scrollbars">
+    <style name="typego_scrollbars">
         <item name="android:fadeScrollbars">false</item>
         <item name="android:scrollbars">vertical</item>
-        <item name="android:scrollbarThumbVertical">@color/main_green</item>
+        <item name="android:scrollbarThumbVertical">?attr/colorPrimary</item>
         <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
         <item name="android:scrollbarSize">2dip</item>
     </style>
 
+    <style name="scrollbars_own_text" parent="typego_scrollbars">
+        <item name="android:scrollbarThumbVertical">?attr/colorPrimary</item>
+    </style>
+
     <style name="text_with_drawable">
-        <item name="android:drawableTint">@color/main_green</item>
+        <item name="android:drawableTint">?attr/colorPrimary</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center_vertical</item>
@@ -53,7 +57,7 @@
 
     <style name="basic_cardview">
         <item name="cardBackgroundColor">@color/cardview_main_color</item>
-        <item name="cardCornerRadius">16dp</item>
+        <item name="cardCornerRadius">10dp</item>
         <item name="cardElevation">4dp</item>
     </style>
 
@@ -62,7 +66,14 @@
     </style>
 
     <style name="action_button" parent="android:Widget.Material.Button">
-        <item name="android:background">@drawable/action_button</item>
+        <item name="android:background">@drawable/button_green</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/redring_bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="own_text_button" parent="action_button">
+        <item name="android:background">@drawable/button_lilac</item>
         <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/redring_bold</item>
         <item name="android:textSize">16sp</item>
@@ -81,9 +92,10 @@
 
     <style name="textview_history_attribute">
         <item name="android:drawableTint">@color/white</item>
-        <item name="android:drawablePadding">4dp</item>
+        <item name="android:drawablePadding">6dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:paddingTop">4dp</item>
@@ -91,6 +103,13 @@
         <item name="android:paddingEnd">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:maxEms">10</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">@font/redring_regular</item>
+    </style>
+
+    <style name="textview_history_attribute_clickable" parent="textview_history_attribute">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
     </style>
 </resources>
