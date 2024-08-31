@@ -63,6 +63,7 @@
         android:layout_gravity="top"
         android:layout_marginHorizontal="8dp"
         android:background="@null"
+        android:foreground="?android:attr/selectableItemBackground"
         android:contentDescription="@string/content_desc_test_restart"
         android:focusable="false"
         android:padding="8dp"

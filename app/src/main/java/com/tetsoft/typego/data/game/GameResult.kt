@@ -2,6 +2,7 @@ package com.tetsoft.typego.data.game
 
 import com.tetsoft.typego.data.DictionaryType
 import com.tetsoft.typego.data.ScreenOrientation
+import java.lang.IllegalArgumentException
 
 interface GameResult {
     fun getWpm(): Double
@@ -143,9 +144,21 @@ open class RandomWords(
 
     override fun getLanguageCode() = language
 
-    override fun getDictionaryType() = enumValueOf<DictionaryType>(dictionary)
+    override fun getDictionaryType() : DictionaryType {
+        try {
+            return enumValueOf<DictionaryType>(dictionary)
+        } catch (e: IllegalArgumentException) {
+            throw (IllegalArgumentException("Could not convert to DictionaryType. The string was $dictionary"))
+        }
+    }
 
-    override fun getScreenOrientation() = enumValueOf<ScreenOrientation>(screenOrientation)
+    override fun getScreenOrientation(): ScreenOrientation {
+        try {
+            return enumValueOf(screenOrientation)
+        } catch (e: IllegalArgumentException) {
+            throw (IllegalArgumentException("Could not convert to ScreenOrientation. The string was $screenOrientation"))
+        }
+    }
 
     override fun areSuggestionsActivated() =  suggestionsActivated
 
@@ -202,7 +215,13 @@ open class OwnText(
 
     override fun areSuggestionsActivated(): Boolean = suggestionsActivated
 
-    override fun getScreenOrientation(): ScreenOrientation = enumValueOf(screenOrientation)
+    override fun getScreenOrientation(): ScreenOrientation {
+        try {
+            return enumValueOf(screenOrientation)
+        } catch (e: IllegalArgumentException) {
+            throw (IllegalArgumentException("Could not convert to ScreenOrientation. The string was $screenOrientation"))
+        }
+    }
 
     override fun ignoreCase() = ignoreCase ?: true
 

@@ -177,4 +177,6 @@
     <string name="correct_words_out_of_total">%1$d из них верны.</string>
     <string name="error_setup_user_text_too_small">Введи как минимум %1$d слов</string>
     <string name="user_text_sample_1">Снаружи бушевал шторм, пока он смотрел на таинственное письмо на столе. Чернила были размазаны, но послание было ясным: \"Встреть меня в полночь. Приходи один.\"\n\nОн сунул письмо в карман пальто и взял шляпу. Бросив последний взгляд на часы, он вышел в ночь, дождь скрывал его шаги.</string>
+    <string name="user_text_clear_button_prompt">Удерживай кнопку чтобы удалить текст</string>
+    <string name="user_text_refresh_button_prompt">Удерживай кнопку чтобы сбросить текст</string>
 </resources>
