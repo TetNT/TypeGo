@@ -255,7 +255,7 @@
                 android:maxEms="10"
                 android:ellipsize="end"
                 android:background="@drawable/attribute_own_text_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="@tools:sample/lorem[5]"
                 app:drawableStartCompat="@drawable/ic_text" />
 
@@ -264,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_own_text_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="0:15"
                 app:drawableStartCompat="@drawable/ic_clock" />
 
@@ -273,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_own_text_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="0:13"
                 app:drawableStartCompat="@drawable/ic_hourglass" />
 
@@ -282,8 +282,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_own_text_background"
-                style="@style/textview_history_attribute"
-                tools:text="Disabled"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="@string/enabled"
                 app:drawableStartCompat="@drawable/ic_suggestions" />
 
             <TextView
@@ -291,8 +291,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_own_text_background"
-                style="@style/textview_history_attribute"
-                tools:text="Portrait"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="@string/portrait"
                 app:drawableStartCompat="@drawable/ic_rotation" />
 
         </com.google.android.flexbox.FlexboxLayout>

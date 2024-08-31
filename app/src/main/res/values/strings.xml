@@ -85,7 +85,8 @@
     <string name="dictionary_pl">Dictionary: %1$s</string>
     <string name="wpm_pl">WPM: %1$d</string>
     <string name="results_wpm_pl" translatable="false">%1$d</string>
-    <string name="selected_time_pl">Selected time: %1$s</string>
+    <string name="chosen_time_pl">Chosen time: %1$s</string>
+    <string name="time_spent_pl">Time spent: %1$s</string>
     <string name="selected_language_pl">Language: %1$s</string>
     <string name="text_suggestions_pl">Text suggestions: %1$s</string>
     <string name="screen_orientation_pl">Orientation: %1$s</string>
@@ -164,8 +165,10 @@
     <string name="seed_pl">Seed: %1$s</string>
     <string name="seed_hint">Any value</string>
     <string name="seed_description">This setting enables you to have the same order of generated words. Leave blank to have a random generation.</string>
-    <string name="seed_copy_hint">Seed: %1$s\nLong press to copy.</string>
-    <string name="seed_copied">The seed has been copied.</string>
+    <string name="seed_copy_hint">Long press to copy.\nSeed: %1$s</string>
+    <string name="text_copy_hint">Long press to copy.\nText: %1$s</string>
+    <string name="seed_copied">Seed has been copied.</string>
+    <string name="text_copied">Text has been copied.</string>
     <string name="seed_not_set">Seed is not set.</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
@@ -191,4 +194,6 @@
     <string name="user_text_sample_1">The storm raged outside as he stared at the mysterious letter on the table. The ink was smudged, but the message was clear: \"Meet me at midnight. Come alone.\"\n\nHe slipped the letter into his coat pocket and grabbed his hat. With a final glance at the clock, he stepped out into the night, the rain masking his footsteps.</string>
     <string name="user_text_clear_button_prompt">Hold the button to remove the text</string>
     <string name="user_text_refresh_button_prompt">Hold the button to reset the text</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
 </resources>

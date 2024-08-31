@@ -252,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_on_time_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="English"
                 app:drawableStartCompat="@drawable/ic_globe" />
 
@@ -261,7 +261,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_on_time_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="Basic"
                 app:drawableStartCompat="@drawable/ic_dictionary_type" />
 
@@ -270,7 +270,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_on_time_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="0:15"
                 app:drawableStartCompat="@drawable/ic_clock" />
 
@@ -279,7 +279,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_on_time_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="1532432342323445554884"
                 app:drawableStartCompat="@drawable/ic_seed" />
 
@@ -288,7 +288,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_on_time_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="Disabled"
                 app:drawableStartCompat="@drawable/ic_suggestions" />
 
@@ -297,7 +297,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/attribute_on_time_background"
-                style="@style/textview_history_attribute"
+                style="@style/textview_history_attribute_clickable"
                 tools:text="Portrait"
                 app:drawableStartCompat="@drawable/ic_rotation" />
 

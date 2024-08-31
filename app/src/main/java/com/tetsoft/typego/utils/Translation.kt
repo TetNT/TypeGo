@@ -12,14 +12,11 @@ import com.tetsoft.typego.data.timemode.TimeMode
  */
 class Translation(private val context: Context) {
 
-    /**
-     * @return "Yes" if true, "No" otherwise.
-     */
-    fun get(value: Boolean): String {
+    fun getAsEnabledDisabled(value: Boolean): String {
         return if (value == true)
-            context.getString(R.string.yes)
+            context.getString(R.string.enabled)
         else
-            context.getString(R.string.no)
+            context.getString(R.string.disabled)
     }
 
     fun get(language: Language): String {

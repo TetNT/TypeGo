@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentOwnTextResultBinding
+import com.tetsoft.typego.extensions.copyToClipboard
 import com.tetsoft.typego.ui.VisibilityMapper
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.TimeGameViewModel
@@ -80,10 +81,34 @@ class OwnTextResultFragment : BaseFragment<FragmentOwnTextResultBinding>() {
 
     private fun initAttributesData() {
         binding.resultAttributeText.text = viewModel.getUserText()
+        binding.resultAttributeText.setOnClickListener {
+            showToast(getString(R.string.text_copy_hint, viewModel.getUserText()))
+        }
+        binding.resultAttributeText.setOnLongClickListener {
+            showToast(R.string.text_copied)
+            requireContext().copyToClipboard("TypeGo text", viewModel.getUserText())
+            return@setOnLongClickListener true
+        }
+
         binding.resultAttributeChosenTime.text = TimeConvert.convertSecondsToStamp(viewModel.getChosenTime())
+        binding.resultAttributeChosenTime.setOnClickListener {
+            showToast(getString(R.string.chosen_time_pl, TimeConvert.convertSecondsToStamp(viewModel.getChosenTime())))
+        }
+
         binding.resultAttributeTimeSpent.text = TimeConvert.convertSecondsToStamp(viewModel.getTimeSpent())
+        binding.resultAttributeTimeSpent.setOnClickListener {
+            showToast(getString(R.string.time_spent_pl, TimeConvert.convertSecondsToStamp(viewModel.getTimeSpent())))
+        }
+
         binding.resultAttributeOrientation.text = translation.get(viewModel.getScreenOrientation())
-        binding.resultAttributeSuggestions.text = translation.get(viewModel.suggestionsActivated())
+        binding.resultAttributeOrientation.setOnClickListener {
+            showToast(getString(R.string.screen_orientation_pl, translation.get(viewModel.getScreenOrientation())))
+        }
+
+        binding.resultAttributeSuggestions.text = translation.getAsEnabledDisabled(viewModel.suggestionsActivated())
+        binding.resultAttributeSuggestions.setOnClickListener {
+            showToast(getString(R.string.text_suggestions_pl, translation.getAsEnabledDisabled(viewModel.suggestionsActivated())))
+        }
     }
 
     private fun initButtonActions() {

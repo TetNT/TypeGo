@@ -10,6 +10,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentRandomWordsResultBinding
+import com.tetsoft.typego.extensions.copyToClipboard
 import com.tetsoft.typego.ui.VisibilityMapper
 import com.tetsoft.typego.ui.fragment.BaseFragment
 import com.tetsoft.typego.ui.fragment.game.TimeGameViewModel
@@ -79,11 +80,46 @@ class RandomWordsResultFragment : BaseFragment<FragmentRandomWordsResultBinding>
 
     private fun initAttributesData() {
         binding.resultAttributeLanguage.text = translation.get(viewModel.getLanguage())
+        binding.resultAttributeLanguage.setOnClickListener {
+            showToast(getString(R.string.selected_language_pl, translation.get(viewModel.getLanguage())))
+        }
+
         binding.resultAttributeDictionary.text = translation.get(viewModel.getDictionary())
+        binding.resultAttributeDictionary.setOnClickListener {
+            showToast(getString(R.string.dictionary_pl, translation.get(viewModel.getDictionary())))
+        }
+
         binding.resultAttributeTime.text = TimeConvert.convertSecondsToStamp(viewModel.getTimeInSeconds())
+        binding.resultAttributeTime.setOnClickListener {
+            showToast(getString(R.string.chosen_time_pl, TimeConvert.convertSecondsToStamp(viewModel.getTimeInSeconds())))
+        }
+
         binding.resultAttributeSeed.text = viewModel.getSeedOrBlankSign()
-        binding.resultAttributeSuggestions.text = translation.get(viewModel.areSuggestionsActivated())
+        binding.resultAttributeSeed.setOnClickListener {
+            if (!viewModel.seedIsEmpty()) {
+                showToast(getString(R.string.seed_copy_hint, viewModel.getSeedOrBlankSign()))
+            } else {
+                showToast(R.string.seed_not_set)
+            }
+        }
+        binding.resultAttributeSeed.setOnLongClickListener {
+            if (!viewModel.seedIsEmpty()) {
+                showToast(R.string.seed_copied)
+                requireContext().copyToClipboard("TypeGo seed", viewModel.getSeedOrBlankSign())
+                return@setOnLongClickListener true
+            }
+            return@setOnLongClickListener false
+        }
+
+        binding.resultAttributeSuggestions.text = translation.getAsEnabledDisabled(viewModel.areSuggestionsActivated())
+        binding.resultAttributeSuggestions.setOnClickListener {
+            showToast(getString(R.string.text_suggestions_pl, translation.getAsEnabledDisabled(viewModel.areSuggestionsActivated())))
+        }
+
         binding.resultAttributeOrientation.text = translation.get(viewModel.getScreenOrientation())
+        binding.resultAttributeOrientation.setOnClickListener {
+            showToast(getString(R.string.screen_orientation_pl, translation.get(viewModel.getScreenOrientation())))
+        }
     }
 
     private fun initButtonActions() {
