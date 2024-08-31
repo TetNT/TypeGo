@@ -53,6 +53,11 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (viewModel.gameSettings is GameSettings.TimeBased.Empty) {
+            if (!parentFragmentManager.isDestroyed)
+                findNavController().navigateUp()
+            return
+        }
         binding.progressLoadingResult.visibility = View.GONE
         adsCounter = (requireActivity().application as TypeGoApp).adsCounter
         adShown = false
@@ -125,7 +130,9 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
             .setTitle(getString(R.string.welcome_back))
         dialog.setNegativeButton(getString(R.string.no)) { _: DialogInterface?, _: Int ->
             pauseTimer()
-            findNavController().navigateUp()
+            if(!parentFragmentManager.isDestroyed) {
+                findNavController().navigateUp()
+            }
         }
         dialog.setPositiveButton(getString(R.string.yes)) { dial: DialogInterface, _: Int ->
             resumeTimer()
@@ -138,6 +145,9 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     private fun startTimer(seconds: Int) {
         countdown = object : CountDownTimer(seconds * 1000L, 1000) {
             override fun onTick(millisUntilFinished: Long) {
+                if (view == null) {
+                    return
+                }
                 binding.tvTimeLeft.text =
                     TimeConvert.convertSecondsToStamp((millisUntilFinished / 1000).toInt())
                 secondsPassed = secondsPassed.inc()
@@ -342,12 +352,20 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     override fun onResume() {
         super.onResume()
         if (gameNotStarted) return
+        if (countdown == null && !parentFragmentManager.isDestroyed)
+            findNavController().navigateUp()
         showContinueDialog(adShown)
     }
 
     override fun onDetach() {
         super.onDetach()
+        pauseTimer()
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pauseTimer()
     }
 
     override fun initBinding(

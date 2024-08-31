@@ -17,7 +17,13 @@ abstract class GameSettings(
         suggestionsActivated: Boolean,
         screenOrientation: ScreenOrientation,
         ignoreCase: Boolean
-    ) : GameSettings(suggestionsActivated, screenOrientation, ignoreCase)
+    ) : GameSettings(suggestionsActivated, screenOrientation, ignoreCase) {
+        class Empty : TimeBased(0, false, ScreenOrientation.PORTRAIT, true) {
+            override fun generateText(textSource: TextSource): String {
+                return ""
+            }
+        }
+    }
 
     class ForRandomlyGeneratedWords(
         val languageCode: String,

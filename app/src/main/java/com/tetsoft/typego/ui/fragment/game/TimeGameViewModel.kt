@@ -23,7 +23,7 @@ import kotlin.math.max
 @HiltViewModel
 class TimeGameViewModel @Inject constructor() : ViewModel() {
 
-    lateinit var gameSettings: GameSettings.TimeBased
+    var gameSettings: GameSettings.TimeBased = GameSettings.TimeBased.Empty()
 
     private var score: Int = 0
 
