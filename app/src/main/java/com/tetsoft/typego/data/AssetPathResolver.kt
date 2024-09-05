@@ -1,5 +1,7 @@
 package com.tetsoft.typego.data
 
+import com.tetsoft.typego.data.game.DictionaryTypeConverter
+
 interface AssetPathResolver {
     fun getPath() : String
 
@@ -8,7 +10,7 @@ interface AssetPathResolver {
             if (languageCode.isEmpty()) {
                 throw IllegalArgumentException("Cannot get the path. The language code was empty.")
             }
-            val folderPath = PARENT_FOLDER + dictionaryType.name.lowercase() + "/"
+            val folderPath = PARENT_FOLDER + DictionaryTypeConverter().convertToString(dictionaryType).lowercase() + "/"
             val fileName = "$languageCode.txt"
             return folderPath + fileName
         }
