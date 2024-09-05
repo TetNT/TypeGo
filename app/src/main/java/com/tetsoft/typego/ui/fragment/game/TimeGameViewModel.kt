@@ -9,14 +9,15 @@ import com.tetsoft.typego.data.AssetPathResolver
 import com.tetsoft.typego.data.Word
 import com.tetsoft.typego.data.calculation.CpmCalculation
 import com.tetsoft.typego.data.calculation.WpmCalculation
-import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.data.game.DictionaryTypeConverter
 import com.tetsoft.typego.data.game.GameSettings
 import com.tetsoft.typego.data.game.OwnText
+import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.data.game.ScreenOrientationConverter
 import com.tetsoft.typego.data.textsource.AssetStringReader
 import com.tetsoft.typego.data.textsource.TextSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 import javax.inject.Inject
 import kotlin.math.max
 
@@ -102,8 +103,8 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
             getScore(),
             rndSettings.time,
             rndSettings.languageCode,
-            rndSettings.dictionaryType.name,
-            rndSettings.screenOrientation.name,
+            DictionaryTypeConverter().convertToString(rndSettings.dictionaryType),
+            ScreenOrientationConverter().convertToString(rndSettings.screenOrientation),
             rndSettings.suggestionsActivated,
             rndSettings.ignoreCase,
             getTypedWords().size,
@@ -125,7 +126,7 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
                 secondsPassed,
                 getScore(),
                 userTextSettings.suggestionsActivated,
-                userTextSettings.screenOrientation.name,
+                ScreenOrientationConverter().convertToString(userTextSettings.screenOrientation),
                 userTextSettings.ignoreCase,
                 completionDateTime,
                 getTypedWords().size,
