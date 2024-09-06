@@ -28,6 +28,6 @@ class ReleaseNotesAdapter(private val context: Context, private val releaseNotes
     }
 
     override fun getItemCount(): Int {
-        return releaseNotes.size
+        return 7
     }
 }

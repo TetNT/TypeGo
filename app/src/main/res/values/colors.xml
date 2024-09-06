@@ -7,9 +7,13 @@
     <color name="main_green_darker">#00886d</color>
     <color name="dark_accent">#3D3F50</color>
     <color name="game_attribute_game_on_time">#268675</color>
-    <color name="text_accent">#FFFFFF</color>
     <color name="golden">#ffcc00</color>
     <color name="correct_green">#44ff00</color>
+    <color name="progress_green">#2EAE00</color>
     <color name="incorrect_red">#ff0000</color>
-    <color name="cardview_main_color">#2B2D30</color>
+    <color name="cardview_main_color">#26282B</color>
+    <color name="orange">#FFA623</color>
+    <color name="orange_darker">#E86C00</color>
+    <color name="lilac">#9FA9FF</color>
+    <color name="lilac_darker">#6373FF</color>
 </resources>

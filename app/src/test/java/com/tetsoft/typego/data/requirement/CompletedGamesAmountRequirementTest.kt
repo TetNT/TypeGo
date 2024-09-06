@@ -1,21 +1,23 @@
 package com.tetsoft.typego.data.requirement
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
-import com.tetsoft.typego.game.GameOnTime
-import org.junit.Assert.*
-
+import com.tetsoft.typego.data.RandomWordsMock
+import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.data.history.GameHistory
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CompletedGamesAmountRequirementTest {
 
     @Test
     fun isReached_moreThanRequired_assertTrue() {
-        val list = ClassicGameModesHistoryList(
-            listOf<GameOnTime>(
-                MockGameOnTime(),
-                MockGameOnTime(),
-                MockGameOnTime(),
-                MockGameOnTime(),
+        val list = GameHistory.Standard(
+            listOf<RandomWords>(
+                RandomWordsMock(),
+                RandomWordsMock(),
+                RandomWordsMock(),
+                RandomWordsMock(),
             ), emptyList()
         )
         assertTrue(GameRequirement.CompletedGamesAmountRequirement(3).isReached(list))
@@ -23,11 +25,11 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun isReached_sameAsRequired_assertTrue() {
-        val list = ClassicGameModesHistoryList(
-            listOf<GameOnTime>(
-                MockGameOnTime(),
-                MockGameOnTime(),
-                MockGameOnTime(),
+        val list = GameHistory.Standard(
+            listOf<RandomWords>(
+                RandomWordsMock(),
+                RandomWordsMock(),
+                RandomWordsMock(),
             ), emptyList()
         )
         assertTrue(GameRequirement.CompletedGamesAmountRequirement(3).isReached(list))
@@ -35,10 +37,10 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun isReached_lessThanRequired_assertFalse() {
-        val list = ClassicGameModesHistoryList(
-            listOf<GameOnTime>(
-                MockGameOnTime(),
-                MockGameOnTime(),
+        val list = GameHistory.Standard(
+            listOf<RandomWords>(
+                RandomWordsMock(),
+                RandomWordsMock(),
             ), emptyList()
         )
         assertFalse(GameRequirement.CompletedGamesAmountRequirement(3).isReached(list))
@@ -46,14 +48,12 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun getCurrentProgress_notEmptyList_assertEqualsListSize() {
-        val list = ClassicGameModesHistoryList(
-            listOf<GameOnTime>(
-                MockGameOnTime(),
-                MockGameOnTime(),
+        val list = GameHistory.Standard(
+            listOf<RandomWords>(
+                RandomWordsMock(),
+                RandomWordsMock(),
             ), emptyList()
         )
-        assertEquals(GameRequirement.CompletedGamesAmountRequirement(3).getCurrentProgress(list), list.size)
+        assertEquals(list.getAllResults().size, GameRequirement.CompletedGamesAmountRequirement(3).getCurrentProgress(list))
     }
-
-    private class MockGameOnTime : GameOnTime(0.0, 0, 0, 0, "", "", "", false, 0, 0, 0)
 }

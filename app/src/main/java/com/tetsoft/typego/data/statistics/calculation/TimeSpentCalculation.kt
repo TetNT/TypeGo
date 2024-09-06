@@ -1,8 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.history.ClassicGameModesHistoryList
+import com.tetsoft.typego.data.game.GameResult
 
-class TimeSpentCalculation(private val resultList: ClassicGameModesHistoryList) : StatisticsCalculation {
+class TimeSpentCalculation(private val resultList: List<GameResult>) : StatisticsCalculation {
 
     override fun provide(): Int {
         var total = 0

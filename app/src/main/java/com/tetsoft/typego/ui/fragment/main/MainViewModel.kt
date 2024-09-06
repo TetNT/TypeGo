@@ -1,27 +1,31 @@
 package com.tetsoft.typego.ui.fragment.main
 
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.history.GameOnTimeDataSelector
+import com.tetsoft.typego.data.history.GameHistory
 import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.game.GameOnTime
 import com.tetsoft.typego.storage.KeyNotesStateStorage
-import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
+import com.tetsoft.typego.storage.history.RandomWordsHistoryStorage
 import com.tetsoft.typego.data.keynote.KeyNotesList
+import com.tetsoft.typego.storage.history.OwnTextGameHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage,
+    private val randomWordsHistoryStorage: RandomWordsHistoryStorage,
+    private val ownTextGameHistoryStorage: OwnTextGameHistoryStorage,
     private val keyNotesList: KeyNotesList,
     private val keyNotesStateStorage: KeyNotesStateStorage
 ) : ViewModel() {
 
+    // FIXME: remove that and inject gameHistory properly
+    private val gameHistory get() = GameHistory.Standard(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
+
     private val keyNotes get() = keyNotesStateStorage
 
-    fun userHasPreviousGames() = gameOnTimeHistoryStorage.get().isNotEmpty()
+    fun userHasPreviousGames() = gameHistory.getAllResults().isNotEmpty()
 
-    fun getMostRecentGameSettings() = GameOnTimeDataSelector(gameOnTimeHistoryStorage.get()).getMostRecentResult()
+    fun getMostRecentGameSettings() = gameHistory.getMostRecentResult().toSettings()
 
     fun hasUncheckedNotes() : Boolean {
         for (note in keyNotesList.get()) {
@@ -33,12 +37,11 @@ class MainViewModel @Inject constructor(
     }
 
     fun getLastUsedLanguageOrDefault(): Language {
-        val lastResult = GameOnTimeDataSelector(gameOnTimeHistoryStorage.get()).getMostRecentResult()
-        if (lastResult is GameOnTime.Empty) return DEFAULT_LANGUAGE
-        return Language(lastResult.getLanguageCode())
+        val lastResult = gameHistory.getResultsWithLanguage().maxByOrNull { it.getCompletionDateTime() }
+        return Language(lastResult?.getLanguageCode() ?: DEFAULT_LANGUAGE)
     }
 
     companion object {
-        val DEFAULT_LANGUAGE = Language(Language.EN)
+        const val DEFAULT_LANGUAGE = Language.EN
     }
 }

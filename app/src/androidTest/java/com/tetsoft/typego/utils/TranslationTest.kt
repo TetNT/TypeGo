@@ -32,22 +32,17 @@ class TranslationTest {
     // --------------------------------------------------------------------
 
     @Test
-    fun get_BooleanTrue_equalsYes() {
-        assertEquals(translationEn.get(true), "Yes")
-        assertEquals(translationRu.get(true), "Да")
+    fun getAsActiveInactive_BooleanTrue_equalsEnabled() {
+        assertEquals(translationEn.getAsEnabledDisabled(true), "Enabled")
+        assertEquals(translationRu.getAsEnabledDisabled(true), "Включены")
     }
 
     @Test
-    fun get_booleanFalse_equalsNo() {
-        assertEquals(translationEn.get(false), "No")
-        assertEquals(translationRu.get(false), "Нет")
+    fun getAsActiveInactive_booleanFalse_equalsDisabled() {
+        assertEquals(translationEn.getAsEnabledDisabled(false), "Disabled")
+        assertEquals(translationRu.getAsEnabledDisabled(false), "Отключены")
     }
 
-    @Test
-    fun get_booleanTrue_notEqualsNo() {
-        assertNotEquals(translationEn.get(true), "No")
-        assertNotEquals(translationRu.get(true), "Нет")
-    }
 
     // --------------------------------------------------------------------
 

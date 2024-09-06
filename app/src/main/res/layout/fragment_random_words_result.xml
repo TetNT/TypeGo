@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/typego_scrollbars"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.result.OwnTextResultFragment"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:theme="@style/TypeGo.Green">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/wpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="-16dp"
+            android:fontFamily="@font/redring_black"
+            android:text="@string/results_wpm_pl"
+            tools:text="40"
+            android:layout_gravity="center_horizontal"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="72sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/redring_bold"
+            android:text="@string/words_per_minute"
+            android:layout_gravity="center_horizontal"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:paddingVertical="4dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginEnd="8dp"
+                style="@style/basic_cardview"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="270dp"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/text_with_drawable"
+                        android:text="@string/last"
+                        app:drawableStartCompat="@drawable/ic_prev_res" />
+
+                    <TextView
+                        android:id="@+id/last_wpm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:fontFamily="@font/redring_bold"
+                        tools:text="36"
+                        />
+
+                    <TextView
+                        android:id="@+id/last_wpm_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="4 WPM more than the last time."
+                        android:minLines="2"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="270dp"
+                style="@style/basic_cardview"
+                android:layout_weight="0.5"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/text_with_drawable"
+                        android:text="@string/best"
+                        app:drawableStartCompat="@drawable/ic_small_star"
+                        app:drawableTint="@color/golden" />
+
+                    <TextView
+                        android:id="@+id/best_wpm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:fontFamily="@font/redring_bold"
+                        tools:text="36"
+                        />
+
+                    <TextView
+                        android:id="@+id/best_wpm_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="4 WPM more than the last set record."
+                        android:minLines="2"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/basic_cardview"
+                android:layout_marginEnd="8dp"
+                android:minWidth="270dp"
+                android:layout_weight="0.5"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/text_with_drawable"
+                        android:text="@string/characters"
+                        app:drawableStartCompat="@drawable/ic_hashtag"
+                        />
+
+                    <TextView
+                        android:id="@+id/current_cpm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:fontFamily="@font/redring_bold"
+                        tools:text="183"
+                        />
+
+                    <TextView
+                        android:id="@+id/current_cpm_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/per_minute"
+                        android:minLines="2"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/basic_cardview"
+                android:minWidth="270dp"
+                android:layout_weight="0.5"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/text_with_drawable"
+                        android:text="@string/words"
+                        app:drawableStartCompat="@drawable/ic_hashtag"
+                        />
+
+                    <TextView
+                        android:id="@+id/words"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:fontFamily="@font/redring_bold"
+                        tools:text="25"
+                        />
+
+                    <TextView
+                        android:id="@+id/words_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="24 of them are correct."
+                        android:minLines="2"
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:flexWrap="wrap"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/result_attribute_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_on_time_background"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="English"
+                app:drawableStartCompat="@drawable/ic_globe" />
+
+            <TextView
+                android:id="@+id/result_attribute_dictionary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_on_time_background"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="Basic"
+                app:drawableStartCompat="@drawable/ic_dictionary_type" />
+
+            <TextView
+                android:id="@+id/result_attribute_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_on_time_background"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="0:15"
+                app:drawableStartCompat="@drawable/ic_clock" />
+
+            <TextView
+                android:id="@+id/result_attribute_seed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_on_time_background"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="1532432342323445554884"
+                app:drawableStartCompat="@drawable/ic_seed" />
+
+            <TextView
+                android:id="@+id/result_attribute_suggestions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_on_time_background"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="Disabled"
+                app:drawableStartCompat="@drawable/ic_suggestions" />
+
+            <TextView
+                android:id="@+id/result_attribute_orientation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/attribute_on_time_background"
+                style="@style/textview_history_attribute_clickable"
+                tools:text="Portrait"
+                app:drawableStartCompat="@drawable/ic_rotation" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Button
+            android:id="@+id/button_check_words_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_contextual_action"
+            android:textAlignment="textStart"
+            android:drawableEnd="@drawable/ic_arrow_forward_24"
+            android:drawableTint="@color/white"
+            android:paddingHorizontal="12dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/redring_regular"
+            android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_log"
+            android:text="@string/check_words_log"/>
+
+        <Button
+            android:id="@+id/button_check_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_contextual_action"
+            android:textAlignment="textStart"
+            android:drawableEnd="@drawable/ic_arrow_forward_24"
+            android:drawableTint="@color/white"
+            android:paddingHorizontal="12dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/redring_regular"
+            android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_medal2"
+            android:text="@string/check_achievements"/>
+
+        <Button
+            android:id="@+id/button_start_over"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_contextual_action"
+            android:textAlignment="textStart"
+            android:drawableEnd="@drawable/ic_arrow_forward_24"
+            android:drawableTint="@color/white"
+            android:paddingHorizontal="12dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/redring_regular"
+            android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_replay"
+            android:text="@string/start_over"/>
+
+        <Button
+            android:id="@+id/button_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_contextual_action"
+            android:textAlignment="textStart"
+            android:drawableEnd="@drawable/ic_arrow_forward_24"
+            android:drawableTint="@color/white"
+            android:paddingHorizontal="12dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/redring_regular"
+            android:layout_marginVertical="2dp"
+            android:drawableStart="@drawable/ic_close"
+            android:text="@string/close"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -16,6 +16,7 @@
 
     <string name="release_notes_description_152"><ul><li>The history page is redesigned\n</li><li>Added the Polish language!\n</li><li>Bullet points are displayed properly on the release notes page\n</li><li>A lot of good things behind the scene\n</li></ul>\nThe upcoming updates will bring more variety to the gameplay. Stay tuned!</string>
 
+    <string name="release_notes_description_153"><ul><li>Updated look of the app\n</li><li>Added Seeds\n</li><li>New achievements\n</li><li>Flag icons!\n</li><li>GDPR consent message for users from the EEA and the UK</li></ul></string>
+
     <string name="release_notes_description_current_version">You can check out key notes of the update here</string>
-<!--    <string name="release_notes_description_current_version"><ul><li>Updated look of the app\n</li><li>Added Seeds\n</li><li>New achievements\n</li><li>Flag icons!\n</li><li>GDPR consent message for users from the EEA and the UK</li></ul></string>-->
 </resources>

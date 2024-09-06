@@ -1,52 +1,54 @@
 package com.tetsoft.typego.ui.fragment.history
 
 import android.view.animation.AnimationSet
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.data.history.GameHistoryList
-import com.tetsoft.typego.data.history.GameOnTimeDataSelector
-import com.tetsoft.typego.data.history.GameOnTimeHistoryFilter
-import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.game.GameOnTime
-import com.tetsoft.typego.storage.history.GameOnTimeHistoryStorage
+import com.tetsoft.typego.data.game.GameResult
+import com.tetsoft.typego.data.history.GameHistory
+import com.tetsoft.typego.storage.history.OwnTextGameHistoryStorage
+import com.tetsoft.typego.storage.history.RandomWordsHistoryStorage
 import com.tetsoft.typego.utils.AnimationsPreset
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @HiltViewModel
-class GameHistoryViewModel @Inject constructor(private val gameOnTimeHistoryStorage: GameOnTimeHistoryStorage) :
+class GameHistoryViewModel @Inject constructor(
+    private val randomWordsHistoryStorage: RandomWordsHistoryStorage,
+    private val ownTextGameHistoryStorage: OwnTextGameHistoryStorage
+) :
     ViewModel() {
 
-    private val mutableSelectedLanguage = MutableLiveData<Language>()
+    val gameHistory: GameHistory
+        get() = GameHistory.Standard(
+            randomWordsHistoryStorage.get(),
+            ownTextGameHistoryStorage.get()
+        )
 
-    val selectedLanguage: LiveData<Language> = mutableSelectedLanguage
-
-    fun selectLanguage(language: Language) {
-        mutableSelectedLanguage.postValue(language)
+    fun getHistory(): List<GameResult> {
+        return gameHistory.getAllResults().reversed()
     }
 
-    fun getOnTimeHistory(language: Language): GameHistoryList<GameOnTime> {
-        return GameOnTimeHistoryFilter(gameOnTimeHistoryStorage.get()).byLanguage(language)
-            .inDescendingOrder().getList()
-    }
+    fun historyCanBeShown() = gameHistory.getAllResults().isNotEmpty()
 
-    fun historyCanBeShown(gameResultList: GameHistoryList<GameOnTime>) = gameResultList.isNotEmpty()
+    fun averageWpmCanBeShown(): Boolean = gameHistory.getAllResults().size >= 5
 
-    fun averageWpmCanBeShown(gameResultList: GameHistoryList<GameOnTime>): Boolean =
-        gameResultList.size >= 5
-
-    fun getAverageWpm(gameResultList: GameHistoryList<GameOnTime>): Int {
+    fun getAverageWpmString(): String {
+        if (!averageWpmCanBeShown()) return "-"
         var wpmSum = 0.0
-        for (res in gameResultList)
+        for (res in gameHistory.getAllResults())
             wpmSum += res.getWpm()
-        if (wpmSum == 0.0 || gameResultList.isEmpty()) return 0
-        return (wpmSum / gameResultList.size).roundToInt()
+        if (wpmSum == 0.0) return "0"
+        return (wpmSum / gameHistory.getAllResults().size).roundToInt().toString()
     }
 
-    fun getBestWpm(gameResultList: GameHistoryList<GameOnTime>): Int {
-        return GameOnTimeDataSelector(gameResultList).getBestResult().getWpm().roundToInt()
+    fun getBestWpmString(): String {
+        if (gameHistory.getAllResults().isEmpty()) return "-"
+        return gameHistory.getBestResult().getWpm().roundToInt().toString()
+    }
+
+    fun getTotalResultsCountString(): String {
+        if (gameHistory.getAllResults().isEmpty()) return "-"
+        return gameHistory.getAllResults().size.toString()
     }
 
     fun getGameHistoryEnteringAnimation(): AnimationSet {

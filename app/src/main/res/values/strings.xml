@@ -5,8 +5,12 @@
     <string name="title_activity_type" translatable="false">TypeActivity</string>
     <string name="button_StartTest">Start!</string>
     <string name="button_Profile">My profile</string>
-    <string name="wordsPerMinute">Words Per Minute</string>
+    <string name="words_per_minute">Words Per Minute</string>
     <string name="previous_result">Previous result</string>
+    <string name="last">Last</string>
+    <string name="best">Best</string>
+    <string name="characters">Characters</string>
+    <string name="words">Words</string>
     <string name="best_result">Best result</string>
     <string name="incorrect_words">Incorrect words</string>
     <string name="_continue">Continue</string>
@@ -20,7 +24,7 @@
     <string name="enhanced">Enhanced</string>
     <string name="basic">Basic</string>
     <string name="dictionary">Dictionary</string>
-    <string name="allotted_time">Time</string>
+    <string name="time">Time</string>
     <string name="testing">Testing</string>
     <string name="amount_of_time">Amount of time</string>
     <string name="dictionary_type">Dictionary type</string>
@@ -61,6 +65,8 @@
     <string name="new_best_result">New best result!</string>
     <string name="ALL">All</string>
     <string name="achievements">Achievements</string>
+    <string name="check_achievements">Check achievements</string>
+    <string name="check_achievements_with_count">Check achievements (+%1$d)</string>
     <string name="custom_test">Custom test</string>
     <string name="basic_test">Basic test</string>
     <string name="profile">Profile</string>
@@ -79,7 +85,8 @@
     <string name="dictionary_pl">Dictionary: %1$s</string>
     <string name="wpm_pl">WPM: %1$d</string>
     <string name="results_wpm_pl" translatable="false">%1$d</string>
-    <string name="selected_time_pl">Selected time: %1$s</string>
+    <string name="chosen_time_pl">Chosen time: %1$s</string>
+    <string name="time_spent_pl">Time spent: %1$s</string>
     <string name="selected_language_pl">Language: %1$s</string>
     <string name="text_suggestions_pl">Text suggestions: %1$s</string>
     <string name="screen_orientation_pl">Orientation: %1$s</string>
@@ -91,6 +98,7 @@
     <string name="correct_characters">Correct characters</string>
     <string name="close">Close</string>
     <string name="typed_words_log">Typed words list</string>
+    <string name="check_words_log">Check words log</string>
     <string name="typed_words_log_description">Words that you\'ve typed are on the left and actual ones are on the right.</string>
     <string name="leave_a_feedback">Leave a feedback</string>
     <string name="typed_words_log_disabled">The list is only available in a test that you just passed.</string>
@@ -157,9 +165,35 @@
     <string name="seed_pl">Seed: %1$s</string>
     <string name="seed_hint">Any value</string>
     <string name="seed_description">This setting enables you to have the same order of generated words. Leave blank to have a random generation.</string>
-    <string name="seed_copy_hint">Seed: %1$s\nLong press to copy.</string>
-    <string name="seed_copied">The seed has been copied.</string>
+    <string name="seed_copy_hint">Long press to copy.\nSeed: %1$s</string>
+    <string name="text_copy_hint">Long press to copy.\nText: %1$s</string>
+    <string name="seed_copied">Seed has been copied.</string>
+    <string name="text_copied">Text has been copied.</string>
     <string name="seed_not_set">Seed is not set.</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
+    <string name="your_text">Text</string>
+    <string name="paste_your_text">Paste your text here.</string>
+    <string name="random_words">Random words</string>
+    <string name="own_text">Own text</string>
+    <string name="paste">Paste</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="no_last_results" />
+    <string name="current_to_last_wpm_more">%1$d WPM more than last time.</string>
+    <string name="current_to_last_wpm_less">%1$d WPM less than last time.</string>
+    <string name="current_to_last_wpm_same">The same WPM as last time.</string>
+
+    <string name="current_to_best_wpm_more">%1$d WPM more than last set record.</string>
+    <string name="current_to_best_wpm_less">%1$d WPM less than last set record.</string>
+    <string name="current_to_best_wpm_same">The same WPM as last set record.</string>
+
+    <string name="per_minute">per minute.</string>
+
+    <string name="correct_words_out_of_total">%1$d of them are correct.</string>
+    <string name="error_setup_user_text_too_small">Provide at least %1$d words</string>
+    <string name="user_text_sample_1">The storm raged outside as he stared at the mysterious letter on the table. The ink was smudged, but the message was clear: \"Meet me at midnight. Come alone.\"\n\nHe slipped the letter into his coat pocket and grabbed his hat. With a final glance at the clock, he stepped out into the night, the rain masking his footsteps.</string>
+    <string name="user_text_clear_button_prompt">Hold the button to remove the text</string>
+    <string name="user_text_refresh_button_prompt">Hold the button to reset the text</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
 </resources>
