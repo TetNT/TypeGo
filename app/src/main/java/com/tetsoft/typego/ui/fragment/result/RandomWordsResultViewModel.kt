@@ -94,13 +94,20 @@ class RandomWordsResultViewModel @Inject constructor(
         return result.getSeed().isEmpty()
     }
 
-    fun saveResultIfValid() : Boolean {
-        if (result is RandomWords.Empty ||
-            result.getWpm() == 0.0 ||
-            randomWordsHistoryStorage.get().find { it.getCompletionDateTime() == result.getCompletionDateTime() } !== null)
-            return false
-        randomWordsHistoryStorage.add(result)
-        return true
+    fun resultIsValid() : Boolean {
+        return (result !is RandomWords.Empty && result.getWpm() != 0.0)
+    }
+
+    fun resultIsAlreadyStored() : Boolean {
+        return randomWordsHistoryStorage.get().find {
+            it.getCompletionDateTime() == result.getCompletionDateTime()
+        } !== null
+    }
+
+    fun saveResult() {
+        if(resultIsValid() && !resultIsAlreadyStored()) {
+            randomWordsHistoryStorage.add(result)
+        }
     }
 
     fun getWordsWritten(): String {

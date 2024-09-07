@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -31,6 +33,18 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    fun navigateUp() {
+        if (!parentFragmentManager.isDestroyed) {
+            findNavController().navigateUp()
+        }
+    }
+
+    fun navigateTo(@IdRes action: Int) {
+        if (!parentFragmentManager.isDestroyed) {
+           findNavController().navigate(action)
+        }
     }
 
     fun showToast(message: String) {
