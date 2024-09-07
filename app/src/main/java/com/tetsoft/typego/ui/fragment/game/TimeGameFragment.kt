@@ -54,8 +54,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (viewModel.gameSettings is GameSettings.TimeBased.Empty) {
-            if (!parentFragmentManager.isDestroyed)
-                findNavController().navigateUp()
+            navigateUp()
             return
         }
         binding.progressLoadingResult.visibility = View.GONE
@@ -130,9 +129,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
             .setTitle(getString(R.string.welcome_back))
         dialog.setNegativeButton(getString(R.string.no)) { _: DialogInterface?, _: Int ->
             pauseTimer()
-            if(!parentFragmentManager.isDestroyed) {
-                findNavController().navigateUp()
-            }
+            navigateUp()
         }
         dialog.setPositiveButton(getString(R.string.yes)) { dial: DialogInterface, _: Int ->
             resumeTimer()
@@ -352,8 +349,9 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     override fun onResume() {
         super.onResume()
         if (gameNotStarted) return
-        if (countdown == null && !parentFragmentManager.isDestroyed)
-            findNavController().navigateUp()
+        if (countdown == null) {
+            navigateUp()
+        }
         showContinueDialog(adShown)
     }
 

@@ -44,13 +44,20 @@ class OwnTextResultViewModel @Inject constructor(
         return typedWordsList
     }
 
-    fun saveResultIfValid(): Boolean {
-        if (ownTextResult is OwnText.Empty ||
-            ownTextResult.getWpm() == 0.0 ||
-            ownTextGameHistoryStorage.get().find { it.getCompletionDateTime() == ownTextResult.getCompletionDateTime() } !== null)
-            return false
-        ownTextGameHistoryStorage.add(ownTextResult)
-        return true
+    fun saveResult() {
+        if (resultIsValid() && !resultIsAlreadyStored()) {
+            ownTextGameHistoryStorage.add(ownTextResult)
+        }
+    }
+
+    fun resultIsValid() : Boolean {
+        return (ownTextResult !is OwnText.Empty && ownTextResult.getWpm() != 0.0)
+    }
+
+    fun resultIsAlreadyStored() : Boolean {
+        return ownTextGameHistoryStorage.get().find {
+            it.getCompletionDateTime() == ownTextResult.getCompletionDateTime()
+        } !== null
     }
 
     fun getEarnedAchievementsCount(): Int {

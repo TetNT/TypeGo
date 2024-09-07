@@ -38,7 +38,11 @@ class OwnTextResultFragment : BaseFragment<FragmentOwnTextResultBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.saveResultIfValid()
+        if (!viewModel.resultIsValid()) {
+            navigateUp()
+            return
+        }
+        viewModel.saveResult()
         initWpm()
         initCurrentResultData()
         initAttributesData()
