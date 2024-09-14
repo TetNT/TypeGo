@@ -1,6 +1,8 @@
 package com.tetsoft.typego.data
 
-import com.tetsoft.typego.data.game.RandomWords
+import com.tetsoft.typego.core.domain.DictionaryType
+import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.core.domain.ScreenOrientation
 
 open class RandomWordsMock :
     RandomWords(

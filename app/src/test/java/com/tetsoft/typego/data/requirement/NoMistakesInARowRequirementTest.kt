@@ -1,8 +1,9 @@
 package com.tetsoft.typego.data.requirement
 
+import com.tetsoft.typego.core.domain.GameRequirement
 import com.tetsoft.typego.data.RandomWordsMock
-import com.tetsoft.typego.data.game.RandomWords
-import com.tetsoft.typego.data.history.GameHistory
+import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.history.data.GameHistory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

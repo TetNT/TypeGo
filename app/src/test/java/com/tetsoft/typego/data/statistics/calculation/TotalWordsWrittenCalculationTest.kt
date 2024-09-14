@@ -1,7 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
 import com.tetsoft.typego.data.RandomWordsMock
-import com.tetsoft.typego.data.game.GameResult
+import com.tetsoft.typego.core.domain.GameResult
+import com.tetsoft.typego.statistics.data.calculation.TotalWordsWrittenCalculation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

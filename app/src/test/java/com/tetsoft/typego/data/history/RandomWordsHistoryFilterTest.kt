@@ -1,7 +1,9 @@
 package com.tetsoft.typego.data.history
 
 import com.tetsoft.typego.data.RandomWordsLanguageCodeMock
-import com.tetsoft.typego.data.language.Language
+import com.tetsoft.typego.core.domain.Language
+import com.tetsoft.typego.history.data.GameOnTimeHistoryFilter
+import com.tetsoft.typego.history.data.GameOnTimeHistoryList
 import org.junit.Assert.*
 
 import org.junit.Test

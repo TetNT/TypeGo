@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.calculation
 
+import com.tetsoft.typego.game.data.WpmCalculation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

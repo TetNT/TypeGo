@@ -1,7 +1,7 @@
 package com.tetsoft.typego.ui.visibility
 
 import android.view.View
-import com.tetsoft.typego.ui.VisibilityMapper
+import com.tetsoft.typego.core.ui.VisibilityMapper
 import org.junit.Assert.*
 import org.junit.Test
 

@@ -1,6 +1,7 @@
 package com.tetsoft.typego.adapter.word
 
-import com.tetsoft.typego.data.Word
+import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.wordslog.presentation.InputWord
 import org.junit.Assert.*
 
 import org.junit.Test

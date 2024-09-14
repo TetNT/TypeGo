@@ -1,8 +1,10 @@
 package com.tetsoft.typego.data.statistics
 
 import com.tetsoft.typego.data.RandomWordsMock
-import com.tetsoft.typego.data.game.GameResult
-import com.tetsoft.typego.data.statistics.calculation.AccuracyCalculation
+import com.tetsoft.typego.core.domain.GameResult
+import com.tetsoft.typego.statistics.data.calculation.AccuracyCalculation
+import com.tetsoft.typego.statistics.data.AccuracyStatistics
+import com.tetsoft.typego.statistics.data.VisibilityProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

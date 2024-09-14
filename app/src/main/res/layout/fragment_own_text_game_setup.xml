@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.setup.RandomWordsGameSetupFragment"
+    tools:context=".gamesetup.presentation.RandomWordsGameSetupFragment"
     android:theme="@style/TypeGo.Lilac">
 
     <androidx.core.widget.NestedScrollView
@@ -159,7 +159,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.tetsoft.typego.ui.custom.TimeModeSlider
+                        <com.tetsoft.typego.gamesetup.presentation.TimeModeSlider
                             android:id="@+id/timemode_slider"
                             android:layout_width="200dp"
                             android:layout_height="36dp"
@@ -252,7 +252,7 @@
                         android:text="@string/screen_orientation"
                         app:drawableStartCompat="@drawable/ic_rotation" />
 
-                    <com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup
+                    <com.tetsoft.typego.gamesetup.presentation.ScreenOrientationRadioGroup
                         android:id="@+id/rbScreenOrientation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -278,7 +278,7 @@
                             android:minHeight="48dp"
                             android:text="@string/landscape"
                             android:textSize="16sp" />
-                    </com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup>
+                    </com.tetsoft.typego.gamesetup.presentation.ScreenOrientationRadioGroup>
 
                 </LinearLayout>
 

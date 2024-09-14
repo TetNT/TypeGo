@@ -1,8 +1,9 @@
 package com.tetsoft.typego.data.statistics.calculation
 
 import com.tetsoft.typego.data.RandomWordsWpmMock
-import com.tetsoft.typego.data.game.GameResult
-import com.tetsoft.typego.data.statistics.PoolEnhancement
+import com.tetsoft.typego.core.domain.GameResult
+import com.tetsoft.typego.statistics.data.PoolEnhancement
+import com.tetsoft.typego.statistics.data.calculation.AveragePastWpmCalculation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

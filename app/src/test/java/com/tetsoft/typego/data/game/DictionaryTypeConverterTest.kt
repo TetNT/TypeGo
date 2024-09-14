@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.game
 
-import com.tetsoft.typego.data.DictionaryType
+import com.tetsoft.typego.core.utils.DictionaryTypeConverter
+import com.tetsoft.typego.core.domain.DictionaryType
 import org.junit.Assert.*
 
 import org.junit.Test

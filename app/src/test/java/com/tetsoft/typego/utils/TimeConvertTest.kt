@@ -1,5 +1,6 @@
 package com.tetsoft.typego.utils
 
+import com.tetsoft.typego.core.utils.TimeConvert
 import org.junit.Assert.*
 
 import org.junit.Test

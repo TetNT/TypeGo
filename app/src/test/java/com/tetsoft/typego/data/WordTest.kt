@@ -1,5 +1,7 @@
 package com.tetsoft.typego.data
 
+import com.tetsoft.typego.core.domain.CharacterStatus
+import com.tetsoft.typego.core.domain.Word
 import org.junit.Assert.*
 
 import org.junit.Test

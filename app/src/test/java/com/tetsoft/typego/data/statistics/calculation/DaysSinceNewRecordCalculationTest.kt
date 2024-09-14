@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.statistics.calculation
 
+import com.tetsoft.typego.statistics.data.calculation.DaysSinceNewRecordCalculation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*

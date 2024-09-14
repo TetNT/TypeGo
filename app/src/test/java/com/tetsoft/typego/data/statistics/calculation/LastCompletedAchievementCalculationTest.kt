@@ -1,8 +1,9 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.Achievement
-import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
-import com.tetsoft.typego.data.achievement.completion.AchievementsProgressList
+import com.tetsoft.typego.achievements.data.Achievement
+import com.tetsoft.typego.achievements.data.AchievementsCompletionPair
+import com.tetsoft.typego.achievements.data.AchievementsProgressList
+import com.tetsoft.typego.statistics.data.calculation.LastCompletedAchievementCalculation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

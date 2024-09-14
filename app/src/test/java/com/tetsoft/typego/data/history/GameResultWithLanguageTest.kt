@@ -1,9 +1,10 @@
 package com.tetsoft.typego.data.history
 
-import com.tetsoft.typego.data.DictionaryType
-import com.tetsoft.typego.data.ScreenOrientation
-import com.tetsoft.typego.data.game.RandomWords
-import com.tetsoft.typego.data.language.Language
+import com.tetsoft.typego.core.domain.DictionaryType
+import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.core.domain.Language
+import com.tetsoft.typego.history.data.GameHistory
 import org.junit.Test
 
 import org.junit.Assert.*

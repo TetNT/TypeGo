@@ -1,5 +1,7 @@
 package com.tetsoft.typego.data
 
+import com.tetsoft.typego.core.domain.DictionaryType
+import com.tetsoft.typego.game.data.AssetPathResolver
 import org.junit.Assert.*
 
 import org.junit.Test

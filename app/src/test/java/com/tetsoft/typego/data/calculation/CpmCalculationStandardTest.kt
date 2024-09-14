@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.calculation
 
+import com.tetsoft.typego.game.data.CpmCalculation
 import org.junit.Assert.*
 
 import org.junit.Test

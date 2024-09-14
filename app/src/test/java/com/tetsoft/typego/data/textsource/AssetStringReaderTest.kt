@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.textsource
 
 import android.content.res.AssetManager
+import com.tetsoft.typego.game.data.AssetStringReader
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

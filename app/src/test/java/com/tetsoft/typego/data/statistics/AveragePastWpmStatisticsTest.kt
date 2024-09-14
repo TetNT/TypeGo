@@ -1,7 +1,10 @@
 package com.tetsoft.typego.data.statistics
 
 import com.tetsoft.typego.data.RandomWordsWpmMock
-import com.tetsoft.typego.data.statistics.calculation.AveragePastWpmCalculation
+import com.tetsoft.typego.statistics.data.calculation.AveragePastWpmCalculation
+import com.tetsoft.typego.statistics.data.AveragePastWpmStatistics
+import com.tetsoft.typego.statistics.data.PoolEnhancement
+import com.tetsoft.typego.statistics.data.VisibilityProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

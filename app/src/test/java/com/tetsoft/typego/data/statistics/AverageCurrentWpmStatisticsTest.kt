@@ -1,7 +1,9 @@
 package com.tetsoft.typego.data.statistics
 
 import com.tetsoft.typego.data.RandomWordsWpmMock
-import com.tetsoft.typego.data.statistics.calculation.AverageCurrentWpmCalculation
+import com.tetsoft.typego.statistics.data.calculation.AverageCurrentWpmCalculation
+import com.tetsoft.typego.statistics.data.AverageCurrentWpmStatistics
+import com.tetsoft.typego.statistics.data.VisibilityProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

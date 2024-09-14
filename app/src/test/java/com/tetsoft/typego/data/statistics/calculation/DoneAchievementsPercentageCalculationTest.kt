@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.statistics.calculation
 
-import com.tetsoft.typego.data.achievement.completion.AchievementsCompletionPair
+import com.tetsoft.typego.achievements.data.AchievementsCompletionPair
+import com.tetsoft.typego.statistics.data.calculation.DoneAchievementsPercentageCalculation
 import org.junit.Assert.*
 
 import org.junit.Test

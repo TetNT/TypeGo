@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.statistics.calculation
 
+import com.tetsoft.typego.statistics.data.calculation.ProgressionCalculation
 import org.junit.Assert.*
 
 import org.junit.Test

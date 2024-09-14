@@ -1,6 +1,7 @@
 package com.tetsoft.typego.ui
 
 import android.view.View
+import com.tetsoft.typego.core.ui.VisibilityMapper
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

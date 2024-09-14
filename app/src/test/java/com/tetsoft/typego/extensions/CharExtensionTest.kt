@@ -1,5 +1,6 @@
 package com.tetsoft.typego.extensions
 
+import com.tetsoft.typego.core.utils.extensions.equalsTo
 import org.junit.Assert.*
 
 import org.junit.Test

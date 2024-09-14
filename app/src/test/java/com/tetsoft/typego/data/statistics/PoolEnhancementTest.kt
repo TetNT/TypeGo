@@ -1,5 +1,6 @@
 package com.tetsoft.typego.data.statistics
 
+import com.tetsoft.typego.statistics.data.PoolEnhancement
 import org.junit.Assert.*
 
 import org.junit.Test

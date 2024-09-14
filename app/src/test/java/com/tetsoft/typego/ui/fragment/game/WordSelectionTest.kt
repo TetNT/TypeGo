@@ -1,6 +1,6 @@
 package com.tetsoft.typego.ui.fragment.game
 
-import com.tetsoft.typego.data.WordSelection
+import com.tetsoft.typego.game.data.WordSelection
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

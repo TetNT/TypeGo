@@ -1,6 +1,7 @@
 package com.tetsoft.typego.data.game
 
-import com.tetsoft.typego.data.ScreenOrientation
+import com.tetsoft.typego.core.utils.ScreenOrientationConverter
+import com.tetsoft.typego.core.domain.ScreenOrientation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
