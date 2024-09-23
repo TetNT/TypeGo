@@ -37,7 +37,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     fun navigateUp() {
         if (isAdded) {
-            requireActivity().supportFragmentManager.popBackStack()
+            findNavController().navigateUp()
         }
     }
 
