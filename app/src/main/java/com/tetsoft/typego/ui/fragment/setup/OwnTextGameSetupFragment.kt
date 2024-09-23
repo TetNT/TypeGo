@@ -24,6 +24,8 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
     private val viewModel: OwnTextGameSetupViewModel by hiltNavGraphViewModels(R.id.main_navigation)
     private lateinit var parentViewModel : GameSetupViewModel
 
+    private lateinit var sliderListener: Slider.OnChangeListener
+
     override fun initBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -81,16 +83,17 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
     private fun setupTimeModeSlider() {
         val translation = Translation(requireContext())
         with(binding) {
-            timemodeSlider.setTimeModes(TimeModeList())
-            timemodeSlider.selectTimeMode(viewModel.getLastUsedTimeModeOrDefault())
-            timemodeSlider.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
+            sliderListener = Slider.OnChangeListener { _, value, _ ->
                 val position = value.toInt()
                 tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(position))
                 tvTimeStamp.startAnimation(
                     AnimationUtils.loadAnimation(requireContext(), R.anim.pop_animation)
                 )
                 parentViewModel.setOwnTextGameSettings(getGameSettings())
-            })
+            }
+            timemodeSlider.setTimeModes(TimeModeList())
+            timemodeSlider.selectTimeMode(viewModel.getLastUsedTimeModeOrDefault())
+            timemodeSlider.addOnChangeListener(sliderListener)
             tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
         }
     }
@@ -101,12 +104,14 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
             binding.userTextValidation.isChecked = areSettingsValid
             parentViewModel.setOwnTextGameSettings(getGameSettings())
         }
-        binding.timemodeSlider.addOnChangeListener(Slider.OnChangeListener { _, _, _ ->
-            parentViewModel.setOwnTextGameSettings(getGameSettings())
-        })
         binding.cbPredictiveText.setOnClickListener { parentViewModel.setOwnTextGameSettings(getGameSettings()) }
         binding.rbScreenOrientation.setOnCheckedChangeListener { _, _ ->
             parentViewModel.setOwnTextGameSettings(getGameSettings())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.timemodeSlider.removeOnChangeListener(sliderListener)
     }
 }
