@@ -36,13 +36,13 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     }
 
     fun navigateUp() {
-        if (!parentFragmentManager.isDestroyed) {
+        if (isAdded && !isRemoving) {
             findNavController().navigateUp()
         }
     }
 
     fun navigateTo(@IdRes action: Int) {
-        if (!parentFragmentManager.isDestroyed) {
+        if (isAdded && !isRemoving) {
            findNavController().navigate(action)
         }
     }

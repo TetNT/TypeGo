@@ -5,7 +5,7 @@ import android.text.InputType
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.BuildConfig
-import com.tetsoft.typego.core.Config
+import com.tetsoft.typego.Config
 import com.tetsoft.typego.game.data.AssetPathResolver
 import com.tetsoft.typego.core.domain.Word
 import com.tetsoft.typego.game.data.CpmCalculation
