@@ -16,7 +16,7 @@ import com.tetsoft.typego.achievements.data.CompletedAchievementsList
 import com.tetsoft.typego.achievements.domain.AchievementProgressCache
 import com.tetsoft.typego.history.domain.GameHistory
 import com.tetsoft.typego.core.domain.GameRequirement
-import com.tetsoft.typego.core.ui.VisibilityMapper
+import com.tetsoft.typego.core.domain.VisibilityMapper
 import com.tetsoft.typego.core.utils.DateTimeFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

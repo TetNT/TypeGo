@@ -2,9 +2,10 @@ package com.tetsoft.typego.wordslog.data
 
 import com.tetsoft.typego.wordslog.domain.DataSelector
 
+// TODO: JUnits
 class FiniteSelector<T: Any>(private val data: List<T>) : DataSelector<T> {
 
-    var lastPosition = 0
+    private var lastPosition = 0
 
     override fun getNextData(upTo: Int) : ArrayList<T> {
         val selection = ArrayList<T>()

@@ -1,7 +1,7 @@
 package com.tetsoft.typego.gamesetup.presentation
 
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.TimeMode
 import com.tetsoft.typego.history.data.DataSelectorImpl
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage

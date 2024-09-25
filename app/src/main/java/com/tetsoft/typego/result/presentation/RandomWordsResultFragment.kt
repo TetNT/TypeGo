@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.databinding.FragmentRandomWordsResultBinding
 import com.tetsoft.typego.core.utils.extensions.copyToClipboard
-import com.tetsoft.typego.core.ui.VisibilityMapper
+import com.tetsoft.typego.core.domain.VisibilityMapper
 import com.tetsoft.typego.core.ui.BaseFragment
 import com.tetsoft.typego.game.presentation.TimeGameViewModel
 import com.tetsoft.typego.wordslog.presentation.TypedWordsViewModel

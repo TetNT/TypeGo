@@ -8,8 +8,8 @@ import com.tetsoft.typego.achievements.data.AchievementsProgressStorage
 import com.tetsoft.typego.achievements.domain.AchievementsList
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.OwnText
-import com.tetsoft.typego.core.domain.ScreenOrientation
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.data.ScreenOrientation
+import com.tetsoft.typego.core.data.Word
 import com.tetsoft.typego.history.data.DataSelectorImpl
 import com.tetsoft.typego.history.data.GameHistoryImpl
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage

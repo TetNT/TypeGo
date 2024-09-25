@@ -2,6 +2,11 @@ package com.tetsoft.typego.achievements.data
 
 import android.content.Context
 import com.tetsoft.typego.R
+import com.tetsoft.typego.core.data.requirement.CompletedGamesAmountRequirement
+import com.tetsoft.typego.core.data.requirement.DifferentLanguagesRequirement
+import com.tetsoft.typego.core.data.requirement.NoMistakesInARowRequirement
+import com.tetsoft.typego.core.data.requirement.SharpEyeRequirement
+import com.tetsoft.typego.core.data.requirement.WpmRequirement
 import com.tetsoft.typego.history.domain.GameHistory
 import com.tetsoft.typego.core.domain.GameRequirement
 
@@ -52,7 +57,7 @@ interface Achievement {
         }
 
         override fun getRequirement(): GameRequirement {
-            return GameRequirement.WpmRequirement(requiredWpm)
+            return WpmRequirement(requiredWpm)
         }
     }
 
@@ -75,7 +80,7 @@ interface Achievement {
         }
 
         override fun getRequirement(): GameRequirement {
-            return GameRequirement.CompletedGamesAmountRequirement(requiredCompletedGames)
+            return CompletedGamesAmountRequirement(requiredCompletedGames)
         }
     }
 
@@ -90,7 +95,7 @@ interface Achievement {
         }
 
         override fun getRequirement(): GameRequirement {
-            return GameRequirement.SharpEyeRequirement(requiredTimeInSeconds)
+            return SharpEyeRequirement(requiredTimeInSeconds)
         }
 
         override fun getAchievementImageId(): Int {
@@ -112,7 +117,7 @@ interface Achievement {
         }
 
         override fun getRequirement(): GameRequirement {
-            return GameRequirement.NoMistakesInARowRequirement(requiredInARow)
+            return NoMistakesInARowRequirement(requiredInARow)
         }
 
         override fun withProgressBar(): Boolean {
@@ -130,7 +135,7 @@ interface Achievement {
         }
 
         override fun getRequirement(): GameRequirement {
-            return GameRequirement.DifferentLanguagesRequirement(requiredUniqueEntries)
+            return DifferentLanguagesRequirement(requiredUniqueEntries)
         }
     }
 
@@ -144,7 +149,7 @@ interface Achievement {
 
         override fun withProgressBar() = false
 
-        override fun getRequirement() = GameRequirement.WpmRequirement(0)
+        override fun getRequirement() = WpmRequirement(0)
 
         override fun isCompleted(history: GameHistory) = false
 

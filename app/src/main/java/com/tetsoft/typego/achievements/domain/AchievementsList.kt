@@ -3,6 +3,7 @@ package com.tetsoft.typego.achievements.domain
 import android.content.Context
 import com.tetsoft.typego.R
 import com.tetsoft.typego.achievements.data.Achievement
+import com.tetsoft.typego.core.data.requirement.CompletedGamesAmountRequirement
 import com.tetsoft.typego.core.domain.GameRequirement
 
 object AchievementsList {
@@ -53,7 +54,7 @@ object AchievementsList {
         }
 
         override fun getRequirement(): GameRequirement {
-            return GameRequirement.CompletedGamesAmountRequirement(1)
+            return CompletedGamesAmountRequirement(1)
         }
     }
 

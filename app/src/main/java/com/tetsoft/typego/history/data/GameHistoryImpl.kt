@@ -4,7 +4,7 @@ import com.tetsoft.typego.core.domain.GameResult
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
 import com.tetsoft.typego.history.domain.GameHistory
-
+// TODO: JUnits
 open class GameHistoryImpl(randomWordsHistoryList: List<RandomWords>, ownTextHistoryList: List<OwnText>) : GameHistory {
 
     private val allResults = ArrayList<GameResult>()

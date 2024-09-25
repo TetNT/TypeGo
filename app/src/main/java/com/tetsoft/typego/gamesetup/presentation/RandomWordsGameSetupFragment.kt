@@ -19,7 +19,7 @@ import com.tetsoft.typego.core.domain.TimeModeList
 import com.tetsoft.typego.databinding.FragmentRandomWordsGameSetupBinding
 import com.tetsoft.typego.core.ui.BaseFragment
 import com.tetsoft.typego.core.utils.Translation
-import com.tetsoft.typego.gamesetup.data.GameSetupInformation
+import com.tetsoft.typego.gamesetup.domain.GameSetupInformation
 
 class RandomWordsGameSetupFragment : BaseFragment<FragmentRandomWordsGameSetupBinding>(), GameSetupInformation {
 

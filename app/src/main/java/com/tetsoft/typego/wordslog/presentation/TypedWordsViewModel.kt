@@ -8,7 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.data.Word
 import com.tetsoft.typego.wordslog.data.FiniteSelector
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -25,7 +25,7 @@ import com.google.android.ump.UserMessagingPlatform
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
 import com.tetsoft.typego.core.data.adscounter.AdsCounter
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.databinding.FragmentTimeGameBinding
 import com.tetsoft.typego.core.utils.extensions.addAfterTextChangedListener

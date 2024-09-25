@@ -9,7 +9,7 @@ import com.tetsoft.typego.Config
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.data.Word
 import com.tetsoft.typego.core.utils.DictionaryTypeConverter
 import com.tetsoft.typego.core.utils.ScreenOrientationConverter
 import com.tetsoft.typego.game.data.AssetStringReader

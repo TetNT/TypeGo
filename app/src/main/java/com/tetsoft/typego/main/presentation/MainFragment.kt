@@ -13,7 +13,7 @@ import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.R
 import com.tetsoft.typego.core.ui.LanguageSpinnerAdapter
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.LanguageList
 import com.tetsoft.typego.core.domain.TimeMode
 import com.tetsoft.typego.databinding.FragmentMainBinding

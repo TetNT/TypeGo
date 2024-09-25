@@ -5,24 +5,13 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
+import com.tetsoft.typego.achievements.data.AchievementsProgressStorage
 import com.tetsoft.typego.achievements.domain.AchievementsList
-import com.tetsoft.typego.core.domain.Language
-import com.tetsoft.typego.statistics.data.statistics.AccuracyStatistics
-import com.tetsoft.typego.statistics.data.statistics.AverageCurrentWpmStatistics
-import com.tetsoft.typego.statistics.data.statistics.AveragePastWpmStatistics
-import com.tetsoft.typego.statistics.data.statistics.BestResultStatistics
-import com.tetsoft.typego.statistics.data.statistics.DaysSinceFirstTestStatistics
-import com.tetsoft.typego.statistics.data.statistics.DaysSinceNewRecordStatistics
-import com.tetsoft.typego.statistics.data.statistics.DoneAchievementCountStatistics
-import com.tetsoft.typego.statistics.data.statistics.DoneAchievementsPercentageStatistics
-import com.tetsoft.typego.statistics.data.statistics.FavoriteLanguageStatistics
-import com.tetsoft.typego.statistics.data.statistics.FavoriteTimeModeStatistics
-import com.tetsoft.typego.statistics.data.statistics.LastCompletedAchievementStatistics
-import com.tetsoft.typego.statistics.domain.PoolEnhancement
-import com.tetsoft.typego.statistics.data.statistics.ProgressionStatistics
-import com.tetsoft.typego.statistics.domain.Statistics
-import com.tetsoft.typego.statistics.data.statistics.TimeSpentStatistics
-import com.tetsoft.typego.statistics.data.statistics.TotalWordsWrittenStatistics
+import com.tetsoft.typego.core.domain.LanguageList
+import com.tetsoft.typego.history.data.GameHistoryImpl
+import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
+import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
+import com.tetsoft.typego.statistics.data.PoolEnhancementImpl
 import com.tetsoft.typego.statistics.data.calculation.AccuracyCalculation
 import com.tetsoft.typego.statistics.data.calculation.AverageCurrentWpmCalculation
 import com.tetsoft.typego.statistics.data.calculation.AveragePastWpmCalculation
@@ -37,10 +26,21 @@ import com.tetsoft.typego.statistics.data.calculation.LastCompletedAchievementCa
 import com.tetsoft.typego.statistics.data.calculation.ProgressionCalculation
 import com.tetsoft.typego.statistics.data.calculation.TimeSpentCalculation
 import com.tetsoft.typego.statistics.data.calculation.TotalWordsWrittenCalculation
-import com.tetsoft.typego.achievements.data.AchievementsProgressStorage
-import com.tetsoft.typego.history.data.GameHistoryImpl
-import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
-import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
+import com.tetsoft.typego.statistics.data.statistics.AccuracyStatistics
+import com.tetsoft.typego.statistics.data.statistics.AverageCurrentWpmStatistics
+import com.tetsoft.typego.statistics.data.statistics.AveragePastWpmStatistics
+import com.tetsoft.typego.statistics.data.statistics.BestResultStatistics
+import com.tetsoft.typego.statistics.data.statistics.DaysSinceFirstTestStatistics
+import com.tetsoft.typego.statistics.data.statistics.DaysSinceNewRecordStatistics
+import com.tetsoft.typego.statistics.data.statistics.DoneAchievementCountStatistics
+import com.tetsoft.typego.statistics.data.statistics.DoneAchievementsPercentageStatistics
+import com.tetsoft.typego.statistics.data.statistics.FavoriteLanguageStatistics
+import com.tetsoft.typego.statistics.data.statistics.FavoriteTimeModeStatistics
+import com.tetsoft.typego.statistics.data.statistics.LastCompletedAchievementStatistics
+import com.tetsoft.typego.statistics.data.statistics.ProgressionStatistics
+import com.tetsoft.typego.statistics.data.statistics.TimeSpentStatistics
+import com.tetsoft.typego.statistics.data.statistics.TotalWordsWrittenStatistics
+import com.tetsoft.typego.statistics.domain.Statistics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Calendar
 import javax.inject.Inject
@@ -102,7 +102,7 @@ class StatisticsViewModel @Inject constructor(
             AveragePastWpmCalculation(
                 gameHistory.getAllResults(),
                 RESULTS_DEFAULT_POOL_SIZE,
-                PoolEnhancement.Base(
+                PoolEnhancementImpl(
                     gameHistory.getAllResults().size,
                     RESULTS_DEFAULT_POOL_SIZE
                 )
@@ -175,7 +175,7 @@ class StatisticsViewModel @Inject constructor(
 
     val favoriteLanguageStatistics
         get() = FavoriteLanguageStatistics(
-            FavoriteLanguageCalculation(gameHistory.getResultsWithLanguage(), Language.LANGUAGE_LIST)
+            FavoriteLanguageCalculation(gameHistory.getResultsWithLanguage(), LanguageList().getPlayableLanguages())
         )
 
     val favoriteLanguageGamesCount

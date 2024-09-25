@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.GameResult
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords

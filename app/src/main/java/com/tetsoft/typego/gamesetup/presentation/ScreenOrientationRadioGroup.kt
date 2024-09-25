@@ -3,7 +3,7 @@ package com.tetsoft.typego.gamesetup.presentation
 import android.content.Context
 import android.util.AttributeSet
 import com.tetsoft.typego.core.ui.RadioGroupBase
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 
 class ScreenOrientationRadioGroup : RadioGroupBase<ScreenOrientation> {
     constructor(context: Context) : super(context)

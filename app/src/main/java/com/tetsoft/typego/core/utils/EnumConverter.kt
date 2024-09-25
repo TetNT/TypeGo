@@ -1,7 +1,7 @@
 package com.tetsoft.typego.core.utils
 
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 import java.lang.IllegalArgumentException
 
 interface EnumConverter<T> {

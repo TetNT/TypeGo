@@ -3,7 +3,7 @@ package com.tetsoft.typego.wordslog.presentation
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.tetsoft.typego.wordslog.domain.DataSelector
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.data.Word
 
 class WordsPagingSource(
     private val wordsList: List<Word>,

@@ -3,7 +3,7 @@ package com.tetsoft.typego.utils
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.Language
 import com.tetsoft.typego.core.domain.TimeMode
 import com.tetsoft.typego.core.utils.Translation

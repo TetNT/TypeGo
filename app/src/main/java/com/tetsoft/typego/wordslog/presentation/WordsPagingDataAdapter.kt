@@ -1,5 +1,6 @@
 package com.tetsoft.typego.wordslog.presentation
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
@@ -14,7 +15,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.core.domain.CharacterStatus
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.data.Word
+import com.tetsoft.typego.wordslog.data.InputWord
 
 class WordsPagingDataAdapter : PagingDataAdapter<Word, WordsPagingDataAdapter.ViewHolder>(
     diffCallback
@@ -26,6 +28,7 @@ class WordsPagingDataAdapter : PagingDataAdapter<Word, WordsPagingDataAdapter.Vi
         val tvIndex: TextView = itemView.findViewById(R.id.tvIndex)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = getItem(position) ?: return
         holder.tvIndex.text = "${(position + 1)}."
@@ -106,12 +109,3 @@ class WordsPagingDataAdapter : PagingDataAdapter<Word, WordsPagingDataAdapter.Vi
     }
 }
 
-class InputWord(private val word: Word) {
-    fun getInput() : String {
-        val lengthDifference = word.originalText.length - word.inputtedText.length
-        if (lengthDifference > 0) {
-            return word.inputtedText + word.originalText.substring(word.inputtedText.length, word.inputtedText.length  + lengthDifference)
-        }
-        return word.inputtedText
-    }
-}

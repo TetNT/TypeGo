@@ -29,18 +29,6 @@ data class Language(val identifier: String)  {
         const val CZ = "CZ"
         const val PL = "PL"
 
-        // All playable languages
-        val LANGUAGE_LIST = arrayListOf(
-            Language(EN),
-            Language(FR),
-            Language(DE),
-            Language(IT),
-            Language(RU),
-            Language(ES),
-            Language(BG),
-            Language(UA),
-            Language(CZ),
-            Language(PL)
-        )
+
     }
 }

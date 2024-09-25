@@ -10,8 +10,8 @@ import com.tetsoft.typego.core.domain.DictionaryType
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.Language
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.core.domain.ScreenOrientation
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.data.ScreenOrientation
+import com.tetsoft.typego.core.data.Word
 import com.tetsoft.typego.history.data.DataSelectorImpl
 import com.tetsoft.typego.history.data.GameHistoryImpl
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage

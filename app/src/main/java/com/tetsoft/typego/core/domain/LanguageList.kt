@@ -2,9 +2,8 @@ package com.tetsoft.typego.core.domain
 
 import android.content.Context
 import com.tetsoft.typego.core.data.LanguageSpinnerItem
-import com.tetsoft.typego.core.ui.LanguageFlagMapper
+import com.tetsoft.typego.core.data.LanguageFlagMapper
 import com.tetsoft.typego.core.utils.Translation
-import kotlin.collections.ArrayList
 
 class LanguageList : ArrayList<LanguageSpinnerItem>() {
 
@@ -15,7 +14,7 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
         val languageItems = ArrayList<LanguageSpinnerItem>()
         val translation = Translation(context)
         val languageFlag = LanguageFlagMapper()
-        for(language in Language.LANGUAGE_LIST) {
+        for(language in getPlayableLanguages()) {
             languageItems.add(
                 LanguageSpinnerItem(
                 language,
@@ -25,6 +24,21 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
         }
         val sorted : List<LanguageSpinnerItem> = languageItems.sortedBy { it.languageTranslation }
         return ArrayList(sorted)
+    }
+
+    fun getPlayableLanguages() : List<Language> {
+        return arrayListOf(
+            Language(Language.EN),
+            Language(Language.FR),
+            Language(Language.DE),
+            Language(Language.IT),
+            Language(Language.RU),
+            Language(Language.ES),
+            Language(Language.BG),
+            Language(Language.UA),
+            Language(Language.CZ),
+            Language(Language.PL)
+        )
     }
 
 }

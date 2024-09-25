@@ -1,5 +1,6 @@
 package com.tetsoft.typego.core.domain
 
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.utils.DictionaryTypeConverter
 import com.tetsoft.typego.core.utils.ScreenOrientationConverter
 

@@ -1,5 +1,6 @@
 package com.tetsoft.typego.core.domain
 
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.game.domain.TextSource
 
 abstract class GameSettings(
