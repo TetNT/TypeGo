@@ -13,6 +13,7 @@ import com.tetsoft.typego.databinding.FragmentKeyNotesBinding
 import com.tetsoft.typego.core.ui.BaseFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.IllegalStateException
 
 class KeyNotesFragment : BaseFragment<FragmentKeyNotesBinding>() {
 
@@ -28,11 +29,16 @@ class KeyNotesFragment : BaseFragment<FragmentKeyNotesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.closeCarousel.setOnClickListener {
-            findNavController().navigateUp()
+            navigateUp()
             return@setOnClickListener
         }
         val showAll = arguments?.getBoolean("show_all")
-        viewModel.init(showAll ?: true)
+        try {
+            viewModel.init(showAll ?: true)
+        } catch (ise: IllegalStateException) {
+            navigateUp()
+            return
+        }
         viewModel.initIndicators(binding.carouselPageIndicators)
         binding.featureImage.setImageResource(viewModel.currentFeature().imageId)
         binding.featureHeader.text = getString(viewModel.currentFeature().featureHeader)

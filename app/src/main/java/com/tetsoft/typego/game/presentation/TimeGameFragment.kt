@@ -141,7 +141,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     private fun startTimer(seconds: Int) {
         countdown = object : CountDownTimer(seconds * 1000L, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                if (view == null) {
+                if (!isAdded || isRemoving || view == null) {
                     return
                 }
                 binding.tvTimeLeft.text =
@@ -156,6 +156,9 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     }
 
     private fun finishGame() {
+        if (isRemoving || view == null) {
+            return
+        }
         countdown?.cancel()
         binding.inpWord.isEnabled = false
         binding.words.isEnabled = false
