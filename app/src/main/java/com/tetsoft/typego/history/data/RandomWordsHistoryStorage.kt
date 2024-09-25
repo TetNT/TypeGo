@@ -5,6 +5,8 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.history.domain.GameHistoryList
+import com.tetsoft.typego.history.domain.GameOnTimeHistoryList
 import java.sql.Date
 
 interface RandomWordsHistoryStorage : HistoryStorage<RandomWords> {

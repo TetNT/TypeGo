@@ -1,7 +1,8 @@
 package com.tetsoft.typego.keynotes.di
 
-import com.tetsoft.typego.keynotes.data.KeyNotesStateStorage
-import com.tetsoft.typego.keynotes.data.KeyNotesList
+import com.tetsoft.typego.keynotes.data.KeyNotesListImpl
+import com.tetsoft.typego.keynotes.domain.KeyNotesStateStorage
+import com.tetsoft.typego.keynotes.domain.KeyNotesList
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,5 +16,5 @@ interface KeyNotesStateStorageBindModule {
     fun bindKeyNotesStateStorage(keyNotesStateStorage: KeyNotesStateStorage.Standard) : KeyNotesStateStorage
 
     @Binds
-    fun bindKeyNotesList(keyNotesList: KeyNotesList.Standard) : KeyNotesList
+    fun bindKeyNotesList(keyNotesList: KeyNotesListImpl) : KeyNotesList
 }

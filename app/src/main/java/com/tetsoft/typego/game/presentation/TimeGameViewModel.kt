@@ -6,17 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.Config
-import com.tetsoft.typego.game.data.AssetPathResolver
-import com.tetsoft.typego.core.domain.Word
-import com.tetsoft.typego.game.data.CpmCalculation
-import com.tetsoft.typego.game.data.WpmCalculation
-import com.tetsoft.typego.core.utils.DictionaryTypeConverter
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.core.utils.DictionaryTypeConverter
 import com.tetsoft.typego.core.utils.ScreenOrientationConverter
 import com.tetsoft.typego.game.data.AssetStringReader
-import com.tetsoft.typego.game.data.TextSource
+import com.tetsoft.typego.game.data.CpmCalculationImpl
+import com.tetsoft.typego.game.data.DictionaryAssetPathResolver
+import com.tetsoft.typego.game.data.TextSourceFromAsset
+import com.tetsoft.typego.game.data.TextSourceUserText
+import com.tetsoft.typego.game.data.WpmCalculationImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -87,7 +88,7 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
     }
 
     fun getDictionaryPath(): String {
-        val assetPathResolver = AssetPathResolver.Dictionary(
+        val assetPathResolver = DictionaryAssetPathResolver(
             (gameSettings as GameSettings.ForRandomlyGeneratedWords).dictionaryType,
             (gameSettings as GameSettings.ForRandomlyGeneratedWords).languageCode
         )
@@ -99,8 +100,8 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
             throw IllegalStateException("The method was called with wrong game settings: " + gameSettings.javaClass.name)
         val rndSettings = gameSettings as GameSettings.ForRandomlyGeneratedWords
         return RandomWords(
-            WpmCalculation.Standard(rndSettings.time, getScore()).calculate(),
-            CpmCalculation.Standard(rndSettings.time, getScore()).calculate(),
+            WpmCalculationImpl(rndSettings.time, getScore()).calculate(),
+            CpmCalculationImpl(rndSettings.time, getScore()).calculate(),
             getScore(),
             rndSettings.time,
             rndSettings.languageCode,
@@ -121,8 +122,8 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
             val userTextSettings = gameSettings as GameSettings.ForUserText
             return OwnText(
                 userTextSettings.userText,
-                WpmCalculation.Standard(secondsPassed, getScore()).calculate(),
-                CpmCalculation.Standard(secondsPassed, getScore()).calculate(),
+                WpmCalculationImpl(secondsPassed, getScore()).calculate(),
+                CpmCalculationImpl(secondsPassed, getScore()).calculate(),
                 userTextSettings.time,
                 secondsPassed,
                 getScore(),
@@ -138,7 +139,7 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
     fun generateText(assetManager: AssetManager): String {
         return when (gameSettings) {
             is GameSettings.ForRandomlyGeneratedWords -> {
-                TextSource.FromAsset(
+                TextSourceFromAsset(
                     AssetStringReader(assetManager),
                     getDictionaryPath(),
                     getAmountOfLoadedWordsRequired(),
@@ -147,7 +148,7 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
             }
 
             is GameSettings.ForUserText -> {
-                TextSource.UserText((gameSettings as GameSettings.ForUserText).userText).getString()
+                TextSourceUserText((gameSettings as GameSettings.ForUserText).userText).getString()
             }
 
             else -> ""

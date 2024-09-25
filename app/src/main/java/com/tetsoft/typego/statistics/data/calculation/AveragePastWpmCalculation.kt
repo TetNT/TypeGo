@@ -1,7 +1,8 @@
 package com.tetsoft.typego.statistics.data.calculation
 
 import com.tetsoft.typego.core.domain.GameResult
-import com.tetsoft.typego.statistics.data.PoolEnhancement
+import com.tetsoft.typego.statistics.domain.PoolEnhancement
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 import kotlin.math.roundToInt
 
 /**

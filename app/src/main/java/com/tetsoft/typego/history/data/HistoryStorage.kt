@@ -3,6 +3,7 @@ package com.tetsoft.typego.history.data
 import android.content.Context
 import com.squareup.moshi.JsonAdapter
 import com.tetsoft.typego.core.domain.GameResult
+import com.tetsoft.typego.history.domain.GameHistoryList
 
 interface HistoryStorage<T : GameResult> {
     fun store(list: GameHistoryList<T>)

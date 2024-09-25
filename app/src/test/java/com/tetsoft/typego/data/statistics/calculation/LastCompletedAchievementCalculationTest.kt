@@ -1,8 +1,8 @@
 package com.tetsoft.typego.data.statistics.calculation
 
 import com.tetsoft.typego.achievements.data.Achievement
-import com.tetsoft.typego.achievements.data.AchievementsCompletionPair
-import com.tetsoft.typego.achievements.data.AchievementsProgressList
+import com.tetsoft.typego.achievements.domain.AchievementsCompletionPair
+import com.tetsoft.typego.achievements.data.CompletedAchievementsList
 import com.tetsoft.typego.statistics.data.calculation.LastCompletedAchievementCalculation
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -11,7 +11,7 @@ class LastCompletedAchievementCalculationTest {
 
     @Test
     fun provide_completedAchievement_equalsAchievement() {
-        val completedAchievements = AchievementsProgressList()
+        val completedAchievements = CompletedAchievementsList()
         completedAchievements.add(AchievementsCompletionPair(1, 100L))
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(3, 300L))
@@ -27,7 +27,7 @@ class LastCompletedAchievementCalculationTest {
 
     @Test
     fun provide_achievementNotFound_equalsEmptyAchievement() {
-        val completedAchievements = AchievementsProgressList()
+        val completedAchievements = CompletedAchievementsList()
         completedAchievements.add(AchievementsCompletionPair(1, 100L))
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(5, 600L))
@@ -43,7 +43,7 @@ class LastCompletedAchievementCalculationTest {
 
     @Test
     fun provide_emptyAchievementsList_equalsEmptyAchievement() {
-        val completedAchievements = AchievementsProgressList()
+        val completedAchievements = CompletedAchievementsList()
         completedAchievements.add(AchievementsCompletionPair(1, 100L))
         completedAchievements.add(AchievementsCompletionPair(2, 500L))
         completedAchievements.add(AchievementsCompletionPair(5, 600L))

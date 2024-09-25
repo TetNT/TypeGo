@@ -1,5 +1,7 @@
 package com.tetsoft.typego.game.data
 
+import com.tetsoft.typego.game.domain.AssetReader
+import com.tetsoft.typego.game.domain.TextSource
 import kotlin.random.Random
 
 class ShuffledTextFromAsset(assetReader: AssetReader, path: String, private val amount: Int) : TextSource {

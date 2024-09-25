@@ -2,7 +2,8 @@ package com.tetsoft.typego.statistics.data.calculation
 
 
 import com.tetsoft.typego.achievements.data.Achievement
-import com.tetsoft.typego.achievements.data.AchievementsCompletionPair
+import com.tetsoft.typego.achievements.domain.AchievementsCompletionPair
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 
 class LastCompletedAchievementCalculation(
     private val achievementsProgressList: List<AchievementsCompletionPair>,

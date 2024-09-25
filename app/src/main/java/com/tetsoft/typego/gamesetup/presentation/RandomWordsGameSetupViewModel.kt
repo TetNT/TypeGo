@@ -2,10 +2,10 @@ package com.tetsoft.typego.gamesetup.presentation
 
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.core.domain.ScreenOrientation
-import com.tetsoft.typego.history.data.DataSelector
 import com.tetsoft.typego.core.domain.Language
+import com.tetsoft.typego.core.domain.ScreenOrientation
 import com.tetsoft.typego.core.domain.TimeMode
+import com.tetsoft.typego.history.data.DataSelectorImpl
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RandomWordsGameSetupViewModel @Inject constructor(private val randomWordsHistoryStorage: RandomWordsHistoryStorage) : ViewModel() {
 
-    private val lastResult get() = DataSelector.Standard(randomWordsHistoryStorage.get()).getMostRecentResult()
+    private val lastResult get() = DataSelectorImpl(randomWordsHistoryStorage.get()).getMostRecentResult()
 
     fun getLastUsedLanguageOrDefault() : Language {
         return Language(lastResult?.getLanguageCode() ?: DEFAULT_LANGUAGE)

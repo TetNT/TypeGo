@@ -1,7 +1,7 @@
 package com.tetsoft.typego.history.di
 
 import android.content.Context
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import dagger.Module
@@ -35,8 +35,8 @@ class HistoryModule {
 
     @Provides
     @Singleton
-    fun provideGameHistory(@ApplicationContext context: Context) : GameHistory.Standard {
-        return GameHistory.Standard(
+    fun provideGameHistory(@ApplicationContext context: Context) : GameHistoryImpl {
+        return GameHistoryImpl(
             RandomWordsHistoryStorage.SharedPreferences(context).get(),
             OwnTextGameHistoryStorage.SharedPreferences(context).get()
         )

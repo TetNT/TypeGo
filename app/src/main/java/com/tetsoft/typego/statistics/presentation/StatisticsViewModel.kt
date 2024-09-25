@@ -6,24 +6,23 @@ import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.achievements.domain.AchievementsList
-import com.tetsoft.typego.history.data.GameHistory
 import com.tetsoft.typego.core.domain.Language
-import com.tetsoft.typego.statistics.data.AccuracyStatistics
-import com.tetsoft.typego.statistics.data.AverageCurrentWpmStatistics
-import com.tetsoft.typego.statistics.data.AveragePastWpmStatistics
-import com.tetsoft.typego.statistics.data.BestResultStatistics
-import com.tetsoft.typego.statistics.data.DaysSinceFirstTestStatistics
-import com.tetsoft.typego.statistics.data.DaysSinceNewRecordStatistics
-import com.tetsoft.typego.statistics.data.DoneAchievementCountStatistics
-import com.tetsoft.typego.statistics.data.DoneAchievementsPercentageStatistics
-import com.tetsoft.typego.statistics.data.FavoriteLanguageStatistics
-import com.tetsoft.typego.statistics.data.FavoriteTimeModeStatistics
-import com.tetsoft.typego.statistics.data.LastCompletedAchievementStatistics
-import com.tetsoft.typego.statistics.data.PoolEnhancement
-import com.tetsoft.typego.statistics.data.ProgressionStatistics
-import com.tetsoft.typego.statistics.data.Statistics
-import com.tetsoft.typego.statistics.data.TimeSpentStatistics
-import com.tetsoft.typego.statistics.data.TotalWordsWrittenStatistics
+import com.tetsoft.typego.statistics.data.statistics.AccuracyStatistics
+import com.tetsoft.typego.statistics.data.statistics.AverageCurrentWpmStatistics
+import com.tetsoft.typego.statistics.data.statistics.AveragePastWpmStatistics
+import com.tetsoft.typego.statistics.data.statistics.BestResultStatistics
+import com.tetsoft.typego.statistics.data.statistics.DaysSinceFirstTestStatistics
+import com.tetsoft.typego.statistics.data.statistics.DaysSinceNewRecordStatistics
+import com.tetsoft.typego.statistics.data.statistics.DoneAchievementCountStatistics
+import com.tetsoft.typego.statistics.data.statistics.DoneAchievementsPercentageStatistics
+import com.tetsoft.typego.statistics.data.statistics.FavoriteLanguageStatistics
+import com.tetsoft.typego.statistics.data.statistics.FavoriteTimeModeStatistics
+import com.tetsoft.typego.statistics.data.statistics.LastCompletedAchievementStatistics
+import com.tetsoft.typego.statistics.domain.PoolEnhancement
+import com.tetsoft.typego.statistics.data.statistics.ProgressionStatistics
+import com.tetsoft.typego.statistics.domain.Statistics
+import com.tetsoft.typego.statistics.data.statistics.TimeSpentStatistics
+import com.tetsoft.typego.statistics.data.statistics.TotalWordsWrittenStatistics
 import com.tetsoft.typego.statistics.data.calculation.AccuracyCalculation
 import com.tetsoft.typego.statistics.data.calculation.AverageCurrentWpmCalculation
 import com.tetsoft.typego.statistics.data.calculation.AveragePastWpmCalculation
@@ -39,6 +38,7 @@ import com.tetsoft.typego.statistics.data.calculation.ProgressionCalculation
 import com.tetsoft.typego.statistics.data.calculation.TimeSpentCalculation
 import com.tetsoft.typego.statistics.data.calculation.TotalWordsWrittenCalculation
 import com.tetsoft.typego.achievements.data.AchievementsProgressStorage
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -53,7 +53,7 @@ class StatisticsViewModel @Inject constructor(
 ) : ViewModel() {
 
     // FIXME: remove that and inject gameHistory properly
-    private val gameHistory get() = GameHistory.Standard(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
+    private val gameHistory get() = GameHistoryImpl(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
 
     companion object {
         const val RESULTS_DEFAULT_POOL_SIZE = 5

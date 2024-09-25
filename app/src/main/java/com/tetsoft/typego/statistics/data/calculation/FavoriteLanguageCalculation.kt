@@ -2,6 +2,7 @@ package com.tetsoft.typego.statistics.data.calculation
 
 import com.tetsoft.typego.core.domain.GameResult
 import com.tetsoft.typego.core.domain.Language
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 
 class FavoriteLanguageCalculation(
     private val resultsList: List<GameResult.WithLanguage>,

@@ -1,11 +1,11 @@
 package com.tetsoft.typego.data.history
 
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.domain.Language
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.core.domain.Language
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.history.data.GameResultWithWordsInformation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -41,7 +41,7 @@ class GameResultWithWordsInformationTest {
             completionDateTime,
             seed
         )
-        val gameResultWithWordsInformation = GameHistory.GameResultWithWordsInformation(randomWords)
+        val gameResultWithWordsInformation = GameResultWithWordsInformation(randomWords)
         assertEquals(wpm, gameResultWithWordsInformation.getWpm(), 0.01)
         assertEquals(cpm, gameResultWithWordsInformation.getCpm())
         assertEquals(charsWritten, gameResultWithWordsInformation.getCharsWritten())
@@ -82,7 +82,7 @@ class GameResultWithWordsInformationTest {
             wordsWritten,
             correctWords,
         )
-        val gameResultWithWordsInformation = GameHistory.GameResultWithWordsInformation(ownText)
+        val gameResultWithWordsInformation = GameResultWithWordsInformation(ownText)
         assertEquals(wpm, gameResultWithWordsInformation.getWpm(), 0.01)
         assertEquals(cpm, gameResultWithWordsInformation.getCpm())
         assertEquals(charsWritten, gameResultWithWordsInformation.getCharsWritten())

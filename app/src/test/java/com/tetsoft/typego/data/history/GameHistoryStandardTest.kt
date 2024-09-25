@@ -1,10 +1,10 @@
 package com.tetsoft.typego.data.history
 
-import com.tetsoft.typego.data.OwnTextMock
-import com.tetsoft.typego.data.RandomWordsMock
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.data.OwnTextMock
+import com.tetsoft.typego.data.RandomWordsMock
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -21,7 +21,7 @@ class GameHistoryStandardTest {
             OwnTextMock(),
             OwnTextMock(),
         )
-        val gameHistory = GameHistory.Standard(randomWordsList, ownTextList)
+        val gameHistory = GameHistoryImpl(randomWordsList, ownTextList)
         assertEquals(5, gameHistory.getAllResults().size)
     }
 
@@ -32,7 +32,7 @@ class GameHistoryStandardTest {
             OwnTextMock(),
             OwnTextMock(),
         )
-        val gameHistory = GameHistory.Standard(randomWordsList, ownTextList)
+        val gameHistory = GameHistoryImpl(randomWordsList, ownTextList)
         assertEquals(2, gameHistory.getAllResults().size)
     }
 
@@ -44,7 +44,7 @@ class GameHistoryStandardTest {
             RandomWordsMock()
         )
         val ownTextList = emptyList<OwnText>()
-        val gameHistory = GameHistory.Standard(randomWordsList, ownTextList)
+        val gameHistory = GameHistoryImpl(randomWordsList, ownTextList)
         assertEquals(3, gameHistory.getAllResults().size)
     }
 
@@ -59,7 +59,7 @@ class GameHistoryStandardTest {
             OwnTextMock(),
             OwnTextMock(),
         )
-        val gameHistory = GameHistory.Standard(randomWordsList, ownTextList)
+        val gameHistory = GameHistoryImpl(randomWordsList, ownTextList)
         assertEquals(3, gameHistory.getResultsWithLanguage().size)
     }
 
@@ -74,7 +74,7 @@ class GameHistoryStandardTest {
             OwnTextMock(),
             OwnTextMock(),
         )
-        val gameHistory = GameHistory.Standard(randomWordsList, ownTextList)
+        val gameHistory = GameHistoryImpl(randomWordsList, ownTextList)
         assertEquals(5, gameHistory.getResultsWithWordsInformation().size)
     }
 }

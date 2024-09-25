@@ -1,6 +1,6 @@
 package com.tetsoft.typego.data.textsource
 
-import com.tetsoft.typego.game.data.AssetReader
+import com.tetsoft.typego.game.domain.AssetReader
 import com.tetsoft.typego.game.data.ShuffledSeedFixedTextFromAsset
 import org.junit.Assert.*
 

@@ -5,6 +5,8 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tetsoft.typego.core.domain.OwnText
+import com.tetsoft.typego.history.domain.GameHistoryList
+import com.tetsoft.typego.history.domain.OwnTextGameHistoryList
 
 interface OwnTextGameHistoryStorage : HistoryStorage<OwnText> {
     class SharedPreferences(context: Context) : OwnTextGameHistoryStorage {

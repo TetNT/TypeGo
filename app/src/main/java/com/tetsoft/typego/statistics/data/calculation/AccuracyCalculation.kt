@@ -1,6 +1,7 @@
 package com.tetsoft.typego.statistics.data.calculation
 
 import com.tetsoft.typego.core.domain.GameResult
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 
 class AccuracyCalculation(private val resultsList : List<GameResult.WithWordsInformation>) : StatisticsCalculation {
 

@@ -1,6 +1,6 @@
 package com.tetsoft.typego.core.domain
 
-import com.tetsoft.typego.game.data.TextSource
+import com.tetsoft.typego.game.domain.TextSource
 
 abstract class GameSettings(
     val suggestionsActivated: Boolean,

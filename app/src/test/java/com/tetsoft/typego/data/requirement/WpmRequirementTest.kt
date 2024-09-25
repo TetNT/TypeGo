@@ -1,9 +1,9 @@
 package com.tetsoft.typego.data.requirement
 
 import com.tetsoft.typego.core.domain.GameRequirement
-import com.tetsoft.typego.data.RandomWordsWpmMock
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.data.RandomWordsWpmMock
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -13,7 +13,7 @@ class WpmRequirementTest {
 
     @Test
     fun getCurrentProgress_multipleResults_assertEquals15() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsWpmMock(13.0),
                 RandomWordsWpmMock(10.0),
@@ -25,13 +25,13 @@ class WpmRequirementTest {
 
     @Test
     fun getCurrentProgress_emptyResults_assertEquals0() {
-        val list = GameHistory.Standard(emptyList(), emptyList())
+        val list = GameHistoryImpl(emptyList(), emptyList())
         assertEquals(GameRequirement.WpmRequirement(30).getCurrentProgress(list), 0)
     }
 
     @Test
     fun isReached_wpmMoreThan30_assertTrue() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsWpmMock(20.0),
                 RandomWordsWpmMock(25.0),
@@ -43,7 +43,7 @@ class WpmRequirementTest {
 
     @Test
     fun isReached_oneItemWpmMoreThan30_assertTrue() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsWpmMock(32.0)
             ), emptyList()
@@ -53,7 +53,7 @@ class WpmRequirementTest {
 
     @Test
     fun isReached_wpmEquals30_assertTrue() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsWpmMock(20.0),
                 RandomWordsWpmMock(25.0),
@@ -65,7 +65,7 @@ class WpmRequirementTest {
 
     @Test
     fun isReached_wpmRoundedTo30_assertTrue() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsWpmMock(20.0),
                 RandomWordsWpmMock(25.0),
@@ -77,7 +77,7 @@ class WpmRequirementTest {
 
     @Test
     fun isReached_wpmLessThan30_assertFalse() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsWpmMock(20.0),
                 RandomWordsWpmMock(25.0),
@@ -89,7 +89,7 @@ class WpmRequirementTest {
 
     @Test
     fun isReached_emptyList_assertFalse() {
-        val list = GameHistory.Standard(emptyList(), emptyList())
+        val list = GameHistoryImpl(emptyList(), emptyList())
         assertFalse(GameRequirement.WpmRequirement(30).isReached(list))
     }
 

@@ -8,8 +8,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.tetsoft.typego.wordslog.data.DataSelector
 import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.wordslog.data.FiniteSelector
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class TypedWordsViewModel @Inject constructor() : ViewModel() {
 
 
     private fun updateTypedWordsPagingData(words: List<Word>) : LiveData<PagingData<Word>> {
-        val pagingSource = WordsPagingSource(words, DataSelector.FiniteSelector(words))
+        val pagingSource = WordsPagingSource(words, FiniteSelector(words))
         return Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
             pagingSourceFactory = { pagingSource }).liveData

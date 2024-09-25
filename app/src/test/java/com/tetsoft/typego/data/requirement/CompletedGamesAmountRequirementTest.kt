@@ -1,9 +1,9 @@
 package com.tetsoft.typego.data.requirement
 
 import com.tetsoft.typego.core.domain.GameRequirement
-import com.tetsoft.typego.data.RandomWordsMock
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.data.RandomWordsMock
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -13,7 +13,7 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun isReached_moreThanRequired_assertTrue() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsMock(),
                 RandomWordsMock(),
@@ -26,7 +26,7 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun isReached_sameAsRequired_assertTrue() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsMock(),
                 RandomWordsMock(),
@@ -38,7 +38,7 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun isReached_lessThanRequired_assertFalse() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsMock(),
                 RandomWordsMock(),
@@ -49,7 +49,7 @@ class CompletedGamesAmountRequirementTest {
 
     @Test
     fun getCurrentProgress_notEmptyList_assertEqualsListSize() {
-        val list = GameHistory.Standard(
+        val list = GameHistoryImpl(
             listOf<RandomWords>(
                 RandomWordsMock(),
                 RandomWordsMock(),

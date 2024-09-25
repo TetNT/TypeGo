@@ -4,14 +4,14 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.R
-import com.tetsoft.typego.core.domain.ScreenOrientation
-import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.achievements.data.AchievementsProgressStorage
 import com.tetsoft.typego.achievements.domain.AchievementsList
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.OwnText
-import com.tetsoft.typego.history.data.DataSelector
-import com.tetsoft.typego.history.data.GameHistory
-import com.tetsoft.typego.achievements.data.AchievementsProgressStorage
+import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.core.domain.Word
+import com.tetsoft.typego.history.data.DataSelectorImpl
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,7 @@ class OwnTextResultViewModel @Inject constructor(
 ) : ViewModel() {
 
     // FIXME: remove that and inject gameHistory properly
-    private val gameHistory get() = GameHistory.Standard(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
+    private val gameHistory get() = GameHistoryImpl(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
 
     private var ownTextResult: OwnText = OwnText.Empty()
     fun setOwnTextResult(result: OwnText) {
@@ -81,7 +81,7 @@ class OwnTextResultViewModel @Inject constructor(
     }
 
     fun getLastResultOrBlank(): String {
-        val lastResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getLastResult()
+        val lastResult = DataSelectorImpl(ownTextGameHistoryStorage.get()).getLastResult()
         return lastResult?.getWpm()?.roundToInt()?.toString() ?: "-"
     }
 
@@ -99,7 +99,7 @@ class OwnTextResultViewModel @Inject constructor(
     }
 
     fun getLastResultDifference(): Int? {
-        val lastResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getLastResult()?.getWpm()?.roundToInt()
+        val lastResult = DataSelectorImpl(ownTextGameHistoryStorage.get()).getLastResult()?.getWpm()?.roundToInt()
         return if (lastResult == null)
             null
         else
@@ -120,7 +120,7 @@ class OwnTextResultViewModel @Inject constructor(
     }
 
     fun getBestResultDifference(): Int? {
-        val bestResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getBestResult()?.getWpm()?.roundToInt()
+        val bestResult = DataSelectorImpl(ownTextGameHistoryStorage.get()).getBestResult()?.getWpm()?.roundToInt()
         return if (bestResult == null)
             null
         else
@@ -128,7 +128,7 @@ class OwnTextResultViewModel @Inject constructor(
     }
 
     fun getBestResultOrBlank(): String {
-        val bestResult = DataSelector.Standard(ownTextGameHistoryStorage.get()).getBestResult()
+        val bestResult = DataSelectorImpl(ownTextGameHistoryStorage.get()).getBestResult()
         return bestResult?.getWpm()?.roundToInt()?.toString() ?: "-"
     }
 

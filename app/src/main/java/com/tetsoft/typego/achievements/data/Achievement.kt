@@ -2,7 +2,7 @@ package com.tetsoft.typego.achievements.data
 
 import android.content.Context
 import com.tetsoft.typego.R
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.history.domain.GameHistory
 import com.tetsoft.typego.core.domain.GameRequirement
 
 interface Achievement {

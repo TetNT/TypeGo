@@ -1,7 +1,7 @@
 package com.tetsoft.typego.data.statistics.calculation
 
 import com.tetsoft.typego.data.RandomWordsMock
-import com.tetsoft.typego.history.data.GameOnTimeHistoryList
+import com.tetsoft.typego.history.domain.GameOnTimeHistoryList
 import com.tetsoft.typego.core.domain.TimeMode
 import com.tetsoft.typego.statistics.data.calculation.FavoriteTimeModeCalculation
 import org.junit.Assert.assertEquals

@@ -1,6 +1,6 @@
 package com.tetsoft.typego.core.domain
 
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.history.domain.GameHistory
 import kotlin.math.roundToInt
 
 abstract class GameRequirement(protected val requiredAmount: Int) {

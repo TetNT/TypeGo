@@ -12,9 +12,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
 import com.tetsoft.typego.achievements.data.Achievement
-import com.tetsoft.typego.achievements.data.AchievementsProgressList
-import com.tetsoft.typego.achievements.data.AchievementProgressCache
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.achievements.data.CompletedAchievementsList
+import com.tetsoft.typego.achievements.domain.AchievementProgressCache
+import com.tetsoft.typego.history.domain.GameHistory
 import com.tetsoft.typego.core.domain.GameRequirement
 import com.tetsoft.typego.core.ui.VisibilityMapper
 import com.tetsoft.typego.core.utils.DateTimeFormatter
@@ -27,7 +27,7 @@ class AchievementsAdapter(
     private val context: Context,
     private val achievements: List<Achievement>,
     private val gameHistory: GameHistory,
-    private val achievementsProgressList: AchievementsProgressList
+    private val achievementsProgressList: CompletedAchievementsList
 ) : RecyclerView.Adapter<AchievementsAdapter.AchievementsViewHolder>() {
 
     private val wpmClusterCache = AchievementProgressCache.Standard()

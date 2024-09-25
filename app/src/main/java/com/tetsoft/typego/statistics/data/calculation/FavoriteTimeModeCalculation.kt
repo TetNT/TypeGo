@@ -3,6 +3,7 @@ package com.tetsoft.typego.statistics.data.calculation
 import com.tetsoft.typego.core.domain.GameResult
 import com.tetsoft.typego.core.domain.TimeMode
 import com.tetsoft.typego.core.domain.TimeModeList
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 
 class FavoriteTimeModeCalculation(private val resultsList: List<GameResult.TimeLimited>) :
     StatisticsCalculation {

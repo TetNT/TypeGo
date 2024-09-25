@@ -1,11 +1,11 @@
 package com.tetsoft.typego.main.presentation
 
 import androidx.lifecycle.ViewModel
-import com.tetsoft.typego.history.data.GameHistory
 import com.tetsoft.typego.core.domain.Language
-import com.tetsoft.typego.keynotes.data.KeyNotesStateStorage
+import com.tetsoft.typego.history.data.GameHistoryImpl
+import com.tetsoft.typego.keynotes.domain.KeyNotesStateStorage
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
-import com.tetsoft.typego.keynotes.data.KeyNotesList
+import com.tetsoft.typego.keynotes.domain.KeyNotesList
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     // FIXME: remove that and inject gameHistory properly
-    private val gameHistory get() = GameHistory.Standard(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
+    private val gameHistory get() = GameHistoryImpl(randomWordsHistoryStorage.get(), ownTextGameHistoryStorage.get())
 
     private val keyNotes get() = keyNotesStateStorage
 

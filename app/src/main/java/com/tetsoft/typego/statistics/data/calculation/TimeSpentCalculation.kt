@@ -1,6 +1,7 @@
 package com.tetsoft.typego.statistics.data.calculation
 
 import com.tetsoft.typego.core.domain.GameResult
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 
 class TimeSpentCalculation(private val resultList: List<GameResult>) : StatisticsCalculation {
 

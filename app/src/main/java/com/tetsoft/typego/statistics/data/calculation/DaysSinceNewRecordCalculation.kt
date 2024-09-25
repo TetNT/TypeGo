@@ -1,5 +1,6 @@
 package com.tetsoft.typego.statistics.data.calculation
 
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 import java.util.concurrent.TimeUnit
 
 class DaysSinceNewRecordCalculation(

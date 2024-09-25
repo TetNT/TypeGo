@@ -1,5 +1,7 @@
 package com.tetsoft.typego.statistics.data.calculation
 
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
+
 class ProgressionCalculation(private val pastWpm : Int, private val currentWpm : Int) :
     StatisticsCalculation {
 

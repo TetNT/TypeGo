@@ -3,10 +3,11 @@ package com.tetsoft.typego.history.presentation
 import android.view.animation.AnimationSet
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.core.domain.GameResult
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.history.domain.GameHistory
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
 import com.tetsoft.typego.core.utils.AnimationsPreset
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -19,7 +20,7 @@ class GameHistoryViewModel @Inject constructor(
     ViewModel() {
 
     val gameHistory: GameHistory
-        get() = GameHistory.Standard(
+        get() = GameHistoryImpl(
             randomWordsHistoryStorage.get(),
             ownTextGameHistoryStorage.get()
         )

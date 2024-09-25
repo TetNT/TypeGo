@@ -1,7 +1,7 @@
 package com.tetsoft.typego.core.ui
 
 import android.view.View
-import com.tetsoft.typego.statistics.data.VisibilityProvider
+import com.tetsoft.typego.statistics.domain.VisibilityProvider
 
 interface VisibilityMapper : VisibilityProvider {
 

@@ -1,13 +1,12 @@
 package com.tetsoft.typego.data.history
 
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.core.domain.ScreenOrientation
-import com.tetsoft.typego.core.domain.RandomWords
 import com.tetsoft.typego.core.domain.Language
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.core.domain.ScreenOrientation
+import com.tetsoft.typego.history.data.GameResultWithLanguage
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class GameResultWithLanguageTest {
     @Test
@@ -38,7 +37,7 @@ class GameResultWithLanguageTest {
             correctWords,
             completionDateTime,
             seed)
-        val gameResultWithLanguage = GameHistory.GameResultWithLanguage(randomWords)
+        val gameResultWithLanguage = GameResultWithLanguage(randomWords)
         assertEquals(wpm, gameResultWithLanguage.getWpm(), 0.01)
         assertEquals(cpm, gameResultWithLanguage.getCpm())
         assertEquals(charsWritten, gameResultWithLanguage.getCharsWritten())

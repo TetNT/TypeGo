@@ -1,9 +1,9 @@
 package com.tetsoft.typego.data
 
 import com.tetsoft.typego.core.domain.DictionaryType
-import com.tetsoft.typego.game.data.AssetPathResolver
-import org.junit.Assert.*
-
+import com.tetsoft.typego.game.data.DictionaryAssetPathResolver
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class AssetPathResolverDictionaryTest {
@@ -12,7 +12,7 @@ class AssetPathResolverDictionaryTest {
     fun getPath_dictionaryBasicLanguageEn_correctPath() {
         val dictionary = DictionaryType.BASIC
         val language = "EN"
-        val pathResolver = AssetPathResolver.Dictionary(dictionary, language).getPath()
+        val pathResolver = DictionaryAssetPathResolver(dictionary, language).getPath()
         assertEquals(pathResolver, "words/basic/EN.txt")
     }
 
@@ -20,7 +20,7 @@ class AssetPathResolverDictionaryTest {
     fun getPath_dictionaryEnhancedLanguageFr_correctPath() {
         val dictionary = DictionaryType.ENHANCED
         val language = "FR"
-        val pathResolver = AssetPathResolver.Dictionary(dictionary, language).getPath()
+        val pathResolver = DictionaryAssetPathResolver(dictionary, language).getPath()
         assertEquals(pathResolver, "words/enhanced/FR.txt")
     }
 
@@ -29,7 +29,7 @@ class AssetPathResolverDictionaryTest {
         val dictionary = DictionaryType.BASIC
         val language = ""
         assertThrows(IllegalArgumentException::class.java) {
-            AssetPathResolver.Dictionary(dictionary, language).getPath()
+            DictionaryAssetPathResolver(dictionary, language).getPath()
         }
     }
 }

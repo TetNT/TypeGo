@@ -1,6 +1,7 @@
 package com.tetsoft.typego.statistics.data.calculation
 
-import com.tetsoft.typego.achievements.data.AchievementsCompletionPair
+import com.tetsoft.typego.achievements.domain.AchievementsCompletionPair
+import com.tetsoft.typego.statistics.domain.StatisticsCalculation
 
 class DoneAchievementsPercentageCalculation(
     private val completedAchievements: List<AchievementsCompletionPair>,

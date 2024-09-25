@@ -1,6 +1,7 @@
 package com.tetsoft.typego.history.di
 
-import com.tetsoft.typego.history.data.GameHistory
+import com.tetsoft.typego.history.domain.GameHistory
+import com.tetsoft.typego.history.data.GameHistoryImpl
 import com.tetsoft.typego.history.data.RandomWordsHistoryStorage
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import dagger.Binds
@@ -18,5 +19,5 @@ interface HistoryStorageModule {
     fun bindOwnTextGameHistoryStorage(ownTextGameHistoryStorage: OwnTextGameHistoryStorage.SharedPreferences): OwnTextGameHistoryStorage
 
     @Binds
-    fun bindGameHistory(gameHistory: GameHistory.Standard) : GameHistory
+    fun bindGameHistory(gameHistory: GameHistoryImpl) : GameHistory
 }

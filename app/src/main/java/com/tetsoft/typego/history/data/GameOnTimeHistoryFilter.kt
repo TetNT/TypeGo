@@ -2,6 +2,8 @@ package com.tetsoft.typego.history.data
 
 import com.tetsoft.typego.core.domain.Language
 import com.tetsoft.typego.core.domain.RandomWords
+import com.tetsoft.typego.history.domain.GameHistoryList
+import com.tetsoft.typego.history.domain.GameOnTimeHistoryList
 import java.util.*
 // TODO: Rename and use it once the GameHistoryFragment refactoring is completed
 class GameOnTimeHistoryFilter(historyList: GameHistoryList<RandomWords>) {

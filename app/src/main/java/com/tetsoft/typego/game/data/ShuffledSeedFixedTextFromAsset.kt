@@ -1,5 +1,7 @@
 package com.tetsoft.typego.game.data
 
+import com.tetsoft.typego.game.domain.AssetReader
+import com.tetsoft.typego.game.domain.TextSource
 import kotlin.math.max
 import kotlin.random.Random
 

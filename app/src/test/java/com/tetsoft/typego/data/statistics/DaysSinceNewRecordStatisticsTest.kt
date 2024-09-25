@@ -3,8 +3,8 @@ package com.tetsoft.typego.data.statistics
 import com.tetsoft.typego.data.TimeGameCompletionDateTimeMock
 import com.tetsoft.typego.statistics.data.calculation.DaysSinceNewRecordCalculation
 import com.tetsoft.typego.core.domain.RandomWords
-import com.tetsoft.typego.statistics.data.DaysSinceNewRecordStatistics
-import com.tetsoft.typego.statistics.data.VisibilityProvider
+import com.tetsoft.typego.statistics.data.statistics.DaysSinceNewRecordStatistics
+import com.tetsoft.typego.statistics.domain.VisibilityProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*

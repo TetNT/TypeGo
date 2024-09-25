@@ -2,7 +2,7 @@ package com.tetsoft.typego.wordslog.presentation
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.tetsoft.typego.wordslog.data.DataSelector
+import com.tetsoft.typego.wordslog.domain.DataSelector
 import com.tetsoft.typego.core.domain.Word
 
 class WordsPagingSource(

@@ -6,10 +6,11 @@ import android.widget.LinearLayout
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.R
 import com.tetsoft.typego.keynotes.data.KeyNote
-import com.tetsoft.typego.keynotes.data.KeyNotesList
-import com.tetsoft.typego.keynotes.data.KeyNotesStateStorage
+import com.tetsoft.typego.keynotes.domain.KeyNotesList
+import com.tetsoft.typego.keynotes.domain.KeyNotesStateStorage
 import com.tetsoft.typego.core.utils.AnimationsPreset
 import com.tetsoft.typego.core.utils.ListIterator
+import com.tetsoft.typego.keynotes.data.KeyNotesListImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class KeyNotesViewModel @Inject constructor(
 
     fun init(showAll: Boolean) {
         if (showAll) {
-            this.notesList = KeyNotesList.Standard().get()
+            this.notesList = KeyNotesListImpl().get()
         } else {
             val uncheckedNotes = ArrayList<KeyNote>()
             for (note in keyNotesList.get()) {

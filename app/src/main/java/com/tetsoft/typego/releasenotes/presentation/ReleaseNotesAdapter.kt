@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.releasenotes.data.ReleaseNote
+import com.tetsoft.typego.releasenotes.domain.ReleaseNote
 
 class ReleaseNotesAdapter(private val context: Context, private val releaseNotes: List<ReleaseNote>) : RecyclerView.Adapter<ReleaseNotesAdapter.ViewHolder>() {
 
