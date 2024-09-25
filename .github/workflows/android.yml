@@ -23,7 +23,8 @@ jobs:
       run: |
         secret_value="${{ secrets.INTERSTITIAL_ADS_ID }}"
         escaped_secret_value=$(printf '%s\n' "$secret_value" | sed -e 's/[]\/$*.^[]/\\&/g')
-        sed -i "s|com.tetsoft.typego.Config.INTERSTITIAL_ID|\"$escaped_secret_value\"|g" app/src/main/java/com/tetsoft/typego/game/presentation/TimeGameViewModel.kt
+        sed -i '/com.tetsoft.typego.Config.INTERSTITIAL_ID/d' app/src/main/java/com/tetsoft/typego/game/presentation/TimeGameViewModel.kt
+        sed -i "s|Config.INTERSTITIAL_ID|\"$escaped_secret_value\"|g" app/src/main/java/com/tetsoft/typego/game/presentation/TimeGameViewModel.kt
         
     - name: set up JDK 18
       uses: actions/setup-java@v3
