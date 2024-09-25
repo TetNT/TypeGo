@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.setup.RandomWordsGameSetupFragment"
+    tools:context=".gamesetup.presentation.RandomWordsGameSetupFragment"
     android:theme="@style/TypeGo.Green">
 
     <androidx.core.widget.NestedScrollView
@@ -54,7 +54,7 @@
                         android:background="@drawable/spinner_background"
                         android:padding="2dp">
 
-                        <com.tetsoft.typego.ui.custom.LanguageSpinner
+                        <com.tetsoft.typego.core.ui.LanguageSpinner
                             android:id="@+id/spinLanguageSelection"
                             android:layout_width="200dp"
                             android:layout_height="24dp"
@@ -98,7 +98,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.tetsoft.typego.ui.custom.TimeModeSlider
+                        <com.tetsoft.typego.gamesetup.presentation.TimeModeSlider
                             android:id="@+id/timemode_slider"
                             android:layout_width="200dp"
                             android:layout_height="36dp"
@@ -147,7 +147,7 @@
                         android:text="@string/dictionary_type"
                         app:drawableStartCompat="@drawable/ic_dictionary_type" />
 
-                    <com.tetsoft.typego.ui.custom.radiogroup.DictionaryTypeRadioGroup
+                    <com.tetsoft.typego.gamesetup.presentation.DictionaryTypeRadioGroup
                         android:id="@+id/rbDictionaryType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                             android:layout_marginStart="-4dp"
                             android:textSize="16sp"
                             android:hapticFeedbackEnabled="true"/>
-                    </com.tetsoft.typego.ui.custom.radiogroup.DictionaryTypeRadioGroup>
+                    </com.tetsoft.typego.gamesetup.presentation.DictionaryTypeRadioGroup>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -296,7 +296,7 @@
                         android:text="@string/screen_orientation"
                         app:drawableStartCompat="@drawable/ic_rotation" />
 
-                    <com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup
+                    <com.tetsoft.typego.gamesetup.presentation.ScreenOrientationRadioGroup
                         android:id="@+id/rbScreenOrientation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -322,7 +322,7 @@
                             android:layout_marginStart="-4dp"
                             android:textSize="16sp"
                             android:hapticFeedbackEnabled="true"/>
-                    </com.tetsoft.typego.ui.custom.radiogroup.ScreenOrientationRadioGroup>
+                    </com.tetsoft.typego.gamesetup.presentation.ScreenOrientationRadioGroup>
 
                 </LinearLayout>
 

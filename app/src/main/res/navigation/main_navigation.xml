@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.tetsoft.typego.ui.fragment.main.MainFragment"
+        android:name="com.tetsoft.typego.main.presentation.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_main_to_releaseNotes"
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/releaseNotesFragment"
-        android:name="com.tetsoft.typego.ui.fragment.releasenotes.ReleaseNotesFragment"
+        android:name="com.tetsoft.typego.releasenotes.presentation.ReleaseNotesFragment"
         android:label="ReleaseNotesFragment" >
         <action
             android:id="@+id/action_releaseNotes_to_keyNotes"
@@ -55,22 +55,22 @@
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
-        android:name="com.tetsoft.typego.ui.fragment.statistics.StatisticsFragment"
+        android:name="com.tetsoft.typego.statistics.presentation.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/achievementsFragment"
-        android:name="com.tetsoft.typego.ui.fragment.achievements.AchievementsFragment"
+        android:name="com.tetsoft.typego.achievements.presentation.AchievementsFragment"
         android:label="fragment_achievements"
         tools:layout="@layout/fragment_achievements" />
     <fragment
         android:id="@+id/typedWordsFragment"
-        android:name="com.tetsoft.typego.ui.fragment.typedwords.TypedWordsFragment"
+        android:name="com.tetsoft.typego.wordslog.presentation.TypedWordsFragment"
         android:label="fragment_typed_words"
         tools:layout="@layout/fragment_typed_words" />
     <fragment
         android:id="@+id/gameHistoryFragment"
-        android:name="com.tetsoft.typego.ui.fragment.history.GameHistoryFragment"
+        android:name="com.tetsoft.typego.history.presentation.GameHistoryFragment"
         android:label="fragment_game_history"
         tools:layout="@layout/fragment_game_history" >
         <action
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameOnTimeResultFragment"
-        android:name="com.tetsoft.typego.ui.fragment.result.RandomWordsResultFragment"
+        android:name="com.tetsoft.typego.result.presentation.RandomWordsResultFragment"
         android:label="fragment_game_on_time_result"
         tools:layout="@layout/fragment_random_words_result" >
         <action
@@ -125,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameOnTimeFragment"
-        android:name="com.tetsoft.typego.ui.fragment.game.TimeGameFragment"
+        android:name="com.tetsoft.typego.game.presentation.TimeGameFragment"
         android:label="fragment_game_on_time"
         tools:layout="@layout/fragment_time_game" >
         <action
@@ -149,12 +149,12 @@
     </fragment>
     <fragment
         android:id="@+id/keyNotesFragment"
-        android:name="com.tetsoft.typego.ui.fragment.keynotes.KeyNotesFragment"
+        android:name="com.tetsoft.typego.keynotes.presentation.KeyNotesFragment"
         android:label="fragment_carousel"
         tools:layout="@layout/fragment_key_notes" />
     <fragment
         android:id="@+id/gameSetupFragment"
-        android:name="com.tetsoft.typego.ui.fragment.setup.GameSetupFragment"
+        android:name="com.tetsoft.typego.gamesetup.presentation.GameSetupFragment"
         android:label="fragment_game_setup"
         tools:layout="@layout/fragment_game_setup" >
         <action
@@ -167,7 +167,7 @@
     </fragment>
     <fragment
         android:id="@+id/ownTextResultFragment"
-        android:name="com.tetsoft.typego.ui.fragment.result.OwnTextResultFragment"
+        android:name="com.tetsoft.typego.result.presentation.OwnTextResultFragment"
         android:label="fragment_own_text_result"
         tools:layout="@layout/fragment_own_text_result" >
         <action

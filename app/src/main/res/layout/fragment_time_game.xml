@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.game.TimeGameFragment">
+    tools:context=".game.presentation.TimeGameFragment">
 
-    <com.tetsoft.typego.ui.custom.SpannableEditText
+    <com.tetsoft.typego.game.presentation.SpannableEditText
         android:id="@+id/words"
         android:layout_width="match_parent"
         android:layout_height="0dp"

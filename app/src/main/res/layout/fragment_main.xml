@@ -10,7 +10,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:context=".MainActivity">
+    tools:context=".core.ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/cardsSection"
@@ -66,7 +66,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/button_basic_test_start"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <com.tetsoft.typego.ui.custom.LanguageSpinner
+                    <com.tetsoft.typego.core.ui.LanguageSpinner
                         android:id="@+id/spinnerBasicTestLanguageSelection"
                         android:layout_width="180dp"
                         android:layout_height="30dp"

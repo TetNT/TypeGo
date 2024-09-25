@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     style="@style/typego_scrollbars"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.result.OwnTextResultFragment"
+    tools:context=".result.presentation.OwnTextResultFragment"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:theme="@style/TypeGo.Lilac">

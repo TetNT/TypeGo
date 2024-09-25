@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/TypeGo.Lilac">
         <activity
-            android:name=".MainActivity"
+            android:name=".core.ui.MainActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
