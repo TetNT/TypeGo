@@ -5,7 +5,6 @@ import android.text.InputType
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.BuildConfig
-import com.tetsoft.typego.Config
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
@@ -80,7 +79,7 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
         if (BuildConfig.DEBUG) {
             return "ca-app-pub-3940256099942544/1033173712" // demo ad unit from Google
         }
-        return Config.INTERSTITIAL_ID
+        return com.tetsoft.typego.Config.INTERSTITIAL_ID
     }
 
     fun getAmountOfLoadedWordsRequired(): Int {
