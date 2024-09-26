@@ -185,7 +185,7 @@
 
     <string name="current_to_best_wpm_more">%1$d WPM more than last set record.</string>
     <string name="current_to_best_wpm_less">%1$d WPM less than last set record.</string>
-    <string name="current_to_best_wpm_same">The same WPM as last set record.</string>
+    <string name="current_to_best_wpm_same">This is your best result!</string>
 
     <string name="per_minute">per minute.</string>
 

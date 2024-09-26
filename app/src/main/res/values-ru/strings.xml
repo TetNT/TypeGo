@@ -173,7 +173,7 @@
 
     <string name="current_to_best_wpm_more">На %1$d СВМ больше, чем предыдущий рекорд.</string>
     <string name="current_to_best_wpm_less">На %1$d СВМ меньше, чем предыдущий рекорд.</string>
-    <string name="current_to_best_wpm_same">Тот же СВМ, как и в предыдущем рекорде.</string>
+    <string name="current_to_best_wpm_same">Это твой лучший результат!</string>
 
     <string name="per_minute">в минуту.</string>
 
