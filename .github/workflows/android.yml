@@ -29,7 +29,7 @@ jobs:
           file = "app/src/main/java/com/tetsoft/typego/game/presentation/TimeGameViewModel.kt"#"sample.txt
           import_reference = "import com.tetsoft.typego.Config"
           api_reference = "Config.INTERSTITIAL_ID"
-          secret = "Secret"
+          secret = "${{ secrets.INTERSTITIAL_ADS_ID }}"
 
           with open(file, 'r') as file_read:
               lines = file_read.readlines()
@@ -37,7 +37,7 @@ jobs:
           with open(file, 'w') as file_write:
               for line in lines:
                   if(line.__contains__(api_reference) == True):
-                      file_write.write(line.replace(api_reference, ${{ secrets.INTERSTITIAL_ADS_ID }}))
+                      file_write.write(line.replace(api_reference, secret))
                       print("Replaced api key")
                   elif (line.__contains__(import_reference) == False):
                       file_write.write(line)
