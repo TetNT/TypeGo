@@ -20,7 +20,7 @@ object AchievementsList {
             SharpEyeInMinutes(9, 1, "II"),
             SharpEyeInMinutes(10, 2, "III"),
             SharpEyeInMinutes(11, 3, "IV"),
-            SharpEyeInSeconds(12, 5, "V"),
+            SharpEyeInMinutes(12, 5, "V"),
             BigFan(13, 10, "I"),
             BigFan(14, 50, "II"),
             BigFan(15, 100, "III"),
