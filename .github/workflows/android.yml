@@ -37,7 +37,7 @@ jobs:
           with open(file, 'w') as file_write:
               for line in lines:
                   if(line.__contains__(api_reference) == True):
-                      file_write.write(line.replace(api_reference, secret))
+                      file_write.write(line.replace(api_reference, "\""+secret+"\""))
                       print("Replaced api key")
                   elif (line.__contains__(import_reference) == False):
                       file_write.write(line)
