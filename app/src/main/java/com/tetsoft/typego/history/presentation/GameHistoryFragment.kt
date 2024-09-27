@@ -44,8 +44,8 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
                 }
             }
         }
-        binding.rvHistoryGameOnTime.adapter = GameHistoryAdapter(requireContext(), viewModel.getHistory(), listener)
-        binding.rvHistoryGameOnTime.animation = viewModel.getGameHistoryEnteringAnimation()
+        binding.rvHistory.adapter = GameHistoryAdapter(requireContext(), viewModel.getHistory(), listener)
+        binding.rvHistory.animation = viewModel.getGameHistoryEnteringAnimation()
         if (!viewModel.historyCanBeShown()) {
             binding.tvPassedTestsInfo.text = getString(R.string.msg_nothing_to_show)
             return

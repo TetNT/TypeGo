@@ -40,21 +40,21 @@ class RandomWordsGameSetupFragment : BaseFragment<FragmentRandomWordsGameSetupBi
         setupTimeModeSlider()
         setupLanguageSpinner()
         binding.etSeed.setText(viewModel.getLastUsedSeed())
-        binding.rbDictionaryType.selectIndex(viewModel.getLastUsedDictionaryTypeOrDefault().id)
-        binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
-        binding.rbScreenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
+        binding.dictionaryType.selectIndex(viewModel.getLastUsedDictionaryTypeOrDefault().id)
+        binding.textSuggestions.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
+        binding.screenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
         setupListeners()
         parentViewModel.setRandomWordsGameSettings(getGameSettings())
     }
 
     override fun getGameSettings(): GameSettings.ForRandomlyGeneratedWords {
         return GameSettings.ForRandomlyGeneratedWords(
-            binding.spinLanguageSelection.getSelectedLanguage().identifier,
+            binding.languageSelection.getSelectedLanguage().identifier,
             binding.timemodeSlider.getSelectedTimeMode().timeInSeconds,
-            binding.rbDictionaryType.getSelectedValue(),
+            binding.dictionaryType.getSelectedValue(),
             binding.etSeed.text.toString(),
-            binding.cbPredictiveText.isChecked,
-            binding.rbScreenOrientation.getSelectedValue(),
+            binding.textSuggestions.isChecked,
+            binding.screenOrientation.getSelectedValue(),
             true
         )
     }
@@ -66,13 +66,13 @@ class RandomWordsGameSetupFragment : BaseFragment<FragmentRandomWordsGameSetupBi
             timemodeSlider.selectTimeMode(viewModel.getLastUsedTimeModeOrDefault())
             timemodeSlider.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
                 val position = value.toInt()
-                tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(position))
-                tvTimeStamp.startAnimation(
+                selectedTime.text = translation.get(TimeModeList().getTimeModeByIndex(position))
+                selectedTime.startAnimation(
                     AnimationUtils.loadAnimation(requireContext(), R.anim.pop_animation)
                 )
                 parentViewModel.setRandomWordsGameSettings(getGameSettings())
             })
-            tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
+            selectedTime.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
         }
     }
 
@@ -82,14 +82,14 @@ class RandomWordsGameSetupFragment : BaseFragment<FragmentRandomWordsGameSetupBi
             LanguageList().getLocalized(requireContext())
         )
         
-        binding.spinLanguageSelection.adapter = spinnerAdapter
+        binding.languageSelection.adapter = spinnerAdapter
         val lastUsedLanguage = viewModel.getLastUsedLanguageOrDefault()
         val languageIndex = spinnerAdapter.getItemIndexByLanguage(lastUsedLanguage)
-        binding.spinLanguageSelection.setSelection(languageIndex)
+        binding.languageSelection.setSelection(languageIndex)
     }
     
     private fun setupListeners() {
-        binding.spinLanguageSelection.onItemSelectedListener = object : OnItemSelectedListener {
+        binding.languageSelection.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 parentViewModel.setRandomWordsGameSettings(getGameSettings())
             }
@@ -98,14 +98,14 @@ class RandomWordsGameSetupFragment : BaseFragment<FragmentRandomWordsGameSetupBi
         binding.timemodeSlider.addOnChangeListener(Slider.OnChangeListener { _, _, _ ->
             parentViewModel.setRandomWordsGameSettings(getGameSettings())
         })
-        binding.rbDictionaryType.setOnCheckedChangeListener { _, _ ->
+        binding.dictionaryType.setOnCheckedChangeListener { _, _ ->
             parentViewModel.setRandomWordsGameSettings(getGameSettings())
         }
         binding.etSeed.doOnTextChanged { _, _, _, _ ->
             parentViewModel.setRandomWordsGameSettings(getGameSettings())
         }
-        binding.cbPredictiveText.setOnClickListener { parentViewModel.setRandomWordsGameSettings(getGameSettings()) }
-        binding.rbScreenOrientation.setOnCheckedChangeListener { _, _ ->
+        binding.textSuggestions.setOnClickListener { parentViewModel.setRandomWordsGameSettings(getGameSettings()) }
+        binding.screenOrientation.setOnCheckedChangeListener { _, _ ->
             parentViewModel.setRandomWordsGameSettings(getGameSettings())
         }
     }

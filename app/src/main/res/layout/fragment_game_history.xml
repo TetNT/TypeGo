@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingHorizontal="@dimen/fragment_horizontal_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="8dp"
-                    android:text="@string/assessment"
+                    android:text="@string/my_results"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -52,7 +52,7 @@
                         android:id="@+id/average_wpm_cardview"
                         android:layout_height="match_parent"
                         android:layout_width="0dp"
-                        style="@style/basic_cardview"
+                        style="@style/typego_card"
                         android:layout_weight="1.0"
                         android:layout_marginEnd="8dp"
                         android:foreground="?android:attr/selectableItemBackground">
@@ -98,7 +98,7 @@
                         android:id="@+id/account_card_best_result"
                         android:layout_height="match_parent"
                         android:layout_width="0dp"
-                        style="@style/basic_cardview"
+                        style="@style/typego_card"
                         android:layout_weight="1.0"
                         android:layout_marginHorizontal="8dp"
                         android:foreground="?android:attr/selectableItemBackground">
@@ -153,7 +153,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_height="match_parent"
                         android:layout_width="0dp"
-                        style="@style/basic_cardview"
+                        style="@style/typego_card"
                         android:layout_weight="1.0"
                         android:layout_marginStart="8dp"
                         android:foreground="?android:attr/selectableItemBackground">
@@ -250,7 +250,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_history_game_on_time"
+                android:id="@+id/rv_history"
                 app:layout_constraintTop_toBottomOf="@id/info_body_section"
                 android:clipToPadding="false"
                 android:paddingHorizontal="4dp"

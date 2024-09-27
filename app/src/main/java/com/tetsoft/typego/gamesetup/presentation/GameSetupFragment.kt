@@ -26,7 +26,6 @@ class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[GameSetupViewModel::class.java]
-        binding.customTestNavigateBack.setOnClickListener { navigateUp() }
         val tabFragments = mapOf(
             getString(R.string.own_text) to OwnTextGameSetupFragment(),
             getString(R.string.random_words) to RandomWordsGameSetupFragment()

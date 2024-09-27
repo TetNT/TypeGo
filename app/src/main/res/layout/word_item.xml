@@ -7,7 +7,7 @@
     android:layout_marginBottom="4dp">
 
     <TextView
-        android:id="@+id/tvIndex"
+        android:id="@+id/word_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="2"
@@ -17,37 +17,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvInputtedWord"
+        android:id="@+id/input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="16sp"
         tools:text="@tools:sample/lorem[3]"
-        app:layout_constraintStart_toEndOf="@id/tvIndex"
+        app:layout_constraintStart_toEndOf="@id/word_count"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvOriginalTitle"/>
+        app:layout_constraintEnd_toStartOf="@id/dash_divide"/>
 
     <TextView
-        android:id="@+id/tvOriginalTitle"
+        android:id="@+id/dash_divide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:text=" - "
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/tvInputtedWord"
+        app:layout_constraintStart_toEndOf="@id/input"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvOriginalWord"/>
+        app:layout_constraintEnd_toStartOf="@id/original"/>
 
     <TextView
-        android:id="@+id/tvOriginalWord"
+        android:id="@+id/original"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvOriginalTitle"
+        app:layout_constraintStart_toEndOf="@id/dash_divide"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/lorem[4]" />
 

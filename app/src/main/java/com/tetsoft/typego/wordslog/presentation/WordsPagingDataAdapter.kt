@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tetsoft.typego.R
-import com.tetsoft.typego.core.domain.CharacterStatus
 import com.tetsoft.typego.core.data.Word
+import com.tetsoft.typego.core.domain.CharacterStatus
 import com.tetsoft.typego.wordslog.data.InputWord
 
 class WordsPagingDataAdapter : PagingDataAdapter<Word, WordsPagingDataAdapter.ViewHolder>(
@@ -23,9 +22,9 @@ class WordsPagingDataAdapter : PagingDataAdapter<Word, WordsPagingDataAdapter.Vi
 ) {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvInputted: TextView = itemView.findViewById(R.id.tvInputtedWord)
-        val tvOriginal: TextView = itemView.findViewById(R.id.tvOriginalWord)
-        val tvIndex: TextView = itemView.findViewById(R.id.tvIndex)
+        val tvInputted: TextView = itemView.findViewById(R.id.input)
+        val tvOriginal: TextView = itemView.findViewById(R.id.original)
+        val tvIndex: TextView = itemView.findViewById(R.id.word_count)
     }
 
     @SuppressLint("SetTextI18n")
@@ -45,26 +44,16 @@ class WordsPagingDataAdapter : PagingDataAdapter<Word, WordsPagingDataAdapter.Vi
         holder.tvInputted.text = inputtedWordSpan
         inputtedWordSpan = SpannableString(holder.tvInputted.text)
         for (charIndex in 0 until currentItem.characterStatuses.size) {
-            try {
-                when(currentItem.characterStatuses[charIndex]) {
-                    CharacterStatus.WRONG -> inputtedWordSpan.setSpan(
-                        getRedSpan(), charIndex, charIndex + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                    CharacterStatus.NOT_FILLED -> inputtedWordSpan.setSpan(
-                        getGraySpan(), charIndex, charIndex + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                    CharacterStatus.CORRECT -> {}
-                }
-                holder.tvInputted.text = inputtedWordSpan
-            } catch (outOfBounds: IndexOutOfBoundsException) {
-                Log.e("TWL", "Exception at\n" +
-                        "\tInput:   [" + currentItem.inputtedText + "]\n" +
-                        "\tOutput:  [" + currentItem.originalText + "]\n" +
-                        "InputWord: [" + holder.tvInputted.text + "]\n" +
-                        "CorrectnessMap: " + currentItem.characterStatuses.toString())
-                throw(outOfBounds)
+            when(currentItem.characterStatuses[charIndex]) {
+                CharacterStatus.WRONG -> inputtedWordSpan.setSpan(
+                    getRedSpan(), charIndex, charIndex + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                CharacterStatus.NOT_FILLED -> inputtedWordSpan.setSpan(
+                    getGraySpan(), charIndex, charIndex + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                CharacterStatus.CORRECT -> {}
             }
-
+            holder.tvInputted.text = inputtedWordSpan
         }
         if (!currentItem.isCorrect()) {
             val spannableIndex = SpannableString(holder.tvIndex.text)

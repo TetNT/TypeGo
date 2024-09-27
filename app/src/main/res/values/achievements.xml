@@ -27,9 +27,6 @@
     <!--  Additional strings  -->
     <string name="achievement_progress" translatable="false">%1$d / %2$d</string>
     <string name="new_achievements_notification">You\'ve got new achievements!</string>
-    <string name="check_profile">Check profile</string>
     <string name="achievement_image_content_description">Achievement image</string>
 
-    <string name="achievement_test" translatable="false">Achievement test</string>
-    <string name="achievement_test_desc" translatable="false">Test description</string>
 </resources>

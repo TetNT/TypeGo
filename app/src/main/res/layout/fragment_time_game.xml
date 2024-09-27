@@ -18,7 +18,7 @@
         android:inputType="textMultiLine|textNoSuggestions"
         android:padding="8dp"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/inpWord"
+        app:layout_constraintBottom_toTopOf="@id/time_left"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -28,7 +28,7 @@
         android:background="@color/white"/>
 
     <EditText
-        android:id="@+id/inpWord"
+        android:id="@+id/input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
@@ -41,23 +41,23 @@
         android:paddingStart="10dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
+        app:layout_constraintEnd_toStartOf="@id/time_left"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="RtlSymmetry" />
 
     <TextView
-        android:id="@+id/tvTimeLeft"
+        android:id="@+id/time_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:text="@string/time_over"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@id/inpWord"
-        app:layout_constraintEnd_toStartOf="@id/tvTimeLeft"
-        app:layout_constraintTop_toTopOf="@+id/inpWord" />
+        app:layout_constraintBottom_toBottomOf="@id/input"
+        app:layout_constraintEnd_toStartOf="@id/time_left"
+        app:layout_constraintTop_toTopOf="@+id/input" />
 
     <ImageButton
-        android:id="@+id/restartButton"
+        android:id="@+id/button_restart"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="top"
@@ -69,15 +69,15 @@
         android:padding="8dp"
         android:scaleType="centerCrop"
         android:src="@android:drawable/ic_popup_sync"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTimeLeft"
+        app:layout_constraintBottom_toBottomOf="@+id/time_left"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvTimeLeft"
-        app:layout_constraintTop_toTopOf="@+id/tvTimeLeft" />
+        app:layout_constraintStart_toEndOf="@id/time_left"
+        app:layout_constraintTop_toTopOf="@+id/time_left" />
 
     <ProgressBar
         android:id="@+id/progress_loading_result"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintTop_toTopOf="@id/words"
         app:layout_constraintBottom_toBottomOf="@id/words"
         app:layout_constraintStart_toStartOf="@id/words"

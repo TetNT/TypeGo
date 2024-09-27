@@ -12,7 +12,7 @@ abstract class GameHistoryList<T : GameResult> : ArrayList<T> {
     }
 }
 
-class GameOnTimeHistoryList : GameHistoryList<RandomWords> {
+class RandomWordsHistoryList : GameHistoryList<RandomWords> {
     constructor()
     constructor(list: List<RandomWords>) : super(list)
 }

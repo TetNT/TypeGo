@@ -12,8 +12,8 @@ import com.tetsoft.typego.releasenotes.domain.ReleaseNote
 class ReleaseNotesAdapter(private val context: Context, private val releaseNotes: List<ReleaseNote>) : RecyclerView.Adapter<ReleaseNotesAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvVersion : TextView = itemView.findViewById(R.id.tv_version)
-        val tvDescription : TextView = itemView.findViewById(R.id.tv_description)
+        val tvVersion : TextView = itemView.findViewById(R.id.version)
+        val tvDescription : TextView = itemView.findViewById(R.id.description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

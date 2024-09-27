@@ -63,16 +63,16 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
         setScreenOrientation()
         initWords()
         initializeBackButtonCallback()
-        binding.inpWord.addAfterTextChangedListener { input ->
-            if (!binding.inpWord.isEnabled) return@addAfterTextChangedListener
+        binding.input.addAfterTextChangedListener { input ->
+            if (!binding.input.isEnabled) return@addAfterTextChangedListener
             // if user pressed space bar in empty text field
             if (input.toString() == " ") {
-                binding.inpWord.setText("")
+                binding.input.setText("")
                 return@addAfterTextChangedListener
             }
 
             // if test hasn't started yet and user began to type
-            if (gameNotStarted && binding.inpWord.text.isNotEmpty()) {
+            if (gameNotStarted && binding.input.text.isNotEmpty()) {
                 startTimer(timeTotalAmount)
                 gameNotStarted = false
             }
@@ -89,7 +89,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
 
             // if user's input is not empty and it has space at the end
             binding.words.deselectCurrentWord()
-            val sanitizedInput = binding.inpWord.text.toString().trim { it <= ' ' }
+            val sanitizedInput = binding.input.text.toString().trim { it <= ' ' }
             viewModel.addWordToTypedList(sanitizedInput, binding.words.getSelectedWord())
             if (viewModel.wordIsCorrect(sanitizedInput, binding.words.getSelectedWord(), ignoreCase)) {
                 viewModel.addScore(binding.words.getSelectedWord().length)
@@ -104,7 +104,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
             }
             binding.words.setNextWordCursors()
             binding.words.selectCurrentWord()
-            binding.inpWord.setText("")
+            binding.input.setText("")
         }
         resetAll()
     }
@@ -116,8 +116,8 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     private fun initialize() {
         timeTotalAmount = viewModel.gameSettings.time
         viewModel.resetGame()
-        binding.inpWord.inputType = viewModel.getInputType()
-        binding.restartButton.setOnClickListener { restartTest() }
+        binding.input.inputType = viewModel.getInputType()
+        binding.buttonRestart.setOnClickListener { restartTest() }
     }
 
     private fun showContinueDialog(adShown: Boolean) {
@@ -143,7 +143,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
                 if (!isAdded || isRemoving || view == null) {
                     return
                 }
-                binding.tvTimeLeft.text =
+                binding.timeLeft.text =
                     TimeConvert.convertSecondsToStamp((millisUntilFinished / 1000).toInt())
                 secondsPassed = secondsPassed.inc()
             }
@@ -159,7 +159,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
             return
         }
         countdown?.cancel()
-        binding.inpWord.isEnabled = false
+        binding.input.isEnabled = false
         binding.words.isEnabled = false
         binding.progressLoadingResult.visibility = View.VISIBLE
         adsCounter?.addValue(timeTotalAmount / 60f)
@@ -188,7 +188,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
         )
         for (i in binding.words.getSelectedWord().indices) {
             // deselect the rest of a word if a user hasn't finished typing
-            if (i >= binding.inpWord.length()) {
+            if (i >= binding.input.length()) {
                 deselectLetters(
                     i + binding.words.getStartPosition(),
                     binding.words.getEndPosition()
@@ -196,7 +196,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
                 return
             }
             if (charactersMatch(
-                    binding.inpWord.text[i],
+                    binding.input.text[i],
                     binding.words.getSelectedWord()[i],
                     ignoreCase
                 )
@@ -242,12 +242,12 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     private fun resetAll() {
         viewModel.resetGame()
         secondsPassed = 0
-        binding.tvTimeLeft.text = TimeConvert.convertSecondsToStamp(timeTotalAmount)
+        binding.timeLeft.text = TimeConvert.convertSecondsToStamp(timeTotalAmount)
         gameNotStarted = true
         binding.words.initializeSelection(binding.words.text.toString())
         binding.words.selectCurrentWord()
-        binding.inpWord.requestFocus()
-        binding.inpWord.setText("")
+        binding.input.requestFocus()
+        binding.input.setText("")
     }
 
     private fun selectCurrentLetterAsCorrect(symbolIndex: Int) {
@@ -323,7 +323,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
     }
 
     private fun showResultScreen() {
-        binding.tvTimeLeft.text = getString(R.string.time_over)
+        binding.timeLeft.text = getString(R.string.time_over)
         if (viewModel.gameSettings is GameSettings.ForRandomlyGeneratedWords) {
             val randomWordsResultViewModel: RandomWordsResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             randomWordsResultViewModel.wordsList = viewModel.getTypedWords()

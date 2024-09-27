@@ -2,7 +2,7 @@ package com.tetsoft.typego.history.data
 
 import com.tetsoft.typego.RandomWordsLanguageCodeMock
 import com.tetsoft.typego.core.domain.Language
-import com.tetsoft.typego.history.domain.GameOnTimeHistoryList
+import com.tetsoft.typego.history.domain.RandomWordsHistoryList
 import org.junit.Assert.*
 
 import org.junit.Test
@@ -11,7 +11,7 @@ class RandomWordsHistoryFilterTest {
 
     @Test
     fun byLanguage_filterEnglish_assertEquals3() {
-        val list = GameOnTimeHistoryList(listOf(
+        val list = RandomWordsHistoryList(listOf(
             RandomWordsLanguageCodeMock("EN"),
             RandomWordsLanguageCodeMock("EN"),
             RandomWordsLanguageCodeMock("FR"),
@@ -24,7 +24,7 @@ class RandomWordsHistoryFilterTest {
 
     @Test
     fun byLanguage_filterItemNotInList_assertEquals0() {
-        val list = GameOnTimeHistoryList(listOf(
+        val list = RandomWordsHistoryList(listOf(
             RandomWordsLanguageCodeMock("EN"),
             RandomWordsLanguageCodeMock("EN"),
             RandomWordsLanguageCodeMock("FR"),
@@ -37,14 +37,14 @@ class RandomWordsHistoryFilterTest {
 
     @Test
     fun byLanguage_emptyList_assertEquals0() {
-        val list = GameOnTimeHistoryList()
+        val list = RandomWordsHistoryList()
         val filtered = RandomWordsHistoryFilter(list).byLanguage(Language("EN")).getList()
         assertEquals(filtered.size, 0)
     }
 
     @Test
     fun inDescendingOrder_populatedList_assertOrderedProperly() {
-        val list = GameOnTimeHistoryList(listOf(
+        val list = RandomWordsHistoryList(listOf(
             RandomWordsLanguageCodeMock("EN"),
             RandomWordsLanguageCodeMock("FR"),
             RandomWordsLanguageCodeMock("ES")
@@ -57,7 +57,7 @@ class RandomWordsHistoryFilterTest {
 
     @Test
     fun get() {
-        val list = GameOnTimeHistoryList(listOf(
+        val list = RandomWordsHistoryList(listOf(
             RandomWordsLanguageCodeMock("EN"),
             RandomWordsLanguageCodeMock("FR"),
             RandomWordsLanguageCodeMock("ES")

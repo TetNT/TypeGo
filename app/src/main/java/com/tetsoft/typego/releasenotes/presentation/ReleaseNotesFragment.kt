@@ -15,7 +15,6 @@ class ReleaseNotesFragment : BaseFragment<FragmentReleaseNotesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvWhatsNew.text = getString(R.string.whats_new_pl, BuildConfig.VERSION_NAME)
-        binding.tvWhatsNewDescription.text = getText(R.string.release_notes_description_current_version)
         binding.rvReleaseNotes.adapter =
             ReleaseNotesAdapter(
                 requireContext(),

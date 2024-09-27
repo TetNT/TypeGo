@@ -35,7 +35,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
-        binding.tvAppVersion.text = BuildConfig.VERSION_NAME
+        binding.appVersion.text = BuildConfig.VERSION_NAME
         if (!initialCheckCompleted && viewModel.hasUncheckedNotes()) {
             navigateTo(
                 R.id.action_main_to_keyNotes,
@@ -45,16 +45,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun setupButtonsOnClickListeners() {
-        binding.buttonBasicTestStart.setOnClickListener { startBasicTest() }
-        binding.buttonCustomTestStart.setOnClickListener { navigateTo(R.id.action_mainFragment_to_gameSetupFragment) }
-        binding.buttonProfileOpen.setOnClickListener { navigateTo(R.id.action_mainFragment_to_gameHistoryFragment) }
-        binding.buttonPreviousTestStart.setOnClickListener { startPreviousTest() }
-        binding.buttonReleaseNotesOpen.setOnClickListener { navigateTo(R.id.action_main_to_releaseNotes) }
+        binding.buttonBasicTest.setOnClickListener { startBasicTest() }
+        binding.buttonCustomTest.setOnClickListener { navigateTo(R.id.action_mainFragment_to_gameSetupFragment) }
+        binding.buttonProfile.setOnClickListener { navigateTo(R.id.action_mainFragment_to_gameHistoryFragment) }
+        binding.buttonReplay.setOnClickListener { startPreviousTest() }
+        binding.buttonReleaseNotes.setOnClickListener { navigateTo(R.id.action_main_to_releaseNotes) }
     }
 
     private fun startBasicTest() {
         val basicGameMode = GameSettings.ForRandomlyGeneratedWords(
-            binding.spinnerBasicTestLanguageSelection.getSelectedLanguage().identifier,
+            binding.languageSpinner.getSelectedLanguage().identifier,
             DEFAULT_TIME_MODE.timeInSeconds,
             DEFAULT_DICTIONARY_TYPE,
             "",
@@ -82,10 +82,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             requireContext(),
             LanguageList().getLocalized(requireContext())
         )
-        binding.spinnerBasicTestLanguageSelection.adapter = spinnerAdapter
+        binding.languageSpinner.adapter = spinnerAdapter
         val lastLanguage = viewModel.getLastUsedLanguageOrDefault()
         val languageIndex = spinnerAdapter.getItemIndexByLanguage(lastLanguage)
-        binding.spinnerBasicTestLanguageSelection.setSelection(
+        binding.languageSpinner.setSelection(
             languageIndex
         )
     }

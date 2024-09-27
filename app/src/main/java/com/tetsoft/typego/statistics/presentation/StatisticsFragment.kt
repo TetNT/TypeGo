@@ -37,7 +37,7 @@ class StatisticsFragment : BaseFragment<FragmentStatisticsBinding>() {
             // Workaround for the formatting of the percent sign (%)
             tvAccuracy.text = getString(R.string.stats_accuracy_pl, viewModel.accuracyStatistics.provide()).replace("(p)", "%")
             tvAccuracy.setTextColor(viewModel.getAccuracyTextColor())
-            tvStatsBestResult.text = getString(R.string.stats_best_result, viewModel.bestResultStatistics.provide())
+            tvStatsBestResult.text = viewModel.bestResultStatistics.provide().toString()
             tvStatsRecordSetTime.text = getString(R.string.stats_best_result_set_time, viewModel.daysSinceNewRecordStatistics.provide())
             tvStatsTimeSpentTotal.text = getString(R.string.stats_total_minutes_of_testing_pl, viewModel.timeSpentStatistics.provide())
             tvDaysWithUs.text = getString(R.string.stats_days_since_first_test_pl, viewModel.daysSinceFirstTestStatistics.provide())
