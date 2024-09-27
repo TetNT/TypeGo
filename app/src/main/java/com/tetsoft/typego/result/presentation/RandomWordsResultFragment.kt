@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
-import com.tetsoft.typego.databinding.FragmentRandomWordsResultBinding
-import com.tetsoft.typego.core.utils.extensions.copyToClipboard
 import com.tetsoft.typego.core.domain.VisibilityMapper
 import com.tetsoft.typego.core.ui.BaseFragment
-import com.tetsoft.typego.game.presentation.TimeGameViewModel
-import com.tetsoft.typego.wordslog.presentation.TypedWordsViewModel
 import com.tetsoft.typego.core.utils.Animator
 import com.tetsoft.typego.core.utils.TimeConvert
 import com.tetsoft.typego.core.utils.Translation
+import com.tetsoft.typego.core.utils.extensions.copyToClipboard
+import com.tetsoft.typego.databinding.FragmentRandomWordsResultBinding
+import com.tetsoft.typego.game.presentation.TimeGameViewModel
+import com.tetsoft.typego.wordslog.presentation.TypedWordsViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -131,25 +129,18 @@ class RandomWordsResultFragment : BaseFragment<FragmentRandomWordsResultBinding>
         binding.buttonCheckWordsLog.setOnClickListener {
             val typedWordsViewModel: TypedWordsViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             typedWordsViewModel.selectTypedWordsList(viewModel.getTypedWordsList())
-            findNavController().navigate(R.id.action_gameOnTimeResultFragment_to_typedWordsFragment)
+            navigateTo(R.id.action_randomWordsResultFragment_to_typedWordsFragment)
         }
         binding.buttonCheckAchievements.setOnClickListener {
-            findNavController().navigate(R.id.action_gameOnTimeResultFragment_to_achievementsFragment)
+            navigateTo(R.id.action_randomWordsResultFragment_to_achievementsFragment)
         }
         binding.buttonStartOver.setOnClickListener {
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.gameOnTimeResultFragment, true)
-                .setEnterAnim(R.anim.slide_in_right)
-                .setExitAnim(R.anim.slide_out_left)
-                .setPopEnterAnim(R.anim.slide_in_left)
-                .setPopExitAnim(R.anim.slide_out_right)
-                .build()
             val timeGameViewModel: TimeGameViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             timeGameViewModel.gameSettings = viewModel.getGameSettings()
-            findNavController().navigate(R.id.action_randomWordsResultFragment_to_timeGameFragment, null, navOptions)
+            navigateTo(R.id.action_randomWordsResultFragment_to_timeGameFragment)
         }
         binding.buttonClose.setOnClickListener {
-            findNavController().navigateUp()
+            navigateUp()
         }
     }
 

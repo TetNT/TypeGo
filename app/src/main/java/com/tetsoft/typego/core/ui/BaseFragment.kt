@@ -1,6 +1,7 @@
 package com.tetsoft.typego.core.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,15 +37,16 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     }
 
     fun navigateUp() {
-        if (isAdded && !isRemoving) {
-            findNavController().navigateUp()
-        }
+        findNavController().navigateUp()
     }
 
     fun navigateTo(@IdRes action: Int) {
-        if (isAdded && !isRemoving) {
-           findNavController().navigate(action)
-        }
+        navigateTo(action, null)
+    }
+
+    fun navigateTo(@IdRes action: Int, bundle: Bundle?) {
+        findNavController().navigate(resId = action, args = bundle)
+        Log.i("NAV", "Destination: ${findNavController().currentDestination?.label ?: "NONE" }")
     }
 
     fun showToast(message: String) {

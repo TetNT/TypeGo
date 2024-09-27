@@ -16,8 +16,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_mainFragment_to_gameOnTimeFragment"
-            app:destination="@id/gameOnTimeFragment"
+            android:id="@+id/action_mainFragment_to_timeGameFragment"
+            app:destination="@id/timeGameFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -74,8 +74,8 @@
         android:label="fragment_game_history"
         tools:layout="@layout/fragment_game_history" >
         <action
-            android:id="@+id/action_gameHistoryFragment_to_gameOnTimeResultFragment"
-            app:destination="@id/gameOnTimeResultFragment"
+            android:id="@+id/action_gameHistoryFragment_to_randomWordsResultFragment"
+            app:destination="@id/randomWordsResultFragment"
             app:enterAnim="@anim/slide_in_up"
             app:popEnterAnim="@anim/slide_in_up"/>
         <action
@@ -99,40 +99,42 @@
             app:popEnterAnim="@anim/slide_in_up"/>
     </fragment>
     <fragment
-        android:id="@+id/gameOnTimeResultFragment"
+        android:id="@+id/randomWordsResultFragment"
         android:name="com.tetsoft.typego.result.presentation.RandomWordsResultFragment"
         android:label="fragment_game_on_time_result"
         tools:layout="@layout/fragment_random_words_result" >
         <action
             android:id="@+id/action_randomWordsResultFragment_to_timeGameFragment"
-            app:destination="@id/gameOnTimeFragment"
+            app:destination="@id/randomWordsResultFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/randomWordsResultFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_gameOnTimeResultFragment_to_achievementsFragment"
+            android:id="@+id/action_randomWordsResultFragment_to_achievementsFragment"
             app:destination="@id/achievementsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_gameOnTimeResultFragment_to_typedWordsFragment"
+            android:id="@+id/action_randomWordsResultFragment_to_typedWordsFragment"
             app:destination="@id/typedWordsFragment"
             app:enterAnim="@anim/slide_in_up"
             app:exitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
-        android:id="@+id/gameOnTimeFragment"
+        android:id="@+id/timeGameFragment"
         android:name="com.tetsoft.typego.game.presentation.TimeGameFragment"
         android:label="fragment_game_on_time"
         tools:layout="@layout/fragment_time_game" >
         <action
             android:id="@+id/action_timeGameFragment_to_randomWordsResultFragment"
-            app:destination="@id/gameOnTimeResultFragment"
+            app:destination="@id/randomWordsResultFragment"
             app:popUpToInclusive="true"
-            app:popUpTo="@id/gameOnTimeFragment"
+            app:popUpTo="@id/timeGameFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
@@ -141,7 +143,7 @@
             android:id="@+id/action_timeGameFragment_to_ownTextResultFragment"
             app:destination="@id/ownTextResultFragment"
             app:popUpToInclusive="true"
-            app:popUpTo="@id/gameOnTimeFragment"
+            app:popUpTo="@id/timeGameFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
@@ -158,8 +160,8 @@
         android:label="fragment_game_setup"
         tools:layout="@layout/fragment_game_setup" >
         <action
-            android:id="@+id/action_gameSetupFragment_to_gameOnTimeFragment"
-            app:destination="@id/gameOnTimeFragment"
+            android:id="@+id/action_gameSetupFragment_to_timeGameFragment"
+            app:destination="@id/timeGameFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
@@ -186,8 +188,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_ownTextResultFragment_to_gameOnTimeFragment"
-            app:destination="@id/gameOnTimeFragment"
+            android:id="@+id/action_ownTextResultFragment_to_timeGameFragment"
+            app:destination="@id/timeGameFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/ownTextResultFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

@@ -14,7 +14,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
@@ -24,15 +23,15 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.ump.UserMessagingPlatform
 import com.tetsoft.typego.R
 import com.tetsoft.typego.TypeGoApp
-import com.tetsoft.typego.core.data.adscounter.AdsCounter
 import com.tetsoft.typego.core.data.ScreenOrientation
+import com.tetsoft.typego.core.data.adscounter.AdsCounter
 import com.tetsoft.typego.core.domain.GameSettings
-import com.tetsoft.typego.databinding.FragmentTimeGameBinding
-import com.tetsoft.typego.core.utils.extensions.addAfterTextChangedListener
 import com.tetsoft.typego.core.ui.BaseFragment
+import com.tetsoft.typego.core.utils.TimeConvert
+import com.tetsoft.typego.core.utils.extensions.addAfterTextChangedListener
+import com.tetsoft.typego.databinding.FragmentTimeGameBinding
 import com.tetsoft.typego.result.presentation.OwnTextResultViewModel
 import com.tetsoft.typego.result.presentation.RandomWordsResultViewModel
-import com.tetsoft.typego.core.utils.TimeConvert
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
@@ -228,7 +227,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
         }
         dialog.setPositiveButton(R.string.yes) { _, _ ->
             pauseTimer()
-            findNavController().navigateUp()
+            navigateUp()
         }
         dialog.show()
         pauseTimer()
@@ -330,12 +329,12 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
             randomWordsResultViewModel.wordsList = viewModel.getTypedWords()
             randomWordsResultViewModel.isGameCompleted = true
             randomWordsResultViewModel.setRandomWordsResult(viewModel.generateRandomWordsResult(Calendar.getInstance().time.time))
-            findNavController().navigate(R.id.action_timeGameFragment_to_randomWordsResultFragment)
+            navigateTo(R.id.action_timeGameFragment_to_randomWordsResultFragment)
         } else if (viewModel.gameSettings is GameSettings.ForUserText) {
             val ownTextResultViewModel: OwnTextResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             ownTextResultViewModel.setTypedWordsList(viewModel.getTypedWords())
             ownTextResultViewModel.setOwnTextResult(viewModel.generateOwnTextResult(secondsPassed, Calendar.getInstance().time.time))
-            findNavController().navigate(R.id.action_timeGameFragment_to_ownTextResultFragment)
+            navigateTo(R.id.action_timeGameFragment_to_ownTextResultFragment)
         }
     }
 

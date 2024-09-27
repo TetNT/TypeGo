@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import android.view.animation.AnimationSet
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
-import com.tetsoft.typego.databinding.FragmentKeyNotesBinding
 import com.tetsoft.typego.core.ui.BaseFragment
+import com.tetsoft.typego.databinding.FragmentKeyNotesBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.IllegalStateException
 
 class KeyNotesFragment : BaseFragment<FragmentKeyNotesBinding>() {
 
@@ -47,7 +45,7 @@ class KeyNotesFragment : BaseFragment<FragmentKeyNotesBinding>() {
         binding.buttonNextFeature.setOnClickListener {
             with(viewModel) {
                 if (!canGoNext()) {
-                    findNavController().navigateUp()
+                    navigateUp()
                     return@setOnClickListener
                 }
                 binding.featureInformationSection.animation = getRightToLeftOutAnimationSet(TRANSITION_DURATION, resources.displayMetrics.widthPixels)
