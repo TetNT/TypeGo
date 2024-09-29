@@ -1,7 +1,6 @@
 package com.tetsoft.typego.core.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,13 +39,21 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         findNavController().navigateUp()
     }
 
+    /**
+     * Navigates safely to a destination using an action id.
+     */
     fun navigateTo(@IdRes action: Int) {
         navigateTo(action, null)
     }
 
-    fun navigateTo(@IdRes action: Int, bundle: Bundle?) {
-        findNavController().navigate(resId = action, args = bundle)
-        Log.i("NAV", "Destination: ${findNavController().currentDestination?.label ?: "NONE" }")
+    /**
+     * Navigates safely to a destination using an action id and bundle.
+     */
+    fun navigateTo(@IdRes resId: Int, bundle: Bundle?) {
+        val action = findNavController().currentDestination?.getAction(resId)
+        if (action != null && findNavController().currentDestination?.id != action.destinationId) {
+            findNavController().navigate(resId = resId, args = bundle)
+        }
     }
 
     fun showToast(message: String) {
