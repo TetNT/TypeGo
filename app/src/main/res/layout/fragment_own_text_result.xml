@@ -23,7 +23,6 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="-16dp"
             android:fontFamily="@font/redring_black"
-            android:text="@string/results_wpm_pl"
             tools:text="40"
             android:layout_gravity="center_horizontal"
             android:textColor="?android:attr/textColorPrimary"
@@ -51,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginEnd="8dp"
-                style="@style/basic_cardview"
+                style="@style/typego_card"
                 >
 
                 <LinearLayout
@@ -94,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="270dp"
-                style="@style/basic_cardview"
+                style="@style/typego_card"
                 android:layout_weight="0.5"
 
                 >
@@ -150,7 +149,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/basic_cardview"
+                style="@style/typego_card"
                 android:layout_marginEnd="8dp"
                 android:minWidth="270dp"
                 android:layout_weight="0.5"
@@ -195,7 +194,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/basic_cardview"
+                style="@style/typego_card"
                 android:minWidth="270dp"
                 android:layout_weight="0.5"
 
@@ -241,7 +240,6 @@
 
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

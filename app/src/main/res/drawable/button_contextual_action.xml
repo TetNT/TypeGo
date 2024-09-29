@@ -3,19 +3,19 @@
     <item android:state_pressed="true" >
         <shape android:layout_width="wrap_content" android:layout_height="wrap_content" android:shape="rectangle">
 
-            <solid android:color="@color/cardview_main_color"/>
+            <solid android:color="@color/card_main_color"/>
         </shape>
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle"  >
 
-            <solid android:color="@color/cardview_main_color"/>
+            <solid android:color="@color/card_main_color"/>
         </shape>
     </item>
     <item >
         <shape android:shape="rectangle"  >
 
-            <solid android:color="@color/cardview_main_color"/>
+            <solid android:color="@color/card_main_color"/>
         </shape>
     </item >
 </selector>

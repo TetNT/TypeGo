@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.fragment.findNavController
 import com.tetsoft.typego.R
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
@@ -21,10 +20,10 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.bAchievements.setOnClickListener {
-            findNavController().navigate(R.id.action_gameHistoryFragment_to_achievementsFragment)
+            navigateTo(R.id.action_gameHistoryFragment_to_achievementsFragment)
         }
         binding.bStatistics.setOnClickListener {
-            findNavController().navigate(R.id.action_gameHistoryFragment_to_statisticsFragment)
+            navigateTo(R.id.action_gameHistoryFragment_to_statisticsFragment)
         }
         binding.averageWpmCounter.text = viewModel.getAverageWpmString()
         binding.bestResultCounter.text = viewModel.getBestWpmString()
@@ -36,7 +35,7 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
                     val resultViewModel: RandomWordsResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                     resultViewModel.setRandomWordsResult(selectedItem)
                     resultViewModel.isGameCompleted = false
-                    navigateTo(R.id.action_gameHistoryFragment_to_gameOnTimeResultFragment)
+                    navigateTo(R.id.action_gameHistoryFragment_to_randomWordsResultFragment)
                 } else if (selectedItem is OwnText) {
                     val resultViewModel : OwnTextResultViewModel by hiltNavGraphViewModels(R.id.main_navigation)
                     resultViewModel.setOwnTextResult(selectedItem)
@@ -45,8 +44,8 @@ class GameHistoryFragment : BaseFragment<FragmentGameHistoryBinding>() {
                 }
             }
         }
-        binding.rvHistoryGameOnTime.adapter = GameHistoryAdapter(requireContext(), viewModel.getHistory(), listener)
-        binding.rvHistoryGameOnTime.animation = viewModel.getGameHistoryEnteringAnimation()
+        binding.rvHistory.adapter = GameHistoryAdapter(requireContext(), viewModel.getHistory(), listener)
+        binding.rvHistory.animation = viewModel.getGameHistoryEnteringAnimation()
         if (!viewModel.historyCanBeShown()) {
             binding.tvPassedTestsInfo.text = getString(R.string.msg_nothing_to_show)
             return

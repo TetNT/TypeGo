@@ -6,7 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tetsoft.typego.core.domain.RandomWords
 import com.tetsoft.typego.history.domain.GameHistoryList
-import com.tetsoft.typego.history.domain.GameOnTimeHistoryList
+import com.tetsoft.typego.history.domain.RandomWordsHistoryList
 import java.sql.Date
 
 interface RandomWordsHistoryStorage : HistoryStorage<RandomWords> {
@@ -16,10 +16,10 @@ interface RandomWordsHistoryStorage : HistoryStorage<RandomWords> {
         private val sharedPreferences =
             context.getSharedPreferences(STORAGE_FILE, Context.MODE_PRIVATE)
 
-        private val moshi = Moshi.Builder().add(GameOnTimeHistoryToJsonAdapter())
+        private val moshi = Moshi.Builder().add(RandomWordsHistoryToJsonAdapter())
             .add(KotlinJsonAdapterFactory()).build()
         private val jsonAdapter: JsonAdapter<GameHistoryList<RandomWords>> =
-            moshi.adapter(GameOnTimeHistoryList().javaClass)
+            moshi.adapter(RandomWordsHistoryList().javaClass)
 
 
         override fun store(list: GameHistoryList<RandomWords>) {
@@ -31,8 +31,8 @@ interface RandomWordsHistoryStorage : HistoryStorage<RandomWords> {
 
         override fun get(): GameHistoryList<RandomWords> {
             val json = sharedPreferences.getString(KEY_HISTORY, "")!!
-            if (json.isEmpty()) return GameOnTimeHistoryList()
-            return jsonAdapter.fromJson(json) ?: return GameOnTimeHistoryList()
+            if (json.isEmpty()) return RandomWordsHistoryList()
+            return jsonAdapter.fromJson(json) ?: return RandomWordsHistoryList()
         }
 
         override fun add(element: RandomWords) {
@@ -50,7 +50,7 @@ interface RandomWordsHistoryStorage : HistoryStorage<RandomWords> {
 
     class Mock : RandomWordsHistoryStorage {
 
-        private val list = GameOnTimeHistoryList()
+        private val list = RandomWordsHistoryList()
 
         init {
             list.add(RandomWords(50.0, 200, 150, 15, "RU", "BASIC", "PORTRAIT", true, true, 50, 50, Date.valueOf("2023-06-27").time, ""))

@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tetsoft.typego.R
-import com.tetsoft.typego.databinding.FragmentGameSetupBinding
 import com.tetsoft.typego.core.ui.BaseFragment
+import com.tetsoft.typego.databinding.FragmentGameSetupBinding
 import com.tetsoft.typego.game.presentation.TimeGameViewModel
 
 class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
@@ -28,7 +26,6 @@ class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[GameSetupViewModel::class.java]
-        binding.customTestNavigateBack.setOnClickListener { binding.root.findNavController().navigateUp() }
         val tabFragments = mapOf(
             getString(R.string.own_text) to OwnTextGameSetupFragment(),
             getString(R.string.random_words) to RandomWordsGameSetupFragment()
@@ -47,7 +44,7 @@ class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
             if (!viewModel.settingsAreValid(gs)) return@setOnClickListener
             val timeGameViewModel : TimeGameViewModel by hiltNavGraphViewModels(R.id.main_navigation)
             timeGameViewModel.gameSettings = gs
-            findNavController().navigate(R.id.action_gameSetupFragment_to_gameOnTimeFragment)
+            navigateTo(R.id.action_gameSetupFragment_to_timeGameFragment)
         }
     }
 

@@ -3,7 +3,7 @@ package com.tetsoft.typego.history.data
 import com.tetsoft.typego.core.domain.Language
 import com.tetsoft.typego.core.domain.RandomWords
 import com.tetsoft.typego.history.domain.GameHistoryList
-import com.tetsoft.typego.history.domain.GameOnTimeHistoryList
+import com.tetsoft.typego.history.domain.RandomWordsHistoryList
 import java.util.*
 // TODO: Rename and use it once the GameHistoryFragment refactoring is completed
 class RandomWordsHistoryFilter(historyList: GameHistoryList<RandomWords>) {
@@ -11,7 +11,7 @@ class RandomWordsHistoryFilter(historyList: GameHistoryList<RandomWords>) {
 
     fun byLanguage(language: Language): RandomWordsHistoryFilter {
         if (language.identifier == Language.ALL) return RandomWordsHistoryFilter(filteredList)
-        val selectedResults = GameOnTimeHistoryList()
+        val selectedResults = RandomWordsHistoryList()
         for (historyElement in filteredList) {
             val rowLanguageId = historyElement.getLanguageCode()
             if (rowLanguageId.equals(
@@ -24,7 +24,7 @@ class RandomWordsHistoryFilter(historyList: GameHistoryList<RandomWords>) {
     }
 
     fun inDescendingOrder(): RandomWordsHistoryFilter {
-        val copy = filteredList.clone() as GameOnTimeHistoryList
+        val copy = filteredList.clone() as RandomWordsHistoryList
         Collections.reverse(copy)
         return RandomWordsHistoryFilter(copy)
     }

@@ -34,15 +34,15 @@ class AchievementsAdapter(
     private val languageClusterCache = AchievementProgressCache.Standard()
 
     inner class AchievementsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvAchievementName: TextView = itemView.findViewById(R.id.tvAchievementName)
+        private val tvAchievementName: TextView = itemView.findViewById(R.id.achievement_name)
         private val tvAchievementDescription: TextView =
-            itemView.findViewById(R.id.tvAchievementDescription)
-        private val tvCompletionDate: TextView = itemView.findViewById(R.id.tvCompletionTime)
+            itemView.findViewById(R.id.achievement_description)
+        private val tvCompletionDate: TextView = itemView.findViewById(R.id.completion_time)
         private val tvProgressDescription: TextView =
-            itemView.findViewById(R.id.tvProgressDescription)
-        private val imgAchievement: ImageView = itemView.findViewById(R.id.imgAchievement)
+            itemView.findViewById(R.id.achievement_progress)
+        private val imgAchievement: ImageView = itemView.findViewById(R.id.achievement_image)
         private val progressBarAchievement: ProgressBar =
-            itemView.findViewById(R.id.progressbarAchievement)
+            itemView.findViewById(R.id.achievement_progressbar)
 
         fun bind(
             dataItem: AchievementDataItem

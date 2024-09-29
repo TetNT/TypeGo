@@ -10,7 +10,7 @@
         android:id="@+id/achievement_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/cardview_main_color"
+        app:cardBackgroundColor="@color/card_main_color"
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imgAchievement"
+                android:id="@+id/achievement_image"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="12dp"
@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tvAchievementName"
+                android:id="@+id/achievement_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -41,46 +41,46 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgAchievement"
+                app:layout_constraintStart_toEndOf="@id/achievement_image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem[1]" />
 
             <TextView
-                android:id="@+id/tvAchievementDescription"
+                android:id="@+id/achievement_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvAchievementName"
-                app:layout_constraintTop_toBottomOf="@id/tvAchievementName"
+                app:layout_constraintStart_toStartOf="@id/achievement_name"
+                app:layout_constraintTop_toBottomOf="@id/achievement_name"
                 tools:text="@tools:sample/lorem[8]" />
 
             <TextView
-                android:id="@+id/tvProgressDescription"
+                android:id="@+id/achievement_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/progressbarAchievement"
-                app:layout_constraintStart_toEndOf="@+id/progressbarAchievement"
-                app:layout_constraintTop_toTopOf="@id/progressbarAchievement"
+                app:layout_constraintBottom_toBottomOf="@+id/achievement_progressbar"
+                app:layout_constraintStart_toEndOf="@+id/achievement_progressbar"
+                app:layout_constraintTop_toTopOf="@id/achievement_progressbar"
                 tools:text="7/10" />
 
             <TextView
-                android:id="@+id/tvCompletionTime"
+                android:id="@+id/completion_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
                 android:gravity="center_vertical"
                 app:drawableStartCompat="@drawable/ic_check"
                 app:drawableTint="@color/correct_green"
-                app:layout_constraintStart_toStartOf="@+id/progressbarAchievement"
-                app:layout_constraintTop_toBottomOf="@id/progressbarAchievement"
+                app:layout_constraintStart_toStartOf="@+id/achievement_progressbar"
+                app:layout_constraintTop_toBottomOf="@id/achievement_progressbar"
                 tools:text="@tools:sample/lorem[1]" />
 
             <ProgressBar
-                android:id="@+id/progressbarAchievement"
+                android:id="@+id/achievement_progressbar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -88,8 +88,8 @@
                 android:backgroundTint="@color/white"
                 android:progress="80"
                 android:progressTint="?attr/colorPrimary"
-                app:layout_constraintStart_toStartOf="@+id/tvAchievementDescription"
-                app:layout_constraintTop_toBottomOf="@id/tvAchievementDescription" />
+                app:layout_constraintStart_toStartOf="@+id/achievement_description"
+                app:layout_constraintTop_toBottomOf="@id/achievement_description" />
 
             <View
                 android:id="@+id/view"
@@ -101,7 +101,7 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvCompletionTime" />
+                app:layout_constraintTop_toBottomOf="@id/completion_time" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

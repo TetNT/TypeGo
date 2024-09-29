@@ -38,8 +38,8 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
         parentViewModel = ViewModelProvider(requireActivity())[GameSetupViewModel::class.java]
         setupButtons()
         setupTimeModeSlider()
-        binding.cbPredictiveText.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
-        binding.rbScreenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
+        binding.textSuggestions.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
+        binding.screenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
         binding.userText.setText(viewModel.getLastUsedUserText())
         if (binding.userText.text.isBlank())
             binding.userText.setText(getString(R.string.user_text_sample_1))
@@ -74,8 +74,8 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
         return GameSettings.ForUserText(
             userText,
             binding.timemodeSlider.getSelectedTimeMode().timeInSeconds,
-            binding.cbPredictiveText.isChecked,
-            binding.rbScreenOrientation.getSelectedValue(),
+            binding.textSuggestions.isChecked,
+            binding.screenOrientation.getSelectedValue(),
             true
         )
     }
@@ -85,8 +85,8 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
         with(binding) {
             sliderListener = Slider.OnChangeListener { _, value, _ ->
                 val position = value.toInt()
-                tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(position))
-                tvTimeStamp.startAnimation(
+                selectedTime.text = translation.get(TimeModeList().getTimeModeByIndex(position))
+                selectedTime.startAnimation(
                     AnimationUtils.loadAnimation(requireContext(), R.anim.pop_animation)
                 )
                 parentViewModel.setOwnTextGameSettings(getGameSettings())
@@ -94,7 +94,7 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
             timemodeSlider.setTimeModes(TimeModeList())
             timemodeSlider.selectTimeMode(viewModel.getLastUsedTimeModeOrDefault())
             timemodeSlider.addOnChangeListener(sliderListener)
-            tvTimeStamp.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
+            selectedTime.text = translation.get(TimeModeList().getTimeModeByIndex(binding.timemodeSlider.value.toInt()))
         }
     }
 
@@ -104,8 +104,8 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
             binding.userTextValidation.isChecked = areSettingsValid
             parentViewModel.setOwnTextGameSettings(getGameSettings())
         }
-        binding.cbPredictiveText.setOnClickListener { parentViewModel.setOwnTextGameSettings(getGameSettings()) }
-        binding.rbScreenOrientation.setOnCheckedChangeListener { _, _ ->
+        binding.textSuggestions.setOnClickListener { parentViewModel.setOwnTextGameSettings(getGameSettings()) }
+        binding.screenOrientation.setOnCheckedChangeListener { _, _ ->
             parentViewModel.setOwnTextGameSettings(getGameSettings())
         }
     }
