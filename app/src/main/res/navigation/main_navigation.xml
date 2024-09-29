@@ -105,7 +105,7 @@
         tools:layout="@layout/fragment_random_words_result" >
         <action
             android:id="@+id/action_randomWordsResultFragment_to_timeGameFragment"
-            app:destination="@id/randomWordsResultFragment"
+            app:destination="@id/timeGameFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/randomWordsResultFragment"
             app:enterAnim="@anim/slide_in_right"
