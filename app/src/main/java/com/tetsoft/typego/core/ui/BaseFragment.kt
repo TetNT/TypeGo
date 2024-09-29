@@ -36,14 +36,23 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     }
 
     fun navigateUp() {
-        if (isAdded && !isRemoving) {
-            findNavController().navigateUp()
-        }
+        findNavController().navigateUp()
     }
 
+    /**
+     * Navigates safely to a destination using an action id.
+     */
     fun navigateTo(@IdRes action: Int) {
-        if (isAdded && !isRemoving) {
-           findNavController().navigate(action)
+        navigateTo(action, null)
+    }
+
+    /**
+     * Navigates safely to a destination using an action id and bundle.
+     */
+    fun navigateTo(@IdRes resId: Int, bundle: Bundle?) {
+        val action = findNavController().currentDestination?.getAction(resId)
+        if (action != null && findNavController().currentDestination?.id != action.destinationId) {
+            findNavController().navigate(resId = resId, args = bundle)
         }
     }
 
