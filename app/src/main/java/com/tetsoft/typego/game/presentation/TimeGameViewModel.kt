@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tetsoft.typego.BuildConfig
 import com.tetsoft.typego.Config
+import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.GameSettings
 import com.tetsoft.typego.core.domain.OwnText
 import com.tetsoft.typego.core.domain.RandomWords
@@ -26,11 +27,24 @@ import kotlin.math.max
 @HiltViewModel
 class TimeGameViewModel @Inject constructor() : ViewModel() {
 
+    companion object {
+        private const val AUTO_SCROLL_LINE_OFFSET_PORTRAIT = 3
+        private const val AUTO_SCROLL_LINE_OFFSET_LANDSCAPE = 1
+    }
+
+    // TODO: make a setter and put the autoscroll logic there
     var gameSettings: GameSettings.TimeBased = GameSettings.TimeBased.Empty()
 
     private var score: Int = 0
 
     private val typedWordsList = ArrayList<Word>()
+
+    fun getAutoScrollLineOffset() : Int {
+        return if(gameSettings.screenOrientation == ScreenOrientation.PORTRAIT)
+            AUTO_SCROLL_LINE_OFFSET_PORTRAIT
+        else
+            AUTO_SCROLL_LINE_OFFSET_LANDSCAPE
+    }
 
     fun addWordToTypedList(inputted: String, original: String) {
         viewModelScope.launch {

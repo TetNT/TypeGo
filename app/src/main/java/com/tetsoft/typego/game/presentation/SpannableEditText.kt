@@ -26,9 +26,7 @@ class SpannableEditText : AppCompatEditText {
 
     private lateinit var selection: WordSelection
 
-    private var autoScrollPosition = 0
-
-    var autoScrollPredictPosition = 0
+    var autoScrollPosition = 0
 
     fun selectCurrentWord() {
         val backgroundSpan = BackgroundColorSpan(Color.rgb(0, 80, 100))
@@ -37,7 +35,6 @@ class SpannableEditText : AppCompatEditText {
     }
 
     private fun updateAutoScrollPosition() {
-        autoScrollPosition = selection.getEndPosition() + autoScrollPredictPosition
         setSelection(min(autoScrollPosition, text!!.length))
     }
 

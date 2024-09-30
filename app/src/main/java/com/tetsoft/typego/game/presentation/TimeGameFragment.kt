@@ -1,6 +1,5 @@
 package com.tetsoft.typego.game.presentation
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -34,7 +33,8 @@ import com.tetsoft.typego.result.presentation.OwnTextResultViewModel
 import com.tetsoft.typego.result.presentation.RandomWordsResultViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
+import kotlin.math.min
 
 class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
 
@@ -60,7 +60,7 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
         adShown = false
         loadAd()
         initialize()
-        setScreenOrientation()
+        requireActivity().requestedOrientation = viewModel.gameSettings.screenOrientation.get()
         initWords()
         initializeBackButtonCallback()
         binding.input.addAfterTextChangedListener { input ->
@@ -88,6 +88,17 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
             }
 
             // if user's input is not empty and it has space at the end
+
+            // Scroll down as user continues to a next line
+            val highlightedLine =
+                min(
+                    binding.words.layout.getLineForOffset(binding.words.getEndPosition() + 2) + viewModel.getAutoScrollLineOffset(),
+                    binding.words.layout.lineCount
+                )
+            binding.words.autoScrollPosition = binding.words.layout.getLineStart(highlightedLine)
+            // -------------------------------------------------------------------
+
+            // Process input
             binding.words.deselectCurrentWord()
             val sanitizedInput = binding.input.text.toString().trim { it <= ' ' }
             viewModel.addWordToTypedList(sanitizedInput, binding.words.getSelectedWord())
@@ -118,6 +129,10 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
         viewModel.resetGame()
         binding.input.inputType = viewModel.getInputType()
         binding.buttonRestart.setOnClickListener { restartTest() }
+        if(viewModel.gameSettings.screenOrientation == ScreenOrientation.LANDSCAPE) {
+            binding.words.textSize = 20f
+            binding.input.textSize = 18f
+        }
     }
 
     private fun showContinueDialog(adShown: Boolean) {
@@ -264,17 +279,6 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
 
     private fun initWords() {
         binding.words.setText(viewModel.generateText(requireActivity().assets))
-    }
-
-    @SuppressLint("SourceLockedOrientationActivity")
-    private fun setScreenOrientation() {
-        requireActivity().requestedOrientation = viewModel.gameSettings.screenOrientation.get()
-        // TODO: Measure what exact SCROLL_POWER should be
-        if (viewModel.gameSettings.screenOrientation === ScreenOrientation.PORTRAIT) {
-            binding.words.autoScrollPredictPosition = 25
-        } else {
-            binding.words.autoScrollPredictPosition = 0
-        }
     }
 
 
