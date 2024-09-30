@@ -26,16 +26,17 @@ class SpannableEditText : AppCompatEditText {
 
     private lateinit var selection: WordSelection
 
-    var autoScrollPosition = 0
-
     fun selectCurrentWord() {
         val backgroundSpan = BackgroundColorSpan(Color.rgb(0, 80, 100))
         paintBackground(selection.getStartPosition(), selection.getEndPosition(), backgroundSpan)
-        updateAutoScrollPosition()
     }
 
-    private fun updateAutoScrollPosition() {
-        setSelection(min(autoScrollPosition, text!!.length))
+    fun updateAutoScrollPosition(linesAhead: Int) {
+        val highlightedLine = min(
+            layout.getLineForOffset(getEndPosition() + 2) + linesAhead,
+            layout.lineCount
+        )
+        setSelection(min(layout.getLineStart(highlightedLine), text!!.length))
     }
 
     fun setNextWordCursors() {

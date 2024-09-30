@@ -34,7 +34,6 @@ import com.tetsoft.typego.result.presentation.RandomWordsResultViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Calendar
-import kotlin.math.min
 
 class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
 
@@ -65,13 +64,13 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
         initializeBackButtonCallback()
         binding.input.addAfterTextChangedListener { input ->
             if (!binding.input.isEnabled) return@addAfterTextChangedListener
-            // if user pressed space bar in empty text field
+            // If user pressed space bar in empty text field
             if (input.toString() == " ") {
                 binding.input.setText("")
                 return@addAfterTextChangedListener
             }
 
-            // if test hasn't started yet and user began to type
+            // If test hasn't started yet and user began to type
             if (gameNotStarted && binding.input.text.isNotEmpty()) {
                 startTimer(timeTotalAmount)
                 gameNotStarted = false
@@ -87,16 +86,10 @@ class TimeGameFragment : BaseFragment<FragmentTimeGameBinding>() {
                 return@addAfterTextChangedListener
             }
 
-            // if user's input is not empty and it has space at the end
+            // If user's input is not empty and it has space at the end
 
             // Scroll down as user continues to a next line
-            val highlightedLine =
-                min(
-                    binding.words.layout.getLineForOffset(binding.words.getEndPosition() + 2) + viewModel.getAutoScrollLineOffset(),
-                    binding.words.layout.lineCount
-                )
-            binding.words.autoScrollPosition = binding.words.layout.getLineStart(highlightedLine)
-            // -------------------------------------------------------------------
+            binding.words.updateAutoScrollPosition(viewModel.getAutoScrollLineOffset())
 
             // Process input
             binding.words.deselectCurrentWord()
