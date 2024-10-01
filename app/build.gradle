@@ -12,6 +12,12 @@ android {
     }
     namespace 'com.tetsoft.typego'
     compileSdk 34
+
+    compileOptions {
+        sourceCompatibility = 17
+        targetCompatibility = 17
+    }
+
     buildFeatures {
         viewBinding true
     }
