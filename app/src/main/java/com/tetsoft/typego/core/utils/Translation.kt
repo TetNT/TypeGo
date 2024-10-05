@@ -6,6 +6,8 @@ import com.tetsoft.typego.core.domain.DictionaryType
 import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.Language
 import com.tetsoft.typego.core.domain.TimeMode
+import com.tetsoft.typego.history.data.GameMode
+import com.tetsoft.typego.history.data.Order
 
 /**
  * Handles the translation for the metadata of the game.
@@ -61,5 +63,19 @@ class Translation(private val context: Context) {
             R.string.test_setup_seconds
         )
         return convertedTimeStr
+    }
+
+    fun get(order: Order) : String {
+        return when(order) {
+            Order.DESCENDING -> context.getString(R.string.descending)
+            Order.ASCENDING -> context.getString(R.string.ascending)
+        }
+    }
+
+    fun get(gameMode: GameMode): String {
+        return when(gameMode) {
+            GameMode.RANDOM_WORDS -> context.getString(R.string.random_words)
+            GameMode.OWN_TEXT -> context.getString(R.string.own_text)
+        }
     }
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".history.presentation.GameHistoryNewFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/game_mode_selection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/language_selection"
+            android:background="@drawable/spinner_background"
+            android:layout_marginEnd="4dp"
+            android:padding="2dp"
+            >
+
+            <Spinner
+                android:id="@+id/selected_game_mode"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:contentDescription="@string/content_desc_language_select"
+                android:paddingHorizontal="8dp"
+                tools:listitem="@layout/simple_spinner_item"
+                tools:ignore="TouchTargetSizeCheck" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/language_selection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/game_mode_selection"
+            android:background="@drawable/spinner_background"
+            android:layout_marginStart="4dp"
+            android:padding="2dp">
+
+            <com.tetsoft.typego.core.ui.LanguageSpinner
+                android:id="@+id/selected_language"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:contentDescription="@string/content_desc_language_select"
+                tools:listitem="@layout/spinner_item"
+                tools:ignore="TouchTargetSizeCheck" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sort_field_selection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/game_mode_selection"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/sort_order_selection"
+            android:background="@drawable/spinner_background"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:padding="2dp">
+
+            <Spinner
+                android:id="@+id/selected_sort_field"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:contentDescription="@string/content_desc_language_select"
+                android:paddingHorizontal="8dp"
+                tools:listitem="@layout/simple_spinner_item"
+                tools:ignore="TouchTargetSizeCheck" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sort_order_selection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/language_selection"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sort_field_selection"
+            android:background="@drawable/spinner_background"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:padding="2dp">
+
+            <Spinner
+                android:id="@+id/selected_sort_order"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:contentDescription="@string/content_desc_language_select"
+                android:paddingHorizontal="8dp"
+                tools:listitem="@layout/simple_spinner_item"
+                tools:ignore="TouchTargetSizeCheck" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Found: "
+            app:layout_constraintTop_toBottomOf="@id/sort_field_selection"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/history"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_history_own_text"
+        app:layout_constraintTop_toBottomOf="@id/filters"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

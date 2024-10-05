@@ -139,4 +139,6 @@
     <string name="user_text_refresh_button_prompt">Hold the button to reset the text</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
+    <string name="descending">Descending</string>
+    <string name="ascending">Ascending</string>
 </resources>

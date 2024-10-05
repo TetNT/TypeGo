@@ -41,6 +41,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/gameSetupFragment" />
+<!--    TODO: to be deleted    -->
+        <action
+            android:id="@+id/action_mainFragment_to_gameHistoryNewFragment"
+            app:destination="@id/gameHistoryNewFragment" />
     </fragment>
     <fragment
         android:id="@+id/releaseNotesFragment"
@@ -197,5 +201,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/gameHistoryNewFragment"
+        android:name="com.tetsoft.typego.history.presentation.GameHistoryNewFragment"
+        android:label="fragment_game_history_new"
+        tools:layout="@layout/fragment_game_history_new" />
 
 </navigation>

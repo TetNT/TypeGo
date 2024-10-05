@@ -50,6 +50,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         binding.buttonProfile.setOnClickListener { navigateTo(R.id.action_mainFragment_to_gameHistoryFragment) }
         binding.buttonReplay.setOnClickListener { startPreviousTest() }
         binding.buttonReleaseNotes.setOnClickListener { navigateTo(R.id.action_main_to_releaseNotes) }
+        binding.testNewHistory.setOnClickListener { navigateTo(R.id.action_mainFragment_to_gameHistoryNewFragment) }
     }
 
     private fun startBasicTest() {

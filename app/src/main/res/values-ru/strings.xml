@@ -132,4 +132,6 @@
     <string name="user_text_refresh_button_prompt">Удерживай кнопку чтобы сбросить текст</string>
     <string name="enabled">Включены</string>
     <string name="disabled">Отключены</string>
+    <string name="descending">По убыванию</string>
+    <string name="ascending">По возрастанию</string>
 </resources>
