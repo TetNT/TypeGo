@@ -31,6 +31,7 @@ class GameSetupFragment : BaseFragment<FragmentGameSetupBinding>() {
             getString(R.string.random_words) to RandomWordsGameSetupFragment()
         )
         val adapter = FragmentViewPagerAdapter(requireActivity(), tabFragments.values.toList())
+        binding.viewPager.isSaveEnabled = false
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabFragments.keys.toList()[position]
