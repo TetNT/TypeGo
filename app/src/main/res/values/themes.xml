@@ -16,12 +16,4 @@
         <item name="android:buttonStyle">@style/own_text_button</item>
     </style>
 
-    <style name="Theme.TypeGo.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.TypeGo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.TypeGo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

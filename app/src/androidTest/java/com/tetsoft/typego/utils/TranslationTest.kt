@@ -2,10 +2,11 @@ package com.tetsoft.typego.utils
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.tetsoft.typego.data.DictionaryType
-import com.tetsoft.typego.data.ScreenOrientation
-import com.tetsoft.typego.data.language.Language
-import com.tetsoft.typego.data.timemode.TimeMode
+import com.tetsoft.typego.core.domain.DictionaryType
+import com.tetsoft.typego.core.data.ScreenOrientation
+import com.tetsoft.typego.core.domain.Language
+import com.tetsoft.typego.core.domain.TimeMode
+import com.tetsoft.typego.core.utils.Translation
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
