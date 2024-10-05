@@ -10,14 +10,14 @@
         android:id="@+id/words"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/background_main"
         android:clickable="false"
         android:focusable="false"
         android:gravity="top|start"
         android:inputType="textMultiLine|textNoSuggestions"
         android:padding="8dp"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@id/time_left"
         app:layout_constraintTop_toTopOf="parent" />
 
