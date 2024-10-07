@@ -32,6 +32,9 @@ class SpannableEditText : AppCompatEditText {
     }
 
     fun updateAutoScrollPosition(linesAhead: Int) {
+        if (layout == null) {
+            setSelection(getEndPosition())
+        }
         val highlightedLine = min(
             layout.getLineForOffset(getEndPosition() + 2) + linesAhead,
             layout.lineCount
