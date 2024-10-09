@@ -21,13 +21,11 @@ class TranslationTest {
         Translation(getContextWithLocale("ru"))
     }
 
-    @Suppress("DEPRECATION")
     private fun getContextWithLocale(localeString: String) : Context {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val cfgEn = context.resources.configuration
-        cfgEn.setLocale(Locale(localeString.lowercase()))
-        context.resources.updateConfiguration(cfgEn, null)
-        return context
+        val cfg = context.resources.configuration
+        cfg.setLocale(Locale(localeString.lowercase()))
+        return context.createConfigurationContext(cfg)
     }
 
     // --------------------------------------------------------------------
