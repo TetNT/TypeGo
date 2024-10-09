@@ -41,7 +41,7 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
         binding.textSuggestions.isChecked = viewModel.areSuggestionsUsedInLastResultOrDefault()
         binding.screenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
         binding.userText.setText(viewModel.getLastUsedUserText())
-        if (binding.userText.text.isBlank())
+        if (binding.userText.text?.isBlank() == true)
             binding.userText.setText(getString(R.string.user_text_sample_1))
         setupListeners()
         parentViewModel.setOwnTextGameSettings(getGameSettings())
@@ -49,6 +49,7 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
             getString(R.string.error_setup_user_text_too_small, parentViewModel.getMinimumWordsConstraint())
         binding.userTextValidation.isChecked =
             parentViewModel.userTextIsValid(viewModel.sanitizeUserTextInput(binding.userText.text.toString()))
+
     }
 
     private fun setupButtons() {
@@ -56,7 +57,7 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
             Toast.makeText(requireContext(), R.string.user_text_clear_button_prompt, Toast.LENGTH_SHORT).show()
         }
         binding.buttonClearText.setOnLongClickListener {
-            binding.userText.text.clear()
+            binding.userText.text?.clear()
             return@setOnLongClickListener true
         }
         binding.buttonRefreshText.setOnClickListener {
