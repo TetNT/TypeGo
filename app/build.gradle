@@ -6,12 +6,20 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def jvmVersion = 17
+
 android {
     lint {
         disable += "SuspiciousIndentation"
     }
     namespace 'com.tetsoft.typego'
     compileSdk 34
+
+    compileOptions {
+        sourceCompatibility = jvmVersion
+        targetCompatibility = 17
+    }
+
     buildFeatures {
         viewBinding true
     }
@@ -20,7 +28,7 @@ android {
         applicationId "com.tetsoft.typego"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 41
+        versionCode 42
         versionName "1.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,6 +41,12 @@ android {
     }
     testOptions {
         unitTests.returnDefaultValues = true
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 

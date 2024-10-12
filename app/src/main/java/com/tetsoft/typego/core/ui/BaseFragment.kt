@@ -36,7 +36,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     }
 
     fun navigateUp() {
-        findNavController().navigateUp()
+        if (isAdded) {
+            findNavController().navigateUp()
+        }
     }
 
     /**
