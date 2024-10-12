@@ -32,7 +32,6 @@ class TimeGameViewModel @Inject constructor() : ViewModel() {
         private const val AUTO_SCROLL_LINE_OFFSET_LANDSCAPE = 1
     }
 
-    // TODO: make a setter and put the autoscroll logic there
     var gameSettings: GameSettings.TimeBased = GameSettings.TimeBased.Empty()
 
     private var score: Int = 0
