@@ -58,7 +58,7 @@ class OwnTextGameSetupFragment : BaseFragment<FragmentOwnTextGameSetupBinding>()
         binding.screenOrientation.selectIndex(viewModel.getLastUsedOrientationOrDefault().id)
         binding.userText.setText(viewModel.getLastUsedUserText())
         if (binding.userText.text.isBlank()) {
-            binding.userText.setText(viewModel.getNextSampleText())
+            binding.userText.setText(getString(R.string.user_text_sample_1))
         }
         setupListeners()
         parentViewModel.setOwnTextGameSettings(getGameSettings())
