@@ -1,13 +1,6 @@
 package com.tetsoft.typego.gamesetup.data
 
-import android.util.Log
 import com.tetsoft.typego.core.utils.ListIterator
-
-
-
-// TODO: Where I left: Add JUnits and test both KeyNotes and Setup functionalities after refactoring. Add more sample texts
-
-
 
 class LoopedListIterator<T> : ListIterator.Base<T>() {
 
@@ -20,7 +13,6 @@ class LoopedListIterator<T> : ListIterator.Base<T>() {
     }
 
     override fun nextElement(): T {
-        Log.i("TXT", "currentId: ${currentElementId}, elements size: ${elements.size}")
         currentElementId++
         if(currentElementId >= elements.size) {
             currentElementId = 0
