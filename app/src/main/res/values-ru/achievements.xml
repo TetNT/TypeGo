@@ -22,7 +22,6 @@
     <string name="polyglot_desc">Пройди тесты на %1$d разных языках</string>
 
     <string name="new_achievements_notification">Получены новые достижения!</string>
-    <string name="check_profile">Посмотреть профиль</string>
     <string name="achievement_image_content_description">Изображение для достижения</string>
     <string name="strike">Страйк! %1$s</string>
     <string name="strike_desc">Заверши %1$d игр подряд без ошибок</string>

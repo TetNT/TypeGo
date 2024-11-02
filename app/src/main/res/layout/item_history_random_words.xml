@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/cardview_main_color"
+        app:cardBackgroundColor="@color/card_main_color"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="6dp">
 

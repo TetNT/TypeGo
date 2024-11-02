@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/basic_cardview"
+        style="@style/typego_card"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_version"
+                android:id="@+id/version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/submenu_header"
@@ -29,7 +29,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/redring_regular"

@@ -10,10 +10,9 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:context=".MainActivity">
+    tools:context=".core.ui.MainActivity">
 
     <LinearLayout
-        android:id="@+id/cardsSection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
@@ -21,8 +20,8 @@
         android:padding="16dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardBasicTest"
-            style="@style/basic_cardview"
+            android:id="@+id/card_basic_test"
+            style="@style/typego_card"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginVertical="16dp">
@@ -33,7 +32,7 @@
                 android:layout_margin="16dp">
 
                 <TextView
-                    android:id="@+id/card_basic_test_header"
+                    android:id="@+id/basic_test_header"
                     style="@style/submenu_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,15 +45,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/cardBasicTestDescription"
+                    android:id="@+id/basic_test_description"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginVertical="8dp"
                     android:text="@string/basic_test_desc"
-                    app:layout_constraintBottom_toTopOf="@id/button_basic_test_start"
+                    app:layout_constraintBottom_toTopOf="@id/button_basic_test"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_basic_test_header" />
+                    app:layout_constraintTop_toBottomOf="@id/basic_test_header" />
 
 
                 <RelativeLayout
@@ -62,12 +61,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/spinner_background"
-                    app:layout_constraintTop_toTopOf="@id/button_basic_test_start"
-                    app:layout_constraintBottom_toBottomOf="@id/button_basic_test_start"
+                    app:layout_constraintTop_toTopOf="@id/button_basic_test"
+                    app:layout_constraintBottom_toBottomOf="@id/button_basic_test"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <com.tetsoft.typego.ui.custom.LanguageSpinner
-                        android:id="@+id/spinnerBasicTestLanguageSelection"
+                    <com.tetsoft.typego.core.ui.LanguageSpinner
+                        android:id="@+id/language_spinner"
                         android:layout_width="180dp"
                         android:layout_height="30dp"
                         android:paddingHorizontal="4dp"
@@ -75,7 +74,7 @@
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/button_basic_test_start"
+                    android:id="@+id/button_basic_test"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
@@ -95,8 +94,8 @@
             android:clipChildren="false">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_previous_test"
-                style="@style/basic_cardview"
+                android:id="@+id/card_replay"
+                style="@style/typego_card"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 app:layout_constraintEnd_toStartOf="@id/card_custom_test"
@@ -109,9 +108,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="16dp">
 
-
                     <TextView
-                        android:id="@+id/card_previous_test_header"
+                        android:id="@+id/replay_header"
                         style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,17 +123,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/card_previous_test_description"
+                        android:id="@+id/replay_description"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginVertical="8dp"
                         android:text="@string/replay_description"
-                        app:layout_constraintBottom_toTopOf="@id/button_previous_test_start"
+                        app:layout_constraintBottom_toTopOf="@id/button_replay"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/card_previous_test_header" />
+                        app:layout_constraintTop_toBottomOf="@id/replay_header" />
 
                     <Button
-                        android:id="@+id/button_previous_test_start"
+                        android:id="@+id/button_replay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
@@ -152,12 +150,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_custom_test"
-                style="@style/basic_cardview"
+                style="@style/typego_card"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card_previous_test"
+                app:layout_constraintStart_toEndOf="@id/card_replay"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -166,7 +164,7 @@
                     android:layout_margin="16dp">
 
                     <TextView
-                        android:id="@+id/card_custom_test_header"
+                        android:id="@+id/custom_test_header"
                         style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -180,17 +178,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/cardCustomTestDescription"
+                        android:id="@+id/custom_test_description"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginVertical="8dp"
                         android:text="@string/custom_test_desc"
-                        app:layout_constraintBottom_toTopOf="@id/button_custom_test_start"
+                        app:layout_constraintBottom_toTopOf="@id/button_custom_test"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/card_custom_test_header" />
+                        app:layout_constraintTop_toBottomOf="@id/custom_test_header" />
 
                     <Button
-                        android:id="@+id/button_custom_test_start"
+                        android:id="@+id/button_custom_test"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
@@ -205,11 +203,11 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_user_profile"
-                app:layout_constraintTop_toBottomOf="@id/card_previous_test"
-                app:layout_constraintEnd_toEndOf="@id/card_previous_test"
+                android:id="@+id/card_profile"
+                app:layout_constraintTop_toBottomOf="@id/card_replay"
+                app:layout_constraintEnd_toEndOf="@id/card_replay"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/basic_cardview"
+                style="@style/typego_card"
                 android:clipChildren="false"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
@@ -222,7 +220,7 @@
                     android:layout_margin="16dp">
 
                     <TextView
-                        android:id="@+id/card_account_header"
+                        android:id="@+id/profile_header"
                         style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -236,17 +234,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/card_account_description"
+                        android:id="@+id/profile_description"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginVertical="8dp"
                         android:text="@string/profile_desc"
-                        app:layout_constraintBottom_toTopOf="@id/button_profile_open"
+                        app:layout_constraintBottom_toTopOf="@id/button_profile"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/card_account_header" />
+                        app:layout_constraintTop_toBottomOf="@id/profile_header" />
 
                     <Button
-                        android:id="@+id/button_profile_open"
+                        android:id="@+id/button_profile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
@@ -265,10 +263,10 @@
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="8dp"
-                style="@style/basic_cardview"
-                app:layout_constraintTop_toTopOf="@id/card_user_profile"
+                style="@style/typego_card"
+                app:layout_constraintTop_toTopOf="@id/card_profile"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card_user_profile">
+                app:layout_constraintStart_toEndOf="@id/card_profile">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -276,7 +274,7 @@
                     android:layout_margin="16dp">
 
                     <TextView
-                        android:id="@+id/card_release_notes_header"
+                        android:id="@+id/release_notes_header"
                         style="@style/submenu_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -289,17 +287,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/card_release_notes_description"
+                        android:id="@+id/release_notes_description"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginVertical="8dp"
                         android:text="@string/whats_new_description"
-                        app:layout_constraintBottom_toTopOf="@id/button_release_notes_open"
+                        app:layout_constraintBottom_toTopOf="@id/button_release_notes"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/card_release_notes_header" />
+                        app:layout_constraintTop_toBottomOf="@id/release_notes_header" />
 
                     <Button
-                        android:id="@+id/button_release_notes_open"
+                        android:id="@+id/button_release_notes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
@@ -315,11 +313,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_app_version"
+            android:id="@+id/app_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
+            tools:text="1.0.0"
             android:layout_marginTop="32dp"/>
 
     </LinearLayout>

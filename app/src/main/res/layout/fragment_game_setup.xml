@@ -4,44 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.setup.GameSetupFragment">
-
-    <LinearLayout
-        android:id="@+id/custom_test_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_main"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/custom_test_navigate_back"
-            style="@style/activity_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/custom_test"
-            app:drawableStartCompat="@drawable/ic_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/test_setup_title_divider"
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/custom_test_navigate_back" />
-
-    </LinearLayout>
-
+    tools:context=".gamesetup.presentation.GameSetupFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabIndicatorColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/custom_test_action_bar"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -55,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="@string/button_StartTest"
+        android:contentDescription="@string/start"
         android:tint="@color/background_main"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
