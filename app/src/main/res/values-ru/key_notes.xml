@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="key_note_new_game_mode">Игровой режим: Свой Текст!</string>
-    <string name="key_note_new_game_mode_description">По многочисленным просьбам, мы добавляем возможность создавать ваш собственный текст. Это можно сделать на вкладке \"Свой тест\".</string>
-
-    <string name="key_note_new_theme">Новая тема</string>
-    <string name="key_note_new_theme_description">Основная тема приложения и дизайн некоторых страниц обновлены. Теперь игровые режимы представлены цветами.</string>
-
     <string name="key_note_expansion_161">Больше языков!</string>
     <string name="key_note_expansion_161_description">В TypeGo добавлены ещё 4 языка, доступные в режиме Случайные Слова: Индонезийский, Португальский, Турецкий, Арабский.</string>
 
