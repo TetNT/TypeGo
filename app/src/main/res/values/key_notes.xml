@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_note_new_game_mode">Own Text game mode!</string>
-    <string name="key_note_new_game_mode_description">As many of you requested, it\'s now possible to make your own text. You can check it on the \"Custom test\" page.</string>
-
-    <string name="key_note_new_theme">New theme</string>
-    <string name="key_note_new_theme_description">The main theme and the design of some pages have changed. The game modes are now represented by colors.</string>
+    <string name="key_note_expansion_161">More languages!</string>
+    <string name="key_note_expansion_161_description">TypeGo now has 4 more languages available in the Random Words game mode: Indonesian, Portuguese, Turkish, Arabic.</string>
 </resources>

@@ -6,4 +6,8 @@
 
     <string name="key_note_new_theme">Новая тема</string>
     <string name="key_note_new_theme_description">Основная тема приложения и дизайн некоторых страниц обновлены. Теперь игровые режимы представлены цветами.</string>
+
+    <string name="key_note_expansion_161">Больше языков!</string>
+    <string name="key_note_expansion_161_description">В TypeGo добавлены ещё 4 языка, доступные в режиме Случайные Слова: Индонезийский, Португальский, Турецкий, Арабский.</string>
+
 </resources>
