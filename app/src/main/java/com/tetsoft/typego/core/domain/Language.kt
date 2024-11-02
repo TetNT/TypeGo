@@ -31,5 +31,6 @@ data class Language(val identifier: String)  {
         const val PT = "PT"
         const val TR = "TR"
         const val ID = "ID"
+        const val AR = "AR"
     }
 }

@@ -13,7 +13,7 @@ class AssetsTest {
     @Test
     fun assets_allAvailableLanguagesForAllDictionaryTypes_assertAllExist() {
         for (language in LanguageList().getPlayableLanguages()) {
-            DictionaryType.values().forEach { dictionaryType ->
+            DictionaryType.entries.forEach { dictionaryType ->
                 context.assets.open("words/${dictionaryType.name.lowercase()}/${language.identifier}.txt")
             }
         }

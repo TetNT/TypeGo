@@ -20,6 +20,7 @@ class LanguageFlagMapper {
             Language.PT -> R.drawable.ic_flag_portuguese
             Language.TR -> R.drawable.ic_flag_turkish
             Language.ID -> R.drawable.ic_flag_indonesian
+            Language.AR -> R.drawable.ic_flag_arabic
             else -> R.drawable.ic_language
         }
     }
