@@ -37,7 +37,11 @@ class LanguageList : ArrayList<LanguageSpinnerItem>() {
             Language(Language.BG),
             Language(Language.UA),
             Language(Language.CZ),
-            Language(Language.PL)
+            Language(Language.PL),
+            Language(Language.PT),
+            Language(Language.TR),
+            Language(Language.ID),
+            Language(Language.AR)
         )
     }
 

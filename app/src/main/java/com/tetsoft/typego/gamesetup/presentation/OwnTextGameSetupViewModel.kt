@@ -3,7 +3,6 @@ package com.tetsoft.typego.gamesetup.presentation
 import androidx.lifecycle.ViewModel
 import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.TimeMode
-import com.tetsoft.typego.gamesetup.data.LoopedListIterator
 import com.tetsoft.typego.history.data.DataSelectorImpl
 import com.tetsoft.typego.history.data.OwnTextGameHistoryStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +12,6 @@ import javax.inject.Inject
 class OwnTextGameSetupViewModel @Inject constructor(private val ownTextGameHistoryStorage: OwnTextGameHistoryStorage) :
     ViewModel() {
     private val lastResult get() = DataSelectorImpl(ownTextGameHistoryStorage.get()).getMostRecentResult()
-
-    private val textIterator = LoopedListIterator<String>()
 
     fun getLastUsedUserText() : String {
         return lastResult?.getText() ?: ""
@@ -34,14 +31,6 @@ class OwnTextGameSetupViewModel @Inject constructor(private val ownTextGameHisto
 
     fun sanitizeUserTextInput(originalInput: String) : String {
         return originalInput.trim { it <= ' ' }
-    }
-
-    fun initSampleTextIterator(sampleTextList: List<String>) {
-        textIterator.init(sampleTextList)
-    }
-
-    fun getNextSampleText() : String {
-        return textIterator.nextElement()
     }
 
     private companion object {
