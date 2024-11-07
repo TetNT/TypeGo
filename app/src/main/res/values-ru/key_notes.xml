@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="key_note_expansion_161">Больше языков!</string>
-    <string name="key_note_expansion_161_description">В TypeGo добавлены ещё 4 языка, доступные в режиме Случайные Слова: Индонезийский, Португальский, Турецкий, Арабский.</string>
+    <string name="keynote_language_expansion_161">Больше языков</string>
+    <string name="keynote_language_expansion_161_description">В TypeGo добавлены ещё 4 языка, доступные в режиме Случайные Слова: Индонезийский, Португальский, Турецкий, Арабский.</string>
+
+    <string name="keynote_more_sample_texts_161">Больше примеров текстов</string>
+    <string name="keynote_more_sample_texts_161_description">В настройках режима Свой Текст больше образцов текстов. Удерживай кнопку сброса текста несколько раз чтобы переключаться между ними.</string>
 
 </resources>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_note_expansion_161">More languages!</string>
-    <string name="key_note_expansion_161_description">TypeGo now has 4 more languages available in the Random Words game mode: Indonesian, Portuguese, Turkish, Arabic.</string>
+
+    <string name="keynote_language_expansion_161">More languages</string>
+    <string name="keynote_language_expansion_161_description">TypeGo now has 4 new languages available in the Random Words game mode: Indonesian, Portuguese, Turkish, Arabic.</string>
+
+    <string name="keynote_more_sample_texts_161">More text samples</string>
+    <string name="keynote_more_sample_texts_161_description">Own Text setup now gives you more text options to play with! Press \"reset\" multiple times to iterate through them.</string>
+
 </resources>

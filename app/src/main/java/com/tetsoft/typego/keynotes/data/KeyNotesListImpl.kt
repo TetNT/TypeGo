@@ -7,7 +7,8 @@ import javax.inject.Inject
 class KeyNotesListImpl @Inject constructor() : KeyNotesList {
     override fun get(): List<KeyNote> {
         return listOf(
-            KeyNote("language_and_sample_texts_expansion_161", R.drawable.keynote_expansion, R.string.key_note_expansion_161, R.string.key_note_expansion_161_description)
+            KeyNote("language_expansion_161", R.drawable.keynote_expansion, R.string.keynote_language_expansion_161, R.string.keynote_language_expansion_161_description),
+            KeyNote("sample_texts_expansion_161", R.drawable.ic_achievement_typewriter, R.string.keynote_more_sample_texts_161, R.string.keynote_more_sample_texts_161_description),
         )
     }
 }
