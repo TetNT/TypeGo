@@ -18,5 +18,7 @@
 
     <string name="release_notes_description_153"><ul><li>Updated look of the app\n</li><li>Added Seeds\n</li><li>New achievements\n</li><li>Flag icons!\n</li><li>GDPR consent message for users from the EEA and the UK</li></ul></string>
 
+    <string name="release_notes_description_160"><ul><li>New game mode: Own Text. You can enter any text, numbers, or symbols of your liking.\n</li><li>The app\'s main theme has been updated. The green theme is assigned to the Random Words game mode.\n</li><li>New design for the result screen.\n</li><li>Auto-scroll during a game is more precise now.\n</li><li>The wrong requirements for the Sharp Eye V achievement are fixed.</li></ul></string>
+
     <string name="release_notes_description_current_version">You can check out key notes of the update here</string>
 </resources>
