@@ -17,6 +17,7 @@ class ReleaseNotesListImpl(private val context: Context) : ReleaseNotesList {
             ReleaseNoteImpl(context, "1.5.1", R.string.release_notes_description_151),
             ReleaseNoteImpl(context, "1.5.2", R.string.release_notes_description_152),
             ReleaseNoteImpl(context, "1.5.3", R.string.release_notes_description_153),
+            ReleaseNoteImpl(context, "1.6.0", R.string.release_notes_description_160)
         )
     }
 }
