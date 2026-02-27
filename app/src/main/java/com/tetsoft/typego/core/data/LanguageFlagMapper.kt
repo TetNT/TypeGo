@@ -6,18 +6,21 @@ import com.tetsoft.typego.core.domain.Language
 class LanguageFlagMapper {
     fun get(language: Language) : Int {
         return when (language.identifier) {
-            "ALL" -> R.drawable.ic_flag_global
-            "EN" -> R.drawable.ic_flag_english
-            "RU" -> R.drawable.ic_flag_russian
-            "FR" -> R.drawable.ic_flag_french
-            "IT" -> R.drawable.ic_flag_italian
-            "ES" -> R.drawable.ic_flag_spanish
-            "DE" -> R.drawable.ic_flag_german
-            "KR" -> R.drawable.ic_flag_korean
-            "BG" -> R.drawable.ic_flag_bulgarian
-            "UA" -> R.drawable.ic_flag_ukrainian
-            "CZ" -> R.drawable.ic_flag_czech
-            "PL" -> R.drawable.ic_flag_polish
+            Language.ALL -> R.drawable.ic_flag_global
+            Language.EN -> R.drawable.ic_flag_english
+            Language.RU -> R.drawable.ic_flag_russian
+            Language.FR -> R.drawable.ic_flag_french
+            Language.IT -> R.drawable.ic_flag_italian
+            Language.ES -> R.drawable.ic_flag_spanish
+            Language.DE -> R.drawable.ic_flag_german
+            Language.BG -> R.drawable.ic_flag_bulgarian
+            Language.UA -> R.drawable.ic_flag_ukrainian
+            Language.CZ -> R.drawable.ic_flag_czech
+            Language.PL -> R.drawable.ic_flag_polish
+            Language.PT -> R.drawable.ic_flag_portuguese
+            Language.TR -> R.drawable.ic_flag_turkish
+            Language.ID -> R.drawable.ic_flag_indonesian
+            Language.AR -> R.drawable.ic_flag_arabic
             else -> R.drawable.ic_language
         }
     }

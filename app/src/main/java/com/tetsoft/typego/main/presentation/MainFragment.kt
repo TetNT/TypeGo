@@ -36,7 +36,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         setupButtonsOnClickListeners()
         setupLanguageSpinner()
         binding.appVersion.text = BuildConfig.VERSION_NAME
-        if (!initialCheckCompleted && viewModel.hasUncheckedNotes()) {
+        if (!initialCheckCompleted && viewModel.hasUncheckedNotes() && viewModel.userHasPreviousGames()) {
             navigateTo(
                 R.id.action_main_to_keyNotes,
                 Bundle().apply { putBoolean("show_all", false) })

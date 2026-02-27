@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.tetsoft.typego.core.domain.DictionaryType
 import com.tetsoft.typego.core.data.ScreenOrientation
 import com.tetsoft.typego.core.domain.Language
+import com.tetsoft.typego.core.domain.LanguageList
 import com.tetsoft.typego.core.domain.TimeMode
 import com.tetsoft.typego.core.utils.Translation
 import org.junit.Assert.assertEquals
@@ -21,13 +22,11 @@ class TranslationTest {
         Translation(getContextWithLocale("ru"))
     }
 
-    @Suppress("DEPRECATION")
     private fun getContextWithLocale(localeString: String) : Context {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val cfgEn = context.resources.configuration
-        cfgEn.setLocale(Locale(localeString.lowercase()))
-        context.resources.updateConfiguration(cfgEn, null)
-        return context
+        val cfg = context.resources.configuration
+        cfg.setLocale(Locale(localeString.lowercase()))
+        return context.createConfigurationContext(cfg)
     }
 
     // --------------------------------------------------------------------
@@ -46,6 +45,14 @@ class TranslationTest {
 
 
     // --------------------------------------------------------------------
+
+    @Test
+    fun get_allPlayableLanguages_assertTranslationsExist() {
+        LanguageList().getPlayableLanguages().forEach {
+            assertNotEquals("Missing translation for ${it.identifier} language","Undefined", translationEn.get(it))
+            assertNotEquals("Missing translation for ${it.identifier} language","Неопределено", translationRu.get(it))
+        }
+    }
 
     @Test
     fun get_languageEn_equalsEnglish() {
