@@ -1,11 +1,11 @@
 [versions]
-agp = "8.6.1"
+agp = "8.13.2"
 annotation = "1.8.2"
 appcompat = "1.7.0"
 constraintlayout = "2.1.4"
 flexbox = "3.0.0"
 google-services = "4.4.2"
-gradle = "8.6.1"
+gradle = "8.13.2"
 gson = "2.10.1"
 hilt-android = "2.49"
 hilt-navigation-fragment = "1.2.0"
